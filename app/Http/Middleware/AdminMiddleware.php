@@ -15,6 +15,12 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
+        if($request->user()->userRole()->first()->id != 1){
+            return response() -> json([
+                'success' => 'error',
+                'message' => 'Its not authorized'
+            ]);
+        }
         return $next($request);
     }
 }

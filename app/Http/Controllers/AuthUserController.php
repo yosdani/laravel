@@ -7,7 +7,7 @@ use App\User;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\RoleUser;
-use App\userRoles;
+use App\Role;
 
 class AuthUserController extends Controller
 {
@@ -32,7 +32,7 @@ class AuthUserController extends Controller
         $role_user = new RoleUser();
 
         if( $request-> role){
-            $role = userRoles::where( 'name', '=', $request->role)->first();
+            $role = Role::where( 'name', '=', $request->role)->first();
             $role_user-> user_id = $user->id;
             $role_user-> role_id = $role->id;
 

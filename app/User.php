@@ -6,7 +6,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\userRoles;
+use App\Role;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -53,6 +53,6 @@ class User extends Authenticatable implements JWTSubject
     }
 
     public function userRole(){
-        return $this->belongsToMany( userRoles::class, 'table_role_user');
+        return $this->belongsToMany( Role::class, 'table_role_user');
     }
 }

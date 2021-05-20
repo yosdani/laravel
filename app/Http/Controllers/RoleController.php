@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\userRoles;
+use App\Role;
 
-class UserRolesController extends Controller
+class RoleController extends Controller
 {
     //Get list of roles
     public function getRoles(){
         //get all roles
-        $roles = userRoles::all();
+        $roles = Role::all();
 
         //return all roles
         return response() -> json( $roles, 200 );
@@ -19,9 +19,9 @@ class UserRolesController extends Controller
     //Get role by id
     public function getRoleById( $id ){
         //Validate that id exist
-        if( userRoles::find( $id ) ){
+        if( Role::find( $id ) ){
             //return role
-            return response() -> json( userRoles::find( $id ), 200 );
+            return response() -> json( Role::find( $id ), 200 );
         }else{
             //return when no found the id
             return response() -> json( 404 );
@@ -31,7 +31,7 @@ class UserRolesController extends Controller
     //Create a new role
     public function createRole( Request $request){
         //create a new role
-        $newRole = new userRoles();
+        $newRole = new Role();
 
         //get the name of the new role
         $newRole -> name = $request -> name;
@@ -46,9 +46,9 @@ class UserRolesController extends Controller
     //update the existing role by id
     public function updateRole( Request $request, $id){
         //Validate that id exist
-        if( userRoles::find( $id ) ){
+        if( Role::find( $id ) ){
             //get the role by id
-            $role = userRoles::find( $id );
+            $role = Role::find( $id );
 
             //Change the data of the role
             $role -> name = $request -> name;
@@ -67,9 +67,9 @@ class UserRolesController extends Controller
     //delete the existing role
     public function deleteRole( $id ){
         //Validate the id exist
-        if( userRoles::find( $id ) ){
+        if( Role::find( $id ) ){
             //get the role by id
-            $role = userRoles::find( $id );
+            $role = Role::find( $id );
 
             //Delete the role
             $role -> delete();
