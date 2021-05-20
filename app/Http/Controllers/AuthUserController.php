@@ -9,6 +9,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthUserController extends Controller
 {
+    public $loginAfterSignUp = true;
     //function for register the new user
     public function register( Request $request ){
         //create a new user
@@ -23,12 +24,12 @@ class AuthUserController extends Controller
         //bcrypt the password hashed
         $user -> password = bcrypt( $request -> password );
 
-        //make a token for the user
-        //$user -> remember_token = JWTAuth::encode( $user -> email, $user -> password );
-
         //register the user
         $user -> save();
 
+        if ($this->loginAfterSignUp) {
+            return $this->login($request);
+        }
         //return the user
         return response() -> json( $user, 200);
     }
@@ -45,6 +46,19 @@ class AuthUserController extends Controller
         if( !Hash::check( $request -> password, $user->password ) )
             return response() -> json( 'El password es incorrecto...', 404 );
 
-        return response() -> json( $user, 200 );
+
+            $input = $request->only('email', 'password');
+            $jwt_token = null;
+            if (!$jwt_token = JWTAuth::attempt($input)) {
+            return response()->json([
+            'success' => false,
+            'message' => 'Invalid Email or Password',
+            ], 401);
+            }
+            return response()->json([
+            'success' => true,
+            'token' => $jwt_token,
+            ]);
+           
     }
 }
