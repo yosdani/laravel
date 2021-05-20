@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use App\RoleUser;
+use App\userRoles;
 
 class AuthUserController extends Controller
 {
@@ -26,6 +28,20 @@ class AuthUserController extends Controller
 
         //register the user
         $user -> save();
+
+        $role_user = new RoleUser();
+
+        if( $request-> role){
+            $role = userRoles::where( 'name', '=', $request->role)->first();
+            $role_user-> user_id = $user->id;
+            $role_user-> role_id = $role->id;
+
+            $role_user -> save();
+        }else{
+            $role_user-> role_id = 2;
+            $role_user -> user_id = $user->id;
+            $role_user ->save();
+        }
 
         if ($this->loginAfterSignUp) {
             return $this->login($request);
@@ -55,6 +71,9 @@ class AuthUserController extends Controller
             'message' => 'Invalid Email or Password',
             ], 401);
             }
+
+            $user -> token_user = $jwt_token;
+            $user ->save();
             return response()->json([
             'success' => true,
             'token' => $jwt_token,
