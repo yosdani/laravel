@@ -27,4 +27,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+
+    public function area() {
+        return $this->hasOne(\App\Area::class );
+    }
 }
