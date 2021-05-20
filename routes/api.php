@@ -17,6 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//Routes for roles
 //Route for get all roles
 Route::get('/roles', 'UserRolesController@getRoles' );
 //Route for get role by id
@@ -27,3 +28,9 @@ Route::post('/roles', 'UserRolesController@createRole' );
 Route::put('/roles/{id}', 'UserRolesController@updateRole' );
 //Route for delete a role
 Route::delete('/roles/{id}', 'UserRolesController@deleteRole' );
+
+//Routes for authenticate
+//Route for login
+Route::put('/auth', 'AuthUserController@login');
+//Route for register
+Route::post('/auth', 'AuthUserController@register');
