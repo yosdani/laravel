@@ -2,11 +2,11 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Role;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -47,12 +47,13 @@ class User extends Authenticatable implements JWTSubject
      *
      * @return array
      */
-    public function getJWTCustomClaims()
+    public function getJWTCustomClaims(): array
     {
         return [];
     }
 
-    public function userRole(){
+    public function userRole(): BelongsToMany
+    {
         return $this->belongsToMany( Role::class, 'table_role_user');
     }
 }
