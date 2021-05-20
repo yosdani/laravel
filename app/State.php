@@ -21,4 +21,13 @@ class State extends Model
     protected  $fillable = [
         'name',
     ];
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function incidence() {
+        return $this->hasOne(\App\Incidence::class );
+    }
 }

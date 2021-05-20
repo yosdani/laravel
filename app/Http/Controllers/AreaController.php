@@ -2,25 +2,21 @@
 /**
  * Created by PhpStorm.
  * User: tabares
- * Date: 5/19/2021
- * Time: 9:39 AM
+ * Date: 5/20/2021
+ * Time: 7:28 AM
  */
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\Request;
-use App\State;
 
+use App\Area;
 
-class StateController extends Controller
+class AreaController
 {
-
     public function index()
     {
-        $state = State::all();
-        return $state;
+        $area = Area::all();
+        return $area;
     }
 
     /**
@@ -45,26 +41,26 @@ class StateController extends Controller
      */
     public function show($id)
     {
-        $state=State::find($id);
+        $area=Area::find($id);
 
-        return response()->json($state,200) ;
+        return response()->json($area,200) ;
     }
 
     /**
-     * create a new State
+     * create a new Area
      * @param Request $request
      *
-     * @return State
+     * @return Area
      */
     public function store(Request $request)
     {
-        $state = State::create($request->all());
+        $area = Area::create($request->all());
 
-        return response()->json($state, 200);
+        return response()->json($area, 200);
     }
 
     /**
-     * update a  State
+     * update a  Area
      *@param Request $request
      * @param $id
      * @return \Illuminate\Http\Response
@@ -73,25 +69,24 @@ class StateController extends Controller
     {
         $parameters = $request->only('name');
 
-        $state = State::find($id);
-        $state->name = $parameters['name'];
+        $area = Area::find($id);
+        $area->name = $parameters['name'];
 
-        $state->save();
+        $area->save();
 
         return response()->json('updated',200);
     }
 
     /**
-     * Delete a State
+     * Delete a Area
      *
      * @param $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        State::destroy($id);
+        Area::destroy($id);
 
         return  response()->json('deleted',200);
     }
-
 }

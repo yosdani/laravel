@@ -16,3 +16,13 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('saveState',['uses'=>'StateController@store'] );
+
+Route::get('showState/{id}',['uses'=>'StateController@show'] );
+
+Route::get('deleteState/{id}',['uses'=>'StateController@destroy'] );
+
+
+
+
