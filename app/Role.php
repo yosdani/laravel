@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\User;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Role extends Model
 {
@@ -11,7 +11,8 @@ class Role extends Model
 
     protected $fillable = [ 'name' ];
 
-    public function User(){
+    public function User(): BelongsTo
+    {
         return $this->belongsTo( User::class, 'table_role_user' );
     }
 }
