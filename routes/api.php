@@ -23,8 +23,7 @@ Route::put('/auth', 'AuthUserController@login');
 //Route for register
 Route::post('/auth', 'AuthUserController@register');
 //Route for forgot password, send the email for the url
-//Example: /auth?email=example@gmail.com
-Route::get('/auth', 'AuthUserController@forgotPassword');
+Route::post('/password', 'PasswordController@forgotPassword');
 
 Route::group(['middleware' => ['jwt.auth','admin']], function(){
 
