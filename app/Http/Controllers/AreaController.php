@@ -10,9 +10,13 @@ namespace App\Http\Controllers;
 
 
 use App\Area;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
-class AreaController
+class AreaController extends Controller
 {
+
     public function index()
     {
         $area = Area::all();
@@ -34,7 +38,7 @@ class AreaController
     }
 
     /**
-     * Get data of a state
+     * Get data of a Area
      *
      * @param int $id
      * @return \Illuminate\Http\Response

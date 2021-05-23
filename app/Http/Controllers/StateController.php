@@ -89,6 +89,12 @@ class StateController extends Controller
      */
     public function destroy($id)
     {
+        $state = State::find($id);
+
+        if(!$state){
+            return response()->json("This state is not exist",'401');
+        }
+
         State::destroy($id);
 
         return  response()->json('deleted',200);
