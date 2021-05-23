@@ -17,11 +17,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('saveState',['uses'=>'StateController@store'] );
-
-Route::get('showState/{id}',['uses'=>'StateController@show'] );
-
-Route::get('deleteState/{id}',['uses'=>'StateController@destroy'] );
 
 
 
@@ -39,6 +34,13 @@ Route::group(['middleware' => ['jwt.auth','admin']], function(){
     Route::put('/roles/{id}', 'RoleController@updateRole' );
     //Route for delete a role
     Route::delete('/roles/{id}', 'RoleController@deleteRole' );
+    //Route for  create new state
+    Route::post('saveState',['uses'=>'StateController@store'] );
+    //Route for get state by id
+    Route::get('showState/{id}',['uses'=>'StateController@show'] );
+    //Route for delete state
+    Route::get('deleteState/{id}',['uses'=>'StateController@destroy'] );
+
 });
 
 //Routes for authenticate
