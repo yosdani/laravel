@@ -8,19 +8,18 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Area;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class AreaController extends Controller
 {
-
     public function index()
     {
-        $area = Area::all();
-        return $area;
+        return Area::all();
     }
 
     /**
@@ -29,7 +28,7 @@ class AreaController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+    protected function validator(array $data): \Illuminate\Contracts\Validation\Validator
     {
         return Validator::make($data, [
             'name' => 'required|string|max:255',
@@ -41,22 +40,22 @@ class AreaController extends Controller
      * Get data of a Area
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function show($id)
+    public function show(int $id): JsonResponse
     {
         $area=Area::find($id);
 
-        return response()->json($area,200) ;
+        return response()->json($area, 200) ;
     }
 
     /**
      * create a new Area
      * @param Request $request
      *
-     * @return Area
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $area = Area::create($request->all());
 
@@ -65,11 +64,11 @@ class AreaController extends Controller
 
     /**
      * update a  Area
-     *@param Request $request
-     * @param $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
      */
-    function update( Request $request,$id)
+    public function update(Request $request, int $id): JsonResponse
     {
         $parameters = $request->only('name');
 
@@ -78,19 +77,19 @@ class AreaController extends Controller
 
         $area->save();
 
-        return response()->json('updated',200);
+        return response()->json('updated', 200);
     }
 
     /**
      * Delete a Area
      *
-     * @param $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy(int $id): JsonResponse
     {
         Area::destroy($id);
 
-        return  response()->json('deleted',200);
+        return  response()->json('deleted', 200);
     }
 }

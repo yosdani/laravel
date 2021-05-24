@@ -8,9 +8,10 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Incidence;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
@@ -21,10 +22,9 @@ class IncidenceController extends Controller
      *
      * @return array
      */
-    public function index()
+    public function index(): array
     {
-        $incidence = Incidence::all();
-        return $incidence;
+        return Incidence::all();
     }
 
     /**
@@ -33,7 +33,7 @@ class IncidenceController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+    protected function validator(array $data): \Illuminate\Contracts\Validation\Validator
     {
         return Validator::make($data, [
             'name' => 'required|string|max:255',
@@ -45,28 +45,28 @@ class IncidenceController extends Controller
      * Get data of a Incidence
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function show($id)
+    public function show($id): JsonResponse
     {
         $incidence=Incidence::find($id);
 
-        return response()->json($incidence,200) ;
+        return response()->json($incidence, 200) ;
     }
 
     /**
      * create a new Incidence
      * @param Request $request
      *
-     * @return Incidence
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $incidence=new Incidence();
         $imageIncidence=$request->file('img');
         $route = public_path().'/uploads/';
         $imageName=$imageIncidence->getClientOriginalName();
-        $imageIncidence->move($route,$imageName);
+        $imageIncidence->move($route, $imageName);
         $incidence->name= $request->name;
         $incidence->assignedTo = $request->assignedTo;
         $incidence->reviewer=$request->reviewer;
@@ -90,6 +90,7 @@ class IncidenceController extends Controller
         $incidence->idState=$request->idState;
         $incidence->image=$imageName;
         $incidence->save();
+
         return response()->json($incidence, 200);
     }
 
@@ -97,17 +98,36 @@ class IncidenceController extends Controller
      * update a  Incidence
      *@param Request $request
      * @param $id
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    function update( Request $request,$id)
+    public function update(Request $request, $id): JsonResponse
     {
-        $parameters = $request->only('name','assignedTo','reviewer','deadLine','creationDate','tags',
-            'description','attachedContentn','dni','applicant','phone','centerEnrollment','streetNumber',
-            'district','neighborhood','addressee','team','location','responseForCitizen','idState');
+        $parameters = $request->only(
+            'name',
+            'assignedTo',
+            'reviewer',
+            'deadLine',
+            'creationDate',
+            'tags',
+            'description',
+            'attachedContentn',
+            'dni',
+            'applicant',
+            'phone',
+            'centerEnrollment',
+            'streetNumber',
+            'district',
+            'neighborhood',
+            'addressee',
+            'team',
+            'location',
+            'responseForCitizen',
+            'idState'
+        );
 
         $incidence = Incidence::find($id);
-        if(!$incidence){
-            return response()->json("This incidence is not exist",'401');
+        if (!$incidence) {
+            return response()->json("This incidence is not exist", '401');
         }
 
         $incidence->name = $parameters['name'];
@@ -130,26 +150,26 @@ class IncidenceController extends Controller
         $incidence->location = $parameters['location'];
         $incidence->responseForCitizen = $parameters['responseForCitizen'];
         $incidence->idState = $parameters['idState'];
-       $incidence->save();
+        $incidence->save();
 
-        return response()->json('updated',200);
+        return response()->json('updated', 200);
     }
 
     /**
      * Delete a Incidence
      *
      * @param $id
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy($id): JsonResponse
     {
         $incidence = Incidence::find($id);
 
-        if(!$incidence){
-            return response()->json("This incidence is not exist",'401');
+        if (!$incidence) {
+            return response()->json("This incidence is not exist", '401');
         }
 
         Incidence::destroy($id);
-        return  response()->json('deleted',200);
+        return  response()->json('deleted', 200);
     }
 }

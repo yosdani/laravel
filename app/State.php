@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class State extends Model
 {
@@ -18,16 +19,17 @@ class State extends Model
      *
      * @var string
      */
-    protected  $fillable = [
+    protected $fillable = [
         'name',
     ];
 
     /**
      * The attributes that are mass assignable.
      *
-     * @return  \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return  HasOne
      */
-    public function incidence() {
-        return $this->hasOne(\App\Incidence::class );
+    public function incidence(): HasOne
+    {
+        return $this->hasOne(Incidence::class);
     }
 }

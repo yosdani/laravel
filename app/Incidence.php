@@ -29,9 +29,9 @@ class Incidence extends Model
      *
      * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public  function user()
+    public function user()
     {
-        return $this->belongsTo(\App\User::class, 'responsable','id');
+        return $this->belongsTo(\App\User::class, 'responsable', 'id');
     }
 
     /**
@@ -39,14 +39,8 @@ class Incidence extends Model
      *
      * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public  function state()
+    public function state()
     {
-        return $this->belongsTo(\App\State::class, 'idState','id');
+        return $this->belongsTo(\App\State::class, 'idState', 'id');
     }
-
-
-
 }
-
-
-

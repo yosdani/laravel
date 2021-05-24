@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Area extends Model
 {
@@ -25,11 +26,10 @@ class Area extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return  BelongsTo
      */
-    public  function user()
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(\App\User::class, 'id_user','id');
+        return $this->belongsTo(User::class, 'id_user', 'id');
     }
 }
-

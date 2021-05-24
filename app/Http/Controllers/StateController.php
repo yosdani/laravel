@@ -9,18 +9,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\State;
 
-
 class StateController extends Controller
 {
-
     public function index()
     {
-        $state = State::all();
-        return $state;
+        return State::all();
     }
 
     /**
@@ -29,7 +27,7 @@ class StateController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+    protected function validator(array $data): \Illuminate\Contracts\Validation\Validator
     {
         return Validator::make($data, [
             'name' => 'required|string|max:255',
@@ -41,22 +39,22 @@ class StateController extends Controller
      * Get data of a state
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function show($id)
+    public function show($id): JsonResponse
     {
         $state=State::find($id);
 
-        return response()->json($state,200) ;
+        return response()->json($state, 200) ;
     }
 
     /**
      * create a new State
      * @param Request $request
      *
-     * @return State
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $state = State::create($request->all());
 
@@ -67,9 +65,9 @@ class StateController extends Controller
      * update a  State
      *@param Request $request
      * @param $id
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    function update( Request $request,$id)
+    public function update(Request $request, $id): JsonResponse
     {
         $parameters = $request->only('name');
 
@@ -78,26 +76,25 @@ class StateController extends Controller
 
         $state->save();
 
-        return response()->json('updated',200);
+        return response()->json('updated', 200);
     }
 
     /**
      * Delete a State
      *
      * @param $id
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy($id): JsonResponse
     {
         $state = State::find($id);
 
-        if(!$state){
-            return response()->json("This state is not exist",'401');
+        if (!$state) {
+            return response()->json("This state is not exist", '401');
         }
 
         State::destroy($id);
 
-        return  response()->json('deleted',200);
+        return  response()->json('deleted', 200);
     }
-
 }

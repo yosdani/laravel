@@ -8,12 +8,13 @@ use App\User;
 
 class PasswordController extends Controller
 {
-    public function forgotPassword( Request $request){
+    public function forgotPassword(Request $request)
+    {
         $email = $request->email;
         $password = str_random(8);
 
-        $user = User::where( 'email', $email )->first();
-        $user->password = bcrypt( $password );
+        $user = User::where('email', $email)->first();
+        $user->password = bcrypt($password);
         $user->save();
 
         \Mail::to($email)->send(new ForgotPassword($password));
