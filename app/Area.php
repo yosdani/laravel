@@ -3,16 +3,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class State extends Model
+class Area extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'states';
+    protected $table = 'area';
 
     /**
      * The attributes that are mass assignable.
@@ -26,10 +26,10 @@ class State extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @return  HasOne
+     * @return  BelongsTo
      */
-    public function incidence(): HasOne
+    public function user(): BelongsTo
     {
-        return $this->hasOne(Incidence::class);
+        return $this->belongsTo(User::class, 'id_user', 'id');
     }
 }

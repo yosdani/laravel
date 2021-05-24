@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -32,11 +33,11 @@ class User extends Authenticatable implements JWTSubject
         'remember_token',
     ];
 
-     /**
-     * Get the identifier that will be stored in the subject claim of the JWT.
-     *
-     * @return mixed
-     */
+    /**
+    * Get the identifier that will be stored in the subject claim of the JWT.
+    *
+    * @return mixed
+    */
     public function getJWTIdentifier()
     {
         return $this->getKey();
@@ -54,6 +55,17 @@ class User extends Authenticatable implements JWTSubject
 
     public function userRole(): BelongsToMany
     {
-        return $this->belongsToMany( Role::class, 'table_role_user');
+        return $this->belongsToMany(Role::class, 'table_role_user');
+    }
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @return  HasOne
+     */
+
+    public function area(): HasOne
+    {
+        return $this->hasOne(Area::class);
     }
 }

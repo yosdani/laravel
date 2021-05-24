@@ -13,14 +13,13 @@ class UserRolesSeeder extends Seeder
     public function run()
     {
         //create Admin role
-       $role = new Role();
-       $role ->name = 'Admin';
-       $role ->save();
+        $role = new Role();
+        $role ->name = 'Admin';
+        $role ->save();
 
-       //create Responsable role
-       $role = new Role();
-       $role ->name = 'Responsable';
-       $role ->save();
-
+        //create Responsable role
+        $role = new Role();
+        $role ->name = 'Responsable';
+        $role ->save();
     }
 }
