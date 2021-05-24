@@ -77,7 +77,25 @@ class AuthUserController extends Controller
             return response()->json([
             'success' => true,
             'token' => $jwt_token,
-            ]);
-           
+            ]);          
+    }
+
+    public function logout( Request $request ){
+        try {	            
+            JWTAuth::invalidate($request->token);
+            $user = User::where( 'email', '=', $request->email)->first();
+            $user -> token_user = null;
+            $user -> save();
+            return response([
+                'status' => 'success',
+                'msg' => 'You have successfully logged out.'
+            ]);	        
+        } catch (JWTException $e) {
+            // something went wrong whilst attempting to encode the token	            
+            return response([
+                'status' => 'error',
+                'msg' => 'Failed to logout, please try again.'
+            ]);	        
+        }
     }
 }
