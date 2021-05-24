@@ -66,6 +66,5 @@ Route::group(['middleware' => ['jwt.auth']], function () {
     Route::get('/logout', 'AuthUserController@logout');
 
     Route::group(['middleware' => ['admin']], function () {
-
     });
 });
