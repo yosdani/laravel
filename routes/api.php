@@ -25,7 +25,7 @@ Route::post('/auth', 'AuthUserController@register');
 //Route for forgot password, send the email for the url
 Route::post('/password', 'PasswordController@forgotPassword');
 
-Route::group(['middleware' => ['jwt.auth','admin']], function(){
+Route::group(['middleware' => ['jwt.auth']], function(){
 
     //Route for logout
     Route::delete('/auth', 'AuthUserController@logout');
