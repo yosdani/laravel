@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Mail\ForgotPassword;
 use App\User;
 
-
 class PasswordController extends Controller
 {
 
@@ -14,7 +13,7 @@ class PasswordController extends Controller
      * Forgot Password
      * @param Request $request
      * @return JsonResponse
-     * 
+     *
      *  @OA\POST (
      *  path="/password",
      * summary="Forgot the password",
@@ -38,11 +37,11 @@ class PasswordController extends Controller
      */
     public function forgotPassword(Request $request): JsonResponse
     {
-        if( $request->email == null){
+        if ($request->email == null) {
             return response()->json([
                 'success' => false,
                 'message' => 'You have not provided your email address...'
-            ],404);
+            ], 404);
         }
 
         $email = $request->email;
@@ -57,6 +56,6 @@ class PasswordController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Your password has been changed, please check your mails '
-        ],200);
+        ], 200);
     }
 }

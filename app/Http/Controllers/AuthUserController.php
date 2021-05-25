@@ -14,7 +14,6 @@ use JWTAuth;
 use App\RoleUser;
 use App\Role;
 
-
 class AuthUserController extends Controller
 {
     public $loginAfterSignUp = true;
@@ -23,7 +22,7 @@ class AuthUserController extends Controller
      * Register the new user
      * @param Request $request
      * @return JsonResponse
-     * 
+     *
      *  @OA\POST (
      *  path="/auth",
      *  tags={"Auth"},
@@ -84,7 +83,7 @@ class AuthUserController extends Controller
      * Login the user
      * @param Request $request
      * @return JsonResponse
-     * 
+     *
      *  @OA\PUT (
      *  path="/auth",
      *  tags={"Auth"},
@@ -130,13 +129,13 @@ class AuthUserController extends Controller
         return response()->json([
             'success' => true,
             'token' => $jwt_token
-        ],200);
+        ], 200);
     }
 
-    /** 
+    /**
      * Logout user
      * @return JsonResponse
-     * 
+     *
      *  @OA\GET (
      *  path="/logout",
      * summary="Logout in app",
@@ -163,13 +162,13 @@ class AuthUserController extends Controller
             return response([
                 'status' => 'success',
                 'msg' => 'You have successfully logged out.'
-            ],200);
+            ], 200);
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
             return response()->json([
                 'status' => 'error',
                 'msg' => 'Failed to logout, please try again.'
-            ],401);
+            ], 401);
         }
     }
 }
