@@ -10,9 +10,10 @@ use App\User;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Facades\JWTAuth;
+use JWTAuth;
 use App\RoleUser;
 use App\Role;
+
 
 class AuthUserController extends Controller
 {
@@ -22,7 +23,25 @@ class AuthUserController extends Controller
      * Register the new user
      * @param Request $request
      * @return JsonResponse
+     * 
+     *  @OA\POST (
+     *  path="/auth",
+     *  tags={"Auth"},
+     * summary="Sign up in app",
+     * description="By default when the user sign up callback to sign in methods and return a token",
+     *  @OA\Parameter(
+     *          name="$request",
+     *          description="Request request",
+     *          required=true,
+     *          in="path",
+     *   ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     * )
      */
+    
     public function register(Request $request): JsonResponse
     {
         //create a new user
@@ -62,8 +81,31 @@ class AuthUserController extends Controller
     }
 
     /**
+     * Login the user
      * @param Request $request
      * @return JsonResponse
+     * 
+     *  @OA\PUT (
+     *  path="/auth",
+     *  tags={"Auth"},
+     * summary="Sign in in app",
+     * description="The user sign in with your email and password, the token is saved that a atribute of user, and return the token",
+     *  @OA\Parameter(
+     *          name="$request",
+     *          description="Request request",
+     *          required=true,
+     *          in="path",
+     *   ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation and return a token",
+     *
+     *       ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="The email or password is not valid",
+     *      ),
+     * )
      */
     public function login(Request $request): JsonResponse
     {
@@ -72,53 +114,62 @@ class AuthUserController extends Controller
 
         //Check that the email is valid
         if (!$user) {
-            return response() -> json('El email no es valido...', 404);
+            return response() -> json('The email address is not valid...', 404);
         }
 
         //if exist the email then check the password
         if (!Hash::check($request -> password, $user->password)) {
-            return response() -> json('El password es incorrecto...', 404);
+            return response() -> json('The password is not valid...', 404);
         }
 
-
-        $input = $request->only('email', 'password');
         $jwt_token = null;
-        if (!$jwt_token = JWTAuth::attempt($input)) {
-            return response()->json([
-            'success' => false,
-            'message' => 'Invalid Email or Password',
-            ], 401);
-        }
 
+        $jwt_token = JWTAuth::fromUser($user);
         $user -> token_user = $jwt_token;
         $user ->save();
         return response()->json([
             'success' => true,
-            'token' => $jwt_token,
-            ]);
+            'token' => $jwt_token
+        ],200);
     }
 
-    /**
-     * @param Request $request
-     * @return ResponseFactory|Application|Response
+    /** 
+     * Logout user
+     * @return JsonResponse
+     * 
+     *  @OA\GET (
+     *  path="/logout",
+     * summary="Logout in app",
+     * description="The user logout, with the token get the user and delete the token_user of user",
+     *      @OA\Response(
+     *          response=200,
+     *          description="You have successfully logged out",
+     *
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="The token is not valid",
+     *      ),
+     * )
      */
-    public function logout(Request $request)
+    public function logout(): JsonResponse
     {
         try {
-            JWTAuth::invalidate($request->token);
-            $user = User::where('email', '=', $request->email)->first();
+            $user = JWTAuth::parseToken()->authenticate();
+
+            JWTAuth::invalidate(JWTAuth::parseToken());
             $user -> token_user = null;
             $user -> save();
             return response([
                 'status' => 'success',
                 'msg' => 'You have successfully logged out.'
-            ]);
+            ],200);
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
-            return response([
+            return response()->json([
                 'status' => 'error',
                 'msg' => 'Failed to logout, please try again.'
-            ]);
+            ],401);
         }
     }
 }

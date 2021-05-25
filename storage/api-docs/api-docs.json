@@ -1,0 +1,407 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Participación Ciudadana Documentación API",
+        "description": "Endpoints de la app Participación Ciudadana",
+        "contact": {
+            "email": "ciudadana@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8001/api/v1",
+            "description": "Endpoints de la app Participación Ciudadana"
+        }
+    ],
+    "paths": {
+        "/areas": {
+            "get": {
+                "tags": [
+                    "Areas"
+                ],
+                "summary": "Get list of areas",
+                "description": "Returns list of areas",
+                "operationId": "getAreasList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/areas/{id}": {
+            "get": {
+                "tags": [
+                    "Areas"
+                ],
+                "summary": "Get an Area entity",
+                "description": "Returns Area data",
+                "operationId": "getArea",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Area id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Areas"
+                ],
+                "summary": "Update an Area entity",
+                "description": "Returns updated Area data",
+                "operationId": "updateArea",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Area id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Areas"
+                ],
+                "summary": "Create an Area entity",
+                "description": "Returns created Area data",
+                "operationId": "createArea",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Area id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Areas"
+                ],
+                "summary": "Delete an Area entity",
+                "description": "Returns Json response",
+                "operationId": "deleteArea",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Area id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/auth": {
+            "put": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Sign in in app",
+                "description": "The user sign in with your email and password, the token is saved that a atribute of user, and return the token",
+                "operationId": "App\\Http\\Controllers\\AuthUserController::login",
+                "parameters": [
+                    {
+                        "name": "$request",
+                        "in": "path",
+                        "description": "Request request",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation and return a token"
+                    },
+                    "404": {
+                        "description": "The email or password is not valid"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Sign up in app",
+                "description": "By default when the user sign up callback to sign in methods and return a token",
+                "operationId": "App\\Http\\Controllers\\AuthUserController::register",
+                "parameters": [
+                    {
+                        "name": "$request",
+                        "in": "path",
+                        "description": "Request request",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "get": {
+                "summary": "Logout in app",
+                "description": "The user logout, with the token get the user and delete the token_user of user",
+                "operationId": "App\\Http\\Controllers\\AuthUserController::logout",
+                "responses": {
+                    "200": {
+                        "description": "You have successfully logged out"
+                    },
+                    "401": {
+                        "description": "The token is not valid"
+                    }
+                }
+            }
+        },
+        "/password": {
+            "post": {
+                "summary": "Forgot the password",
+                "description": "If user forgot their password, a new password will be generated and send to the mail",
+                "operationId": "App\\Http\\Controllers\\PasswordController::forgotPassword",
+                "parameters": [
+                    {
+                        "name": "request",
+                        "in": "path",
+                        "description": "Request datas",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Your password has been changed, please check your mails"
+                    },
+                    "404": {
+                        "description": "User not provided the email"
+                    }
+                }
+            }
+        },
+        "/roles": {
+            "get": {
+                "tags": [
+                    "Roles"
+                ],
+                "summary": "Get list of roles",
+                "description": "Returns list of roles",
+                "operationId": "App\\Http\\Controllers\\RoleController::index",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Roles"
+                ],
+                "summary": "Create a new role",
+                "description": "Returns created role",
+                "operationId": "App\\Http\\Controllers\\RoleController::store",
+                "parameters": [
+                    {
+                        "name": "request",
+                        "in": "path",
+                        "description": "request all datas",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/roles/{id}": {
+            "get": {
+                "tags": [
+                    "Roles"
+                ],
+                "summary": "Get a role by id",
+                "description": "Returns the role",
+                "operationId": "App\\Http\\Controllers\\RoleController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Role id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "The role not be found"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Roles"
+                ],
+                "summary": "Update a role",
+                "description": "Returns updated role",
+                "operationId": "App\\Http\\Controllers\\RoleController::update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "role id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Roles"
+                ],
+                "summary": "Delete a role",
+                "description": "Returns Json response",
+                "operationId": "App\\Http\\Controllers\\RoleController::delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Role id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "responses": {
+            "401": {
+                "description": "Unauthenticated"
+            },
+            "403": {
+                "description": "Forbidden"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Participación Ciudadana",
+            "description": "Endpoints de la app Participación Ciudadana"
+        }
+    ]
+}
