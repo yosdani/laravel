@@ -10,13 +10,21 @@ namespace App\Http\Controllers;
 
 
 use App\Notice;
+use App\NoticeImage;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Request;
 
 class NoticeController extends Controller
 {
-    public function index()
+    /**
+     * Get data of all Notices
+     *
+     * @return array
+     */
+    public function index():array
     {
-        $state = State::all();
-        return $state;
+
+        return Notice::all();
     }
 
     /**
@@ -66,7 +74,7 @@ class NoticeController extends Controller
      * @param $id
      * @return \Illuminate\Http\Response
      */
-    function update( Request $request,$id)
+    public function update( Request $request,$id)
     {
         $parameters = $request->only('name, textNotice');
 
@@ -103,4 +111,22 @@ class NoticeController extends Controller
         return  response()->json('deleted',200);
     }
 
+    /**
+     * Create a Galery for the Notice
+     *
+     * @param $id
+     * @param Request request
+     * @return void
+     */
+    public function createGalery(Request $request,$id)
+    {
+        $image=new NoticeImage();
+        $Noticeimage=$request->file('img');
+        $route = public_path().'/galery/';
+        $imageName=$Noticeimage->getClientOriginalName();
+        $Noticeimage->move($route, $imageName);
+        $image->image=$imageName;
+        $image->idNotice=$id;
+        $image->save();
+    }
 }
