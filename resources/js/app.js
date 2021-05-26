@@ -17,7 +17,7 @@ window.Vue = require('vue');
 
 Vue.component(
     'example-component',
-    require('./components/ExampleComponent').default,
+    require('./components/ExampleComponent'),
     {
         name: 'example-component'
     }
