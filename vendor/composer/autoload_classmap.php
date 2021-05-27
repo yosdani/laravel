@@ -18,7 +18,6 @@ return array(
     'App\\Http\\Controllers\\Auth\\VerificationController' => $baseDir . '/app/Http/Controllers/Auth/VerificationController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\IncidenceController' => $baseDir . '/app/Http/Controllers/IncidenceController.php',
-    'App\\Http\\Controllers\\LaravueController' => $baseDir . '/app/Http/Controllers/LaravueController.php',
     'App\\Http\\Controllers\\PasswordController' => $baseDir . '/app/Http/Controllers/PasswordController.php',
     'App\\Http\\Controllers\\RoleController' => $baseDir . '/app/Http/Controllers/RoleController.php',
     'App\\Http\\Controllers\\StateController' => $baseDir . '/app/Http/Controllers/StateController.php',

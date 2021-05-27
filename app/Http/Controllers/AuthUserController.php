@@ -25,14 +25,48 @@ class AuthUserController extends Controller
      *
      *  @OA\POST (
      *  path="/auth",
+     *  operationId="Auth",
      *  tags={"Auth"},
      * summary="Sign up in app",
      * description="By default when the user sign up callback to sign in methods and return a token",
-     *  @OA\Parameter(
-     *          name="$request",
-     *          description="Request request",
+     *  @OA\RequestBody(
      *          required=true,
-     *          in="path",
+     *          @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                  required={
+     *                      "name",
+     *                      "email",
+     *                      "password"
+     *                  },
+     *                  @OA\Property(
+     *                     property="name",
+     *                     description="Name of user",
+     *                     type="string"
+     *                 ),
+     *                  @OA\Property(
+     *                     property="lastName",
+     *                     description="Last Name of user",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="email",
+     *                     description="Email of user",
+     *                     type="string"
+     *                 ),
+     *                  @OA\Property(
+     *                     property="phoneNumber",
+     *                     description="Phone number of user",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="password",
+     *                     description="Password of user",
+     *                     type="string"
+     *                 ),
+     *             )
+     *         )
      *   ),
      *      @OA\Response(
      *          response=400,
@@ -87,13 +121,31 @@ class AuthUserController extends Controller
      *  @OA\PUT (
      *  path="/auth",
      *  tags={"Auth"},
+     * operationId="Auth",
      * summary="Sign in in app",
      * description="The user sign in with your email and password, the token is saved that a atribute of user, and return the token",
-     *  @OA\Parameter(
-     *          name="$request",
-     *          description="Request request",
+     *  @OA\RequestBody(
      *          required=true,
-     *          in="path",
+     *          @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                  required={
+     *                      "email",
+     *                      "password"
+     *                  },
+     *                 type="object",
+     *                 @OA\Property(
+     *                     property="email",
+     *                     description="Email of user",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="password",
+     *                     description="Password of user",
+     *                     type="string"
+     *                 ),
+     *             )
+     *         )
      *   ),
      *      @OA\Response(
      *          response=200,
@@ -138,10 +190,12 @@ class AuthUserController extends Controller
      *
      *  @OA\GET (
      *  path="/logout",
+     * tags={"Logout"},
+     * operationId="Logout",
      * summary="Logout in app",
      * description="The user logout, with the token get the user and delete the token_user of user",
      *      @OA\Response(
-     *          response=200,
+     *          response=201,
      *          description="You have successfully logged out",
      *
      *       ),

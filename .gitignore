@@ -26,3 +26,6 @@ TEST*.xml
 Thumbs.db
 
 
+/vendor/
+/storage/api-docs/
+/public/
