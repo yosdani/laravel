@@ -16,13 +16,23 @@ class PasswordController extends Controller
      *
      *  @OA\POST (
      *  path="/password",
-     * summary="Forgot the password",
-     * description="If user forgot their password, a new password will be generated and send to the mail",
-     *  @OA\Parameter(
-     *          name="request",
-     *          description="Request datas",
+     *  tags={"ForgotPassword"},
+     *  operationId="forgotPassword",
+     *  summary="Forgot the password",
+     *  description="If user forgot their password, a new password will be generated and send to the mail",
+     *  @OA\RequestBody(
      *          required=true,
-     *          in="path",
+     *          @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 @OA\Property(
+     *                     property="email",
+     *                     description="Email of user",
+     *                     type="string"
+     *                 )
+     *             )
+     *         )
      *   ),
      *      @OA\Response(
      *          response=200,

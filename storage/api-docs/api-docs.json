@@ -175,15 +175,31 @@
                 ],
                 "summary": "Sign in in app",
                 "description": "The user sign in with your email and password, the token is saved that a atribute of user, and return the token",
-                "operationId": "App\\Http\\Controllers\\AuthUserController::login",
-                "parameters": [
-                    {
-                        "name": "$request",
-                        "in": "path",
-                        "description": "Request request",
-                        "required": true
+                "operationId": "Auth",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "description": "Email of user",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "Password of user",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
                     }
-                ],
+                },
                 "responses": {
                     "200": {
                         "description": "Successful operation and return a token"
@@ -199,15 +215,44 @@
                 ],
                 "summary": "Sign up in app",
                 "description": "By default when the user sign up callback to sign in methods and return a token",
-                "operationId": "App\\Http\\Controllers\\AuthUserController::register",
-                "parameters": [
-                    {
-                        "name": "$request",
-                        "in": "path",
-                        "description": "Request request",
-                        "required": true
+                "operationId": "Auth",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "Name of user",
+                                        "type": "string"
+                                    },
+                                    "lastName": {
+                                        "description": "Last Name of user",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "Email of user",
+                                        "type": "string"
+                                    },
+                                    "phoneNumber": {
+                                        "description": "Phone number of user",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "Password of user",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
                     }
-                ],
+                },
                 "responses": {
                     "400": {
                         "description": "Bad Request"
@@ -217,11 +262,14 @@
         },
         "/logout": {
             "get": {
+                "tags": [
+                    "Logout"
+                ],
                 "summary": "Logout in app",
                 "description": "The user logout, with the token get the user and delete the token_user of user",
-                "operationId": "App\\Http\\Controllers\\AuthUserController::logout",
+                "operationId": "Logout",
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "You have successfully logged out"
                     },
                     "401": {
@@ -232,17 +280,28 @@
         },
         "/password": {
             "post": {
+                "tags": [
+                    "ForgotPassword"
+                ],
                 "summary": "Forgot the password",
                 "description": "If user forgot their password, a new password will be generated and send to the mail",
-                "operationId": "App\\Http\\Controllers\\PasswordController::forgotPassword",
-                "parameters": [
-                    {
-                        "name": "request",
-                        "in": "path",
-                        "description": "Request datas",
-                        "required": true
+                "operationId": "forgotPassword",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "description": "Email of user",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
                     }
-                ],
+                },
                 "responses": {
                     "200": {
                         "description": "Your password has been changed, please check your mails"

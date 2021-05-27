@@ -581,7 +581,6 @@ class ComposerStaticInit1eb9bb85e73ab3510e74f4218d4c46e6
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\IncidenceController' => __DIR__ . '/../..' . '/app/Http/Controllers/IncidenceController.php',
-        'App\\Http\\Controllers\\LaravueController' => __DIR__ . '/../..' . '/app/Http/Controllers/LaravueController.php',
         'App\\Http\\Controllers\\PasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/PasswordController.php',
         'App\\Http\\Controllers\\RoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/RoleController.php',
         'App\\Http\\Controllers\\StateController' => __DIR__ . '/../..' . '/app/Http/Controllers/StateController.php',
