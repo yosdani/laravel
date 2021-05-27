@@ -5,7 +5,8 @@
 
 # Node artifact files
 /node_modules/
-/vendor/
+/vendor/*
+
 ./public/css
 ./public/.htaccess
 ./public/js
@@ -29,3 +30,11 @@ Thumbs.db
 /vendor/
 /storage/api-docs/
 /public/
+
+/vendor/autoload.php
+/vendor/composer/autoload_classmap.php
+/vendor/composer/autoload_real.php
+/vendor/composer/autoload_static.php
+/vendor/composer/ClassLoader.php
+/vendor/composer/installed.json
+/vendor/composer/LICENSE
