@@ -14,6 +14,7 @@ use JWTAuth;
 use App\RoleUser;
 use App\Role;
 
+
 class AuthUserController extends Controller
 {
     public $loginAfterSignUp = true;
@@ -23,8 +24,8 @@ class AuthUserController extends Controller
      * @param Request $request
      * @return JsonResponse
      *
-     *  @OA\POST (
-     *  path="/auth",
+     *  @OA\Post (
+     *  path="/register",
      *  operationId="Auth",
      *  tags={"Auth"},
      * summary="Sign up in app",
@@ -74,7 +75,7 @@ class AuthUserController extends Controller
      *      ),
      * )
      */
-    
+
     public function register(Request $request): JsonResponse
     {
         //create a new user
@@ -118,8 +119,8 @@ class AuthUserController extends Controller
      * @param Request $request
      * @return JsonResponse
      *
-     *  @OA\PUT (
-     *  path="/auth",
+     *  @OA\Post (
+     *  path="/login",
      *  tags={"Auth"},
      * operationId="Auth",
      * summary="Sign in in app",
@@ -188,9 +189,9 @@ class AuthUserController extends Controller
      * Logout user
      * @return JsonResponse
      *
-     *  @OA\GET (
+     *  @OA\Get (
      *  path="/logout",
-     * tags={"Logout"},
+     * tags={"Auth"},
      * operationId="Logout",
      * summary="Logout in app",
      * description="The user logout, with the token get the user and delete the token_user of user",
@@ -213,7 +214,7 @@ class AuthUserController extends Controller
             JWTAuth::invalidate(JWTAuth::parseToken());
             $user -> token_user = null;
             $user -> save();
-            return response([
+            return response()->json([
                 'status' => 'success',
                 'msg' => 'You have successfully logged out.'
             ], 200);

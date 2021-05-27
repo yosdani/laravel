@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Mail\ForgotPassword;
 use App\User;
@@ -14,12 +15,12 @@ class PasswordController extends Controller
      * @param Request $request
      * @return JsonResponse
      *
-     *  @OA\POST (
+     *  @OA\Post (
      *  path="/password",
-     *  tags={"ForgotPassword"},
+     *  tags={"Auth"},
      *  operationId="forgotPassword",
      *  summary="Forgot the password",
-     *  description="If user forgot their password, a new password will be generated and send to the mail",
+     *  description="If user forgot his password, a new password will be generated and send by mail",
      *  @OA\RequestBody(
      *          required=true,
      *          @OA\MediaType(
@@ -36,12 +37,12 @@ class PasswordController extends Controller
      *   ),
      *      @OA\Response(
      *          response=200,
-     *          description="Your password has been changed, please check your mails",
+     *          description="Your password has been changed, please check your email",
      *
      *       ),
      *      @OA\Response(
      *          response=404,
-     *          description="User not provided the email",
+     *          description="User's email not provided",
      *      ),
      * )
      */

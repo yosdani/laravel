@@ -5,13 +5,15 @@
 
 # Node artifact files
 /node_modules/
-/vendor/
-./public/css
-./public/.htaccess
-./public/js
-.editorconfig
-.env
-.env.local
+
+/public/css
+/public/.htaccess
+/public/js
+/public/build
+/public/mix-manifest.json
+/.editorconfig
+/.env
+/.env.local
 
 # JetBrains IDE
 .idea/
@@ -27,5 +29,13 @@ Thumbs.db
 
 
 /vendor/
+/storage/framework/cache/
 /storage/api-docs/
-/public/
+
+/vendor/autoload.php
+/vendor/composer/autoload_classmap.php
+/vendor/composer/autoload_real.php
+/vendor/composer/autoload_static.php
+/vendor/composer/ClassLoader.php
+/vendor/composer/installed.json
+/vendor/composer/LICENSE
