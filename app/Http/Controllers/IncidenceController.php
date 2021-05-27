@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 use App\Incidence;
 use App\Http\Controllers\Controller;
+use App\IncidenceImage;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
@@ -62,34 +63,7 @@ class IncidenceController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        $incidence=new Incidence();
-        $imageIncidence=$request->file('img');
-        $route = public_path().'/uploads/';
-        $imageName=$imageIncidence->getClientOriginalName();
-        $imageIncidence->move($route, $imageName);
-        $incidence->name= $request->name;
-        $incidence->assignedTo = $request->assignedTo;
-        $incidence->reviewer=$request->reviewer;
-        $incidence->deadLine=$request->deadLine;
-        $incidence->creationDate=$request->creationDate;
-        $incidence->tags=$request->tags;
-        $incidence->description=$request->description;
-        $incidence->attachedContentn=$request->attachedContentn;
-        $incidence->dni=$request->dni;
-        $incidence->applicant=$request->applicant;
-        $incidence->phone=$request->phone;
-        $incidence->centerEnrollment=$request->centerEnrollment;
-        $incidence->streetNumber=$request->streetNumber;
-        $incidence->district=$request->district;
-        $incidence->neighborhood=$request->neighborhood;
-        $incidence->addressee=$request->addressee;
-        $incidence->team=$request->team;
-        $incidence->location=$request->location;
-        $incidence->responseForCitizen=$request->responseForCitizen;
-        $incidence->idUser=$request->idUser;
-        $incidence->idState=$request->idState;
-        $incidence->image=$imageName;
-        $incidence->save();
+        $incidence = Incidence::create($request->all());
 
         return response()->json($incidence, 200);
     }
@@ -171,5 +145,25 @@ class IncidenceController extends Controller
 
         Incidence::destroy($id);
         return  response()->json('deleted', 200);
+    }
+
+
+    /**
+     * Create a Galery for the Incidences
+     *
+     * @param $id
+     * @param Request request
+     * @return void
+     */
+    public function createGaleryIncidence(Request $request,$id): void
+    {
+        $image=new IncidenceImage();
+        $incidenceImage=$request->file('img');
+        $route = public_path().'/galery_incidence/';
+        $imageName=$incidenceImage->getClientOriginalName();
+        $incidenceImage->move($route, $imageName);
+        $image->image=$imageName;
+        $image->idIncidence=$id;
+        $image->save();
     }
 }
