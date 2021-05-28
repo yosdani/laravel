@@ -60,7 +60,17 @@ Route::group(['middleware' => ['jwt.auth']], function () {
     //Route for update an area
     Route::put('/areas/{id}', 'AreaController@update');
     //Route for delete an area
-    Route::delete('/areas/{id}', 'AreaController@delete');
+    Route::delete('/areas/{id}', 'AreaController@destroy');
+
+    /**********  Notice ************/
+    //Route for get all notices
+    Route::get('notice', ['uses'=>'NoticeController@index']);
+    //Route for get an notice by id
+    Route::get('notice/{id}', ['uses'=>'NoticeController@show']);
+    //Route for update an notice
+    Route::put('notice/{id}', ['uses'=>'NoticeController@update']);
+    //Route for delete an notice
+    Route::delete('notice/{id}', ['uses'=>'NoticeController@destroy']);
 
     //Route for logout
     Route::get('/logout', 'AuthUserController@logout');
