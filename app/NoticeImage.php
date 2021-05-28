@@ -11,7 +11,7 @@ class NoticeImage extends Model
      *
      * @var string
      */
-    protected $table = 'galery';
+    protected $table = 'gallery';
 
     /**
      * The attributes that are mass assignable.
@@ -28,9 +28,8 @@ class NoticeImage extends Model
      *
      * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public  function notice()
+    public function notice()
     {
-        return $this->belongsTo(\App\Notice::class, 'idNotice','id');
+        return $this->belongsTo(\App\Notice::class, 'idNotice', 'id');
     }
 }
-
