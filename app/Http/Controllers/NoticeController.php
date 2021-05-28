@@ -63,6 +63,11 @@ class NoticeController extends Controller
     {
         $notice = Notice::create($request->all());
 
+        $files = $request->file('img');
+        foreach ($files as $file) {
+        $this->createGallery($file,$notice->id);
+        }
+
         return response()->json($notice, 200);
     }
 
@@ -113,18 +118,21 @@ class NoticeController extends Controller
      * Create a Gallery for the Notice
      *
      * @param $id
-     * @param Request request
+     * @param file
      * @return void
      */
-    public function createGallery(Request $request, $id)
+    public function createGallery($file, $id)
     {
-        $image=new NoticeImage();
-        $Noticeimage=$request->file('img');
-        $route = public_path().'/galery/';
-        $imageName=$Noticeimage->getClientOriginalName();
+
+        $image = new NoticeImage();
+        $Noticeimage = $file;
+        $route = public_path() . '/galery/';
+        $imageName = $Noticeimage->getClientOriginalName();
         $Noticeimage->move($route, $imageName);
-        $image->image=$imageName;
-        $image->idNotice=$id;
+        $image->image = $imageName;
+        $image->idNotice = $id;
         $image->save();
+
+
     }
 }
