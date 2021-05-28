@@ -52,15 +52,15 @@ Route::group(['middleware' => ['jwt.auth']], function () {
 
     /**********  Areas ************/
     //Route for get all areas
-    Route::get('/areas', 'AreaController@index');
+    Route::get('areas', ['uses'=>'AreaController@index']);
     //Route for get an area by id
-    Route::get('/areas/{id}', 'AreaController@show');
+    Route::get('areas/{id}', ['uses'=>'AreaController@show']);
     //Route for create a new area
-    Route::post('/areas', 'AreaController@store');
+    Route::post('areas', ['uses'=>'AreaController@store']);
     //Route for update an area
-    Route::put('/areas/{id}', 'AreaController@update');
+    Route::put('areas/{id}', ['uses'=>'AreaController@update']);
     //Route for delete an area
-    Route::delete('/areas/{id}', 'AreaController@destroy');
+    Route::delete('areas/{id}', ['uses'=>'AreaController@destroy']);
 
     /**********  Notice ************/
     //Route for get all notices
@@ -78,3 +78,4 @@ Route::group(['middleware' => ['jwt.auth']], function () {
     Route::group(['middleware' => ['admin']], function () {
     });
 });
+Route::post('areas', ['uses'=>'AreaController@store']);
