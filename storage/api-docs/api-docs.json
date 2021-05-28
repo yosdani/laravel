@@ -157,10 +157,10 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Your password has been changed, please check your mails"
+                        "description": "Your password has been changed, please check your email"
                     },
                     "404": {
-                        "description": "User not provided the email"
+                        "description": "User's email not provided"
                     }
                 }
             }

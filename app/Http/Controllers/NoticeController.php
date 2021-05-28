@@ -8,7 +8,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Notice;
 use App\NoticeImage;
 use Illuminate\Contracts\Validation\Validator;
@@ -23,7 +22,6 @@ class NoticeController extends Controller
      */
     public function index():array
     {
-
         return Notice::all();
     }
 
@@ -52,7 +50,7 @@ class NoticeController extends Controller
     {
         $notice=Notice::find($id);
 
-        return response()->json($notice,200) ;
+        return response()->json($notice, 200) ;
     }
 
     /**
@@ -74,14 +72,14 @@ class NoticeController extends Controller
      * @param $id
      * @return \Illuminate\Http\Response
      */
-    public function update( Request $request,$id)
+    public function update(Request $request, $id)
     {
         $parameters = $request->only('name, textNotice');
 
         $notice = Notice::find($id);
 
-        if(!$notice){
-            return response()->json("This notice is not exist",'401');
+        if (!$notice) {
+            return response()->json("This notice is not exist", '401');
         }
 
         $notice->name = $parameters['name'];
@@ -89,7 +87,7 @@ class NoticeController extends Controller
 
         $notice->save();
 
-        return response()->json('updated',200);
+        return response()->json('updated', 200);
     }
 
     /**
@@ -102,13 +100,13 @@ class NoticeController extends Controller
     {
         $notice = Notice::find($id);
 
-        if(!$notice){
-            return response()->json("This notice is not exist",'401');
+        if (!$notice) {
+            return response()->json("This notice is not exist", '401');
         }
 
         Notice::destroy($id);
 
-        return  response()->json('deleted',200);
+        return  response()->json('deleted', 200);
     }
 
     /**
@@ -118,7 +116,7 @@ class NoticeController extends Controller
      * @param Request request
      * @return void
      */
-    public function createGalery(Request $request,$id)
+    public function createGalery(Request $request, $id)
     {
         $image=new NoticeImage();
         $Noticeimage=$request->file('img');

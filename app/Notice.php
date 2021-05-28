@@ -27,8 +27,8 @@ class Notice extends Model
      *
      * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function image() {
-        return $this->hasMany(\App\NoticeImage::class );
+    public function image()
+    {
+        return $this->hasMany(\App\NoticeImage::class);
     }
 }
-
