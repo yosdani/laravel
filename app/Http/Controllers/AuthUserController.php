@@ -14,7 +14,6 @@ use JWTAuth;
 use App\RoleUser;
 use App\Role;
 
-
 class AuthUserController extends Controller
 {
     public $loginAfterSignUp = true;
