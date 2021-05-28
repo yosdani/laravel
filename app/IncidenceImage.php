@@ -28,8 +28,8 @@ class IncidenceImage extends Model
      *
      * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public  function incidence()
+    public function incidence()
     {
-        return $this->belongsTo(\App\Incidence::class, 'idIncidence','id');
+        return $this->belongsTo(\App\Incidence::class, 'idIncidence', 'id');
     }
 }

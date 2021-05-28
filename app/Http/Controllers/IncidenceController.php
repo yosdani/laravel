@@ -155,7 +155,7 @@ class IncidenceController extends Controller
      * @param Request request
      * @return void
      */
-    public function createGaleryIncidence(Request $request,$id): void
+    public function createGaleryIncidence(Request $request, $id): void
     {
         $image=new IncidenceImage();
         $incidenceImage=$request->file('img');
