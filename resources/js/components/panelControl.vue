@@ -4,11 +4,17 @@
             <div class="button-side-bar__text">Panel Control</div>
         </button>
         <SideBar :show="show" :elements="listOfData"/>
+        <div class="container">
+            <b-card>
+                <TableData />
+            </b-card>
+        </div>
     </div>
     
 </template>
 <script>
-import SideBar from "./sideBar/sideBar"
+import SideBar from "./sideBar/sideBar";
+import TableData from "./table/tableData";
 export default {
     data(){
         return {
@@ -29,11 +35,17 @@ export default {
         );
     },
     components:{
-        SideBar
+        SideBar,
+        TableData
     },
     methods:{
         showSideBar(){
             this.show = !this.show;
+        }
+    },
+    computed:{
+        giveMarginBottom(){
+            return 'margin-bottom:10px';
         }
     }
 }

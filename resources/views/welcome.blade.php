@@ -66,7 +66,7 @@
     </head>
     <body>
         <div id="app"> 
-            <example-component></example-component>
+            <panel-control></panel-control>
         </div>
         <script type="text/javascript" src="js/app.js"></script>
     </body>
