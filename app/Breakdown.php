@@ -4,9 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TypesBreakdown extends Model
+class Breakdown extends Model
 {
-
     /**
      * The table associated with the model.
      *
@@ -22,6 +21,7 @@ class TypesBreakdown extends Model
     protected $fillable = [
         'name',
     ];
+
 
 
 }
