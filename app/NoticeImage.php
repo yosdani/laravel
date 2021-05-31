@@ -11,7 +11,7 @@ class NoticeImage extends Model
      *
      * @var string
      */
-    protected $table = 'galery';
+    protected $table = 'gallery';
 
     /**
      * The attributes that are mass assignable.

@@ -11,7 +11,7 @@ class IncidenceImage extends Model
      *
      * @var string
      */
-    protected $table = 'galeryIncidence';
+    protected $table = 'galleryIncidence';
 
     /**
      * The attributes that are mass assignable.

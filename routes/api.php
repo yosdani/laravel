@@ -52,17 +52,37 @@ Route::prefix('v1')->group(function () {
         //Route for delete state
         Route::delete('states/{id}', ['uses'=>'StateController@destroy']);
 
-        /**********  Areas ************/
-        //Route for get all areas
-        Route::get('/areas', 'AreaController@index');
-        //Route for get an area by id
-        Route::get('/areas/{id}', 'AreaController@show');
-        //Route for create a new area
-        Route::post('/areas', 'AreaController@store');
-        //Route for update an area
-        Route::put('/areas/{id}', 'AreaController@update');
-        //Route for delete an area
-        Route::delete('/areas/{id}', 'AreaController@delete');
+    /**********  Areas ************/
+    //Route for get all areas
+    Route::get('areas', ['uses'=>'AreaController@index']);
+    //Route for get an area by id
+    Route::get('areas/{id}', ['uses'=>'AreaController@show']);
+    //Route for create a new area
+    Route::post('areas', ['uses'=>'AreaController@store']);
+    //Route for update an area
+    Route::put('areas/{id}', ['uses'=>'AreaController@update']);
+    //Route for delete an area
+    Route::delete('areas/{id}', ['uses'=>'AreaController@destroy']);
+
+    /**********  Notice ************/
+    //Route for get all notices
+    Route::get('notice', ['uses'=>'NoticeController@index']);
+    //Route for get an notice by id
+    Route::get('notice/{id}', ['uses'=>'NoticeController@show']);
+    //Route for update an notice
+    Route::put('notice/{id}', ['uses'=>'NoticeController@update']);
+    //Route for delete an notice
+    Route::delete('notice/{id}', ['uses'=>'NoticeController@destroy']);
+
+        /**********  Tags ************/
+        //Route for get all tags
+        Route::get('tags', ['uses'=>'TagsController@index']);
+        //Route for get an tags by id
+        Route::get('tags/{id}', ['uses'=>'TagsController@show']);
+        //Route for update an tags
+        Route::put('tags/{id}', ['uses'=>'TagsController@update']);
+        //Route for delete an tags
+        Route::delete('tags/{id}', ['uses'=>'TagsController@destroy']);
 
         //Route for logout
         Route::get('/logout', 'AuthUserController@logout');
