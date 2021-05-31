@@ -126,6 +126,10 @@ class IncidenceController extends Controller
         $incidence->idState = $parameters['idState'];
         $incidence->save();
 
+        $files = $request->file('img');
+        foreach ($files as $file) {
+            $this->createGalleryIncidence($file,$incidence->id);
+        }
         return response()->json('updated', 200);
     }
 
@@ -152,10 +156,10 @@ class IncidenceController extends Controller
      * Create a Gallery for the Incidences
      *
      * @param $id
-     * @param Request request
+     * @param file
      * @return void
      */
-    public function createGaleryIncidence(Request $request,$id): void
+    public function createGalleryIncidence($file,$id): void
     {
         $image=new IncidenceImage();
         $incidenceImage=$request->file('img');
