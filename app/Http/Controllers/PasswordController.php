@@ -58,11 +58,18 @@ class PasswordController extends Controller
         $email = $request->email;
         $password = str_random(8);
 
-        $user = User::where('email', $email)->first();
-        $user->password = bcrypt($password);
-        $user->save();
+        try{
+            \Mail::to($email)->send(new ForgotPassword($password));
 
-        \Mail::to($email)->send(new ForgotPassword($password));
+            $user = User::where('email', $email)->first();
+            $user->password = bcrypt($password);
+            $user->save();
+        }catch(Exception $exception){
+            return response()->json([
+                'success' => false,
+                'message' => $exception
+            ]);
+        }
 
         return response()->json([
             'success' => true,
