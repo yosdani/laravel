@@ -84,6 +84,16 @@ Route::prefix('v1')->group(function () {
         //Route for delete an tags
         Route::delete('tags/{id}', ['uses'=>'TagsController@destroy']);
 
+        /**********  Tags ************/
+        //Route for get all Inidences
+        Route::get('incidence', ['uses'=>'IncidenceController@index']);
+        //Route for get an incidence by id
+        Route::get('incidence/{id}', ['uses'=>'IncidenceController@show']);
+        //Route for update an incidence
+        Route::put('incidence/{id}', ['uses'=>'IncidenceController@update']);
+        //Route for delete an incidence
+        Route::delete('incidence/{id}', ['uses'=>'IncidenceController@destroy']);
+
         //Route for logout
         Route::get('/logout', 'AuthUserController@logout');
 

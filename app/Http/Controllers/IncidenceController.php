@@ -92,7 +92,7 @@ class IncidenceController extends Controller
     {
         $incidence = Incidence::where('id', $id)->with('images')->first();
         if (!$incidence) {
-            return response()->json("This incidence is not exist", '400');
+            return response()->json("This incidence is not exist", '404');
         }
         return response()->json($incidence, 200) ;
     }
