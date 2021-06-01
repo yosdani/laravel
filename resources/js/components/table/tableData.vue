@@ -41,9 +41,7 @@
             :aria-describedby="ariaDescribedby"
             class="mt-1"
           >
-            <b-form-checkbox @change="getFilterOn($event)" value="name">Name</b-form-checkbox>
-            <b-form-checkbox @change="getFilterOn($event)" value="age">Age</b-form-checkbox>
-            <b-form-checkbox @change="getFilterOn($event)" value="isActive">Active</b-form-checkbox>
+            <b-form-checkbox v-for="field in fields" :key="field.key" @change="getFilterOn($event)" :value="field.key">{{field.label}}</b-form-checkbox>
           </b-form-checkbox-group>
         </b-form-group>
       </b-col>     
@@ -64,18 +62,6 @@
       small
       @filtered="onFiltered"
     >
-      <template #cell(name)="row">
-        {{ row.value.first }} {{ row.value.last }}
-      </template>
-
-      <template #cell(actions)="row">
-        <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
-          Info modal
-        </b-button>
-        <b-button size="sm" @click="row.toggleDetails">
-          {{ row.detailsShowing ? 'Hide' : 'Show' }} Details
-        </b-button>
-      </template>
 
       <template #row-details="row">
         <b-card>
@@ -122,48 +108,9 @@
 <script>
 export default {
     name: "TableData",
-    props:[],
+    props:['items','fields'],
     data() {
-      return {
-        items: [
-          { isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' } },
-          { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' } },
-          {
-            isActive: false,
-            age: 9,
-            name: { first: 'Mini', last: 'Navarro' },
-            _rowVariant: 'success'
-          },
-          { isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' } },
-          { isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' } },
-          { isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' } },
-          { isActive: true, age: 40, name: { first: 'Thor', last: 'Macdonald' } },
-          {
-            isActive: true,
-            age: 87,
-            name: { first: 'Larsen', last: 'Shaw' },
-            _cellVariants: { age: 'danger', isActive: 'warning' }
-          },
-          { isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' } },
-          { isActive: false, age: 22, name: { first: 'Genevieve', last: 'Wilson' } },
-          { isActive: true, age: 38, name: { first: 'John', last: 'Carney' } },
-          { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' } }
-        ],
-        fields: [
-          { key: 'name', label: 'Person full name', sortable: true, sortDirection: 'desc' },
-          { key: 'age', label: 'Person age', sortable: true, class: 'text-center' },
-          {
-            key: 'isActive',
-            label: 'Is Active',
-            formatter: (value, key, item) => {
-              return value ? 'Yes' : 'No'
-            },
-            sortable: true,
-            sortByFormatted: true,
-            filterByFormatted: true
-          },
-          { key: 'actions', label: 'Actions' }
-        ],
+      return {      
         totalRows: 1,
         currentPage: 1,
         perPage: 5,
@@ -190,7 +137,7 @@ export default {
           })
       }
     },
-    mounted() {
+    updated() {
       // Set the initial number of items
       this.totalRows = this.items.length
     },

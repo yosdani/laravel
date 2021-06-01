@@ -6,7 +6,10 @@
         <SideBar :elements="listOfData" @getDatas="getElementForData($event)"/>
         <div class="container">
             <b-card>
-                <TableData />
+                <TableData 
+                    :items="listDataShow" 
+                    :fields="fields"
+                />
             </b-card>
         </div>
     </div>
@@ -20,6 +23,9 @@ export default {
         return {
             show:false,
             listOfData : [],
+            uri:window.origin,
+            listDataShow : [],
+            fields: []
         }
     },
     created(){
@@ -30,7 +36,7 @@ export default {
             {name: "Areas",child:[ 'ADD','Show List']},
             {name: "Matriculas",child:[ 'ADD','Show List']},
             {name: "Incidens",child:[ 'ADD','Show List']},
-            {name: "Rols",child:[ 'ADD','Show List']},
+            {name: "Roles",child:[ 'ADD','Show List']},
             {name: "Users",child:[ 'ADD','Show List']}
         );
     },
@@ -43,7 +49,19 @@ export default {
             this.show = !this.show;
         },
         getElementForData(event){
-            
+            if(event['name'] === 'Users'){
+                fetch(this.uri+'/users')
+                .then(response => response.json())
+                .then(response=>{
+                    this.listDataShow = response.users;
+                    this.fields = [
+                        { key: 'name', label: 'Name', sortable: true, sortDirection: 'desc' },
+                        { key: 'lastName', label: 'Last Name', sortable: true, class: 'text-center' },
+                        { key: 'email', label: 'Email', sortable: true, sortDirection: 'desc' },
+                        { key: 'phoneNumber', label: 'Phone Number', sortable: true, class: 'text-center' },
+                    ]
+                })
+            }
         }
     },
     computed:{
