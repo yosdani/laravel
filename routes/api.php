@@ -85,7 +85,7 @@ Route::prefix('v1')->group(function () {
         Route::delete('tags/{id}', ['uses'=>'TagsController@destroy']);
 
         /**********  Incidence ************/
-        //Route for get all Inidences
+        //Route for get all Incidences
         Route::get('incidence', ['uses'=>'IncidenceController@index']);
         //Route for get an incidence by id
         Route::get('incidence/{id}', ['uses'=>'IncidenceController@show']);
