@@ -91,7 +91,7 @@ class IncidenceController extends Controller
     public function show($id): JsonResponse
     {
         $incidence=Incidence::find($id);
-        $incidence = Incidence::where('id', $id)->with('fotos')->first();
+        $incidence = Incidence::where('id', $id)->with('images')->first();
         return response()->json($incidence, 200) ;
     }
 
