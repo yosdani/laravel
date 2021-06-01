@@ -1,9 +1,9 @@
 <template>
     <div>
-        <button class="button-side-bar" @click="showSideBar">
+        <!--<button class="button-side-bar" @click="showSideBar">
             <div class="button-side-bar__text">Panel Control</div>
-        </button>
-        <SideBar :show="show" :elements="listOfData"/>
+        </button>-->
+        <SideBar :elements="listOfData" @getDatas="getElementForData($event)"/>
         <div class="container">
             <b-card>
                 <TableData />
@@ -24,14 +24,14 @@ export default {
     },
     created(){
         this.listOfData.push(
-            {name: "Noticias",child:[ 'Adicionar','Ver Lista']},
-            {name: "Categorias",child:['Adicionar','Ver Lista']},
-            {name: "Estados",child:[ 'Adicionar','Ver Lista']},
-            {name: "Areas",child:[ 'Adicionar','Ver Lista']},
-            {name: "Matriculas",child:[ 'Adicionar','Ver Lista']},
-            {name: "Incidencias",child:[ 'Adicionar','Ver Lista']},
-            {name: "Roles",child:[ 'Adicionar','Ver Lista']},
-            {name: "Usuarios",child:[ 'Adicionar','Ver Lista']}
+            {name: "News",child:[ 'ADD','Show List']},
+            {name: "Categories",child:['ADD','Show List']},
+            {name: "State",child:[ 'ADD','Show List']},
+            {name: "Areas",child:[ 'ADD','Show List']},
+            {name: "Matriculas",child:[ 'ADD','Show List']},
+            {name: "Incidens",child:[ 'ADD','Show List']},
+            {name: "Rols",child:[ 'ADD','Show List']},
+            {name: "Users",child:[ 'ADD','Show List']}
         );
     },
     components:{
@@ -41,6 +41,9 @@ export default {
     methods:{
         showSideBar(){
             this.show = !this.show;
+        },
+        getElementForData(event){
+            
         }
     },
     computed:{
@@ -83,6 +86,9 @@ export default {
     -ms-writing-mode: tb-rl;
     -o-writing-mode: vertical-lr;
     writing-mode: vertical-lr;
-
+}
+.container{
+    width: 70%;
+    float: right;
 }
 </style>
