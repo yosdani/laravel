@@ -90,8 +90,10 @@ class IncidenceController extends Controller
      */
     public function show($id): JsonResponse
     {
-        $incidence=Incidence::find($id);
         $incidence = Incidence::where('id', $id)->with('images')->first();
+        if (!$incidence) {
+            return response()->json("This incidence is not exist", '400');
+        }
         return response()->json($incidence, 200) ;
     }
 
