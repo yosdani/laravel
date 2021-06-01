@@ -14,3 +14,33 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+//Routes resources for category
+Route::resource('category', 'CategoryController', [
+    'only' => [
+        'index','store','show','update','destroy'
+    ]
+]);
+
+//Routes resources for users
+Route::resource('users', 'UserController', [
+    'only' => [
+        'index','store','show','update','destroy'
+    ]
+]);
+
+//Routes resources for public centers
+Route::resource('public_center', 'PublicCenterController', [
+    'only' => [
+        'index','store','show','update','destroy'
+    ]
+]);
+
+//Routes resources for matriculas
+Route::resource('matriculas', 'MatriculaController', [
+    'only' => [
+        'index','store','show','update','destroy'
+    ]
+]);
+
+Route::get('/token', 'CategoryController@getToken');
