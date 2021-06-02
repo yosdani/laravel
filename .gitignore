@@ -28,7 +28,7 @@ TEST*.xml
 Thumbs.db
 
 
-./vendor/
+/vendor
 /storage/framework/cache/
 /storage/api-docs/
 
