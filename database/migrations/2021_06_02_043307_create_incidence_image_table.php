@@ -19,6 +19,8 @@ class CreateIncidenceImageTable extends Migration
             $table->integer('idIncidence')->unsigned();
             $table->foreign('idIncidence')->references('id')->on('incidence');
             $table->timestamps();
+
+
         });
     }
 
