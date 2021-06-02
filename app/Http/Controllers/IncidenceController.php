@@ -19,13 +19,24 @@ use Illuminate\Http\Request;
 class IncidenceController extends Controller
 {
     /**
-     * Get data of all Incidences
-     *
-     * @return array
+     * List of incidences
+     * @OA\Get(
+     *      path="/incidence",
+     *      tags={"Incidence"},
+     *      summary="Get list of incidences",
+     *      description="Returns list of incidences",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation")
+     *       )
+     *     )
      */
-    public function index(): array
+    public function index(): JsonResponse
     {
-        return Incidence::all();
+        return response()->json([
+            'success' =>true,
+            'incidences' => Incidence::all()
+        ], 200);
     }
 
     /**
@@ -43,36 +54,124 @@ class IncidenceController extends Controller
     }
 
     /**
-     * Get data of a Incidence
+     * Get incidence by id
      *
      * @param int $id
      * @return JsonResponse
+     *
+     * @OA\Get (
+     *      path="/incidence/{id}",
+     *      tags={"Incidences"},
+     *      summary="Get a incidence by id",
+     *      description="Returns the incedence",
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Incidence id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *
+     *       ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="The incidence not be found",
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      )
+     * )
      */
     public function show($id): JsonResponse
     {
-        $incidence=Incidence::find($id);
-
+        $incidence = Incidence::where('id', $id)->with('images')->first();
+        if (!$incidence) {
+            return response()->json("This incidence is not exist", '404');
+        }
         return response()->json($incidence, 200) ;
     }
 
     /**
-     * create a new Incidence
+     * Create a new incidence
      * @param Request $request
-     *
      * @return JsonResponse
+     *  * @OA\Post (
+     *      path="/incidence",
+     *      tags={"Incidences"},
+     *      summary="Create a new incidence",
+     *      description="Returns created incidence",
+     *     @OA\Parameter(
+     *          name="request",
+     *          description="request all data",
+     *          required=true,
+     *          in="path",
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      )
+     * )
      */
     public function store(Request $request): JsonResponse
     {
-        $incidence = Incidence::create($request->all());
+        $incidence = Incidence::create($request->except('img'));
+
+        $files = $request->file('img');
+        foreach ($files as $file) {
+            $this->createGalleryIncidence($file,$incidence->id);
+        }
 
         return response()->json($incidence, 200);
     }
 
     /**
-     * update a  Incidence
-     *@param Request $request
-     * @param $id
+     * Update the existing incidence by id
+     * @param Request $request
+     * @param int $id
      * @return JsonResponse
+     * @OA\Put(
+     *      path="/incidence/{id}",
+     *      tags={"Incidences"},
+     *      summary="Update a incidence",
+     *      description="Returns updated incidence",
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="incidence id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      )
+     * )
      */
     public function update(Request $request, $id): JsonResponse
     {
@@ -101,7 +200,7 @@ class IncidenceController extends Controller
 
         $incidence = Incidence::find($id);
         if (!$incidence) {
-            return response()->json("This incidence is not exist", '401');
+            return response()->json("This incidence is not exist", '400');
         }
 
         $incidence->name = $parameters['name'];
@@ -126,21 +225,49 @@ class IncidenceController extends Controller
         $incidence->idState = $parameters['idState'];
         $incidence->save();
 
+
         return response()->json('updated', 200);
     }
 
     /**
-     * Delete a Incidence
-     *
-     * @param $id
+     * Delete the existing incidence
+     * @param int $id
      * @return JsonResponse
+     * @OA\Delete  (
+     *      path="/incidence/{id}",
+     *      tags={"Incidences"},
+     *      summary="Delete a incidence",
+     *      description="Returns Json response",
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Incidence id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     * )
      */
     public function destroy($id): JsonResponse
     {
         $incidence = Incidence::find($id);
 
         if (!$incidence) {
-            return response()->json("This incidence is not exist", '401');
+            return response()->json("This incidence is not exist", '400');
         }
 
         Incidence::destroy($id);
@@ -152,13 +279,13 @@ class IncidenceController extends Controller
      * Create a Gallery for the Incidences
      *
      * @param $id
-     * @param Request request
+     * @param file
      * @return void
      */
-    public function createGaleryIncidence(Request $request,$id): void
+    public function createGalleryIncidence($file,$id): void
     {
         $image=new IncidenceImage();
-        $incidenceImage=$request->file('img');
+        $incidenceImage=$file;
         $route = public_path().'/galery_incidence/';
         $imageName=$incidenceImage->getClientOriginalName();
         $incidenceImage->move($route, $imageName);

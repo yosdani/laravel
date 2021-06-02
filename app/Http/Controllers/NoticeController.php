@@ -11,18 +11,30 @@ namespace App\Http\Controllers;
 use App\Notice;
 use App\NoticeImage;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class NoticeController extends Controller
 {
     /**
-     * Get data of all Notices
-     *
-     * @return array
+     * List of notices
+     * @OA\Get(
+     *      path="/notice",
+     *      tags={"Notice"},
+     *      summary="Get list of notices",
+     *      description="Returns list of notices",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation")
+     *       )
+     *     )
      */
-    public function index():array
+    public function index():JsonResponse
     {
-        return Notice::all();
+        return response()->json([
+            'success' =>true,
+            'notices' => Notice::all()
+        ], 200);
     }
 
     /**
@@ -41,27 +53,83 @@ class NoticeController extends Controller
     }
 
     /**
-     * Get data of a Notice
+     * Get notice by id
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
+     *
+     * @OA\Get (
+     *      path="/notice/{id}",
+     *      tags={"Notices"},
+     *      summary="Get a notice by id",
+     *      description="Returns the notice",
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Notice id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *
+     *       ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="The notice not be found",
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      )
+     * )
      */
     public function show($id)
     {
-        $notice=Notice::find($id);
+        $notice = Notice::where('id', $id)->with('images')->first();
+        if (!$notice) {
+            return response()->json("This notice is not exist", '404');
+        }
 
         return response()->json($notice, 200) ;
     }
 
     /**
-     * create a new Notice
+     * Create a new notice
      * @param Request $request
+     * @return JsonResponse
+     *  * @OA\Post (
+     *      path="/notice",
+     *      tags={"Notices"},
+     *      summary="Create a new notice",
+     *      description="Returns created notice",
+     *     @OA\Parameter(
+     *          name="request",
+     *          description="request all data",
+     *          required=true,
+     *          in="path",
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
      *
-     * @return Notice
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      )
+     * )
      */
     public function store(Request $request)
     {
-        $notice = Notice::create($request->all());
+        $notice = Notice::create($request->except('img'));
 
         $files = $request->file('img');
         foreach ($files as $file) {
@@ -72,10 +140,38 @@ class NoticeController extends Controller
     }
 
     /**
-     * update a  Notice
-     *@param Request $request
-     * @param $id
-     * @return \Illuminate\Http\Response
+     * Update the existing notice by id
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     * @OA\Put(
+     *      path="/notice/{id}",
+     *      tags={"Notices"},
+     *      summary="Update a notice",
+     *      description="Returns updated notice",
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="notice id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      )
+     * )
      */
     public function update(Request $request, $id)
     {
@@ -84,7 +180,7 @@ class NoticeController extends Controller
         $notice = Notice::find($id);
 
         if (!$notice) {
-            return response()->json("This notice is not exist", '401');
+            return response()->json("This notice is not exist", '404');
         }
 
         $notice->name = $parameters['name'];
@@ -96,17 +192,44 @@ class NoticeController extends Controller
     }
 
     /**
-     * Delete a Notice
+     * Delete the existing notice
+     * @param int $id
+     * @return JsonResponse
+     * @OA\Delete  (
+     *      path="/notice/{id}",
+     *      tags={"Notices"},
+     *      summary="Delete a notice",
+     *      description="Returns Json response",
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Notice id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
      *
-     * @param $id
-     * @return \Illuminate\Http\Response
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     * )
      */
     public function delete($id)
     {
         $notice = Notice::find($id);
 
         if (!$notice) {
-            return response()->json("This notice is not exist", '401');
+            return response()->json("This notice is not exist", '400');
         }
 
         Notice::destroy($id);
