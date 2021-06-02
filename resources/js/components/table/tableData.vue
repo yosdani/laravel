@@ -41,7 +41,7 @@
             :aria-describedby="ariaDescribedby"
             class="mt-1"
           >
-            <b-form-checkbox v-for="field in fields" :key="field.key" @change="getFilterOn($event)" :value="field.key">{{field.label}}</b-form-checkbox>
+            <b-form-checkbox v-show="items" v-for="field in fields" :key="field.key" @change="getFilterOn($event)" :value="field.key">{{field.label}}</b-form-checkbox>
           </b-form-checkbox-group>
         </b-form-group>
       </b-col>     
@@ -49,7 +49,7 @@
     <!-- Main table element -->
     <b-table
       :items="items"
-      :fields="fields"
+      :fields="items?fields:[]"
       :current-page="currentPage"
       :per-page="perPage"
       :filter="filter"
@@ -113,8 +113,8 @@ export default {
       return {      
         totalRows: 1,
         currentPage: 1,
-        perPage: 5,
-        pageOptions: [5, 10, 15, { value: 100, text: "Show a lot" }],
+        perPage: 10,
+        pageOptions: [10, 15, 20, { value: 100, text: "Show a lot" }],
         sortBy: '',
         sortDesc: false,
         sortDirection: 'asc',
@@ -139,7 +139,7 @@ export default {
     },
     updated() {
       // Set the initial number of items
-      this.totalRows = this.items.length
+      this.items?this.totalRows = this.items.length:this.totalRows = 1;
     },
     methods: {
       info(item, index, button) {

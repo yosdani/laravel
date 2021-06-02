@@ -49,8 +49,20 @@ export default {
             this.show = !this.show;
         },
         getElementForData(event){
-            if(event['name'] === 'Users'){
-                fetch(this.uri+'/users')
+            switch(event['name']){
+                case "Users":this.getUsersDatas();
+                break;
+                case "Roles":this.getRolesDatas();
+                break;
+                case "Matriculas":this.getMatriculasDatas();
+                break;
+                case "Categories":this.getCategoriesDatas();
+                break;
+            }
+            
+        },
+        getUsersDatas(){
+            fetch(this.uri+'/users')
                 .then(response => response.json())
                 .then(response=>{
                     this.listDataShow = response.users;
@@ -61,7 +73,36 @@ export default {
                         { key: 'phoneNumber', label: 'Phone Number', sortable: true, class: 'text-center' },
                     ]
                 })
-            }
+        },
+        getRolesDatas(){
+            fetch(this.uri+'/api/v1/roles')
+                .then(response => response.json())
+                .then(response=>{
+                    this.listDataShow = response.users;
+                    this.fields = [
+                        { key: 'name', label: 'Name', sortable: true, sortDirection: 'desc' },
+                    ]
+                })
+        },
+        getMatriculasDatas(){
+            fetch(this.uri+'/matriculas')
+                .then(response => response.json())
+                .then(response=>{
+                    this.listDataShow = response.matriculas;
+                    this.fields = [
+                        { key: 'name', label: 'Name', sortable: true, sortDirection: 'desc' },
+                    ]
+                })
+        },
+        getCategoriesDatas(){
+            fetch(this.uri+'/category')
+                .then(response => response.json())
+                .then(response=>{
+                    this.listDataShow = response.category;
+                    this.fields = [
+                        { key: 'name', label: 'Name', sortable: true, sortDirection: 'desc' },
+                    ]
+                })
         }
     },
     computed:{
@@ -107,6 +148,8 @@ export default {
 }
 .container{
     width: 70%;
-    float: right;
+    left: 0;
+    right: 0;
+    position: absolute;
 }
 </style>

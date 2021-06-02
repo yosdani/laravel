@@ -69,7 +69,7 @@
 .sidebar-dashboard{
     top: 58px;
     width: 200px;
-    max-height: 90%;
+    max-height: 100%;
 }
 .rotate-icon{
     transform: rotate(90deg);
