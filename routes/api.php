@@ -69,6 +69,8 @@ Route::prefix('v1')->group(function () {
     Route::get('notice', ['uses'=>'NoticeController@index']);
     //Route for get an notice by id
     Route::get('notice/{id}', ['uses'=>'NoticeController@show']);
+    //Route for create a new notice
+    Route::post('notice', ['uses'=>'NoticeController@store']);
     //Route for update an notice
     Route::put('notice/{id}', ['uses'=>'NoticeController@update']);
     //Route for delete an notice
@@ -79,6 +81,8 @@ Route::prefix('v1')->group(function () {
         Route::get('tags', ['uses'=>'TagsController@index']);
         //Route for get an tags by id
         Route::get('tags/{id}', ['uses'=>'TagsController@show']);
+        //Route for create a new tags
+        Route::post('tags', ['uses'=>'TagsController@store']);
         //Route for update an tags
         Route::put('tags/{id}', ['uses'=>'TagsController@update']);
         //Route for delete an tags
@@ -89,6 +93,8 @@ Route::prefix('v1')->group(function () {
         Route::get('incidence', ['uses'=>'IncidenceController@index']);
         //Route for get an incidence by id
         Route::get('incidence/{id}', ['uses'=>'IncidenceController@show']);
+        //Route for create a new incidence
+        Route::post('incidence', ['uses'=>'IncidenceController@store']);
         //Route for update an incidence
         Route::put('incidence/{id}', ['uses'=>'IncidenceController@update']);
         //Route for delete an incidence
