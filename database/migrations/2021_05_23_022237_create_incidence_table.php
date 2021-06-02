@@ -39,7 +39,7 @@ class CreateIncidenceTable extends Migration
             $table->integer('idState')->unsigned()->nullable();
             $table->foreign('idState')->references('id')->on('states');
             $table->integer('idBreakdown')->unsigned()->nullable();
-            $table->foreign('idBreakdown')->references('id')->on('Breakdown');
+            $table->foreign('idBreakdown')->references('id')->on('breakdown');
             $table->integer('idPublicCenter')->unsigned()->nullable();
             $table->foreign('idPublicCenter')->references('id')->on('table_public_center');
 
