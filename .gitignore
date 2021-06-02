@@ -28,14 +28,7 @@ TEST*.xml
 Thumbs.db
 
 
-vendor/
+/vendor
 /storage/framework/cache/
 /storage/api-docs/
 
-vendor/autoload.php
-vendor/composer/autoload_classmap.php
-vendor/composer/autoload_real.php
-vendor/composer/autoload_static.php
-vendor/composer/ClassLoader.php
-vendor/composer/installed.json
-vendor/composer/LICENSE
