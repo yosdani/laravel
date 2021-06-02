@@ -131,7 +131,6 @@ class IncidenceController extends Controller
     {
         $incidence = Incidence::create($request->except('img'));
 
-        print_r($request->img);
         $files = $request->file('img');
 
         foreach ($files as $file) {
