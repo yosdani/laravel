@@ -60,6 +60,7 @@
 }
 .nav-body-sidebar{
     margin-left: 40px;
+    font-size: 15px;
 }
 .element-sidebar{
     margin-left: 15px;
@@ -67,7 +68,7 @@
 }
 .sidebar-dashboard{
     top: 58px;
-    width: 25%;
+    width: 200px;
     max-height: 90%;
 }
 .rotate-icon{
