@@ -132,7 +132,9 @@ class IncidenceController extends Controller
         $incidence = Incidence::create($request->except('img'));
 
         $files = $request->file('img');
+
         foreach ($files as $file) {
+
             $this->createGalleryIncidence($file,$incidence->id);
         }
 
@@ -284,6 +286,7 @@ class IncidenceController extends Controller
      */
     public function createGalleryIncidence($file,$id): void
     {
+
         $image=new IncidenceImage();
         $incidenceImage=$file;
         $route = public_path().'/galery_incidence/';

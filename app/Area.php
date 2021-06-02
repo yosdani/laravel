@@ -20,7 +20,7 @@ class Area extends Model
      * @var string
      */
     protected $fillable = [
-        'name',
+        'name','id_user',
     ];
 
     /**
