@@ -48,9 +48,10 @@ class Incidence extends Model
      *
      * @return  \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function images():HasMany
+    public function images()
     {
-        return $this->hasMany(\App\IncidenceImage::class);
+
+        return $this->hasMany(IncidenceImage::class,'idIncidence');
     }
 
     /**
