@@ -143,9 +143,7 @@ Route::prefix('v1')->group(function () {
         Route::group(['middleware' => ['admin']], function () {
         });
     });
-    Route::post('incidence', ['uses'=>'IncidenceController@store']);
-    Route::get('areas', ['uses'=>'AreaController@index']);
-    Route::get('incidence', ['uses'=>'IncidenceController@index']);
+
 
 
 
