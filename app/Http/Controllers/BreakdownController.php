@@ -9,13 +9,24 @@ use App\Http\Controllers\Controller;
 class BreakdownController extends Controller
 {
     /**
-     * Get data of all Types of Breakdown
-     *
-     * @return array
+     * List of breakdowns
+     * @OA\Get(
+     *      path="/breakdown",
+     *      tags={"Breakdown"},
+     *      summary="Get list of breakdowns",
+     *      description="Returns list of breakdowns",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation")
+     *       )
+     *     )
      */
     public function index()
     {
-        return Breakdown::all();
+        return response()->json([
+            'success' =>true,
+            'breakdowns' => Breakdown::all()
+        ], 200);
     }
 
     /**
@@ -33,25 +44,79 @@ class BreakdownController extends Controller
     }
 
     /**
-     * Get data of an Breakdown
+     * Get breakdown by id
      *
      * @param int $id
      * @return JsonResponse
      *
+     * @OA\Get (
+     *      path="/breakdown/{id}",
+     *      tags={"Breakdown"},
+     *      summary="Get a breakdown by id",
+     *      description="Returns the breakdown",
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Breakdown id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *
+     *       ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="The breakdown not be found",
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      )
+     * )
      */
     public function show(int $id): JsonResponse
     {
         $breakdown=Breakdown::find($id);
 
+        if (!$breakdown) {
+            return response()->json("This breakdown is not exist", '404');
+        }
         return response()->json($breakdown, 200) ;
     }
 
     /**
-     * create a new Breakdown
+     * Create a new Breakdown
      * @param Request $request
-     *
      * @return JsonResponse
+     *  * @OA\Post (
+     *      path="/breakdown",
+     *      tags={"Breakdown"},
+     *      summary="Create a new breakdown",
+     *      description="Returns created breakdown",
+     *     @OA\Parameter(
+     *          name="request",
+     *          description="request all data",
+     *          required=true,
+     *          in="path",
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
      *
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      )
+     * )
      */
     public function store(Request $request): JsonResponse
     {
@@ -61,17 +126,48 @@ class BreakdownController extends Controller
     }
 
     /**
-     * Update an  Breakdown
+     * Update the existing breakdown by id
      * @param Request $request
      * @param int $id
      * @return JsonResponse
+     * @OA\Put(
+     *      path="/breakdown/{id}",
+     *      tags={"Breakdown"},
+     *      summary="Update a breakdown",
+     *      description="Returns updated breakdown",
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Breakdown id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
      *
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      )
+     * )
      */
     public function update(Request $request, int $id): JsonResponse
     {
         $parameters = $request->only('name');
 
         $breakdown = Breakdown::find($id);
+
+        if (!$breakdown) {
+            return response()->json("This breakdown is not exist", '400');
+        }
         $breakdown->name = $parameters['name'];
 
         $breakdown->save();
@@ -80,11 +176,45 @@ class BreakdownController extends Controller
     }
 
     /**
-     * Delete a Breakdown
+     * Delete the existing breakdown
+     * @param int $id
+     * @return JsonResponse
+     * @OA\Delete  (
+     *      path="/breakdown/{id}",
+     *      tags={"Breakdown"},
+     *      summary="Delete a breakdown",
+     *      description="Returns Json response",
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Breakdown id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
      *
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     * )
      */
     public function destroy(int $id): JsonResponse
     {
+        $breakdown = Breakdown::find($id);
+
+        if (!$breakdown) {
+            return response()->json("This breakdown is not exist", '400');
+        }
         Breakdown::destroy($id);
 
         return  response()->json('deleted', 200);

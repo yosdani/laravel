@@ -64,7 +64,20 @@ Route::prefix('v1')->group(function () {
     //Route for delete an area
     Route::delete('areas/{id}', ['uses'=>'AreaController@destroy']);
 
-    /**********  Notice ************/
+    /**********  Breakdown ************/
+    //Route for get all breakdowns
+    Route::get('breakdown', ['uses'=>'BreakdownController@index']);
+    //Route for get an breakdown by id
+    Route::get('breakdown/{id}', ['uses'=>'BreakdownController@show']);
+    //Route for create a new breakdown
+    Route::post('breakdown', ['uses'=>'BreakdownController@store']);
+    //Route for update an breakdown
+    Route::put('breakdown/{id}', ['uses'=>'BreakdownController@update']);
+    //Route for delete an breakdown
+    Route::delete('breakdown/{id}', ['uses'=>'BreakdownController@destroy']);
+
+
+        /**********  Notice ************/
     //Route for get all notices
     Route::get('notice', ['uses'=>'NoticeController@index']);
     //Route for get an notice by id
@@ -88,6 +101,30 @@ Route::prefix('v1')->group(function () {
         //Route for delete an tags
         Route::delete('tags/{id}', ['uses'=>'TagsController@destroy']);
 
+        /**********  Category ************/
+        //Route for get all categories
+        Route::get('category', ['uses'=>'CategoryController@index']);
+        //Route for get an category by id
+        Route::get('category/{id}', ['uses'=>'CategoryController@show']);
+        //Route for create a new category
+        Route::post('category', ['uses'=>'CategoryController@store']);
+        //Route for update an category
+        Route::put('category/{id}', ['uses'=>'CategoryController@update']);
+        //Route for delete an category
+        Route::delete('category/{id}', ['uses'=>'CategoryController@destroy']);
+
+        /**********  Enrollment ************/
+        //Route for get all categories
+        Route::get('enrollment', ['uses'=>'MatriculaController@index']);
+        //Route for get an enrollment by id
+        Route::get('enrollment/{id}', ['uses'=>'MatriculaController@show']);
+        //Route for create a new enrollment
+        Route::post('enrollment', ['uses'=>'MatriculaController@store']);
+        //Route for update an enrollment
+        Route::put('enrollment/{id}', ['uses'=>'MatriculaController@update']);
+        //Route for delete an enrollment
+        Route::delete('enrollment/{id}', ['uses'=>'MatriculaController@destroy']);
+
         /**********  Incidence ************/
         //Route for get all Incidences
         Route::get('incidence', ['uses'=>'IncidenceController@index']);
@@ -106,4 +143,10 @@ Route::prefix('v1')->group(function () {
         Route::group(['middleware' => ['admin']], function () {
         });
     });
+    Route::post('incidence', ['uses'=>'IncidenceController@store']);
+    Route::get('areas', ['uses'=>'AreaController@index']);
+    Route::get('incidence', ['uses'=>'IncidenceController@index']);
+
+
+
 });
