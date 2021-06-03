@@ -15,6 +15,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 
 class IncidenceController extends Controller
 {
@@ -129,9 +130,13 @@ class IncidenceController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
+        $request->json()->all();
+
         $incidence = Incidence::create($request->except('img'));
 
-        $files = $request->file('img');
+        $files[] = $request->file('img');
+
+
 
         foreach ($files as $file) {
 
