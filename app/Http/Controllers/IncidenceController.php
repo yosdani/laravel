@@ -91,7 +91,9 @@ class IncidenceController extends Controller
      */
     public function show($id): JsonResponse
     {
-        $incidence = Incidence::where('id', $id)->with('images')->first();
+
+         $incidence=Incidence::where('id',$id)->with('images')->get();
+
         if (!$incidence) {
             return response()->json("This incidence is not exist", '404');
         }
@@ -137,10 +139,11 @@ class IncidenceController extends Controller
         $files[] = $request->file('img');
 
 
+        if(!$files) {
+            foreach ($files as $file) {
 
-        foreach ($files as $file) {
-
-            $this->createGalleryIncidence($file,$incidence->id);
+                $this->createGalleryIncidence($file, $incidence->id);
+            }
         }
 
         return response()->json($incidence, 200);
