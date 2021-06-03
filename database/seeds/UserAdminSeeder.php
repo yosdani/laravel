@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\User;
 use App\RoleUser;
+use Tymon\JWTAuth\Facades\JWTAuth as JWTAuth;
 
 class UserAdminSeeder extends Seeder
 {
@@ -17,6 +18,10 @@ class UserAdminSeeder extends Seeder
         $user-> name = 'admin';
         $user->email = 'admin@example.com';
         $user->password = bcrypt('admin');
+
+        $token_user = JWTAuth::fromUser( $user );
+
+        $user->token_user = $token_user;
 
         $user->save();
 

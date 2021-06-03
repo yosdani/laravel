@@ -19,6 +19,7 @@
 import SideBar from "./sideBar/sideBar";
 import TableData from "./table/tableData";
 export default {
+    props:['user'],
     data(){
         return {
             show:false,
@@ -29,6 +30,7 @@ export default {
         }
     },
     created(){
+        console.log(this.user);
         this.listOfData.push(
             {name: "News",child:[ 'ADD','Show List']},
             {name: "Categories",child:['ADD','Show List']},

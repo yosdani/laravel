@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use JWTAuth;
 
 class RegisterController extends Controller
 {
@@ -65,12 +66,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'lastName' => $data['lastName'],
-            'email' => $data['email'],
-            'phoneNumber' => $data['phoneNumber'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $password = Hash::make($data['password']);
+
+        $user = new User();
+
+        $user->name = $data['name'];
+        $user->lastName = $data['lastName'];
+        $user->email = $data['email'];
+        $user->phoneNumber = $data['phoneNumber'];
+        $user->password = $password;
+        $user->token_user = JWTAuth::fromUser( $user );
+
+        $user->save();
+
+        return $user;
     }
 }
