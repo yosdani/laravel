@@ -2,7 +2,7 @@
     <b-sidebar 
         :visible="true" 
         id="sidebar1" 
-        title="Dashboard" 
+        title="" 
         bg-variant="dark" 
         text-variant="light" 
         shadow 
@@ -10,7 +10,7 @@
     >
       <div class="px-3 py-2">
         <div class="element-sidebar" v-for="(element,i) in elements" :key="i">
-            <div @click="rotateIcon(i)" v-b-toggle="'collapse' + i" class="m-1 nav-title-sidebar">{{element.name}}<b-icon icon="text-right" class="float-right" :id="'icon-sidebar-'+i" aria-hidden="true"></b-icon></div>
+            <div v-b-toggle="'collapse' + i" class="m-1 nav-title-sidebar">{{element.name}}<b-icon v-if="element.name=='Dashboard'?false:true" icon="caret-right-fill" class="float-right icon-sideBar" :id="'icon-sidebar-'+i" aria-hidden="true"></b-icon></div>
             <b-collapse v-for="(subelement, index) in element.child" :key="index" class="nav-body-sidebar" hide :id="'collapse'+i">
                 <div @click="getDatas(element)" style="cursor:pointer;">{{ subelement }}</div>
             </b-collapse>
@@ -20,7 +20,6 @@
 </template>
 <script>
     export default {
-        name: "SideBar",
         props:[ "show", "elements" ],
         data(){
             return {
@@ -32,14 +31,8 @@
             document.getElementById("sidebar1").classList.add("sidebar-dashboard");
         },
         methods: {
-            rotateIcon(index){
-                this.rotate = !this.rotate;
-                if(this.rotate)
-                    document.getElementById("icon-sidebar-"+index).classList.add("rotate-icon");
-                    else
-                    document.getElementById("icon-sidebar-"+index).classList.remove("rotate-icon");
-            },
             getDatas(element){
+                console.log(element);
                this.$emit('getDatas', element);
             }
         },
@@ -54,24 +47,28 @@
 </script>
 <style>
 .nav-title-sidebar{
-    font-size: 1.2rem;
+    font-size: .9rem;
     font-weight: bold;
     display: inline;
 }
 .nav-body-sidebar{
-    margin-left: 40px;
+    margin-left: 15px;
     font-size: 15px;
 }
 .element-sidebar{
-    margin-left: 15px;
+    margin-left: 5px;
     margin-bottom: 15px;
 }
 .sidebar-dashboard{
     top: 58px;
-    width: 200px;
+    width: 150px;
     max-height: 100%;
 }
-.rotate-icon{
+.icon-sideBar{
+    width: 10px;
+    margin-top: 5px;
+}
+.icon-sideBar:active{
     transform: rotate(90deg);
 }
 </style>

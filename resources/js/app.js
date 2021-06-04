@@ -34,6 +34,13 @@ Vue.component(
         name: 'panel-control'
     }
 );
+Vue.component(
+    'side-bar',
+    require('./components/sideBar/sideBar'),
+    {
+        name: 'side-bar'
+    }
+)
 
 const app = new Vue({
     el: '#app'

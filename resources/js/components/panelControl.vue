@@ -1,10 +1,7 @@
 <template>
-    <div>
-        <!--<button class="button-side-bar" @click="showSideBar">
-            <div class="button-side-bar__text">Panel Control</div>
-        </button>-->
+    <div style="margin-top:40px;margin-left:160px;">
         <SideBar :elements="listOfData" @getDatas="getElementForData($event)"/>
-        <div class="container">
+        <div class="dashboard-body">
             <Dashboard 
                 v-if="whatsShow=='Dashboard'"
             />
@@ -63,7 +60,6 @@ export default {
             this.show = !this.show;
         },
         getElementForData(event){
-            console.log(event.name);
             this.whatsShow = event.name;
             switch(event['name']){
                 case "Users":this.getUsersDatas();
@@ -135,44 +131,8 @@ export default {
 }
 </script>
 <style scoped>
-.button-side-bar {
-    display: block;
-    opacity: .96;
-    height: 110px;
-    position: fixed;
-    direction: ltr !important;
-    bottom: 40%;
-    border: 0;
-    width: 30px;
-    background: #1aa9df;
-    cursor: pointer;
-    transition: box-shadow 0.1s ease-in-out;
-    z-index: 1024;
-    border: 1px solid #FFF;
-    outline: none;
-    padding: 0;
-}
-.button-side-bar__text{
-    padding: 0.25rem;
-    color: #ffffff;
-    display: inline-block !important;
-    overflow-wrap: normal !important;
-    word-break: normal !important;
-    word-wrap: normal !important;
-    white-space: nowrap !important;
-    cursor: pointer;
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
-    -webkit-writing-mode: vertical-lr;
-    -moz-writing-mode: vertical-lr;
-    -ms-writing-mode: tb-rl;
-    -o-writing-mode: vertical-lr;
-    writing-mode: vertical-lr;
-}
-.container{
-    width: 70%;
-    left: 0;
-    right: 0;
-    position: absolute;
-    margin-left: 20%;
+
+.dashboard-body{
+    
 }
 </style>
