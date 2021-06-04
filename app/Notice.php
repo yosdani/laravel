@@ -29,6 +29,8 @@ class Notice extends Model
      */
     public function images()
     {
-        return $this->hasMany(\App\NoticeImage::class);
+        return $this->hasMany(NoticeImage::class,'idNotice');
+
+
     }
 }
