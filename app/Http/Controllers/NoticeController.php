@@ -33,7 +33,7 @@ class NoticeController extends Controller
     {
         return response()->json([
             'success' =>true,
-            'notices' => Notice::all()
+            'notices' => Notice::with('images')->get()
         ], 200);
     }
 
@@ -89,7 +89,8 @@ class NoticeController extends Controller
      */
     public function show($id)
     {
-        $notice = Notice::where('id', $id)->with('images')->first();
+
+        $notice = Notice::where('id', $id)->with('images')->get();
         if (!$notice) {
             return response()->json("This notice is not exist", '404');
         }
@@ -129,14 +130,21 @@ class NoticeController extends Controller
      */
     public function store(Request $request)
     {
+        $request->json()->all();
+
         $notice = Notice::create($request->except('img'));
 
-        $files = $request->file('img');
-        foreach ($files as $file) {
-        $this->createGallery($file,$notice->id);
+        if($request->file('img')) {
+            $files[] = $request->file('img');
+
+            foreach ($files as $file) {
+                $this->createGallery($file, $notice->id);
+            }
         }
 
-        return response()->json($notice, 200);
+        $notice1=Notice::where('id',$notice->id)->with('images')->get();
+
+        return response()->json($notice1, 200);
     }
 
     /**
