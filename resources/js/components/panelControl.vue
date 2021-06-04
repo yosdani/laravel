@@ -5,7 +5,14 @@
         </button>-->
         <SideBar :elements="listOfData" @getDatas="getElementForData($event)"/>
         <div class="container">
-            <b-card>
+            <Dashboard 
+                v-if="whatsShow=='Dashboard'"
+            />
+            <Cards
+                v-if="whatsShow=='News'"
+                :listOfData="listDataShow"
+            />
+            <b-card v-if="false">
                 <TableData 
                     :items="listDataShow" 
                     :fields="fields"
@@ -18,6 +25,8 @@
 <script>
 import SideBar from "./sideBar/sideBar";
 import TableData from "./table/tableData";
+import Cards from "./cards/cards"
+import Dashboard from "./dashboard/dashboard"
 export default {
     props:['user'],
     data(){
@@ -26,12 +35,13 @@ export default {
             listOfData : [],
             uri:window.origin,
             listDataShow : [],
-            fields: []
+            fields: [],
+            whatsShow: 'Dashboard'
         }
     },
     created(){
-        console.log(this.user);
         this.listOfData.push(
+            {name: "Dashboard",child: []},
             {name: "News",child:[ 'ADD','Show List']},
             {name: "Categories",child:['ADD','Show List']},
             {name: "State",child:[ 'ADD','Show List']},
@@ -44,13 +54,17 @@ export default {
     },
     components:{
         SideBar,
-        TableData
+        TableData,
+        Cards,
+        Dashboard
     },
     methods:{
         showSideBar(){
             this.show = !this.show;
         },
         getElementForData(event){
+            console.log(event.name);
+            this.whatsShow = event.name;
             switch(event['name']){
                 case "Users":this.getUsersDatas();
                 break;
@@ -77,10 +91,16 @@ export default {
                 })
         },
         getRolesDatas(){
-            fetch(this.uri+'/api/v1/roles')
+            fetch(this.uri+'/api/v1/roles',{
+                method: 'GET',
+                headers: {
+                    'content-type': 'application/json',
+                    'Authorization' : 'Bearer '+this.user.token_user
+                }
+            })
                 .then(response => response.json())
                 .then(response=>{
-                    this.listDataShow = response.users;
+                    this.listDataShow = response;
                     this.fields = [
                         { key: 'name', label: 'Name', sortable: true, sortDirection: 'desc' },
                     ]
@@ -153,5 +173,6 @@ export default {
     left: 0;
     right: 0;
     position: absolute;
+    margin-left: 20%;
 }
 </style>

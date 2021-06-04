@@ -27,7 +27,7 @@ Route::prefix('v1')->group(function () {
     //Route for forgot password, send the email for the url
     Route::post('/password', 'PasswordController@forgotPassword');
 
-    Route::group(['middleware' => ['jwt.auth']], function () {
+    Route::group(['middleware' => ['authJWT']], function () {
         /********* Roles ************/
         //Route for get all roles
         Route::get('/roles', 'RoleController@index');
