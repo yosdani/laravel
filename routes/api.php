@@ -125,6 +125,18 @@ Route::prefix('v1')->group(function () {
         //Route for delete an enrollment
         Route::delete('enrollment/{id}', ['uses'=>'MatriculaController@destroy']);
 
+        /**********  Public Center ************/
+        //Route for get all public center
+        Route::get('publiccenter', ['uses'=>'PublicCenterController@index']);
+        //Route for get an public center by id
+        Route::get('publiccenter/{id}', ['uses'=>'PublicCenterController@show']);
+        //Route for create a new public center
+        Route::post('publiccenter', ['uses'=>'PublicCenterController@store']);
+        //Route for update an public center
+        Route::put('publiccenter/{id}', ['uses'=>'PublicCenterController@update']);
+        //Route for delete an public center
+        Route::delete('publiccenter/{id}', ['uses'=>'PublicCenterController@destroy']);
+
         /**********  Incidence ************/
         //Route for get all Incidences
         Route::get('incidence', ['uses'=>'IncidenceController@index']);
@@ -143,8 +155,5 @@ Route::prefix('v1')->group(function () {
         Route::group(['middleware' => ['admin']], function () {
         });
     });
-
-
-
 
 });
