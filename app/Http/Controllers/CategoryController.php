@@ -9,9 +9,17 @@ use App\Category;
 class CategoryController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\JsonResponse
+     * List of categories
+     * @OA\Get(
+     *      path="/category",
+     *      tags={"Categories"},
+     *      summary="Get list of categories",
+     *      description="Returns list of categories",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation")
+     *       )
+     *     )
      */
     public function index(): JsonResponse
     {
@@ -31,10 +39,34 @@ class CategoryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Create a new Category
+     * @param Request $request
+     * @return JsonResponse
+     *  * @OA\Post (
+     *      path="/category",
+     *      tags={"Categories"},
+     *      summary="Create a new category",
+     *      description="Returns created category",
+     *     @OA\Parameter(
+     *          name="request",
+     *          description="request all data",
+     *          required=true,
+     *          in="path",
+     *      ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="Successful operation",
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      )
+     * )
      */
     public function store(Request $request): JsonResponse
     {
@@ -50,10 +82,39 @@ class CategoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Get category by id
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @param int $id
+     * @return JsonResponse
+     *
+     * @OA\Get (
+     *      path="/category/{id}",
+     *      tags={"Categories"},
+     *      summary="Get a category by id",
+     *      description="Returns the category",
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Category id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="The category not be found",
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      )
+     * )
      */
     public function show($id): JsonResponse
     {
@@ -83,11 +144,38 @@ class CategoryController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the existing category by id
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     * @OA\Put(
+     *      path="/category/{id}",
+     *      tags={"Categories"},
+     *      summary="Update a category",
+     *      description="Returns updated category",
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Category id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      )
+     * )
      */
     public function update(Request $request, $id): JsonResponse
     {
@@ -108,10 +196,37 @@ class CategoryController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete the existing category
+     * @param int $id
+     * @return JsonResponse
+     * @OA\Delete  (
+     *      path="/category/{id}",
+     *      tags={"Categories"},
+     *      summary="Delete a category",
+     *      description="Returns Json response",
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Category id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     * )
      */
     public function destroy($id): JsonResponse
     {

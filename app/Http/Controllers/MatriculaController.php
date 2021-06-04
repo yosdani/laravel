@@ -9,15 +9,23 @@ use App\Matricula;
 class MatriculaController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\JsonResponse
+     * List of enrollments
+     * @OA\Get(
+     *      path="/enrollment",
+     *      tags={"Enrollments"},
+     *      summary="Get list of enrollments",
+     *      description="Returns list of enrollments",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation")
+     *       )
+     *     )
      */
     public function index():JsonResponse
     {
         return response()->json([
             'success' =>true,
-            'matriculas' => Matricula::all()
+            'enrollments' => Matricula::all()
         ], 200);
     }
 
@@ -32,24 +40,77 @@ class MatriculaController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Create a new Enrollment
+     * @param Request $request
+     * @return JsonResponse
+     *  * @OA\Post (
+     *      path="/enrollment",
+     *      tags={"Enrollments"},
+     *      summary="Create a new enrollment",
+     *      description="Returns created enrollment",
+     *     @OA\Parameter(
+     *          name="request",
+     *          description="request all data",
+     *          required=true,
+     *          in="path",
+     *      ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="Successful operation",
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      )
+     * )
      */
     public function store(Request $request):JsonResponse
     {
         return response()->json([
             'success' => true,
-            'matricula' => Matricula::create($request->all())
+            'enrollment' => Matricula::create($request->all())
         ], 201);
     }
 
     /**
-     * Display the specified resource.
+     * Get enrollment by id
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @param int $id
+     * @return JsonResponse
+     *
+     * @OA\Get (
+     *      path="/enrollment/{id}",
+     *      tags={"Enrollments"},
+     *      summary="Get a enrollment by id",
+     *      description="Returns the enrollment",
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Enrollment id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="The enrollment not be found",
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      )
+     * )
      */
     public function show($id):JsonResponse
     {
@@ -62,7 +123,7 @@ class MatriculaController extends Controller
 
         return response()->json([
             'success'=>true,
-            'matricula'=>Matricula::find($id)
+            'enrollment'=>Matricula::find($id)
         ], 200);
     }
 
@@ -78,11 +139,38 @@ class MatriculaController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the existing enrollment by id
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     * @OA\Put(
+     *      path="/enrollment/{id}",
+     *      tags={"Enrollments"},
+     *      summary="Update a enrollment",
+     *      description="Returns updated enrollment",
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Enrollment id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      )
+     * )
      */
     public function update(Request $request, $id):JsonResponse
     {
@@ -95,15 +183,42 @@ class MatriculaController extends Controller
 
         return response()->json([
             'success' => true,
-            'matricula' => Matricula::find($id)->update($request->all())
+            'enrollment' => Matricula::find($id)->update($request->all())
         ], 200);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete the existing enrollment
+     * @param int $id
+     * @return JsonResponse
+     * @OA\Delete  (
+     *      path="/enrollment/{id}",
+     *      tags={"Enrollments"},
+     *      summary="Delete a enrollment",
+     *      description="Returns Json response",
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Enrollment id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     * )
      */
     public function destroy($id):JsonResponse
     {
@@ -117,7 +232,7 @@ class MatriculaController extends Controller
 
         return response()->json([
             'success' =>true,
-            'message' =>'The matricula was successfully deleted'
+            'message' =>'The enrollment was successfully deleted'
         ]);
     }
 }
