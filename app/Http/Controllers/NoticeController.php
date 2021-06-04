@@ -134,11 +134,11 @@ class NoticeController extends Controller
 
         $notice = Notice::create($request->except('img'));
 
-        if($request->file('img')) {
-            $files[] = $request->file('img');
-
+        if($request->img) {
+            $files[] = $request->img;
             foreach ($files as $file) {
-                $this->createGallery($file, $notice->id);
+                $this->saveimage($file,$notice->id);
+
             }
         }
 
@@ -245,25 +245,54 @@ class NoticeController extends Controller
         return  response()->json('deleted', 200);
     }
 
+
+
     /**
-     * Create a Gallery for the Notice
+     * Get to image in base64 decode
+     * @param string $base64Image
      *
-     * @param $id
-     * @param file
+     * @return image
+     */
+    public function getB64Image($base64Image){
+        $imageServiceStr = substr($base64Image, strpos($base64Image, ",")+1);
+        $image = base64_decode($imageServiceStr);
+        return $image;
+    }
+
+    /**
+     * Get to image in base64 extension
+     * @param string $base64Image
+     *
+     * @return array
+     */
+
+    public function getB64Extension($base64Image, $full=null){
+
+        preg_match("/^data:image\/(.*);base64/i",$base64Image, $imgExtension);
+
+        return ($full) ?  $imgExtension[0] : $imgExtension[1];
+
+    }
+    /**
+     * Store to image in Storage
+     * @param string $base64Image
+     *
      * @return void
      */
-    public function createGallery($file, $id)
+    public function saveimage($base64Image,$id)
     {
 
-        $image = new NoticeImage();
-        $Noticeimage = $file;
-        $route = public_path() . '/galery/';
-        $imageName = $Noticeimage->getClientOriginalName();
-        $Noticeimage->move($route, $imageName);
-        $image->image = $imageName;
-        $image->idNotice = $id;
+        $img =$this->getB64Image($base64Image);
+
+        $imgExtension = $this->getB64Extension($base64Image);
+        $imageName = 'notice_image'. time() . '.' . $imgExtension;
+
+        Storage::disk('local')->put( $imageName, $img);
+        $url=public_path().'\storage\ '.$imageName;
+        $image=new NoticeImage();
+        $image->image=$imageName;
+        $image->idNotice=$id;
+        $image->urlImage=$url;
         $image->save();
-
-
     }
 }

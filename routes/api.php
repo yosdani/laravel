@@ -114,7 +114,7 @@ Route::prefix('v1')->group(function () {
         Route::delete('category/{id}', ['uses'=>'CategoryController@destroy']);
 
         /**********  Enrollment ************/
-        //Route for get all categories
+        //Route for get all enrollment
         Route::get('enrollment', ['uses'=>'MatriculaController@index']);
         //Route for get an enrollment by id
         Route::get('enrollment/{id}', ['uses'=>'MatriculaController@show']);
@@ -155,5 +155,6 @@ Route::prefix('v1')->group(function () {
         Route::group(['middleware' => ['admin']], function () {
         });
     });
+
 
 });

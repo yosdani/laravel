@@ -15,8 +15,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
-
+use Illuminate\Support\Facades\Storage;
 class IncidenceController extends Controller
 {
     /**
@@ -138,12 +137,11 @@ class IncidenceController extends Controller
 
 
 
-
-        if($request->file('img')) {
-            $files[] = $request->file('img');
+        if($request->img) {
+            $files[] = $request->img;
             foreach ($files as $file) {
+            $this->saveimage($file,$incidence->id);
 
-                $this->createGalleryIncidence($file, $incidence->id);
             }
         }
         $incidence1=Incidence::where('id',$incidence->id)->with('images')->get();
@@ -287,24 +285,53 @@ class IncidenceController extends Controller
     }
 
 
+
     /**
-     * Create a Gallery for the Incidences
+     * Get to image in base64 decode
+     * @param string $base64Image
      *
-     * @param $id
-     * @param file
+     * @return image
+     */
+    public function getB64Image($base64Image){
+        $imageServiceStr = substr($base64Image, strpos($base64Image, ",")+1);
+        $image = base64_decode($imageServiceStr);
+        return $image;
+    }
+
+    /**
+     * Get to image in base64 extension
+     * @param string $base64Image
+     *
+     * @return array
+     */
+
+    public function getB64Extension($base64Image, $full=null){
+
+        preg_match("/^data:image\/(.*);base64/i",$base64Image, $imgExtension);
+
+        return ($full) ?  $imgExtension[0] : $imgExtension[1];
+
+    }
+    /**
+     * Store to image in Storage
+     * @param string $base64Image
+     *
      * @return void
      */
-    public function createGalleryIncidence($file,$id): void
+    public function saveimage($base64Image,$id)
     {
 
+        $img =$this->getB64Image($base64Image);
+
+        $imgExtension = $this->getB64Extension($base64Image);
+        $imageName = 'incidence_image'. time() . '.' . $imgExtension;
+
+        Storage::disk('local')->put( $imageName, $img);
+        $url=public_path().'\storage\ '.$imageName;
         $image=new IncidenceImage();
-        $incidenceImage=$file;
-        $route = public_path().'/galery_incidence/';
-        $imageName=$incidenceImage->getClientOriginalName();
-        $incidenceImage->move($route, $imageName);
         $image->image=$imageName;
         $image->idIncidence=$id;
-        $image->urlImage=$route;
+        $image->urlImage=$url;
         $image->save();
     }
 }
