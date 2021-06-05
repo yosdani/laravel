@@ -139,15 +139,15 @@ Route::prefix('v1')->group(function () {
 
         /**********  Incidence ************/
         //Route for get all Incidences
-        Route::get('incidence', ['uses'=>'IncidenceController@index']);
+        Route::get('incidence', ['uses'=>'Api\IncidenceController@index']);
         //Route for get an incidence by id
-        Route::get('incidence/{id}', ['uses'=>'IncidenceController@show']);
+        Route::get('incidence/{id}', ['uses'=>'Api\IncidenceController@show']);
         //Route for create a new incidence
-        Route::post('incidence', ['uses'=>'IncidenceController@store']);
+        Route::post('incidence', ['uses'=>'Api\IncidenceController@store']);
         //Route for update an incidence
-        Route::put('incidence/{id}', ['uses'=>'IncidenceController@update']);
+        Route::put('incidence/{id}', ['uses'=>'Api\IncidenceController@update']);
         //Route for delete an incidence
-        Route::delete('incidence/{id}', ['uses'=>'IncidenceController@destroy']);
+        Route::delete('incidence/{id}', ['uses'=>'Api\IncidenceController@destroy']);
 
         //Route for logout
         Route::get('/logout', 'AuthUserController@logout');

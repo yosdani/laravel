@@ -15,7 +15,7 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 // Import Bootstrap an BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-
+import router from './router';
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
@@ -27,14 +27,14 @@ Vue.use(IconsPlugin)
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component(
-    'panel-control',
-    require('./components/panelControl'),
-    {
-        name: 'panel-control'
-    }
-);
+import App from './components/App.vue';
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    components: {
+        App
+    },
+    router,
+    render: h => h(App)
+
 });

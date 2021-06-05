@@ -25,16 +25,16 @@ class PublicCenterController extends Controller
     {
         return response()->json([
             'success' =>true,
-            'public centers' => PublicCenter::all()
+            'public_centers' => PublicCenter::all()
         ], 200);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function create()
+    public function create(): JsonResponse
     {
         //
     }
@@ -112,7 +112,7 @@ class PublicCenterController extends Controller
      *      )
      * )
      */
-    public function show($id):JsonResponse
+    public function show(int $id):JsonResponse
     {
         if (!PublicCenter::find($id)) {
             return response()->json([
@@ -131,9 +131,9 @@ class PublicCenterController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function edit($id)
+    public function edit(int $id): JsonResponse
     {
         //
     }
@@ -172,7 +172,7 @@ class PublicCenterController extends Controller
      *      )
      * )
      */
-    public function update(Request $request, $id):JsonResponse
+    public function update(Request $request, int $id):JsonResponse
     {
         if (!PublicCenter::find($id)) {
             return response()->json([
@@ -220,7 +220,7 @@ class PublicCenterController extends Controller
      *      ),
      * )
      */
-    public function destroy($id):JsonResponse
+    public function destroy(int $id):JsonResponse
     {
         if (!PublicCenter::find($id)) {
             return response()->json([

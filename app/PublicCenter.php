@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PublicCenter extends Model
 {
-    protected $table = 'table_public_center';
+    protected $table = 'public_center';
 
     protected $fillable = [ 'name' ];
 }

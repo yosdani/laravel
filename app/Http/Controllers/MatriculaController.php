@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use App\Matricula;
+use App\Enrolment;
 
 class MatriculaController extends Controller
 {
@@ -25,7 +25,7 @@ class MatriculaController extends Controller
     {
         return response()->json([
             'success' =>true,
-            'enrollments' => Matricula::all()
+            'enrollments' => Enrolment::all()
         ], 200);
     }
 
@@ -73,7 +73,7 @@ class MatriculaController extends Controller
     {
         return response()->json([
             'success' => true,
-            'enrollment' => Matricula::create($request->all())
+            'enrollment' => Enrolment::create($request->all())
         ], 201);
     }
 
@@ -114,7 +114,7 @@ class MatriculaController extends Controller
      */
     public function show($id):JsonResponse
     {
-        if (!Matricula::find($id)) {
+        if (!Enrolment::find($id)) {
             return response()->json([
                 'success'=>false,
                 'message'=>'The specified id does not exist'
@@ -123,7 +123,7 @@ class MatriculaController extends Controller
 
         return response()->json([
             'success'=>true,
-            'enrollment'=>Matricula::find($id)
+            'enrollment'=>Enrolment::find($id)
         ], 200);
     }
 
@@ -174,7 +174,7 @@ class MatriculaController extends Controller
      */
     public function update(Request $request, $id):JsonResponse
     {
-        if (!Matricula::find($id)) {
+        if (!Enrolment::find($id)) {
             return response()->json([
                 'success' => false,
                 'message' =>'The specified id does not exist'
@@ -183,7 +183,7 @@ class MatriculaController extends Controller
 
         return response()->json([
             'success' => true,
-            'enrollment' => Matricula::find($id)->update($request->all())
+            'enrollment' => Enrolment::find($id)->update($request->all())
         ], 200);
     }
 
@@ -222,13 +222,13 @@ class MatriculaController extends Controller
      */
     public function destroy($id):JsonResponse
     {
-        if (!Matricula::find($id)) {
+        if (!Enrolment::find($id)) {
             return response()->json([
                 'success' =>false,
                 'message' =>'The specified id does not exist'
             ], 400);
         }
-        Matricula::destroy($id);
+        Enrolment::destroy($id);
 
         return response()->json([
             'success' =>true,

@@ -21,8 +21,8 @@ class UserAdminSeeder extends Seeder
         $user->save();
 
         $roleUser = new RoleUser();
-        $roleUser-> user_id = $user->id;
-        $roleUser-> role_id = 1;
+        $roleUser->user_id = $user->id;
+        $roleUser->role_id = 1;
 
         $roleUser->save();
     }

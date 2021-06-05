@@ -11,40 +11,47 @@
 |
 */
 
-Route::get('/', function () {
-    return redirect('/home');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
+
+Route::prefix('admin')->group(function () {
+    //Routes resources for Incidence
+    Route::resource('incidences', 'IncidenceController', [
+        'only' => [
+            'index', 'store', 'show', 'update', 'destroy',
+        ],
+    ]);
+
+});
+
 
 //Routes resources for category
 Route::resource('category', 'CategoryController', [
     'only' => [
-        'index','store','show','update','destroy'
-    ]
+        'index', 'store', 'show', 'update', 'destroy',
+    ],
 ]);
 
 //Routes resources for users
 Route::resource('users', 'UserController', [
     'only' => [
-        'index','store','show','update','destroy'
-    ]
+        'index', 'store', 'show', 'update', 'destroy',
+    ],
 ]);
 
 //Routes resources for public centers
 Route::resource('public_center', 'PublicCenterController', [
     'only' => [
-        'index','store','show','update','destroy'
-    ]
+        'index', 'store', 'show', 'update', 'destroy',
+    ],
 ]);
 
 //Routes resources for matriculas
 Route::resource('matriculas', 'MatriculaController', [
     'only' => [
-        'index','store','show','update','destroy'
-    ]
+        'index', 'store', 'show', 'update', 'destroy',
+    ],
 ]);
 
 Route::get('/token', 'CategoryController@getToken');

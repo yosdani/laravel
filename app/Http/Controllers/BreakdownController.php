@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Breakdown;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -10,16 +11,6 @@ class BreakdownController extends Controller
 {
     /**
      * List of breakdowns
-     * @OA\Get(
-     *      path="/breakdown",
-     *      tags={"Breakdown"},
-     *      summary="Get list of breakdowns",
-     *      description="Returns list of breakdowns",
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation")
-     *       )
-     *     )
      */
     public function index()
     {
@@ -33,9 +24,9 @@ class BreakdownController extends Controller
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @return Validator
      */
-    protected function validator(array $data): \Illuminate\Contracts\Validation\Validator
+    protected function validator(array $data): Validator
     {
         return Validator::make($data, [
             'name' => 'required|string|max:255',
