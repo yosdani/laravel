@@ -30,4 +30,3 @@ class CreateTableCategory extends Migration
         Schema::dropIfExists('table_category');
     }
 }
-

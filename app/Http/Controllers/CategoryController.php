@@ -249,4 +249,3 @@ class CategoryController extends Controller
         echo csrf_token();
     }
 }
-

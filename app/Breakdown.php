@@ -21,7 +21,4 @@ class Breakdown extends Model
     protected $fillable = [
         'name',
     ];
-
-
-
 }

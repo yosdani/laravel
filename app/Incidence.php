@@ -50,8 +50,7 @@ class Incidence extends Model
      */
     public function images()
     {
-
-        return $this->hasMany(IncidenceImage::class,'idIncidence');
+        return $this->hasMany(IncidenceImage::class, 'idIncidence');
     }
 
     /**

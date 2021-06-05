@@ -16,6 +16,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+
 class IncidenceController extends Controller
 {
     /**
@@ -90,8 +91,7 @@ class IncidenceController extends Controller
      */
     public function show($id): JsonResponse
     {
-
-        $incidence=Incidence::where('id',$id)->with('images')->get();
+        $incidence=Incidence::where('id', $id)->with('images')->get();
 
         if (!$incidence) {
             return response()->json("This incidence is not exist", '404');
@@ -137,14 +137,13 @@ class IncidenceController extends Controller
 
 
 
-        if($request->img) {
+        if ($request->img) {
             $files[] = $request->img;
             foreach ($files as $file) {
-            $this->saveimage($file,$incidence->id);
-
+                $this->saveimage($file, $incidence->id);
             }
         }
-        $incidence1=Incidence::where('id',$incidence->id)->with('images')->get();
+        $incidence1=Incidence::where('id', $incidence->id)->with('images')->get();
 
         return response()->json($incidence1, 200);
     }
@@ -292,7 +291,8 @@ class IncidenceController extends Controller
      *
      * @return image
      */
-    public function getB64Image($base64Image){
+    public function getB64Image($base64Image)
+    {
         $imageServiceStr = substr($base64Image, strpos($base64Image, ",")+1);
         $image = base64_decode($imageServiceStr);
         return $image;
@@ -305,12 +305,11 @@ class IncidenceController extends Controller
      * @return array
      */
 
-    public function getB64Extension($base64Image, $full=null){
-
-        preg_match("/^data:image\/(.*);base64/i",$base64Image, $imgExtension);
+    public function getB64Extension($base64Image, $full=null)
+    {
+        preg_match("/^data:image\/(.*);base64/i", $base64Image, $imgExtension);
 
         return ($full) ?  $imgExtension[0] : $imgExtension[1];
-
     }
     /**
      * Store to image in Storage
@@ -318,15 +317,14 @@ class IncidenceController extends Controller
      *
      * @return void
      */
-    public function saveimage($base64Image,$id)
+    public function saveimage($base64Image, $id)
     {
-
         $img =$this->getB64Image($base64Image);
 
         $imgExtension = $this->getB64Extension($base64Image);
         $imageName = 'incidence_image'. time() . '.' . $imgExtension;
 
-        Storage::disk('local')->put( $imageName, $img);
+        Storage::disk('local')->put($imageName, $img);
         $url=public_path().'\storage\ '.$imageName;
         $image=new IncidenceImage();
         $image->image=$imageName;

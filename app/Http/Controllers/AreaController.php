@@ -218,7 +218,6 @@ class AreaController extends Controller
      */
     public function destroy(int $id): JsonResponse
     {
-
         $area = Area::find($id);
 
         if (!$area) {

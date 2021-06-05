@@ -89,7 +89,6 @@ class NoticeController extends Controller
      */
     public function show($id)
     {
-
         $notice = Notice::where('id', $id)->with('images')->get();
         if (!$notice) {
             return response()->json("This notice is not exist", '404');
@@ -134,15 +133,14 @@ class NoticeController extends Controller
 
         $notice = Notice::create($request->except('img'));
 
-        if($request->img) {
+        if ($request->img) {
             $files[] = $request->img;
             foreach ($files as $file) {
-                $this->saveimage($file,$notice->id);
-
+                $this->saveimage($file, $notice->id);
             }
         }
 
-        $notice1=Notice::where('id',$notice->id)->with('images')->get();
+        $notice1=Notice::where('id', $notice->id)->with('images')->get();
 
         return response()->json($notice1, 200);
     }
@@ -253,7 +251,8 @@ class NoticeController extends Controller
      *
      * @return image
      */
-    public function getB64Image($base64Image){
+    public function getB64Image($base64Image)
+    {
         $imageServiceStr = substr($base64Image, strpos($base64Image, ",")+1);
         $image = base64_decode($imageServiceStr);
         return $image;
@@ -266,12 +265,11 @@ class NoticeController extends Controller
      * @return array
      */
 
-    public function getB64Extension($base64Image, $full=null){
-
-        preg_match("/^data:image\/(.*);base64/i",$base64Image, $imgExtension);
+    public function getB64Extension($base64Image, $full=null)
+    {
+        preg_match("/^data:image\/(.*);base64/i", $base64Image, $imgExtension);
 
         return ($full) ?  $imgExtension[0] : $imgExtension[1];
-
     }
     /**
      * Store to image in Storage
@@ -279,15 +277,14 @@ class NoticeController extends Controller
      *
      * @return void
      */
-    public function saveimage($base64Image,$id)
+    public function saveimage($base64Image, $id)
     {
-
         $img =$this->getB64Image($base64Image);
 
         $imgExtension = $this->getB64Extension($base64Image);
         $imageName = 'notice_image'. time() . '.' . $imgExtension;
 
-        Storage::disk('local')->put( $imageName, $img);
+        Storage::disk('local')->put($imageName, $img);
         $url=public_path().'\storage\ '.$imageName;
         $image=new NoticeImage();
         $image->image=$imageName;

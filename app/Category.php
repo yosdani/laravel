@@ -31,4 +31,3 @@ class Category extends Model
         return $this->belongsTo(User::class, 'table_role_user');
     }
 }
-

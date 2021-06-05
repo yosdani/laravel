@@ -30,4 +30,3 @@ class CreateTablePublicCenter extends Migration
         Schema::dropIfExists('table_public_center');
     }
 }
-
