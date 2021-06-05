@@ -1,6 +1,7 @@
 <template>
     <div style="margin-top:40px;margin-left:160px;">
         <SideBar :elements="listOfData" @getDatas="getElementForData($event)"/>
+        <BarFilters />
         <div class="dashboard-body">
             <Dashboard 
                 v-if="whatsShow=='Dashboard'"
@@ -24,6 +25,7 @@ import SideBar from "./sideBar/sideBar";
 import TableData from "./table/tableData";
 import Cards from "./cards/cards"
 import Dashboard from "./dashboard/dashboard"
+import BarFilters from "./bar-filters/bar-filters.vue"
 export default {
     props:['user'],
     data(){
@@ -53,7 +55,8 @@ export default {
         SideBar,
         TableData,
         Cards,
-        Dashboard
+        Dashboard,
+        BarFilters
     },
     methods:{
         showSideBar(){
@@ -132,7 +135,4 @@ export default {
 </script>
 <style scoped>
 
-.dashboard-body{
-    
-}
 </style>
