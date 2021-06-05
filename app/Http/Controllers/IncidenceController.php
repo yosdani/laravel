@@ -136,13 +136,19 @@ class IncidenceController extends Controller
         $incidence = Incidence::create($request->except('img'));
 
 
-
+         $files= array();
         if($request->img) {
-            $files[] = $request->img;
-            foreach ($files as $file) {
-            $this->saveimage($file,$incidence->id);
+            $i=0;
+            foreach ($request->img as $image) {
 
-            }
+                        $files[] = $image;
+
+
+                        $this->saveimage($image, $incidence->id);
+                        $i++;
+                    }
+
+
         }
         $incidence1=Incidence::where('id',$incidence->id)->with('images')->get();
 
@@ -321,17 +327,18 @@ class IncidenceController extends Controller
     public function saveimage($base64Image,$id)
     {
 
-        $img =$this->getB64Image($base64Image);
 
-        $imgExtension = $this->getB64Extension($base64Image);
-        $imageName = 'incidence_image'. time() . '.' . $imgExtension;
+          $img = $this->getB64Image($base64Image);
 
-        Storage::disk('local')->put( $imageName, $img);
-        $url=public_path().'\storage\ '.$imageName;
-        $image=new IncidenceImage();
-        $image->image=$imageName;
-        $image->idIncidence=$id;
-        $image->urlImage=$url;
-        $image->save();
-    }
+          $imgExtension = $this->getB64Extension($base64Image);
+          $imageName = 'incidence_image' .uniqid(). time() . '.' . $imgExtension;
+          Storage::disk('local')->put($imageName, $img);
+         $url=storage_path('storage '). $imageName;
+          $image = new IncidenceImage();
+          $image->image = $imageName;
+          $image->idIncidence = $id;
+          $image->urlImage =$url;
+          $image->save();
+      }
+
 }

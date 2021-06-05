@@ -134,12 +134,19 @@ class NoticeController extends Controller
 
         $notice = Notice::create($request->except('img'));
 
+        $files= array();
         if($request->img) {
-            $files[] = $request->img;
-            foreach ($files as $file) {
-                $this->saveimage($file,$notice->id);
+
+            foreach ($request->img as $image) {
+
+                $files[] = $image;
+
+
+                $this->saveimage($image, $notice->id);
 
             }
+
+
         }
 
         $notice1=Notice::where('id',$notice->id)->with('images')->get();
@@ -285,7 +292,7 @@ class NoticeController extends Controller
         $img =$this->getB64Image($base64Image);
 
         $imgExtension = $this->getB64Extension($base64Image);
-        $imageName = 'notice_image'. time() . '.' . $imgExtension;
+        $imageName = 'notice_image'. time() .uniqid(). '.' . $imgExtension;
 
         Storage::disk('local')->put( $imageName, $img);
         $url=public_path().'\storage\ '.$imageName;
