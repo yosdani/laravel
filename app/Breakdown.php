@@ -21,4 +21,15 @@ class Breakdown extends Model
     protected $fillable = [
         'name',
     ];
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @return  HasMany
+     */
+
+    public function incidence()
+    {
+        return $this->hasMany(Incidence::class,'breakdown_id');
+    }
 }
