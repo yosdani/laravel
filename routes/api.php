@@ -52,42 +52,48 @@ Route::prefix('v1')->group(function () {
         //Route for delete state
         Route::delete('states/{id}', ['uses'=>'StateController@destroy']);
 
-    /**********  Areas ************/
-    //Route for get all areas
-    Route::get('areas', ['uses'=>'AreaController@index']);
-    //Route for get an area by id
-    Route::get('areas/{id}', ['uses'=>'AreaController@show']);
-    //Route for create a new area
-    Route::post('areas', ['uses'=>'AreaController@store']);
-    //Route for update an area
-    Route::put('areas/{id}', ['uses'=>'AreaController@update']);
-    //Route for delete an area
-    Route::delete('areas/{id}', ['uses'=>'AreaController@destroy']);
+        /**********Interest Category ********************************/
+        //Route for get all interest categories
+        Route::get('interest_categories', 'InterestCategoryController@index');
+        //Route for get interest categories by id
+        Route::get('interest_categories/{id}', 'InterestCategoryController@show');
 
-    /**********  Breakdown ************/
-    //Route for get all breakdowns
-    Route::get('breakdown', ['uses'=>'BreakdownController@index']);
-    //Route for get an breakdown by id
-    Route::get('breakdown/{id}', ['uses'=>'BreakdownController@show']);
-    //Route for create a new breakdown
-    Route::post('breakdown', ['uses'=>'BreakdownController@store']);
-    //Route for update an breakdown
-    Route::put('breakdown/{id}', ['uses'=>'BreakdownController@update']);
-    //Route for delete an breakdown
-    Route::delete('breakdown/{id}', ['uses'=>'BreakdownController@destroy']);
+        /**********  Areas ************/
+        //Route for get all areas
+        Route::get('areas', ['uses'=>'AreaController@index']);
+        //Route for get an area by id
+        Route::get('areas/{id}', ['uses'=>'AreaController@show']);
+        //Route for create a new area
+        Route::post('areas', ['uses'=>'AreaController@store']);
+        //Route for update an area
+        Route::put('areas/{id}', ['uses'=>'AreaController@update']);
+        //Route for delete an area
+        Route::delete('areas/{id}', ['uses'=>'AreaController@destroy']);
+
+        /**********  Breakdown ************/
+        //Route for get all breakdowns
+        Route::get('breakdown', ['uses'=>'BreakdownController@index']);
+        //Route for get an breakdown by id
+        Route::get('breakdown/{id}', ['uses'=>'BreakdownController@show']);
+        //Route for create a new breakdown
+        Route::post('breakdown', ['uses'=>'BreakdownController@store']);
+        //Route for update an breakdown
+        Route::put('breakdown/{id}', ['uses'=>'BreakdownController@update']);
+        //Route for delete an breakdown
+        Route::delete('breakdown/{id}', ['uses'=>'BreakdownController@destroy']);
 
 
         /**********  Notice ************/
-    //Route for get all notices
-    Route::get('notice', ['uses'=>'NoticeController@index']);
-    //Route for get an notice by id
-    Route::get('notice/{id}', ['uses'=>'NoticeController@show']);
-    //Route for create a new notice
-    Route::post('notice', ['uses'=>'NoticeController@store']);
-    //Route for update an notice
-    Route::put('notice/{id}', ['uses'=>'NoticeController@update']);
-    //Route for delete an notice
-    Route::delete('notice/{id}', ['uses'=>'NoticeController@destroy']);
+        //Route for get all notices
+        Route::get('notice', ['uses'=>'NoticeController@index']);
+        //Route for get an notice by id
+        Route::get('notice/{id}', ['uses'=>'NoticeController@show']);
+        //Route for create a new notice
+        Route::post('notice', ['uses'=>'NoticeController@store']);
+        //Route for update an notice
+        Route::put('notice/{id}', ['uses'=>'NoticeController@update']);
+        //Route for delete an notice
+        Route::delete('notice/{id}', ['uses'=>'NoticeController@destroy']);
 
         /**********  Tags ************/
         //Route for get all tags
@@ -155,6 +161,4 @@ Route::prefix('v1')->group(function () {
         Route::group(['middleware' => ['admin']], function () {
         });
     });
-
-
 });

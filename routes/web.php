@@ -54,4 +54,11 @@ Route::resource('matriculas', 'MatriculaController', [
     ],
 ]);
 
+//Routes resources for interest categories, the index methods are in api route
+Route::resource('interest_categories', 'InterestCategoryController', [
+    'only' => [
+        'store','update','destroy'
+    ]
+]);
+
 Route::get('/token', 'CategoryController@getToken');
