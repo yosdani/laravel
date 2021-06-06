@@ -20,7 +20,7 @@ class Area extends Model
      * @var string
      */
     protected $fillable = [
-        'name','id_user',
+        'name','user_id',
     ];
 
     /**
@@ -30,6 +30,6 @@ class Area extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'id_user', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

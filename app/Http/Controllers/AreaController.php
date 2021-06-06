@@ -170,17 +170,23 @@ class AreaController extends Controller
      */
     public function update(Request $request, int $id): JsonResponse
     {
-        $parameters = $request->only('name');
 
         $area = Area::find($id);
         if (!$area) {
             return response()->json("This area is not exist", '400');
         }
-        $area->name = $parameters['name'];
+        $area->name = $request->name;
 
         $area->save();
+        return response()->json([
+            'area'=>$area,
+            'success' => true,
+            'message' => 'The area has been updated successfully'
+        ], 200);
 
-        return response()->json('updated', 200);
+
+
+
     }
 
     /**
