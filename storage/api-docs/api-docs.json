@@ -19,6 +19,142 @@
         }
     ],
     "paths": {
+        "/areas": {
+            "get": {
+                "tags": [
+                    "Areas"
+                ],
+                "summary": "Get list of areas",
+                "description": "Returns list of areas",
+                "operationId": "App\\Http\\Controllers\\AreaController::index",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Areas"
+                ],
+                "summary": "Create a new area",
+                "description": "Returns created area",
+                "operationId": "App\\Http\\Controllers\\AreaController::store",
+                "parameters": [
+                    {
+                        "name": "request",
+                        "in": "path",
+                        "description": "request all data",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/area/{id}": {
+            "get": {
+                "tags": [
+                    "Areas"
+                ],
+                "summary": "Get a area by id",
+                "description": "Returns the area",
+                "operationId": "App\\Http\\Controllers\\AreaController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Area id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "The area not be found"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/areas/{id}": {
+            "put": {
+                "tags": [
+                    "Areas"
+                ],
+                "summary": "Update a area",
+                "description": "Returns updated area",
+                "operationId": "App\\Http\\Controllers\\AreaController::update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Area id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Areas"
+                ],
+                "summary": "Delete a area",
+                "description": "Returns Json response",
+                "operationId": "App\\Http\\Controllers\\AreaController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Area id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
         "/register": {
             "post": {
                 "tags": [
@@ -131,6 +267,726 @@
                 }
             }
         },
+        "/breakdown": {
+            "get": {
+                "tags": [
+                    "Breakdown"
+                ],
+                "summary": "Get list of breakdowns",
+                "description": "Returns list of breakdowns",
+                "operationId": "App\\Http\\Controllers\\BreakdownController::index",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Breakdown"
+                ],
+                "summary": "Create a new breakdown",
+                "description": "Returns created breakdown",
+                "operationId": "App\\Http\\Controllers\\BreakdownController::store",
+                "parameters": [
+                    {
+                        "name": "request",
+                        "in": "path",
+                        "description": "request all data",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/breakdown/{id}": {
+            "get": {
+                "tags": [
+                    "Breakdown"
+                ],
+                "summary": "Get a breakdown by id",
+                "description": "Returns the breakdown",
+                "operationId": "App\\Http\\Controllers\\BreakdownController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Breakdown id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "The breakdown not be found"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Breakdown"
+                ],
+                "summary": "Update a breakdown",
+                "description": "Returns updated breakdown",
+                "operationId": "App\\Http\\Controllers\\BreakdownController::update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Breakdown id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Breakdown"
+                ],
+                "summary": "Delete a breakdown",
+                "description": "Returns Json response",
+                "operationId": "App\\Http\\Controllers\\BreakdownController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Breakdown id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/category": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Get list of categories",
+                "description": "Returns list of categories",
+                "operationId": "App\\Http\\Controllers\\CategoryController::index",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Create a new category",
+                "description": "Returns created category",
+                "operationId": "App\\Http\\Controllers\\CategoryController::store",
+                "parameters": [
+                    {
+                        "name": "request",
+                        "in": "path",
+                        "description": "request all data",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/category/{id}": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Get a category by id",
+                "description": "Returns the category",
+                "operationId": "App\\Http\\Controllers\\CategoryController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Category id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "The category not be found"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Update a category",
+                "description": "Returns updated category",
+                "operationId": "App\\Http\\Controllers\\CategoryController::update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Category id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Delete a category",
+                "description": "Returns Json response",
+                "operationId": "App\\Http\\Controllers\\CategoryController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Category id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/incidence": {
+            "get": {
+                "tags": [
+                    "Incidence"
+                ],
+                "summary": "Get list of incidences",
+                "description": "Returns list of incidences",
+                "operationId": "App\\Http\\Controllers\\IncidenceController::index",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Incidences"
+                ],
+                "summary": "Create a new incidence",
+                "description": "Returns created incidence",
+                "operationId": "App\\Http\\Controllers\\IncidenceController::store",
+                "parameters": [
+                    {
+                        "name": "request",
+                        "in": "path",
+                        "description": "request all data",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/incidence/{id}": {
+            "get": {
+                "tags": [
+                    "Incidences"
+                ],
+                "summary": "Get a incidence by id",
+                "description": "Returns the incedence",
+                "operationId": "App\\Http\\Controllers\\IncidenceController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Incidence id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "The incidence not be found"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Incidences"
+                ],
+                "summary": "Update a incidence",
+                "description": "Returns updated incidence",
+                "operationId": "App\\Http\\Controllers\\IncidenceController::update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "incidence id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Incidences"
+                ],
+                "summary": "Delete a incidence",
+                "description": "Returns Json response",
+                "operationId": "App\\Http\\Controllers\\IncidenceController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Incidence id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/interest_categories": {
+            "get": {
+                "tags": [
+                    "Interest Categories"
+                ],
+                "summary": "Get the list of interest categories",
+                "description": "When the user has been logged in for the first time, will be show all interest categories and him select one or many of this categories",
+                "operationId": "getInterestCategories",
+                "responses": {
+                    "200": {
+                        "description": "Show all interest categories"
+                    },
+                    "401": {
+                        "description": "The token is not valid"
+                    }
+                }
+            }
+        },
+        "/interest_categories/{id}": {
+            "get": {
+                "tags": [
+                    "Interest Categories"
+                ],
+                "summary": "Get by id the interest category",
+                "description": "Get the category of the user",
+                "operationId": "getInterestCategoryById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "interest category id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Show all interest categories"
+                    },
+                    "404": {
+                        "description": "The id is not found"
+                    },
+                    "401": {
+                        "description": "The token is not valid"
+                    }
+                }
+            }
+        },
+        "/enrollment": {
+            "get": {
+                "tags": [
+                    "Enrollments"
+                ],
+                "summary": "Get list of enrollments",
+                "description": "Returns list of enrollments",
+                "operationId": "App\\Http\\Controllers\\MatriculaController::index",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Enrollments"
+                ],
+                "summary": "Create a new enrollment",
+                "description": "Returns created enrollment",
+                "operationId": "App\\Http\\Controllers\\MatriculaController::store",
+                "parameters": [
+                    {
+                        "name": "request",
+                        "in": "path",
+                        "description": "request all data",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/enrollment/{id}": {
+            "get": {
+                "tags": [
+                    "Enrollments"
+                ],
+                "summary": "Get a enrollment by id",
+                "description": "Returns the enrollment",
+                "operationId": "App\\Http\\Controllers\\MatriculaController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Enrollment id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "The enrollment not be found"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Enrollments"
+                ],
+                "summary": "Update a enrollment",
+                "description": "Returns updated enrollment",
+                "operationId": "App\\Http\\Controllers\\MatriculaController::update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Enrollment id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Enrollments"
+                ],
+                "summary": "Delete a enrollment",
+                "description": "Returns Json response",
+                "operationId": "App\\Http\\Controllers\\MatriculaController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Enrollment id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/notice": {
+            "get": {
+                "tags": [
+                    "Notice"
+                ],
+                "summary": "Get list of notices",
+                "description": "Returns list of notices",
+                "operationId": "App\\Http\\Controllers\\NoticeController::index",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Notices"
+                ],
+                "summary": "Create a new notice",
+                "description": "Returns created notice",
+                "operationId": "App\\Http\\Controllers\\NoticeController::store",
+                "parameters": [
+                    {
+                        "name": "request",
+                        "in": "path",
+                        "description": "request all data",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/notice/{id}": {
+            "get": {
+                "tags": [
+                    "Notices"
+                ],
+                "summary": "Get a notice by id",
+                "description": "Returns the notice",
+                "operationId": "App\\Http\\Controllers\\NoticeController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Notice id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "The notice not be found"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Notices"
+                ],
+                "summary": "Update a notice",
+                "description": "Returns updated notice",
+                "operationId": "App\\Http\\Controllers\\NoticeController::update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "notice id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Notices"
+                ],
+                "summary": "Delete a notice",
+                "description": "Returns Json response",
+                "operationId": "App\\Http\\Controllers\\NoticeController::delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Notice id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
         "/password": {
             "post": {
                 "tags": [
@@ -161,6 +1017,140 @@
                     },
                     "404": {
                         "description": "User's email not provided"
+                    }
+                }
+            }
+        },
+        "/publiccenter": {
+            "get": {
+                "tags": [
+                    "Public Center"
+                ],
+                "summary": "Get list of public Center",
+                "description": "Returns list of public Center",
+                "operationId": "App\\Http\\Controllers\\PublicCenterController::index",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "PublicCenter"
+                ],
+                "summary": "Create a new Public Center",
+                "description": "Returns created Public Center",
+                "operationId": "App\\Http\\Controllers\\PublicCenterController::store",
+                "parameters": [
+                    {
+                        "name": "request",
+                        "in": "path",
+                        "description": "request all data",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/publiccenter/{id}": {
+            "get": {
+                "tags": [
+                    "PublicCenter"
+                ],
+                "summary": "Get a Public Center by id",
+                "description": "Returns the public center",
+                "operationId": "App\\Http\\Controllers\\PublicCenterController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "PublicCenter id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "The public center not be found"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "PublicCenter"
+                ],
+                "summary": "Update a public center",
+                "description": "Returns updated public center",
+                "operationId": "App\\Http\\Controllers\\PublicCenterController::update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "PublicCenter id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "PublicCenter"
+                ],
+                "summary": "Delete a Public Center",
+                "description": "Returns Json response",
+                "operationId": "App\\Http\\Controllers\\PublicCenterController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "PublicCenter id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
                     }
                 }
             }
@@ -288,6 +1278,274 @@
                 ],
                 "responses": {
                     "201": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/states": {
+            "get": {
+                "tags": [
+                    "States"
+                ],
+                "summary": "Get list of states",
+                "description": "Returns list of states",
+                "operationId": "App\\Http\\Controllers\\StateController::index",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "States"
+                ],
+                "summary": "Create a new state",
+                "description": "Returns created state",
+                "operationId": "App\\Http\\Controllers\\StateController::store",
+                "parameters": [
+                    {
+                        "name": "request",
+                        "in": "path",
+                        "description": "request all data",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/states/{id}": {
+            "get": {
+                "tags": [
+                    "States"
+                ],
+                "summary": "Get a state by id",
+                "description": "Returns the state",
+                "operationId": "App\\Http\\Controllers\\StateController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "State id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "The state not be found"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "States"
+                ],
+                "summary": "Update a state",
+                "description": "Returns updated state",
+                "operationId": "App\\Http\\Controllers\\StateController::update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "State id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "State"
+                ],
+                "summary": "Delete a state",
+                "description": "Returns Json response",
+                "operationId": "App\\Http\\Controllers\\StateController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "State id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/tags": {
+            "get": {
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "Get list of tags",
+                "description": "Returns list of tags",
+                "operationId": "App\\Http\\Controllers\\TagsController::index",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "Create a new tags",
+                "description": "Returns created tags",
+                "operationId": "App\\Http\\Controllers\\TagsController::store",
+                "parameters": [
+                    {
+                        "name": "request",
+                        "in": "path",
+                        "description": "request all data",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/tags/{id}": {
+            "get": {
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "Get a tags by id",
+                "description": "Returns the tags",
+                "operationId": "App\\Http\\Controllers\\TagsController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "tags id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "The tags not be found"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "Update a tags",
+                "description": "Returns updated tags",
+                "operationId": "App\\Http\\Controllers\\TagsController::update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Tags id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "Delete a tags",
+                "description": "Returns Json response",
+                "operationId": "App\\Http\\Controllers\\TagsController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Tags id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
                         "description": "Successful operation"
                     },
                     "400": {

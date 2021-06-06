@@ -14,36 +14,35 @@ class CreateIncidenceTable extends Migration
     public function up()
     {
         Schema::create('incidence', function (Blueprint $table) {
-    $table->increments('id');
-    $table->string('name')->nullable();
-    $table->string('assignedTo')->nullable();
-    $table->string('reviewer')->nullable();
-    $table->date('deadLine')->nullable();
-    $table->date('creationDate')->nullable();
-    $table->string('tags')->nullable();
-    $table->string('description')->nullable();
-    $table->string('attachedContentn')->nullable();
-    $table->string('dni')->nullable();
-    $table->string('applicant')->nullable();
-    $table->string('phone')->nullable();
-    $table->string('centerEnrollment')->nullable();
-    $table->string('streetNumber')->nullable();
-    $table->string('district')->nullable();
-    $table->string('neighborhood')->nullable();
-    $table->string('addressee')->nullable();
-    $table->string('team')->nullable();
-    $table->string('location');
-    $table->string('responseForCitizen')->nullable();
-    $table->integer('idUser')->unsigned()->nullable();
-    $table->foreign('idUser')->references('id')->on('users');
-    $table->integer('idState')->unsigned()->nullable();
-    $table->foreign('idState')->references('id')->on('states');
-    $table->integer('idBreakdown')->unsigned()->nullable();
-    $table->foreign('idBreakdown')->references('id')->on('breakdown');
-    $table->integer('idPublicCenter')->unsigned()->nullable();
-    $table->foreign('idPublicCenter')->references('id')->on('table_public_center');
+            $table->increments('id');
+            $table->string('name')->nullable();
+            $table->string('assignedTo')->nullable();
+            $table->string('reviewer')->nullable();
+            $table->date('deadline')->nullable();
+            $table->string('tags')->nullable();
+            $table->string('description')->nullable();
+            $table->string('attachedContent')->nullable();
+            $table->string('dni')->nullable();
+            $table->string('applicant')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('centerEnrollment')->nullable();
+            $table->string('streetNumber')->nullable();
+            $table->string('district')->nullable();
+            $table->string('neighborhood')->nullable();
+            $table->string('addressee')->nullable();
+            $table->string('team')->nullable();
+            $table->string('location');
+            $table->string('responseForCitizen')->nullable();
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('state_id')->unsigned()->nullable();
+            $table->foreign('state_id')->references('id')->on('states');
+            $table->integer('breakdown_id')->unsigned()->nullable();
+            $table->foreign('breakdown_id')->references('id')->on('breakdown');
+            $table->integer('public_center_id')->unsigned()->nullable();
+            $table->foreign('public_center_id')->references('id')->on('public_center');
 
-    $table->timestamps();
+            $table->timestamps();
 
     });
     }

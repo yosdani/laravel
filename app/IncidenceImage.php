@@ -30,7 +30,6 @@ class IncidenceImage extends Model
      */
     public function incidence()
     {
-        return $this->belongsTo(IncidenceImage::class,'idIncidence');
-
+        return $this->belongsTo(IncidenceImage::class, 'idIncidence');
     }
 }

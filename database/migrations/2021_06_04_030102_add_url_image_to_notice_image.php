@@ -14,7 +14,7 @@ class AddUrlImageToNoticeImage extends Migration
     public function up()
     {
         Schema::table('notice_image', function (Blueprint $table) {
-            $table->string('urlImage')->after('idNotice')->nullable();
+            $table->string('urlImage')->after('notice_id')->nullable();
         });
     }
 

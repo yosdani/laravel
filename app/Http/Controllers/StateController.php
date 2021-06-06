@@ -30,7 +30,7 @@ class StateController extends Controller
      *       )
      *     )
      */
-    public function index()
+    public function index(): JsonResponse
     {
         return response()->json([
             'success' =>true,
@@ -87,7 +87,7 @@ class StateController extends Controller
      *      )
      * )
      */
-    public function show($id): JsonResponse
+    public function show(int $id): JsonResponse
     {
         $state=State::find($id);
         if (!$state) {
@@ -167,7 +167,7 @@ class StateController extends Controller
      *      )
      * )
      */
-    public function update(Request $request, $id): JsonResponse
+    public function update(Request $request, int $id): JsonResponse
     {
         $parameters = $request->only('name');
 
@@ -215,7 +215,7 @@ class StateController extends Controller
      *      ),
      * )
      */
-    public function destroy($id): JsonResponse
+    public function destroy(int $id): JsonResponse
     {
         $state = State::find($id);
 

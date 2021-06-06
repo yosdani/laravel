@@ -30,7 +30,6 @@ class NoticeImage extends Model
      */
     public function notice()
     {
-        return $this->belongsTo(NoticeImage::class,'idNotice');
-
+        return $this->belongsTo(NoticeImage::class, 'idNotice');
     }
 }

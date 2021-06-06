@@ -1,13 +1,8 @@
 <template>
 <div>
-    <b-row>
-      <b-col lg="6" class="my-1">
+    <b-row class="mb-3">
+      <b-col lg="3" class="my-1">
         <b-form-group
-          label="Filter"
-          label-for="filter-input"
-          label-cols-sm="3"
-          label-align-sm="right"
-          label-size="sm"
           class="mb-0"
         >
           <b-input-group size="sm">
@@ -15,7 +10,7 @@
               id="filter-input"
               v-model="filter"
               type="search"
-              placeholder="Type to Search"
+              placeholder="Buscar"
             ></b-form-input>
 
             <b-input-group-append>
@@ -28,8 +23,8 @@
       <b-col lg="6" class="my-1">
         <b-form-group
           v-model="sortDirection"
-          label="Filter On"
-          description="Leave all unchecked to filter on all data"
+          label="Filtrar por"
+          description=""
           label-cols-sm="3"
           label-align-sm="right"
           label-size="sm"
@@ -44,7 +39,27 @@
             <b-form-checkbox v-show="items" v-for="field in fields" :key="field.key" @change="getFilterOn($event)" :value="field.key">{{field.label}}</b-form-checkbox>
           </b-form-checkbox-group>
         </b-form-group>
-      </b-col>     
+      </b-col>
+        <b-col sm="6" md="3" class="my-1">
+            <b-form-group
+                label="Por página"
+                label-for="per-page-select"
+                label-cols-sm="6"
+                label-cols-md="4"
+                label-cols-lg="3"
+                label-align-sm="right"
+                label-size="sm"
+                class="mb-0"
+            >
+                <b-form-select
+                    id="per-page-select"
+                    v-model="perPage"
+                    :options="pageOptions"
+                    size="sm"
+                ></b-form-select>
+            </b-form-group>
+        </b-col>
+
     </b-row>
     <!-- Main table element -->
     <b-table
@@ -58,8 +73,11 @@
       :sort-desc.sync="sortDesc"
       :sort-direction="sortDirection"
       stacked="md"
-      show-empty
-      small
+      :striped="true"
+      :hover="true"
+      :responsive="true"
+      :bordered="true"
+      :show-empty="false"
       @filtered="onFiltered"
     >
 
@@ -72,27 +90,7 @@
       </template>
     </b-table>
     <div class="row">
-        <b-col sm="6" md="6" class="my-1">
-            <b-form-group
-            label="Per page"
-            label-for="per-page-select"
-            label-cols-sm="6"
-            label-cols-md="4"
-            label-cols-lg="3"
-            label-align-sm="right"
-            label-size="sm"
-            class="mb-0"
-            >
-            <b-form-select
-                id="per-page-select"
-                v-model="perPage"
-                :options="pageOptions"
-                size="sm"
-            ></b-form-select>
-            </b-form-group>
-        </b-col>
-
-        <b-col sm="6" md="6" lg="6" class="my-1">
+        <b-col sm="6" md="6" lg="4" class="my-1 text-right">
             <b-pagination
             v-model="currentPage"
             :total-rows="totalRows"
@@ -107,14 +105,13 @@
 </template>
 <script>
 export default {
-    name: "TableData",
-    props:['items','fields'],
+    props:['items','fields', 'current','total','offset'],
     data() {
-      return {      
+      return {
         totalRows: 1,
         currentPage: 1,
-        perPage: 10,
-        pageOptions: [10, 15, 20, { value: 100, text: "Show a lot" }],
+        perPage: 15,
+        pageOptions: [10, 15, 20, 50, 100],
         sortBy: '',
         sortDesc: false,
         sortDirection: 'asc',
@@ -127,6 +124,22 @@ export default {
         }
       }
     },
+    mounted(){
+      this.totalRows  =this.total;
+      this.currentPage = this.current;
+      this.perPage = this.offsets
+    },
+    watch:{
+        'total': function (val){
+            this.totalRows = val;
+        },
+        'current': function (val){
+            this.currentPage = val;
+        },
+        'offset': function (val){
+            this.perPage = val;
+        }
+    },
     computed: {
       sortOptions() {
         // Create an options list from our fields
@@ -136,10 +149,6 @@ export default {
             return { text: f.label, value: f.key }
           })
       }
-    },
-    updated() {
-      // Set the initial number of items
-      this.items?this.totalRows = this.items.length:this.totalRows = 1;
     },
     methods: {
       info(item, index, button) {
@@ -162,3 +171,11 @@ export default {
     }
 }
 </script>
+<style>
+#per-page-select{
+    width: 100px;
+}
+#filter-input{
+    width: 100px;
+}
+</style>

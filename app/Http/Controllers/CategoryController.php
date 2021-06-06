@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Category;
+use Illuminate\Http\Response;
 
 class CategoryController extends Controller
 {
@@ -32,9 +33,9 @@ class CategoryController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function create()
+    public function create(): Response
     {
     }
 
@@ -116,7 +117,7 @@ class CategoryController extends Controller
      *      )
      * )
      */
-    public function show($id): JsonResponse
+    public function show(int $id): JsonResponse
     {
         if (!$category = Category::find($id)) {
             return response()->json([
@@ -136,9 +137,9 @@ class CategoryController extends Controller
      *
      * @param  int  $id
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function edit($id)
+    public function edit(int $id): Response
     {
         //
     }
@@ -177,7 +178,7 @@ class CategoryController extends Controller
      *      )
      * )
      */
-    public function update(Request $request, $id): JsonResponse
+    public function update(Request $request, int $id): JsonResponse
     {
         if (!$category = Category::find($id)) {
             return response()->json([
@@ -228,7 +229,7 @@ class CategoryController extends Controller
      *      ),
      * )
      */
-    public function destroy($id): JsonResponse
+    public function destroy(int $id): JsonResponse
     {
         if (!Category::find($id)) {
             return response()->json([
@@ -249,4 +250,3 @@ class CategoryController extends Controller
         echo csrf_token();
     }
 }
-

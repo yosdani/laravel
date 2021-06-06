@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Mail\ForgotPassword;
@@ -58,13 +59,13 @@ class PasswordController extends Controller
         $email = $request->email;
         $password = str_random(8);
 
-        try{
+        try {
             \Mail::to($email)->send(new ForgotPassword($password));
 
             $user = User::where('email', $email)->first();
             $user->password = bcrypt($password);
             $user->save();
-        }catch(Exception $exception){
+        } catch (Exception $exception) {
             return response()->json([
                 'success' => false,
                 'message' => $exception

@@ -19,8 +19,8 @@ class Incidence extends Model
      * @var string
      */
     protected $fillable = [
-        'name','assignedTo','reviewer','deadLine','creationDate','tags','description','attachedContent',
-        'dni','applicant','phone','centerEnrollment','streetNumber','district','neighborhood','addressee',
+        'name','assignedTo','reviewer','deadLine','tags','description','attachedContent',
+        'dni','applicant','phone','centerEnrollment','streetNumber','district','neighborhood','address',
         'team','location','responseForCitizen'
     ];
 
@@ -50,8 +50,7 @@ class Incidence extends Model
      */
     public function images()
     {
-
-        return $this->hasMany(IncidenceImage::class,'idIncidence');
+        return $this->hasMany(IncidenceImage::class, 'idIncidence');
     }
 
     /**
@@ -61,7 +60,7 @@ class Incidence extends Model
      */
     public function matricula():BelongsTo
     {
-        return $this->belongsTo(\App\Matricula::class, 'idMatricula', 'id');
+        return $this->belongsTo(\App\Enrolment::class, 'idMatricula', 'id');
     }
 
     /**

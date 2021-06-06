@@ -28,7 +28,6 @@ class Category extends Model
      */
     public function Incidence(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'table_role_user');
+        return $this->belongsTo(User::class, 'role_user');
     }
 }
-

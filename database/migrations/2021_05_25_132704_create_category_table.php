@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTablePublicCenter extends Migration
+class CreateCategoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTablePublicCenter extends Migration
      */
     public function up()
     {
-        Schema::create('table_public_center', function (Blueprint $table) {
+        Schema::create('category', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->timestamps();
@@ -27,7 +27,6 @@ class CreateTablePublicCenter extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_public_center');
+        Schema::dropIfExists('category');
     }
 }
-

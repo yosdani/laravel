@@ -10,9 +10,11 @@ namespace App\Http\Controllers;
 
 use App\Notice;
 use App\NoticeImage;
+use Faker\Provider\Image;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class NoticeController extends Controller
 {
@@ -41,7 +43,7 @@ class NoticeController extends Controller
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @return Validator
      */
     protected function validator(array $data)
     {
@@ -87,7 +89,7 @@ class NoticeController extends Controller
      *      )
      * )
      */
-    public function show($id)
+    public function show(int $id): JsonResponse
     {
 
         $notice = Notice::where('id', $id)->with('images')->get();
@@ -128,25 +130,18 @@ class NoticeController extends Controller
      *      )
      * )
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $request->json()->all();
 
         $notice = Notice::create($request->except('img'));
 
-        $files= array();
         if($request->img) {
-
-            foreach ($request->img as $image) {
-
-                $files[] = $image;
-
-
-                $this->saveimage($image, $notice->id);
+            $files[] = $request->img;
+            foreach ($files as $file) {
+                $this->saveImage($file,$notice->id);
 
             }
-
-
         }
 
         $notice1=Notice::where('id',$notice->id)->with('images')->get();
@@ -188,7 +183,7 @@ class NoticeController extends Controller
      *      )
      * )
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): JsonResponse
     {
         $parameters = $request->only('name, textNotice');
 
@@ -239,7 +234,7 @@ class NoticeController extends Controller
      *      ),
      * )
      */
-    public function delete($id)
+    public function delete(int $id): JsonResponse
     {
         $notice = Notice::find($id);
 
@@ -258,12 +253,12 @@ class NoticeController extends Controller
      * Get to image in base64 decode
      * @param string $base64Image
      *
-     * @return image
+     * @return false|string
      */
-    public function getB64Image($base64Image){
+    public function getB64Image(string $base64Image)
+    {
         $imageServiceStr = substr($base64Image, strpos($base64Image, ",")+1);
-        $image = base64_decode($imageServiceStr);
-        return $image;
+        return base64_decode($imageServiceStr);
     }
 
     /**
@@ -273,7 +268,8 @@ class NoticeController extends Controller
      * @return array
      */
 
-    public function getB64Extension($base64Image, $full=null){
+    public function getB64Extension(string $base64Image, $full=null): array
+    {
 
         preg_match("/^data:image\/(.*);base64/i",$base64Image, $imgExtension);
 
@@ -286,13 +282,13 @@ class NoticeController extends Controller
      *
      * @return void
      */
-    public function saveimage($base64Image,$id)
+    public function saveImage(string $base64Image, $id)
     {
 
         $img =$this->getB64Image($base64Image);
 
         $imgExtension = $this->getB64Extension($base64Image);
-        $imageName = 'notice_image'. time() .uniqid(). '.' . $imgExtension;
+        $imageName = 'notice_image'. time() . '.' . $imgExtension;
 
         Storage::disk('local')->put( $imageName, $img);
         $url=public_path().'\storage\ '.$imageName;
