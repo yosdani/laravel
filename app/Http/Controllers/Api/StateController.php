@@ -34,7 +34,7 @@ class StateController extends Controller
     {
         return response()->json([
             'success' =>true,
-            'states' => State::all()
+            'states' => State::paginate(15)
         ], 200);
     }
 

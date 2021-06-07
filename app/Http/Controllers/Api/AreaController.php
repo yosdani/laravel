@@ -33,7 +33,7 @@ class AreaController extends Controller
     {
         return response()->json([
             'success' =>true,
-            'incidences' => Area::all()
+            'incidences' => Area::paginate(15)
         ], 200);
     }
 
