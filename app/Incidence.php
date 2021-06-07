@@ -29,9 +29,9 @@ class Incidence extends Model
      *
      * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user():BelongsTo
+    public function user()
     {
-        return $this->belongsTo(\App\User::class, 'users_id', 'id');
+        return $this->belongsTo(Incidence::class, 'user_id');
     }
 
     /**
@@ -39,9 +39,9 @@ class Incidence extends Model
      *
      * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function state():BelongsTo
+    public function state()
     {
-        return $this->belongsTo(\App\State::class, 'states_id', 'id');
+        return $this->belongsTo(Incidence::class, 'state_id');
     }
     /**
      * The attributes that are mass assignable.
@@ -58,7 +58,7 @@ class Incidence extends Model
      *
      * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function enrolment():BelongsTo
+    public function enrolment()
     {
         return $this->belongsTo(\App\Enrolment::class, 'enrolment_id', 'id');
     }

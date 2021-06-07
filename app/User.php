@@ -68,4 +68,14 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasOne(Area::class);
     }
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @return  HasMany
+     */
+    public function incidence()
+    {
+        return $this->hasMany(Incidence::class, 'user_id');
+    }
 }

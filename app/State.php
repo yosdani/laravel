@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class State extends Model
@@ -26,10 +27,10 @@ class State extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @return  HasOne
+     * @return  HasMany
      */
-    public function incidence(): HasOne
+    public function incidence()
     {
-        return $this->hasOne(Incidence::class);
+        return $this->hasMany(Incidence::class, 'state_id');
     }
 }
