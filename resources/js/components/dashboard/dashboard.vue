@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <div style="margin-top: 20px;">
+            <BarFilters />
             <BarStadistic />
             <div class="row container-card">
                 <div class="graphics-card col-lg-8 col-md-12 col-sm-12 col-xs-12">
@@ -22,6 +23,7 @@
     </div>
 </template>
 <script>
+import BarFilters from "../bar-filters/bar-filters.vue"
 import Graphic from "./graphic/graphic";
 import BarStadistic from "./bar-stadistics/barStadistics"
 import Accordion from "./listWorkers/lists"
@@ -31,6 +33,7 @@ export default {
         Graphic,
         BarStadistic,
         Accordion,
+        BarFilters
     },
     data(){
         return {

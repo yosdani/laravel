@@ -14,7 +14,7 @@ class AddUrlImageToIncidenceImage extends Migration
     public function up()
     {
         Schema::table('incidence_image', function (Blueprint $table) {
-            $table->string('urlImage')->after('idIncidence')->nullable();
+            $table->string('urlImage')->after('incidence_id')->nullable();
         });
     }
 

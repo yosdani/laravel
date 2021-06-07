@@ -16,8 +16,8 @@ class CreateNoticeImageTable extends Migration
         Schema::create('notice_image', function (Blueprint $table) {
             $table->increments('id');
             $table->string('image')->nullable();
-            $table->integer('idNotice')->unsigned();
-            $table->foreign('idNotice')->references('id')->on('notice');
+            $table->integer('notice_id')->unsigned();
+            $table->foreign('notice_id')->references('id')->on('notice');
             $table->timestamps();
         });
     }

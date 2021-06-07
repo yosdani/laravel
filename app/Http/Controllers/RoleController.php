@@ -8,7 +8,7 @@ use App\Role;
 
 class RoleController extends Controller
 {
-    
+
     /**
      * List of roles
      * @OA\Get(
@@ -22,7 +22,7 @@ class RoleController extends Controller
      *       )
      *     )
      */
-    public function index()
+    public function index(): JsonResponse
     {
         //get all roles
         $roles = Role::all();
@@ -66,7 +66,7 @@ class RoleController extends Controller
      *      )
      * )
      */
-    public function show($id): JsonResponse
+    public function show(int $id): JsonResponse
     {
         //Validate that id exist
         if (Role::find($id)) {

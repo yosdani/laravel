@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\User;
@@ -12,20 +13,20 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function index():JsonResponse
     {
         return response()->json([
             'success' => true,
-            'users' => User::select('users.name','users.lastName','users.email','users.phoneNumber')->get()
+            'users' => User::select('users.name', 'users.lastName', 'users.email', 'users.phoneNumber')->get()
         ], 200);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function create()
     {
@@ -35,8 +36,8 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @param Request $request
+     * @return JsonResponse
      */
     public function store(Request $request):JsonResponse
     {
@@ -48,20 +49,20 @@ class UserController extends Controller
         $user->lastName = $request->lastName;
         $user->email = $request->email;
         $user->phoneNumber = $request->phoneNumber;
- 
+
         //bcrypt the password hashed
         $user->password = bcrypt($request->password);
- 
+
         //register the user
         $user->save();
- 
+
         $role_user = new RoleUser();
- 
+
         if ($request->role) {
             $role = Role::where('name', '=', $request->role)->first();
             $role_user->user_id = $user->id;
             $role_user->role_id = $role->id;
- 
+
             $role_user->save();
         } else {
             $role_user->role_id = 2;
@@ -79,9 +80,9 @@ class UserController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function show($id):JsonResponse
+    public function show(int $id):JsonResponse
     {
         if (!$user = User::find($id)) {
             return response()->json([
@@ -100,9 +101,9 @@ class UserController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function edit($id)
+    public function edit(int $id): JsonResponse
     {
         //
     }
@@ -110,11 +111,11 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function update(Request $request, $id):JsonResponse
+    public function update(Request $request, int $id):JsonResponse
     {
         if (!$user = User::find($id)) {
             return response()->json([
@@ -136,9 +137,9 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function destroy($id):JsonResponse
+    public function destroy(int $id):JsonResponse
     {
         if (!User::find($id)) {
             return response()->json([
@@ -155,4 +156,3 @@ class UserController extends Controller
         ]);
     }
 }
-

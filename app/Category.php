@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Incidence;
 
 class Category extends Model
 {
@@ -12,7 +11,7 @@ class Category extends Model
      *
      * @var string
      */
-    protected $table = 'table_category';
+    protected $table = 'category';
 
     /**
      * The attributes that are mass assignable.
@@ -21,14 +20,5 @@ class Category extends Model
      */
     protected $fillable = [ 'name' ];
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function Incidence(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'table_role_user');
-    }
-}
 
+}

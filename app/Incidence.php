@@ -19,8 +19,8 @@ class Incidence extends Model
      * @var string
      */
     protected $fillable = [
-        'name','assignedTo','reviewer','deadLine','creationDate','tags','description','attachedContent',
-        'dni','applicant','phone','centerEnrollment','streetNumber','district','neighborhood','addressee',
+        'name','assignedTo','reviewer','deadLine','tags','description','attachedContent',
+        'dni','applicant','phone','centerEnrollment','streetNumber','district','neighborhood','address',
         'team','location','responseForCitizen'
     ];
 
@@ -29,9 +29,9 @@ class Incidence extends Model
      *
      * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user():BelongsTo
+    public function user()
     {
-        return $this->belongsTo(\App\User::class, 'responsable', 'id');
+        return $this->belongsTo(Incidence::class, 'user_id');
     }
 
     /**
@@ -39,9 +39,9 @@ class Incidence extends Model
      *
      * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function state():BelongsTo
+    public function state()
     {
-        return $this->belongsTo(\App\State::class, 'idState', 'id');
+        return $this->belongsTo(Incidence::class, 'state_id');
     }
     /**
      * The attributes that are mass assignable.
@@ -50,8 +50,7 @@ class Incidence extends Model
      */
     public function images()
     {
-
-        return $this->hasMany(IncidenceImage::class,'idIncidence');
+        return $this->hasMany(IncidenceImage::class, 'incidence_id');
     }
 
     /**
@@ -59,9 +58,9 @@ class Incidence extends Model
      *
      * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function matricula():BelongsTo
+    public function enrolment()
     {
-        return $this->belongsTo(\App\Matricula::class, 'idMatricula', 'id');
+        return $this->belongsTo(\App\Enrolment::class, 'enrolment_id', 'id');
     }
 
     /**
@@ -69,9 +68,9 @@ class Incidence extends Model
      *
      * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function publicCenter():BelongsTo
+    public function publicCenter()
     {
-        return $this->belongsTo(\App\PublicCenter::class, 'idPublicCenter', 'id');
+        return $this->belongsTo(\App\PublicCenter::class, 'public_center_id', 'id');
     }
 
     /**
@@ -79,8 +78,10 @@ class Incidence extends Model
      *
      * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function breakdown():BelongsTo
+    public function breakdown()
     {
-        return $this->belongsTo(\App\Breakdown::class, 'idBreakdown', 'id');
+        return $this->belongsTo(\App\Incidence::class, 'breakdown_id');
     }
+
+
 }

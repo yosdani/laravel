@@ -19,7 +19,7 @@ class IncidenceImage extends Model
      * @var string
      */
     protected $fillable = [
-        'image','urlImage','idIncidence',
+        'image','urlImage','incidence_id',
     ];
 
 
@@ -30,7 +30,6 @@ class IncidenceImage extends Model
      */
     public function incidence()
     {
-        return $this->belongsTo(IncidenceImage::class,'idIncidence');
-
+        return $this->belongsTo(IncidenceImage::class, 'incidence_id');
     }
 }

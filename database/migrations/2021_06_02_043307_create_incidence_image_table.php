@@ -16,11 +16,9 @@ class CreateIncidenceImageTable extends Migration
         Schema::create('incidence_image', function (Blueprint $table) {
             $table->increments('id');
             $table->string('image')->nullable();
-            $table->integer('idIncidence')->unsigned();
-            $table->foreign('idIncidence')->references('id')->on('incidence');
+            $table->integer('incidence_id')->unsigned();
+            $table->foreign('incidence_id')->references('id')->on('incidence');
             $table->timestamps();
-
-
         });
     }
 
