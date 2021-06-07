@@ -19,7 +19,7 @@ class UserController extends Controller
     {
         return response()->json([
             'success' => true,
-            'users' => User::select('users.name', 'users.lastName', 'users.email', 'users.phoneNumber')->get()
+            'users' => User::select('users.name', 'users.email', 'users.phoneNumber')->paginate(15)
         ], 200);
     }
 

@@ -23,18 +23,18 @@ Route::prefix('admin')->group(function () {
         ],
     ]);
 
+    //Routes resources for users
+    Route::resource('users', 'UserController', [
+        'only' => [
+            'index', 'store', 'show', 'update', 'destroy',
+        ],
+    ]);
+
 });
 
 
 //Routes resources for category
 Route::resource('category', 'CategoryController', [
-    'only' => [
-        'index', 'store', 'show', 'update', 'destroy',
-    ],
-]);
-
-//Routes resources for users
-Route::resource('users', 'UserController', [
     'only' => [
         'index', 'store', 'show', 'update', 'destroy',
     ],
