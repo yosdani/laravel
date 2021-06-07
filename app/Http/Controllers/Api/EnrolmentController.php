@@ -1,12 +1,19 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: tabares
+ * Date: 6/7/2021
+ * Time: 12:24 AM
+ */
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Enrolment;
 
-class MatriculaController extends Controller
+class EnrolmentController extends Controller
 {
     /**
      * List of enrollments

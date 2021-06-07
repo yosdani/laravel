@@ -31,7 +31,7 @@ class Incidence extends Model
      */
     public function user():BelongsTo
     {
-        return $this->belongsTo(\App\User::class, 'responsable', 'id');
+        return $this->belongsTo(\App\User::class, 'users_id', 'id');
     }
 
     /**
@@ -41,7 +41,7 @@ class Incidence extends Model
      */
     public function state():BelongsTo
     {
-        return $this->belongsTo(\App\State::class, 'idState', 'id');
+        return $this->belongsTo(\App\State::class, 'states_id', 'id');
     }
     /**
      * The attributes that are mass assignable.
@@ -50,7 +50,7 @@ class Incidence extends Model
      */
     public function images()
     {
-        return $this->hasMany(IncidenceImage::class, 'idIncidence');
+        return $this->hasMany(IncidenceImage::class, 'incidence_id');
     }
 
     /**
@@ -58,9 +58,9 @@ class Incidence extends Model
      *
      * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function matricula():BelongsTo
+    public function enrolment():BelongsTo
     {
-        return $this->belongsTo(\App\Enrolment::class, 'idMatricula', 'id');
+        return $this->belongsTo(\App\Enrolment::class, 'enrolment_id', 'id');
     }
 
     /**
@@ -68,9 +68,9 @@ class Incidence extends Model
      *
      * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function publicCenter():BelongsTo
+    public function publicCenter()
     {
-        return $this->belongsTo(\App\PublicCenter::class, 'idPublicCenter', 'id');
+        return $this->belongsTo(\App\PublicCenter::class, 'public_center_id', 'id');
     }
 
     /**
@@ -78,8 +78,10 @@ class Incidence extends Model
      *
      * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function breakdown():BelongsTo
+    public function breakdown()
     {
-        return $this->belongsTo(\App\Breakdown::class, 'idBreakdown', 'id');
+        return $this->belongsTo(\App\Incidence::class, 'breakdown_id');
     }
+
+
 }
