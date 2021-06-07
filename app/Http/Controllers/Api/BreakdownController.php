@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Breakdown;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -12,11 +13,11 @@ class BreakdownController extends Controller
     /**
      * List of breakdowns
      */
-    public function index()
+    public function index():JsonResponse
     {
         return response()->json([
             'success' =>true,
-            'breakdowns' => Breakdown::all()
+            'breakdowns' => Breakdown::paginate(15)
         ], 200);
     }
 

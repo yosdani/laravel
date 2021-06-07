@@ -9,17 +9,21 @@
 namespace App\Http\Controllers\Api;
 
 
-class CategoryController
+use App\Http\Controllers\Controller;
+use App\Category;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class CategoryController extends Controller
 {
     /**
      * @return JsonResponse
      */
     public function index():JsonResponse
     {
-        print_r('llego');
         return response()->json([
             'success' =>true,
-            'category' => Category::all()
+            'category' => Category::paginate(15)
         ], 200);
     }
 
