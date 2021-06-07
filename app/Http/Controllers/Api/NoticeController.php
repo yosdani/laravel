@@ -6,8 +6,9 @@
  * Time: 6:54 AM
  */
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Notice;
 use App\NoticeImage;
 use Faker\Provider\Image;
@@ -35,7 +36,7 @@ class NoticeController extends Controller
     {
         return response()->json([
             'success' =>true,
-            'notices' => Notice::with('images')->get()
+            'notices' => Notice::with('images')->paginate(15)
         ], 200);
     }
 
@@ -136,12 +137,17 @@ class NoticeController extends Controller
 
         $notice = Notice::create($request->except('img'));
 
-        if($request->img) {
-            $files[] = $request->img;
-            foreach ($files as $file) {
-                $this->saveImage($file,$notice->id);
 
+        $files= array();
+        if($request->img) {
+            foreach ($request->img as $image) {
+
+                $files[] = $image;
+
+                $this->saveImage($image, $notice->id);
             }
+
+
         }
 
         $notice1=Notice::where('id',$notice->id)->with('images')->get();
@@ -183,9 +189,8 @@ class NoticeController extends Controller
      *      )
      * )
      */
-    public function update(Request $request, int $id): JsonResponse
+    public function update(Request $request, int $id):JsonResponse
     {
-        $parameters = $request->only('name, textNotice');
 
         $notice = Notice::find($id);
 
@@ -193,8 +198,8 @@ class NoticeController extends Controller
             return response()->json("This notice is not exist", '404');
         }
 
-        $notice->name = $parameters['name'];
-        $notice->textNotice = $parameters['textNotice'];
+        $notice->name = $request->name;
+        $notice->texNotice = $request->texNotice;
 
         $notice->save();
 
@@ -234,7 +239,7 @@ class NoticeController extends Controller
      *      ),
      * )
      */
-    public function delete(int $id): JsonResponse
+    public function destroy(int $id): JsonResponse
     {
         $notice = Notice::find($id);
 
@@ -268,34 +273,33 @@ class NoticeController extends Controller
      * @return array
      */
 
-    public function getB64Extension(string $base64Image, $full=null): array
+    public function getB64Extension(string $base64Image, $full=null)
     {
 
-        preg_match("/^data:image\/(.*);base64/i",$base64Image, $imgExtension);
+        preg_match("/^data:image\/(.*);base64/i", $base64Image, $imgExtension);
 
-        return ($full) ?  $imgExtension[0] : $imgExtension[1];
-
+        return ($full) ? $imgExtension[0] : $imgExtension[1];
     }
-    /**
-     * Store to image in Storage
-     * @param string $base64Image
-     *
-     * @return void
-     */
-    public function saveImage(string $base64Image, $id)
+
+        /**
+         * Store to image in Storage
+         * @param string $base64Image
+         * @param $id
+         * @return void
+         */
+        public function saveImage( string $base64Image,$id)
     {
 
-        $img =$this->getB64Image($base64Image);
+        $img = $this->getB64Image($base64Image);
 
         $imgExtension = $this->getB64Extension($base64Image);
-        $imageName = 'notice_image'. time() . '.' . $imgExtension;
-
-        Storage::disk('local')->put( $imageName, $img);
-        $url=public_path().'\storage\ '.$imageName;
-        $image=new NoticeImage();
-        $image->image=$imageName;
-        $image->idNotice=$id;
-        $image->urlImage=$url;
+        $imageName = 'notice_image' .uniqid(). time() . '.' . $imgExtension;
+        Storage::disk('local')->put($imageName, $img);
+        $url=storage_path('storage '). $imageName;
+        $image = new NoticeImage();
+        $image->image = $imageName;
+        $image->notice_id = $id;
+        $image->urlImage =$url;
         $image->save();
     }
 }

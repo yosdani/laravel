@@ -19,7 +19,7 @@ class Notice extends Model
      * @var string
      */
     protected $fillable = [
-        'name','textNotice'
+        'name','texNotice'
     ];
 
     /**
@@ -29,6 +29,6 @@ class Notice extends Model
      */
     public function images()
     {
-        return $this->hasMany(NoticeImage::class, 'idNotice');
+        return $this->hasMany(NoticeImage::class, 'notice_id');
     }
 }

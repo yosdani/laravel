@@ -19,7 +19,7 @@ class NoticeImage extends Model
      * @var string
      */
     protected $fillable = [
-        'image','urlImage','idNotice'
+        'image','urlImage','notice_id'
     ];
 
 
@@ -30,6 +30,6 @@ class NoticeImage extends Model
      */
     public function notice()
     {
-        return $this->belongsTo(NoticeImage::class, 'idNotice');
+        return $this->belongsTo(NoticeImage::class, 'notice_id');
     }
 }
