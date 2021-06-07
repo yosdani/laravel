@@ -7,7 +7,6 @@
 </template>
 <script>
 export default {
-    name: "Stadistic",
     props:["name", "number","iconName","color"],
     data(){
         return {

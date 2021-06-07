@@ -1,12 +1,12 @@
 <template>
     <div>
-        <multiselect 
-            v-model="values" 
-            :options="tags" 
-            label="name" 
-            track-by="id" 
-            :multiple="true" 
-            :taggable="true" 
+        <multiselect
+            v-model="values"
+            :options="tags"
+            label="name"
+            track-by="id"
+            :multiple="true"
+            :taggable="true"
             @tag="addTag"
             :placeholder="placeholder"
         ></multiselect>
@@ -16,7 +16,6 @@
 import Multiselect from 'vue-multiselect'
 import EventBus from '../../event-bus'
 export default {
-    name: "TagsFilter",
     props:["tags","placeholder","type"],
     data() {
         return {

@@ -3,19 +3,19 @@
         <div class="card-dashboard row" :style="putOfMarginNegative">
             <div class="dropdown col-lg-5 label-filters">
                 <b-icon class="label-filters-calendar col-lg-2 "  icon="calendar2-week-fill"></b-icon>
-                <period-filter 
+                <period-filter
                     :range="'month'"
                 />
                 <drop-down />
                 <give-time
-                    v-if="rangeTime" 
+                    v-if="rangeTime"
                     @changedaterange="giveNewDates($event)"
                 />
             </div>
             <div class="col-lg-7 row label-filters">
                 <b-icon class="label-filters-category col-lg-2"  icon="archive-fill"></b-icon>
-                <TagsFilter    
-                    class="col-lg-10"    
+                <TagsFilter
+                    class="col-lg-10"
                     :tags="categories"
                     :placeholder="'Filter by category'"
                     :type="'CATEGORY'"
@@ -26,7 +26,7 @@
             <div class="row label-filters">
                 <b-icon class="label-filters-tags col-lg-2"  icon="tags-fill"></b-icon>
                 <TagsFilter
-                    class="col-lg-10"           
+                    class="col-lg-10"
                     :tags="tags"
                     :placeholder="'Filter by tag'"
                     :type="'TAGS'"
@@ -42,7 +42,6 @@ import EventBus from '../event-bus'
 import dropDown from "./period_filter/drop-down.vue"
 import giveTime from "./period_filter/give-time.vue"
 export default {
-    name: "BarFilters",
     components:{
         TagsFilter,
         periodFilter,
@@ -71,7 +70,7 @@ export default {
                 this.rangeTime = true;
             }else{
                 this.rangeTime = false;
-                }       
+                }
         })
         EventBus.$on( 'RANGE_SELECTED_DETAILS', payload => {
             if( payload === 'Periodo definido'){
@@ -89,7 +88,7 @@ export default {
     },
     methods:{
         giveNewDates(event){
-        
+
         },
     },
     computed:{

@@ -7,7 +7,6 @@
 <script>
 import Chart from 'chart.js';
 export default {
-  name: 'Graphic',
   props:["idCanvas","dataOfGraphic"],
   data() {
     return {

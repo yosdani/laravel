@@ -4,7 +4,7 @@
     <nav-bar :show="show" @showSideBar="showSideBar()"></nav-bar>
     <div :class="navClass">
       <div class="container-fluid">
-        <Dashboard />       
+        <router-view></router-view>
       </div>
     </div>
   </div>
@@ -13,7 +13,7 @@
 import NavBar from "./navbar/NavBar.vue";
 import sideBarLinks from "../util/sideBarLinks";
 import SideBar from "./sidebar/SideBar";
-import Dashboard from "./dashboard/dashboard"
+
 export default {
   data() {
     return {
@@ -28,8 +28,7 @@ export default {
   mounted() {console.log(this.user);},
   components: {
     SideBar,
-    NavBar,
-    Dashboard
+    NavBar
   },
   methods: {
     showSideBar() {

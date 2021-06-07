@@ -20,7 +20,7 @@ export	default	new	VueRouter({
             component: Incidences
         },
         {
-            path:'/Estados',
+            path:'/states',
             name: "states",
             component: States
         },

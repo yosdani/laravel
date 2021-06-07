@@ -1,18 +1,17 @@
 <template>
     <div class="card-dashboard row" :style="putOfMarginNegative">
-            <Stadistic class="col-lg-3 col-md-6 col-sm-12 border-stadistics" :color="'green'" :iconName="'wallet2'" :name="'Total Incidence'" :number="200"/>
-            <Stadistic class="col-lg-3 col-md-6 col-sm-12 border-stadistics three-component" :color="'orange'" :iconName="'calendar2-check-fill'" :name="'Finished'" :number="105"/>
-            <Stadistic class="col-lg-3 col-md-6 col-sm-12 border-stadistics" :color="'blue'" :iconName="'bar-chart-steps'" :name="'In Progress'" :number="75"/>
-            <Stadistic class="col-lg-3 col-md-6 col-sm-12" :color="'red'" :iconName="'exclamation-triangle-fill'" :name="'Not Assigned'" :number="20"/>
+            <statistics class="col-lg-3 col-md-6 col-sm-12 border-stadistics" :color="'green'" :iconName="'wallet2'" :name="'Total Incidence'" :number="200"/>
+            <statistics class="col-lg-3 col-md-6 col-sm-12 border-stadistics three-component" :color="'orange'" :iconName="'calendar2-check-fill'" :name="'Finished'" :number="105"/>
+            <statistics class="col-lg-3 col-md-6 col-sm-12 border-stadistics" :color="'blue'" :iconName="'bar-chart-steps'" :name="'In Progress'" :number="75"/>
+            <statistics class="col-lg-3 col-md-6 col-sm-12" :color="'red'" :iconName="'exclamation-triangle-fill'" :name="'Not Assigned'" :number="20"/>
     </div>
 </template>
 <script>
-import Stadistic from './stadistic'
+import Statistics from './statistics'
 export default {
-    name: "BarStadistic",
     props:["arrayOfDatas"],
     components:{
-        Stadistic
+        Statistics
     },
     computed:{
         putOfMarginNegative(){
