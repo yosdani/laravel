@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Breakdown;
 use Illuminate\Contracts\Validation\Validator;
@@ -69,7 +69,7 @@ class BreakdownController extends Controller
      *      )
      * )
      */
-    public function show(int $id): JsonResponse
+    public function show(int $id)
     {
         $breakdown=Breakdown::find($id);
 
@@ -109,9 +109,10 @@ class BreakdownController extends Controller
      *      )
      * )
      */
-    public function store(Request $request): JsonResponse
+    public function store(Request $request)
     {
         $breakdown = Breakdown::create($request->all());
+
 
         return response()->json($breakdown, 200);
     }
@@ -150,7 +151,7 @@ class BreakdownController extends Controller
      *      )
      * )
      */
-    public function update(Request $request, int $id): JsonResponse
+    public function update(Request $request, int $id)
     {
         $parameters = $request->only('name');
 
@@ -163,7 +164,7 @@ class BreakdownController extends Controller
 
         $breakdown->save();
 
-        return response()->json('updated', 200);
+        return response()->json(['updated', 200]);
     }
 
     /**
@@ -199,7 +200,7 @@ class BreakdownController extends Controller
      *      ),
      * )
      */
-    public function destroy(int $id): JsonResponse
+    public function destroy(int $id)
     {
         $breakdown = Breakdown::find($id);
 
@@ -208,6 +209,6 @@ class BreakdownController extends Controller
         }
         Breakdown::destroy($id);
 
-        return  response()->json('deleted', 200);
+        return  response()->json('The breakdown was successfully deleted', 200);
     }
 }
