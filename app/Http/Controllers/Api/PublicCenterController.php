@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\PublicCenter;
 use Illuminate\Http\JsonResponse;
@@ -25,7 +26,7 @@ class PublicCenterController extends Controller
     {
         return response()->json([
             'success' =>true,
-            'public_centers' => PublicCenter::all()
+            'public_centers' => PublicCenter::paginate(15)
         ], 200);
     }
 
