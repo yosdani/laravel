@@ -1,29 +1,22 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: tabares
+ * Date: 6/6/2021
+ * Time: 10:56 PM
+ */
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use App\Category;
-use Illuminate\Http\Response;
 
-class CategoryController extends Controller
+class CategoryController
 {
     /**
-     * List of categories
-     * @OA\Get(
-     *      path="/category",
-     *      tags={"Categories"},
-     *      summary="Get list of categories",
-     *      description="Returns list of categories",
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation")
-     *       )
-     *     )
+     * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index():JsonResponse
     {
+        print_r('llego');
         return response()->json([
             'success' =>true,
             'category' => Category::all()
@@ -245,8 +238,6 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function getToken()
-    {
-        echo csrf_token();
-    }
+
 }
+
