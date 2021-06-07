@@ -6,7 +6,7 @@
  * Time: 9:39 AM
  */
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
@@ -30,7 +30,7 @@ class StateController extends Controller
      *       )
      *     )
      */
-    public function index(): JsonResponse
+    public function index():JsonResponse
     {
         return response()->json([
             'success' =>true,
