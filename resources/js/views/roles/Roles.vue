@@ -7,7 +7,7 @@
                 <h3 class="mb-0">Roles</h3>
             </b-card-header>
             <b-card-body class="row">
-                <b-card class="col-lg-3 card-roles" v-for="(item) in items" :key="item.id">
+                <b-card class="col-lg-4 col-md-6 card-roles" v-for="(item) in items" :key="item.id">
                     <b-card-body>
                         <b-avatar class="avatar-roles" variant="info"></b-avatar>
                         <h3 class="mb-5">{{item.name}}</h3>
