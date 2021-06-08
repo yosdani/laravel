@@ -43,7 +43,7 @@ export default {
             role:''
         },
         roles:[],
-        uri:'admin/users'
+        uri:'api/v1/register'
       }
     };
   },
@@ -61,7 +61,7 @@ export default {
                 response.map(r=>{
                     this.formIn.roles.push({
                         text: r.name,
-                        value: r.id
+                        value: r.name
                     })
                 })
             });

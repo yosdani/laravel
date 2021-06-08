@@ -1,5 +1,6 @@
 <template>
-    <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+    <b-form @submit="onSubmit" v-if="show">
+        <input type="hidden" name="_token" v-bind:value="csrf">
                     <b-form-group
                         id="input-group-1"
                         label="Entre el email"
@@ -53,7 +54,6 @@
                     </b-form-group>
 
                     <b-button type="submit" variant="primary">Submit</b-button>
-                    <b-button type="reset" variant="danger">Reset</b-button>
                 </b-form>
 </template>
 
@@ -63,7 +63,8 @@ export default {
     data() {
         return {
             form: {},
-            show: true
+            show: true,
+             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         };
     },
     mounted() {
@@ -81,7 +82,21 @@ export default {
         })
         .then(response => response.json())
         .then(response=>{
-            console.log('cool');
+            this.$swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Se ha adicionado correctamente',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            this.onReset(event);
+        })
+        .catch(err =>{
+            this.$swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+            })
         })
       },
       onReset(event) {
