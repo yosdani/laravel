@@ -4,7 +4,7 @@
 
         <b-card>
             <b-card-header class="border-0">
-                <h3 class="mb-0">Adicionar Usuario</h3>
+                <h3 class="mb-0">Adicionar Rol</h3>
             </b-card-header>
             <b-card-body>
                 <form-object :formOut="formIn"></form-object>
@@ -24,8 +24,8 @@ export default {
               to: { name: 'dashboard' }
           },
           {
-              text: 'Usuario',
-              to: { name: 'users' }
+              text: 'Roles',
+              to: { name: 'roles' }
           },
           {
               text: 'Adicionar',
@@ -33,41 +33,19 @@ export default {
           }
       ],
       formIn: {
-        formFrom:'User',
+        formFrom:'Roles',
         form: {
-            email: '',
-            name: '',
-            lastName: '',
-            phoneNumber: '',
-            password: '',
-            role:''
+            name: ''
         },
         roles:[],
-        uri:'admin/users',
+        uri:'admin/roles',
         method: 'POST'
       }
     };
   },
   components:{
       FormObject
-  },
-  mounted() {
-     this.getRoles();
-  },
-  methods: {
-      getRoles(){
-          fetch(window.origin+'/admin/roles')
-            .then((response) => response.json())
-            .then((response) => {
-                response.map(r=>{
-                    this.formIn.roles.push({
-                        text: r.name,
-                        value: r.name
-                    })
-                })
-            });
-      }
-    }
+  }
 }
 </script>
 

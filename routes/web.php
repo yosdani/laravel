@@ -15,7 +15,7 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home')->middleware('auth');
 
-Route::group(['middleware'=>['admin']], function(){
+Route::group(['middleware'=>['auth','admin']], function(){
     Route::prefix('admin')->group(function () {
         //Routes resources for Incidence
         Route::resource('incidences', 'IncidenceController', [

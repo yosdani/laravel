@@ -34,14 +34,20 @@ export default {
       ],
       fields: [
           {
+              key: "email",
+              label: "Email",
+              sortable: true,
+              sortDirection: "desc",
+          },
+          {
               key: "name",
               label: "Nombre",
               sortable: true,
               sortDirection: "desc",
           },
           {
-              key: "email",
-              label: "Email",
+              key: "lastName",
+              label: "Apellidos",
               sortable: true,
               sortDirection: "desc",
           },
@@ -51,6 +57,7 @@ export default {
               sortable: true,
               sortDirection: "desc",
           },
+          { key: 'actions', label: 'Acciones' }
       ],
     };
   },

@@ -80,7 +80,14 @@
       :show-empty="false"
       @filtered="onFiltered"
     >
-
+      <template #cell(actions)="row">
+        <b-button size="xs" @click="info(row.item, row.index, $event.target)" class="mr-1">
+          <b-icon icon="cloud-upload" aria-hidden="true"></b-icon>Edit
+        </b-button>
+        <b-button variant="danger" size="xs" @click="row.toggleDetails">
+          <b-icon icon="trash-fill" aria-hidden="true"></b-icon> Delete
+        </b-button>
+      </template>
       <template #row-details="row">
         <b-card>
           <ul>
@@ -101,6 +108,8 @@
             ></b-pagination>
         </b-col>
     </div>
+    <b-modal :id="infoModal.id" :title="infoModal.title">
+    </b-modal>
 </div>
 </template>
 <script>
@@ -120,14 +129,16 @@ export default {
         infoModal: {
           id: 'info-modal',
           title: '',
-          content: ''
+          form: ''
         }
       }
+    },
+    components:{
     },
     mounted(){
       this.totalRows  =this.total;
       this.currentPage = this.current;
-      this.perPage = this.offsets
+      this.perPage = this.offsets;
     },
     watch:{
         'total': function (val){
@@ -152,8 +163,21 @@ export default {
     },
     methods: {
       info(item, index, button) {
-        this.infoModal.title = `Row index: ${index}`
-        this.infoModal.content = JSON.stringify(item, null, 2)
+        this.infoModal.title = `Editando al usuario ${item.name}`
+        this.infoModal.form = {
+          formFrom:"User",
+          form: {
+            email: item.email,
+            name: item.name,
+            lastName: item.lastName,
+            phoneNumber: item.phoneNumber,
+            password: '',
+            role:''
+          },
+          roles:[],
+          uri:'admin/users',
+          method: 'PUT'
+        };
         this.$root.$emit('bv::show::modal', this.infoModal.id, button)
       },
       resetInfoModal() {
