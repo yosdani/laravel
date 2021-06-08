@@ -19,16 +19,7 @@ class StateController extends Controller
 
     /**
      * List of states
-     * @OA\Get(
-     *      path="/states",
-     *      tags={"States"},
-     *      summary="Get list of states",
-     *      description="Returns list of states",
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation")
-     *       )
-     *     )
+     * @return JsonResponse
      */
     public function index():JsonResponse
     {
@@ -58,34 +49,6 @@ class StateController extends Controller
      * @param int $id
      * @return JsonResponse
      *
-     * @OA\Get (
-     *      path="/states/{id}",
-     *      tags={"States"},
-     *      summary="Get a state by id",
-     *      description="Returns the state",
-     *     @OA\Parameter(
-     *          name="id",
-     *          description="State id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="The state not be found",
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      )
-     * )
      */
     public function show(int $id): JsonResponse
     {
@@ -100,31 +63,6 @@ class StateController extends Controller
      * Create a new State
      * @param Request $request
      * @return JsonResponse
-     *  * @OA\Post (
-     *      path="/states",
-     *      tags={"States"},
-     *      summary="Create a new state",
-     *      description="Returns created state",
-     *     @OA\Parameter(
-     *          name="request",
-     *          description="request all data",
-     *          required=true,
-     *          in="path",
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      )
-     * )
      */
     public function store(Request $request): JsonResponse
     {
@@ -138,34 +76,6 @@ class StateController extends Controller
      * @param Request $request
      * @param int $id
      * @return JsonResponse
-     * @OA\Put(
-     *      path="/states/{id}",
-     *      tags={"States"},
-     *      summary="Update a state",
-     *      description="Returns updated state",
-     *     @OA\Parameter(
-     *          name="id",
-     *          description="State id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      )
-     * )
      */
     public function update(Request $request, int $id): JsonResponse
     {
@@ -186,34 +96,6 @@ class StateController extends Controller
      * Delete the existing state
      * @param int $id
      * @return JsonResponse
-     * @OA\Delete  (
-     *      path="/states/{id}",
-     *      tags={"States"},
-     *      summary="Delete a state",
-     *      description="Returns Json response",
-     *     @OA\Parameter(
-     *          name="id",
-     *          description="State id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     * )
      */
     public function destroy(int $id): JsonResponse
     {

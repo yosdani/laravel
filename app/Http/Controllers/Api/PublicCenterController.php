@@ -11,16 +11,7 @@ class PublicCenterController extends Controller
 {
     /**
      * List of public Center
-     * @OA\Get(
-     *      path="/publiccenter",
-     *      tags={"Public Center"},
-     *      summary="Get list of public Center",
-     *      description="Returns list of public Center",
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation")
-     *       )
-     *     )
+     * @return JsonResponse
      */
     public function index():JsonResponse
     {
@@ -44,31 +35,7 @@ class PublicCenterController extends Controller
      * Create a new Public Center
      * @param Request $request
      * @return JsonResponse
-     *  * @OA\Post (
-     *      path="/publiccenter",
-     *      tags={"Public Center"},
-     *      summary="Create a new Public Center",
-     *      description="Returns created Public Center",
-     *     @OA\Parameter(
-     *          name="request",
-     *          description="request all data",
-     *          required=true,
-     *          in="path",
-     *      ),
-     *      @OA\Response(
-     *          response=201,
-     *          description="Successful operation",
      *
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      )
-     * )
      */
     public function store(Request $request):JsonResponse
     {
@@ -84,34 +51,6 @@ class PublicCenterController extends Controller
      * @param int $id
      * @return JsonResponse
      *
-     * @OA\Get (
-     *      path="/publiccenter/{id}",
-     *      tags={"Public Center"},
-     *      summary="Get a Public Center by id",
-     *      description="Returns the public center",
-     *     @OA\Parameter(
-     *          name="id",
-     *          description="PublicCenter id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="The public center not be found",
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      )
-     * )
      */
     public function show(int $id):JsonResponse
     {
@@ -144,34 +83,6 @@ class PublicCenterController extends Controller
      * @param Request $request
      * @param int $id
      * @return JsonResponse
-     * @OA\Put(
-     *      path="/publiccenter/{id}",
-     *      tags={"Public Center"},
-     *      summary="Update a public center",
-     *      description="Returns updated public center",
-     *     @OA\Parameter(
-     *          name="id",
-     *          description="PublicCenter id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      )
-     * )
      */
     public function update(Request $request, int $id):JsonResponse
     {
@@ -192,34 +103,6 @@ class PublicCenterController extends Controller
      * Delete the existing Public Center
      * @param int $id
      * @return JsonResponse
-     * @OA\Delete  (
-     *      path="/publiccenter/{id}",
-     *      tags={"Public Center"},
-     *      summary="Delete a Public Center",
-     *      description="Returns Json response",
-     *     @OA\Parameter(
-     *          name="id",
-     *          description="PublicCenter id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     * )
      */
     public function destroy(int $id):JsonResponse
     {

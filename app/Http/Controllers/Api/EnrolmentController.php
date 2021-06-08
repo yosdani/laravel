@@ -17,16 +17,7 @@ class EnrolmentController extends Controller
 {
     /**
      * List of enrollments
-     * @OA\Get(
-     *      path="/enrollment",
-     *      tags={"Enrollments"},
-     *      summary="Get list of enrollments",
-     *      description="Returns list of enrollments",
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation")
-     *       )
-     *     )
+     * @return JsonResponse
      */
     public function index():JsonResponse
     {
@@ -50,31 +41,6 @@ class EnrolmentController extends Controller
      * Create a new Enrollment
      * @param Request $request
      * @return JsonResponse
-     *  * @OA\Post (
-     *      path="/enrollment",
-     *      tags={"Enrollments"},
-     *      summary="Create a new enrollment",
-     *      description="Returns created enrollment",
-     *     @OA\Parameter(
-     *          name="request",
-     *          description="request all data",
-     *          required=true,
-     *          in="path",
-     *      ),
-     *      @OA\Response(
-     *          response=201,
-     *          description="Successful operation",
-     *
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      )
-     * )
      */
     public function store(Request $request):JsonResponse
     {
@@ -89,35 +55,6 @@ class EnrolmentController extends Controller
      *
      * @param int $id
      * @return JsonResponse
-     *
-     * @OA\Get (
-     *      path="/enrollment/{id}",
-     *      tags={"Enrollments"},
-     *      summary="Get a enrollment by id",
-     *      description="Returns the enrollment",
-     *     @OA\Parameter(
-     *          name="id",
-     *          description="Enrollment id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="The enrollment not be found",
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      )
-     * )
      */
     public function show($id):JsonResponse
     {
@@ -150,34 +87,6 @@ class EnrolmentController extends Controller
      * @param Request $request
      * @param int $id
      * @return JsonResponse
-     * @OA\Put(
-     *      path="/enrollment/{id}",
-     *      tags={"Enrollments"},
-     *      summary="Update a enrollment",
-     *      description="Returns updated enrollment",
-     *     @OA\Parameter(
-     *          name="id",
-     *          description="Enrollment id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      )
-     * )
      */
     public function update(Request $request, $id):JsonResponse
     {
@@ -198,34 +107,6 @@ class EnrolmentController extends Controller
      * Delete the existing enrollment
      * @param int $id
      * @return JsonResponse
-     * @OA\Delete  (
-     *      path="/enrollment/{id}",
-     *      tags={"Enrollments"},
-     *      summary="Delete a enrollment",
-     *      description="Returns Json response",
-     *     @OA\Parameter(
-     *          name="id",
-     *          description="Enrollment id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     * )
      */
     public function destroy($id):JsonResponse
     {

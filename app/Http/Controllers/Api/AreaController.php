@@ -18,16 +18,7 @@ class AreaController extends Controller
 {
     /**
      * List of areas
-     * @OA\Get(
-     *      path="/areas",
-     *      tags={"Areas"},
-     *      summary="Get list of areas",
-     *      description="Returns list of areas",
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation")
-     *       )
-     *     )
+     * @return JsonResponse
      */
     public function index()
     {
@@ -57,34 +48,6 @@ class AreaController extends Controller
      * @param int $id
      * @return JsonResponse
      *
-     * @OA\Get (
-     *      path="/area/{id}",
-     *      tags={"Areas"},
-     *      summary="Get a area by id",
-     *      description="Returns the area",
-     *     @OA\Parameter(
-     *          name="id",
-     *          description="Area id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *
-     *       ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="The area not be found",
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      )
-     * )
      */
     public function show(int $id): JsonResponse
     {
@@ -101,31 +64,6 @@ class AreaController extends Controller
      * Create a new Area
      * @param Request $request
      * @return JsonResponse
-     *  * @OA\Post (
-     *      path="/areas",
-     *      tags={"Areas"},
-     *      summary="Create a new area",
-     *      description="Returns created area",
-     *     @OA\Parameter(
-     *          name="request",
-     *          description="request all data",
-     *          required=true,
-     *          in="path",
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      )
-     * )
      */
     public function store(Request $request): JsonResponse
     {
@@ -139,34 +77,6 @@ class AreaController extends Controller
      * @param Request $request
      * @param int $id
      * @return JsonResponse
-     * @OA\Put(
-     *      path="/areas/{id}",
-     *      tags={"Areas"},
-     *      summary="Update a area",
-     *      description="Returns updated area",
-     *     @OA\Parameter(
-     *          name="id",
-     *          description="Area id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      )
-     * )
      */
     public function update(Request $request, int $id): JsonResponse
     {
@@ -193,34 +103,6 @@ class AreaController extends Controller
      * Delete the existing area
      * @param int $id
      * @return JsonResponse
-     * @OA\Delete  (
-     *      path="/areas/{id}",
-     *      tags={"Areas"},
-     *      summary="Delete a area",
-     *      description="Returns Json response",
-     *     @OA\Parameter(
-     *          name="id",
-     *          description="Area id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     * )
      */
     public function destroy(int $id): JsonResponse
     {
