@@ -23,7 +23,7 @@ class NoticeController extends Controller
      * List of notices
      * @OA\Get(
      *      path="/notice",
-     *      tags={"Notice"},
+     *      tags={"Notices"},
      *      summary="Get list of notices",
      *      description="Returns list of notices",
      *      @OA\Response(

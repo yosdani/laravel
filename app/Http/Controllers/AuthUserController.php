@@ -23,56 +23,6 @@ class AuthUserController extends Controller
      * @param Request $request
      * @return JsonResponse
      *
-     *  @OA\Post (
-     *  path="/register",
-     *  operationId="Auth",
-     *  tags={"Auth"},
-     * summary="Sign up in app",
-     * description="By default when the user sign up callback to sign in methods and return a token",
-     *  @OA\RequestBody(
-     *          required=true,
-     *          @OA\MediaType(
-     *             mediaType="application/json",
-     *             @OA\Schema(
-     *                 type="object",
-     *                  required={
-     *                      "name",
-     *                      "email",
-     *                      "password"
-     *                  },
-     *                  @OA\Property(
-     *                     property="name",
-     *                     description="Name of user",
-     *                     type="string"
-     *                 ),
-     *                  @OA\Property(
-     *                     property="lastName",
-     *                     description="Last Name of user",
-     *                     type="string"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="email",
-     *                     description="Email of user",
-     *                     type="string"
-     *                 ),
-     *                  @OA\Property(
-     *                     property="phoneNumber",
-     *                     description="Phone number of user",
-     *                     type="string"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="password",
-     *                     description="Password of user",
-     *                     type="string"
-     *                 ),
-     *             )
-     *         )
-     *   ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     * )
      */
 
     public function register(Request $request): JsonResponse
@@ -118,45 +68,6 @@ class AuthUserController extends Controller
      * @param Request $request
      * @return JsonResponse
      *
-     *  @OA\Post (
-     *  path="/login",
-     *  tags={"Auth"},
-     * operationId="Auth",
-     * summary="Sign in in app",
-     * description="The user sign in with your email and password, the token is saved that a atribute of user, and return the token",
-     *  @OA\RequestBody(
-     *          required=true,
-     *          @OA\MediaType(
-     *             mediaType="application/json",
-     *             @OA\Schema(
-     *                  required={
-     *                      "email",
-     *                      "password"
-     *                  },
-     *                 type="object",
-     *                 @OA\Property(
-     *                     property="email",
-     *                     description="Email of user",
-     *                     type="string"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="password",
-     *                     description="Password of user",
-     *                     type="string"
-     *                 ),
-     *             )
-     *         )
-     *   ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation and return a token",
-     *
-     *       ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="The email or password is not valid",
-     *      ),
-     * )
      */
     public function login(Request $request): JsonResponse
     {
@@ -188,22 +99,6 @@ class AuthUserController extends Controller
      * Logout user
      * @return JsonResponse
      *
-     *  @OA\Get (
-     *  path="/logout",
-     * tags={"Auth"},
-     * operationId="Logout",
-     * summary="Logout in app",
-     * description="The user logout, with the token get the user and delete the token_user of user",
-     *      @OA\Response(
-     *          response=201,
-     *          description="You have successfully logged out",
-     *
-     *       ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="The token is not valid",
-     *      ),
-     * )
      */
     public function logout(): JsonResponse
     {

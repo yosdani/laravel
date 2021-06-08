@@ -188,7 +188,7 @@ class StateController extends Controller
      * @return JsonResponse
      * @OA\Delete  (
      *      path="/states/{id}",
-     *      tags={"State"},
+     *      tags={"States"},
      *      summary="Delete a state",
      *      description="Returns Json response",
      *     @OA\Parameter(

@@ -11,7 +11,17 @@ use App\Http\Controllers\Controller;
 class BreakdownController extends Controller
 {
     /**
-     * List of breakdowns
+     * List of breakdown
+     * @OA\Get(
+     *      path="/breakdown",
+     *      tags={"Breakdown"},
+     *      summary="Get list of breakdown",
+     *      description="Returns list of breakdown",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation")
+     *       )
+     *     )
      */
     public function index():JsonResponse
     {
