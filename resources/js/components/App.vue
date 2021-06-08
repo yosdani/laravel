@@ -12,7 +12,7 @@
 <script>
 import NavBar from "./navbar/NavBar.vue";
 import sideBarLinks from "../util/sideBarLinks";
-import SideBar from "./sidebar/SideBar.vue";
+import SideBar from "./sidebar/SideBar";
 
 export default {
   data() {
@@ -24,9 +24,11 @@ export default {
       fields: [],
     };
   },
+  props:['user'],
+  mounted() {console.log(this.user);},
   components: {
     SideBar,
-    NavBar,
+    NavBar
   },
   methods: {
     showSideBar() {
