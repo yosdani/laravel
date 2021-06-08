@@ -28,7 +28,7 @@ class RoleController extends Controller
         $roles = Role::all();
 
         //return all roles
-        return response() -> json($roles, 200);
+        return response()->json($roles, 200);
     }
 
     /**

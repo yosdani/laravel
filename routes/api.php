@@ -28,17 +28,7 @@ Route::prefix('v1')->group(function () {
     Route::post('/password', 'PasswordController@forgotPassword');
 
     Route::group(['middleware' => ['authJWT']], function () {
-        /********* Roles ************/
-        //Route for get all roles
-        Route::get('/roles', 'RoleController@index');
-        //Route for get role by id
-        Route::get('/roles/{id}', 'RoleController@show');
-        //Route for create a new role
-        Route::post('/roles', 'RoleController@store');
-        //Route for update a role
-        Route::put('/roles/{id}', 'RoleController@update');
-        //Route for delete a role
-        Route::delete('/roles/{id}', 'RoleController@delete');
+        
 
         /********* States ************/
         //Route for  all states
