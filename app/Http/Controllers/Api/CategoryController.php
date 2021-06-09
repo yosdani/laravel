@@ -17,7 +17,17 @@ use Illuminate\Http\Request;
 class CategoryController extends Controller
 {
     /**
-     * @return JsonResponse
+     * List of categories
+     * @OA\Get(
+     *      path="/category",
+     *      tags={"Categories"},
+     *      summary="Get list of category",
+     *      description="Returns list of category",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation")
+     *       )
+     *     )
      */
     public function index():JsonResponse
     {

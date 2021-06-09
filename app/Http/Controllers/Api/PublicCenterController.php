@@ -46,7 +46,7 @@ class PublicCenterController extends Controller
      * @return JsonResponse
      *  * @OA\Post (
      *      path="/publiccenter",
-     *      tags={"PublicCenter"},
+     *      tags={"Public Center"},
      *      summary="Create a new Public Center",
      *      description="Returns created Public Center",
      *     @OA\Parameter(
@@ -86,7 +86,7 @@ class PublicCenterController extends Controller
      *
      * @OA\Get (
      *      path="/publiccenter/{id}",
-     *      tags={"PublicCenter"},
+     *      tags={"Public Center"},
      *      summary="Get a Public Center by id",
      *      description="Returns the public center",
      *     @OA\Parameter(
@@ -146,7 +146,7 @@ class PublicCenterController extends Controller
      * @return JsonResponse
      * @OA\Put(
      *      path="/publiccenter/{id}",
-     *      tags={"PublicCenter"},
+     *      tags={"Public Center"},
      *      summary="Update a public center",
      *      description="Returns updated public center",
      *     @OA\Parameter(
@@ -194,7 +194,7 @@ class PublicCenterController extends Controller
      * @return JsonResponse
      * @OA\Delete  (
      *      path="/publiccenter/{id}",
-     *      tags={"PublicCenter"},
+     *      tags={"Public Center"},
      *      summary="Delete a Public Center",
      *      description="Returns Json response",
      *     @OA\Parameter(
