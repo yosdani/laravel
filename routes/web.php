@@ -97,6 +97,18 @@ Route::group(['middleware'=>['web','auth','admin']], function(){
         Route::put('areas/{id}', ['uses'=>'AreaController@update']);
         //Route for delete an area
         Route::delete('areas/{id}', ['uses'=>'AreaController@destroy']);
+
+    /**********  Breakdown ************/
+        //Route for get all breakdowns
+        Route::get('breakdown', ['uses'=>'BreakdownController@index']);
+        //Route for get an breakdown by id
+        Route::get('breakdown/{id}', ['uses'=>'BreakdownController@show']);
+        //Route for create a new breakdown
+        Route::post('breakdown', ['uses'=>'BreakdownController@store']);
+        //Route for update an breakdown
+        Route::put('breakdown/{id}', ['uses'=>'BreakdownController@update']);
+        //Route for delete an breakdown
+        Route::delete('breakdown/{id}', ['uses'=>'BreakdownController@destroy']);
 });
 
 
