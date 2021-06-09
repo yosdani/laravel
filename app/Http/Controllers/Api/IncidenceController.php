@@ -25,16 +25,7 @@ class IncidenceController extends Controller
 {
     /**
      * List of incidences
-     * @OA\Get(
-     *      path="/incidence",
-     *      tags={"Incidence"},
-     *      summary="Get list of incidences",
-     *      description="Returns list of incidences",
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation")
-     *       )
-     *     )
+     * @return JsonResponse
      */
     public function index(): JsonResponse
     {
