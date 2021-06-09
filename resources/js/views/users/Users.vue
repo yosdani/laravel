@@ -6,7 +6,14 @@
               <h3 class="mb-0">Usuarios</h3>
           </b-card-header>
           <b-card-body>
-              <table-data :items="items" :fields="fields" :current="currentPage" :total="totalRows" :offset="perPage"></table-data>
+              <table-data 
+                :items="items" 
+                :fields="fields" 
+                :current="currentPage" 
+                :total="totalRows" 
+                :offset="perPage"
+                :actions="actions"
+              ></table-data>
           </b-card-body>
       </b-card>
 
@@ -14,6 +21,7 @@
 </template>
 
 <script>
+import EventBus from '../../components/event-bus';
 import TableData from "../../components/table/TableData.vue";
 export default {
   data() {
@@ -59,10 +67,15 @@ export default {
           },
           { key: 'actions', label: 'Acciones' }
       ],
+      actions:'admin/users'
     };
   },
   mounted() {
      this.fetchData();
+
+     EventBus.$on('DELETED_ITEM',() => {
+       this.fetchData();
+     })
   },
   components: {
     TableData,

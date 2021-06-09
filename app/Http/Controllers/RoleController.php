@@ -11,16 +11,7 @@ class RoleController extends Controller
 
     /**
      * List of roles
-     * @OA\Get(
-     *      path="/roles",
-     *      tags={"Roles"},
-     *      summary="Get list of roles",
-     *      description="Returns list of roles",
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation")
-     *       )
-     *     )
+     * @return JsonResponse
      */
     public function index(): JsonResponse
     {
@@ -36,35 +27,6 @@ class RoleController extends Controller
      *
      * @param int $id
      * @return JsonResponse
-     *
-     * @OA\Get (
-     *      path="/roles/{id}",
-     *      tags={"Roles"},
-     *      summary="Get a role by id",
-     *      description="Returns the role",
-     *     @OA\Parameter(
-     *          name="id",
-     *          description="Role id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=201,
-     *          description="Successful operation",
-     *
-     *       ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="The role not be found",
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      )
-     * )
      */
     public function show(int $id): JsonResponse
     {
@@ -82,31 +44,6 @@ class RoleController extends Controller
      * Create a new role
      * @param Request $request
      * @return JsonResponse
-     *  * @OA\Post (
-     *      path="/roles",
-     *      tags={"Roles"},
-     *      summary="Create a new role",
-     *      description="Returns created role",
-     *     @OA\Parameter(
-     *          name="request",
-     *          description="request all datas",
-     *          required=true,
-     *          in="path",
-     *      ),
-     *      @OA\Response(
-     *          response=201,
-     *          description="Successful operation",
-     *
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      )
-     * )
      */
     public function store(Request $request): JsonResponse
     {
@@ -128,34 +65,6 @@ class RoleController extends Controller
      * @param Request $request
      * @param int $id
      * @return JsonResponse
-     * @OA\Put(
-     *      path="/roles/{id}",
-     *      tags={"Roles"},
-     *      summary="Update a role",
-     *      description="Returns updated role",
-     *     @OA\Parameter(
-     *          name="id",
-     *          description="role id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=201,
-     *          description="Successful operation",
-     *
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      )
-     * )
      */
     public function update(Request $request, int $id): JsonResponse
     {
@@ -182,34 +91,6 @@ class RoleController extends Controller
      * Delete the existing role
      * @param int $id
      * @return JsonResponse
-     * @OA\Delete  (
-     *      path="/roles/{id}",
-     *      tags={"Roles"},
-     *      summary="Delete a role",
-     *      description="Returns Json response",
-     *     @OA\Parameter(
-     *          name="id",
-     *          description="Role id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=201,
-     *          description="Successful operation",
-     *
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     * )
      */
     public function delete(int $id): JsonResponse
     {

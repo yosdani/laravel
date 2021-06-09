@@ -81,12 +81,14 @@
       @filtered="onFiltered"
     >
       <template #cell(actions)="row">
-        <b-button size="xs" @click="info(row.item, row.index, $event.target)" class="mr-1">
+        <b-button size="xs" class="mr-1">
           <b-icon icon="cloud-upload" aria-hidden="true"></b-icon>Edit
         </b-button>
-        <b-button variant="danger" size="xs" @click="row.toggleDetails">
-          <b-icon icon="trash-fill" aria-hidden="true"></b-icon> Delete
-        </b-button>
+        <b-form>
+          <b-button variant="danger" type="submit" size="xs" @click="deleteUser(row.item,$event)">
+            <b-icon icon="trash-fill" aria-hidden="true"></b-icon> Delete
+          </b-button>
+        </b-form>
       </template>
       <template #row-details="row">
         <b-card>
@@ -108,13 +110,12 @@
             ></b-pagination>
         </b-col>
     </div>
-    <b-modal :id="infoModal.id" :title="infoModal.title">
-    </b-modal>
 </div>
 </template>
 <script>
+import EventBus from '../event-bus';
 export default {
-    props:['items','fields', 'current','total','offset'],
+    props:['items','fields', 'current','total','offset','actions'],
     data() {
       return {
         totalRows: 1,
@@ -162,28 +163,6 @@ export default {
       }
     },
     methods: {
-      info(item, index, button) {
-        this.infoModal.title = `Editando al usuario ${item.name}`
-        this.infoModal.form = {
-          formFrom:"User",
-          form: {
-            email: item.email,
-            name: item.name,
-            lastName: item.lastName,
-            phoneNumber: item.phoneNumber,
-            password: '',
-            role:''
-          },
-          roles:[],
-          uri:'admin/users',
-          method: 'PUT'
-        };
-        this.$root.$emit('bv::show::modal', this.infoModal.id, button)
-      },
-      resetInfoModal() {
-        this.infoModal.title = ''
-        this.infoModal.content = ''
-      },
       onFiltered(filteredItems) {
         // Trigger pagination to update the number of buttons/pages due to filtering
         this.totalRows = filteredItems.length
@@ -191,6 +170,35 @@ export default {
       },
       getFilterOn(event){
           this.filterOn = event;
+      },
+      deleteUser(item,event){
+        event.preventDefault()
+        this.$swal.fire({
+          title: 'Está seguro?',
+          text: "No va a ser posible revertir esta acción!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Si, eliminar!'
+        }).then((result) => {
+          axios.delete(window.origin+'/'+this.actions+'/'+item.id)
+          .then(result => {
+            EventBus.$emit('DELETED_ITEM');
+            this.$swal.fire(
+              'Deleted!',
+              'Your file has been deleted.',
+              'success'
+            )
+          })
+          .catch(error =>{
+            this.$swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error,
+            })
+          })
+        })
       }
     }
 }

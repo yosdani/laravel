@@ -15,7 +15,7 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home')->middleware('auth');
 
-Route::group(['middleware'=>['auth','admin']], function(){
+Route::group(['middleware'=>['web','auth','admin']], function(){
     Route::prefix('admin')->group(function () {
         //Routes resources for Incidence
         Route::resource('incidences', 'IncidenceController', [
@@ -73,6 +73,18 @@ Route::group(['middleware'=>['auth','admin']], function(){
             'store','update','destroy'
         ]
     ]);
+
+    /********* States ************/
+        //Route for  all states
+        Route::get('states', ['uses'=>'StateController@index']);
+        //Route for  create new state
+        Route::post('states', ['uses'=>'StateController@store']);
+        //Route for  update a state
+        Route::put('states/{id}', ['uses'=>'StateController@update']);
+        //Route for get state by id
+        Route::get('states/{id}', ['uses'=>'StateController@show']);
+        //Route for delete state
+        Route::delete('states/{id}', ['uses'=>'StateController@destroy']);
 });
 
 

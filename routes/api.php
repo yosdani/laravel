@@ -28,19 +28,6 @@ Route::prefix('v1')->group(function () {
     Route::post('/password', 'PasswordController@forgotPassword');
 
     Route::group(['middleware' => ['authJWT']], function () {
-        
-
-        /********* States ************/
-        //Route for  all states
-        Route::get('states', ['uses'=>'StateController@index']);
-        //Route for  create new state
-        Route::post('states', ['uses'=>'StateController@store']);
-        //Route for  update a state
-        Route::put('states/{id}', ['uses'=>'StateController@update']);
-        //Route for get state by id
-        Route::get('states/{id}', ['uses'=>'StateController@show']);
-        //Route for delete state
-        Route::delete('states/{id}', ['uses'=>'StateController@destroy']);
 
         /**********Interest Category ********************************/
         //Route for get all interest categories
