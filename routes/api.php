@@ -52,18 +52,6 @@ Route::prefix('v1')->group(function () {
         //Route for delete an notice
         Route::delete('notice/{id}', ['uses'=>'NoticeController@destroy']);
 
-        /**********  Tags ************/
-        //Route for get all tags
-        Route::get('tags', ['uses'=>'TagsController@index']);
-        //Route for get an tags by id
-        Route::get('tags/{id}', ['uses'=>'TagsController@show']);
-        //Route for create a new tags
-        Route::post('tags', ['uses'=>'TagsController@store']);
-        //Route for update an tags
-        Route::put('tags/{id}', ['uses'=>'TagsController@update']);
-        //Route for delete an tags
-        Route::delete('tags/{id}', ['uses'=>'TagsController@destroy']);
-
         /**********  Category ************/
         //Route for get all categories
         Route::get('category', ['uses'=>'CategoryController@index']);
@@ -75,30 +63,7 @@ Route::prefix('v1')->group(function () {
         Route::put('category/{id}', ['uses'=>'CategoryController@update']);
         //Route for delete an category
         Route::delete('category/{id}', ['uses'=>'CategoryController@destroy']);
-
-        /**********  Enrollment ************/
-        //Route for get all enrollment
-        Route::get('enrollment', ['uses'=>'MatriculaController@index']);
-        //Route for get an enrollment by id
-        Route::get('enrollment/{id}', ['uses'=>'MatriculaController@show']);
-        //Route for create a new enrollment
-        Route::post('enrollment', ['uses'=>'MatriculaController@store']);
-        //Route for update an enrollment
-        Route::put('enrollment/{id}', ['uses'=>'MatriculaController@update']);
-        //Route for delete an enrollment
-        Route::delete('enrollment/{id}', ['uses'=>'MatriculaController@destroy']);
-
-        /**********  Public Center ************/
-        //Route for get all public center
-        Route::get('publiccenter', ['uses'=>'PublicCenterController@index']);
-        //Route for get an public center by id
-        Route::get('publiccenter/{id}', ['uses'=>'PublicCenterController@show']);
-        //Route for create a new public center
-        Route::post('publiccenter', ['uses'=>'PublicCenterController@store']);
-        //Route for update an public center
-        Route::put('publiccenter/{id}', ['uses'=>'PublicCenterController@update']);
-        //Route for delete an public center
-        Route::delete('publiccenter/{id}', ['uses'=>'PublicCenterController@destroy']);
+       
 
         /**********  Incidence ************/
         //Route for get all Incidences
