@@ -85,6 +85,18 @@ Route::group(['middleware'=>['web','auth','admin']], function(){
         Route::get('states/{id}', ['uses'=>'StateController@show']);
         //Route for delete state
         Route::delete('states/{id}', ['uses'=>'StateController@destroy']);
+
+    /**********  Areas ************/
+        //Route for get all areas
+        Route::get('areas', ['uses'=>'AreaController@index']);
+        //Route for get an area by id
+        Route::get('areas/{id}', ['uses'=>'AreaController@show']);
+        //Route for create a new area
+        Route::post('areas', ['uses'=>'AreaController@store']);
+        //Route for update an area
+        Route::put('areas/{id}', ['uses'=>'AreaController@update']);
+        //Route for delete an area
+        Route::delete('areas/{id}', ['uses'=>'AreaController@destroy']);
 });
 
 

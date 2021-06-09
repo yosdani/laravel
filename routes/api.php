@@ -35,17 +35,7 @@ Route::prefix('v1')->group(function () {
         //Route for get interest categories by id
         Route::get('interest_categories/{id}', 'InterestCategoryController@show');
 
-        /**********  Areas ************/
-        //Route for get all areas
-        Route::get('areas', ['uses'=>'AreaController@index']);
-        //Route for get an area by id
-        Route::get('areas/{id}', ['uses'=>'AreaController@show']);
-        //Route for create a new area
-        Route::post('areas', ['uses'=>'AreaController@store']);
-        //Route for update an area
-        Route::put('areas/{id}', ['uses'=>'AreaController@update']);
-        //Route for delete an area
-        Route::delete('areas/{id}', ['uses'=>'AreaController@destroy']);
+        
 
         /**********  Breakdown ************/
         //Route for get all breakdowns
