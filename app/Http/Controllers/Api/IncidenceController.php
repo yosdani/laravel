@@ -24,7 +24,17 @@ use Illuminate\Support\Facades\Storage;
 class IncidenceController extends Controller
 {
     /**
-     * @return JsonResponse
+     * List of incidences
+     * @OA\Get(
+     *      path="/incidence",
+     *      tags={"Incidence"},
+     *      summary="Get list of incidences",
+     *      description="Returns list of incidences",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation")
+     *       )
+     *     )
      */
     public function index(): JsonResponse
     {
@@ -54,6 +64,34 @@ class IncidenceController extends Controller
      * @param int $id
      * @return JsonResponse
      *
+     * @OA\Get (
+     *      path="/incidence/{id}",
+     *      tags={"Incidences"},
+     *      summary="Get a incidence by id",
+     *      description="Returns the incedence",
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Incidence id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *
+     *       ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="The incidence not be found",
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      )
+     * )
      */
     public function show(int $id): JsonResponse
     {
@@ -70,6 +108,31 @@ class IncidenceController extends Controller
      * Create a new incidence
      * @param Request $request
      * @return JsonResponse
+     *  * @OA\Post (
+     *      path="/incidence",
+     *      tags={"Incidences"},
+     *      summary="Create a new incidence",
+     *      description="Returns created incidence",
+     *     @OA\Parameter(
+     *          name="request",
+     *          description="request all data",
+     *          required=true,
+     *          in="path",
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      )
+     * )
      */
     public function store(Request $request): JsonResponse
     {
@@ -100,7 +163,34 @@ class IncidenceController extends Controller
      * @param Request $request
      * @param int $id
      * @return JsonResponse
+     * @OA\Put(
+     *      path="/incidence/{id}",
+     *      tags={"Incidences"},
+     *      summary="Update a incidence",
+     *      description="Returns updated incidence",
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="incidence id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
      *
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      )
+     * )
      */
     public function update(Request $request, int $id): JsonResponse
     {
@@ -161,7 +251,34 @@ class IncidenceController extends Controller
      * Delete the existing incidence
      * @param int $id
      * @return JsonResponse
+     * @OA\Delete  (
+     *      path="/incidence/{id}",
+     *      tags={"Incidences"},
+     *      summary="Delete a incidence",
+     *      description="Returns Json response",
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Incidence id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
      *
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     * )
      */
     public function destroy(int $id): JsonResponse
     {
