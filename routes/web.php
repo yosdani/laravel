@@ -70,7 +70,7 @@ Route::group(['middleware'=>['web','auth','admin']], function(){
     //Routes resources for interest categories, the index methods are in api route
     Route::resource('interest_categories', 'InterestCategoryController', [
         'only' => [
-            'store','update','destroy'
+            'index','store', 'store','update','destroy'
         ]
     ]);
 
@@ -166,6 +166,18 @@ Route::group(['middleware'=>['web','auth','admin']], function(){
         Route::put('tags/{id}', ['uses'=>'TagsController@update']);
         //Route for delete an tags
         Route::delete('tags/{id}', ['uses'=>'TagsController@destroy']);
+
+         /**********  Incidence ************/
+        //Route for get all Incidences
+        Route::get('incidence', 'IncidenceController@index');
+        //Route for get an incidence by id
+        Route::get('incidence/{id}', 'IncidenceController@show');
+        //Route for create a new incidence
+        //Route::post('incidence', 'IncidenceController@store');
+        //Route for update an incidence
+        Route::put('incidence/{id}', 'IncidenceController@update');
+        //Route for delete an incidence
+        Route::delete('incidence/{id}', 'Api\IncidenceController@destroy');
 });
 
 

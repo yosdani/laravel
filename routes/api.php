@@ -27,18 +27,7 @@ Route::prefix('v1')->group(function () {
     //Route for forgot password, send the email for the url
     Route::post('/password', 'PasswordController@forgotPassword');
 
-    Route::group(['middleware' => ['authJWT']], function () {
-
-        /**********Interest Category ********************************/
-        //Route for get all interest categories
-        Route::get('interest_categories', 'InterestCategoryController@index');
-        //Route for get interest categories by id
-        Route::get('interest_categories/{id}', 'InterestCategoryController@show');
-
-        
-
-        
-
+    Route::group(['middleware' => ['authJWT']], function () {  
 
         /**********  Notice ************/
         //Route for get all notices
@@ -66,7 +55,7 @@ Route::prefix('v1')->group(function () {
        
 
         /**********  Incidence ************/
-        //Route for get all Incidences
+        //Route for get all Incidences by user
         Route::get('incidence', ['uses'=>'Api\IncidenceController@index']);
         //Route for get an incidence by id
         Route::get('incidence/{id}', ['uses'=>'Api\IncidenceController@show']);
@@ -75,7 +64,9 @@ Route::prefix('v1')->group(function () {
         //Route for update an incidence
         Route::put('incidence/{id}', ['uses'=>'Api\IncidenceController@update']);
         //Route for delete an incidence
-        Route::delete('incidence/{id}', ['uses'=>'Api\IncidenceController@destroy']);
+        //Route::delete('incidence/{id}', ['uses'=>'Api\IncidenceController@destroy']);
+        //Route for get incidences of user id
+        //Route::get('incidence/user/{id}', ['uses'=>'Api\IncidenceController@incidencesByUserId']);
 
         //Route for logout
         Route::get('/logout', 'AuthUserController@logout');

@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Mail\IncidenceMails;
 use JWTAuth;
 use App\State;
+use App\User;
 
 /**
  * Class IncidenceController
@@ -34,7 +35,10 @@ class IncidenceController extends Controller
     {
         return response()->json([
             'success' =>true,
-            'incidences' => Incidence::with('images')->paginate(15)
+            'incidences' 
+            =>(new Incidence)->incidencesByUserId(JWTAuth::parseToken()->authenticate()->id)
+            ->with('images')
+            ->paginate(15)
         ], 200);
     }
 
@@ -133,6 +137,8 @@ class IncidenceController extends Controller
         $request->json()->all();
 
         $incidence = Incidence::create($request->except('img'));
+        $incidence->user_id = JWTAuth::parseToken()->authenticate()->id;
+        $incidence->save();
 
 
         $files= array();
@@ -251,7 +257,7 @@ class IncidenceController extends Controller
 
         if( $oldState != $incidence->state ){
             try{
-                \Mail::to(JWTAuth::parseToken()->authenticate()->email)->send(new IncidenceMails($incidence,$incidence1[0]->images[0]->urlImage,'La Incidencia a cambiado al estado: '+ State::find($incidence->state)->name));
+                \Mail::to(User::find($incidence->user_id)->email)->send(new IncidenceMails($incidence,$incidence1[0]->images[0]->urlImage,'La Incidencia a cambiado al estado: '+ State::find($incidence->state)->name));
             }catch(Exception $exception){
                 return response()->json([
                     'success' => false,
