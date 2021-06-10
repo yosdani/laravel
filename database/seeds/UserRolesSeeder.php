@@ -21,5 +21,10 @@ class UserRolesSeeder extends Seeder
         $role = new Role();
         $role ->name = 'Responsable';
         $role ->save();
+
+        //create Worker role
+        $role = new Role();
+        $role ->name = 'Trabajador';
+        $role ->save();
     }
 }
