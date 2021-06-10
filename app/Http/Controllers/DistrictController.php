@@ -54,7 +54,7 @@ class DistrictController extends Controller
      */
     public function show($id): JsonResponse
     {
-        if( !District::find($id) ){
+        if (!District::find($id)) {
             return response()->json([
                 'success' => false,
                 'message' =>'The specified id does not exist'
@@ -87,7 +87,7 @@ class DistrictController extends Controller
      */
     public function update(Request $request, $id): JsonResponse
     {
-        if( !District::find($id) ){
+        if (!District::find($id)) {
             return response()->json([
                 'success' => false,
                 'message' =>'The specified id does not exist'
@@ -108,7 +108,7 @@ class DistrictController extends Controller
      */
     public function destroy($id): JsonResponse
     {
-        if( !District::find($id) ){
+        if (!District::find($id)) {
             return response()->json([
                 'success' => false,
                 'message' =>'The specified id does not exist'

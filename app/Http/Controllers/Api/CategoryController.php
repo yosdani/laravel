@@ -8,7 +8,6 @@
 
 namespace App\Http\Controllers\Api;
 
-
 use App\Http\Controllers\Controller;
 use App\Category;
 use Illuminate\Http\JsonResponse;
@@ -251,7 +250,4 @@ class CategoryController extends Controller
             'message' =>'The category was successfully deleted'
         ]);
     }
-
-
 }
-

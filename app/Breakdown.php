@@ -30,6 +30,6 @@ class Breakdown extends Model
 
     public function incidence()
     {
-        return $this->hasMany(Incidence::class,'breakdown_id');
+        return $this->hasMany(Incidence::class, 'breakdown_id');
     }
 }

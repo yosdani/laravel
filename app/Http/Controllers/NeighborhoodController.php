@@ -54,11 +54,11 @@ class NeighborhoodController extends Controller
      */
     public function show($id)
     {
-        if( !Neighborhood::find($id) ){
+        if (!Neighborhood::find($id)) {
             return response()->json([
                 'success' => false,
                 'message' =>'The specified id does not exist'
-            ],400);
+            ], 400);
         }
 
         return response()->json([
@@ -87,7 +87,7 @@ class NeighborhoodController extends Controller
      */
     public function update(Request $request, $id): JsonResponse
     {
-        if( !Neighborhood::find($id) ){
+        if (!Neighborhood::find($id)) {
             return response()->json([
                 'success' => false,
                 'message' =>'The specified id does not exist'
@@ -108,7 +108,7 @@ class NeighborhoodController extends Controller
      */
     public function destroy($id): JsonResponse
     {
-        if( !Neighborhood::find($id) ){
+        if (!Neighborhood::find($id)) {
             return response()->json([
                 'success' => false,
                 'message' =>'The specified id does not exist'

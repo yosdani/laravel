@@ -35,7 +35,7 @@ class IncidenceController extends Controller
     {
         return response()->json([
             'success' =>true,
-            'incidences' 
+            'incidences'
             =>(new Incidence)->incidencesByUserId(JWTAuth::parseToken()->authenticate()->id)
             ->with('images')
             ->paginate(15)
@@ -93,8 +93,7 @@ class IncidenceController extends Controller
      */
     public function show(int $id): JsonResponse
     {
-
-        $incidence=Incidence::where('id',$id)->with('images')->get();
+        $incidence=Incidence::where('id', $id)->with('images')->get();
 
         if (!$incidence) {
             return response()->json("This incidence is not exist", '404');
@@ -142,22 +141,19 @@ class IncidenceController extends Controller
 
 
         $files= array();
-        if($request->img) {
+        if ($request->img) {
             foreach ($request->img as $image) {
-
                 $files[] = $image;
 
                 $this->saveImage($image, $incidence->id);
             }
-
-
         }
-        $incidence1=Incidence::where('id',$incidence->id)->with('images')->get();
+        $incidence1=Incidence::where('id', $incidence->id)->with('images')->get();
 
         
-        try{
-            \Mail::to(JWTAuth::parseToken()->authenticate()->email)->send(new IncidenceMails($incidence,$incidence1[0]->images[0]->urlImage,'Nueva Incidencia'));
-        }catch(Exception $exception){
+        try {
+            \Mail::to(JWTAuth::parseToken()->authenticate()->email)->send(new IncidenceMails($incidence, $incidence1[0]->images[0]->urlImage, 'Nueva Incidencia'));
+        } catch (Exception $exception) {
             return response()->json([
                 'success' => false,
                 'message' => $exception
@@ -177,7 +173,7 @@ class IncidenceController extends Controller
      *      path="/incidence/{id}",
      *      tags={"Incidences"},
      *      summary="Update a incidence",
-     *      description="Returns updated incidence",
+     *      description="Returns updated incidence, this endpoint is for worker app",
      *     @OA\Parameter(
      *          name="id",
      *          description="incidence id",
@@ -255,10 +251,10 @@ class IncidenceController extends Controller
         $incidence->state = $parameters['idState'];
         $incidence->save();
 
-        if( $oldState != $incidence->state ){
-            try{
-                \Mail::to(User::find($incidence->user_id)->email)->send(new IncidenceMails($incidence,$incidence1[0]->images[0]->urlImage,'La Incidencia a cambiado al estado: '+ State::find($incidence->state)->name));
-            }catch(Exception $exception){
+        if ($oldState != $incidence->state) {
+            try {
+                \Mail::to(User::find($incidence->user_id)->email)->send(new IncidenceMails($incidence, $incidence1[0]->images[0]->urlImage, 'La Incidencia a cambiado al estado: '+ State::find($incidence->state)->name));
+            } catch (Exception $exception) {
                 return response()->json([
                     'success' => false,
                     'message' => $exception
@@ -322,7 +318,8 @@ class IncidenceController extends Controller
      *
      * @return false|string
      */
-    public function getB64Image(string $base64Image){
+    public function getB64Image(string $base64Image)
+    {
         $imageServiceStr = substr($base64Image, strpos($base64Image, ",")+1);
         $image = base64_decode($imageServiceStr);
         return $image;
@@ -338,11 +335,9 @@ class IncidenceController extends Controller
 
     public function getB64Extension($base64Image, $full=null)
     {
-
-        preg_match("/^data:image\/(.*);base64/i",$base64Image, $imgExtension);
+        preg_match("/^data:image\/(.*);base64/i", $base64Image, $imgExtension);
 
         return ($full) ?  $imgExtension[0] : $imgExtension[1];
-
     }
 
     /**
@@ -351,9 +346,8 @@ class IncidenceController extends Controller
      * @param $id
      * @return void
      */
-    public function saveImage( string $base64Image,$id)
+    public function saveImage(string $base64Image, $id)
     {
-
         $img = $this->getB64Image($base64Image);
 
         $imgExtension = $this->getB64Extension($base64Image);
@@ -366,5 +360,4 @@ class IncidenceController extends Controller
         $image->urlImage =$url;
         $image->save();
     }
-
 }

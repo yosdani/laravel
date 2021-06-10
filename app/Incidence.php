@@ -84,19 +84,19 @@ class Incidence extends Model
     }
 
     /**
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     * 
+     *
      */
-     public function district()
-     {
+    public function district()
+    {
         return $this->belongsTo(\App\District::class, 'district');
-     }
+    }
 
     /**
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     * 
+     *
      */
     public function street()
     {
@@ -104,9 +104,9 @@ class Incidence extends Model
     }
 
     /**
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     * 
+     *
      */
     public function neighborhood()
     {
@@ -116,10 +116,11 @@ class Incidence extends Model
     /**
      * Get incidences by user id
      * @return Collection
-     * 
+     *
      */
-    public function incidencesByUserId($id){
+    public function incidencesByUserId($id)
+    {
         return $this->select('incidence.*')
-                    ->where('incidence.user_id',$id);
+                    ->where('incidence.user_id', $id);
     }
 }

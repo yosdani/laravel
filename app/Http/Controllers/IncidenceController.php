@@ -59,8 +59,7 @@ class IncidenceController extends Controller
      */
     public function show(int $id): JsonResponse
     {
-
-        $incidence=Incidence::where('id',$id)->with('images')->get();
+        $incidence=Incidence::where('id', $id)->with('images')->get();
 
         if (!$incidence) {
             return response()->json("This incidence is not exist", '404');
@@ -81,14 +80,13 @@ class IncidenceController extends Controller
 
 
 
-        if($request->img) {
+        if ($request->img) {
             $files[] = $request->img;
             foreach ($files as $file) {
-            $this->saveImage($file,$incidence->id);
-
+                $this->saveImage($file, $incidence->id);
             }
         }
-        $incidence1=Incidence::where('id',$incidence->id)->with('images')->get();
+        $incidence1=Incidence::where('id', $incidence->id)->with('images')->get();
 
         return response()->json($incidence1, 200);
     }
@@ -153,10 +151,10 @@ class IncidenceController extends Controller
         $incidence->state = $parameters['idState'];
         $incidence->save();
 
-        if( $oldState != $incidence->state ){
-            try{
-                \Mail::to(User::find($incidence->user_id)->email)->send(new IncidenceMails($incidence,$incidence1[0]->images[0]->urlImage,'La Incidencia a cambiado al estado: '+ State::find($incidence->state)->name));
-            }catch(Exception $exception){
+        if ($oldState != $incidence->state) {
+            try {
+                \Mail::to(User::find($incidence->user_id)->email)->send(new IncidenceMails($incidence, $incidence1[0]->images[0]->urlImage, 'La Incidencia a cambiado al estado: '+ State::find($incidence->state)->name));
+            } catch (Exception $exception) {
                 return response()->json([
                     'success' => false,
                     'message' => $exception
@@ -193,7 +191,8 @@ class IncidenceController extends Controller
      *
      * @return false|string
      */
-    public function getB64Image(string $base64Image){
+    public function getB64Image(string $base64Image)
+    {
         $imageServiceStr = substr($base64Image, strpos($base64Image, ",")+1);
         return base64_decode($imageServiceStr);
     }
@@ -207,11 +206,9 @@ class IncidenceController extends Controller
 
     public function getB64Extension(string $base64Image, $full=null): array
     {
-
-        preg_match("/^data:image\/(.*);base64/i",$base64Image, $imgExtension);
+        preg_match("/^data:image\/(.*);base64/i", $base64Image, $imgExtension);
 
         return ($full) ?  $imgExtension[0] : $imgExtension[1];
-
     }
 
     /**
@@ -222,13 +219,12 @@ class IncidenceController extends Controller
      */
     public function saveImage(string $base64Image, $id)
     {
-
         $img =$this->getB64Image($base64Image);
 
         $imgExtension = $this->getB64Extension($base64Image);
         $imageName = 'incidence_image'. time() . '.' . $imgExtension;
 
-        Storage::disk('local')->put( $imageName, $img);
+        Storage::disk('local')->put($imageName, $img);
         $url=public_path().'\storage\ '.$imageName;
         $image=new IncidenceImage();
         $image->image=$imageName;

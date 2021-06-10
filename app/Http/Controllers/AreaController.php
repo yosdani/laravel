@@ -47,7 +47,7 @@ class AreaController extends Controller
      * @param int $id
      * @return JsonResponse
      *
-     * 
+     *
      */
     public function show(int $id): JsonResponse
     {
@@ -64,7 +64,7 @@ class AreaController extends Controller
      * Create a new Area
      * @param Request $request
      * @return JsonResponse
-     * 
+     *
      */
     public function store(Request $request): JsonResponse
     {
@@ -78,11 +78,10 @@ class AreaController extends Controller
      * @param Request $request
      * @param int $id
      * @return JsonResponse
-     * 
+     *
      */
     public function update(Request $request, int $id): JsonResponse
     {
-
         $area = Area::find($id);
         if (!$area) {
             return response()->json("This area is not exist", '400');
@@ -95,17 +94,13 @@ class AreaController extends Controller
             'success' => true,
             'message' => 'The area has been updated successfully'
         ], 200);
-
-
-
-
     }
 
     /**
      * Delete the existing area
      * @param int $id
      * @return JsonResponse
-     * 
+     *
      */
     public function destroy(int $id): JsonResponse
     {

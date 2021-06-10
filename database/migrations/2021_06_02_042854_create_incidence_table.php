@@ -46,8 +46,7 @@ class CreateIncidenceTable extends Migration
             $table->foreign('public_center_id')->references('id')->on('public_center');
 
             $table->timestamps();
-
-    });
+        });
     }
 
     /**

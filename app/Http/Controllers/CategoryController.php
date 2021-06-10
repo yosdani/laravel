@@ -2,66 +2,70 @@
 /**
  * Created by PhpStorm.
  * User: tabares
- * Date: 6/7/2021
- * Time: 12:24 AM
+ * Date: 6/6/2021
+ * Time: 10:56 PM
  */
 
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Category;
 use Illuminate\Http\JsonResponse;
-use App\Enrolment;
+use Illuminate\Http\Request;
 
-class EnrolmentController extends Controller
+class CategoryController extends Controller
 {
     /**
-     * List of enrollments
-     * @return JsonResponse
+     * List of categories
+     *
      */
     public function index():JsonResponse
     {
         return response()->json([
             'success' =>true,
-            'enrollments' => Enrolment::all()
+            'category' => Category::paginate(15)
         ], 200);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return Response
      */
-    public function create()
+    public function create(): Response
     {
-        //
     }
 
     /**
-     * Create a new Enrollment
+     * Create a new Category
      * @param Request $request
      * @return JsonResponse
      *
      */
-    public function store(Request $request):JsonResponse
+    public function store(Request $request): JsonResponse
     {
+        $category = new Category();
+
+        $category->name = $request->name;
+        $category->save();
+
         return response()->json([
             'success' => true,
-            'enrollment' => Enrolment::create($request->all())
+            'category' => $category
         ], 201);
     }
 
     /**
-     * Get enrollment by id
+     * Get category by id
      *
      * @param int $id
      * @return JsonResponse
      *
      *
      */
-    public function show($id):JsonResponse
+    public function show(int $id): JsonResponse
     {
-        if (!Enrolment::find($id)) {
+        if (!$category = Category::find($id)) {
             return response()->json([
                 'success'=>false,
                 'message'=>'The specified id does not exist'
@@ -70,7 +74,7 @@ class EnrolmentController extends Controller
 
         return response()->json([
             'success'=>true,
-            'enrollment'=>Enrolment::find($id)
+            'category'=>$category
         ], 200);
     }
 
@@ -78,54 +82,58 @@ class EnrolmentController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @return Response
      */
-    public function edit($id)
+    public function edit(int $id): Response
     {
         //
     }
 
     /**
-     * Update the existing enrollment by id
+     * Update the existing category by id
      * @param Request $request
      * @param int $id
      * @return JsonResponse
      *
      */
-    public function update(Request $request, $id):JsonResponse
+    public function update(Request $request, int $id): JsonResponse
     {
-        if (!Enrolment::find($id)) {
+        if (!$category = Category::find($id)) {
             return response()->json([
                 'success' => false,
                 'message' =>'The specified id does not exist'
             ], 400);
         }
 
+        $category->name = $request->name;
+        $category->save();
+
         return response()->json([
             'success' => true,
-            'enrollment' => Enrolment::find($id)->update($request->all())
+            'category' => $category
         ], 200);
     }
 
     /**
-     * Delete the existing enrollment
+     * Delete the existing category
      * @param int $id
      * @return JsonResponse
      *
      */
-    public function destroy($id):JsonResponse
+    public function destroy(int $id): JsonResponse
     {
-        if (!Enrolment::find($id)) {
+        if (!Category::find($id)) {
             return response()->json([
                 'success' =>false,
                 'message' =>'The specified id does not exist'
             ], 400);
         }
-        Enrolment::destroy($id);
+        Category::destroy($id);
 
         return response()->json([
             'success' =>true,
-            'message' =>'The enrollment was successfully deleted'
+            'message' =>'The category was successfully deleted'
         ]);
     }
 }

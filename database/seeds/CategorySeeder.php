@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Category;
+
 class CategorySeeder extends Seeder
 {
     /**
@@ -12,11 +13,11 @@ class CategorySeeder extends Seeder
     public function run()
     {
         $categoryOne = new Category();
-        $categoryOne->name = 'Activas-En Curso';
+        $categoryOne->name = 'Categoria 1';
         $categoryOne->save();
 
         $categoryTwo = new Category();
-        $categoryTwo->name = 'Histórico-Finalizadas';
+        $categoryTwo->name = 'Categoria 2';
         $categoryTwo->save();
     }
 }
