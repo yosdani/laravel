@@ -14,39 +14,44 @@ class UserAdminSeeder extends Seeder
      */
     public function run()
     {
-        $user = new User();
-        $user-> name = 'admin';
-        $user->email = 'admin@example.com';
-        $user->password = bcrypt('admin');
+        if(!User::where('email', 'admin@example.com')->first()){
+            $user = new User();
+            $user-> name = 'admin';
+            $user->email = 'admin@example.com';
+            $user->password = bcrypt('admin');
 
-        $token_user = JWTAuth::fromUser( $user );
+            $token_user = JWTAuth::fromUser( $user );
 
-        $user->token_user = $token_user;
+            $user->token_user = $token_user;
 
-        $user->save();
+            $user->save();
 
-        $roleUser = new RoleUser();
-        $roleUser->user_id = $user->id;
-        $roleUser->role_id = 1;
+            $roleUser = new RoleUser();
+            $roleUser->user_id = $user->id;
+            $roleUser->role_id = 1;
 
-        $roleUser->save();
+            $roleUser->save();
+        }
 
-        //worker role
-        $user = new User();
-        $user-> name = 'trabajador';
-        $user->email = 'trabajador@example.com';
-        $user->password = bcrypt('trabajador');
 
-        $token_user = JWTAuth::fromUser( $user );
+        if(!User::where('email', 'trabajador@example.com')->first()) {
+            //worker role
+            $user = new User();
+            $user->name = 'trabajador';
+            $user->email = 'trabajador@example.com';
+            $user->password = bcrypt('trabajador');
 
-        $user->token_user = $token_user;
+            $token_user = JWTAuth::fromUser($user);
 
-        $user->save();
+            $user->token_user = $token_user;
 
-        $roleUser = new RoleUser();
-        $roleUser->user_id = $user->id;
-        $roleUser->role_id = 3;
+            $user->save();
 
-        $roleUser->save();
+            $roleUser = new RoleUser();
+            $roleUser->user_id = $user->id;
+            $roleUser->role_id = 3;
+
+            $roleUser->save();
+        }
     }
 }
