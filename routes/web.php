@@ -74,6 +74,13 @@ Route::group(['middleware'=>['web','auth','admin']], function(){
         ]
     ]);
 
+    //Routes resources for streets, the index methods are in api route
+    Route::resource('street', 'StreetController', [
+        'only' => [
+            'index', 'store', 'show', 'update', 'destroy',
+        ]
+    ]);
+
     /********* States ************/
         //Route for  all states
         Route::get('states', ['uses'=>'StateController@index']);
