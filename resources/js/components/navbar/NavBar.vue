@@ -26,7 +26,7 @@
           <b-nav-item-dropdown right>
             <!-- Using 'button-content' slot -->
             <template #button-content>
-              <em>User</em>
+              <em>{{ user?user.name:''}}</em>
             </template>
             <b-dropdown-item href="#">Perfil</b-dropdown-item>
             <b-dropdown-item href="#">Salir</b-dropdown-item>
@@ -39,7 +39,7 @@
 
 <script>
 export default {
-  props: ["show"],
+  props: ["show","user"],
   created() {},
   data() {
     return {};
