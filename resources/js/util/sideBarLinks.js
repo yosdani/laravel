@@ -82,11 +82,11 @@ let sideBarLinks = [
     {
         name: "Incidencias",
         child: [
-            {
-                name: "Crear Nueva",
-                route: "/incidences/new",
+            /*{
+                name: "Editar Incidencia",
+                route: "/incidences/edit/:id",
                 icon: 'plus'
-            },
+            },*/
             {
                 name: "Incidencias",
                 route: "/incidences",

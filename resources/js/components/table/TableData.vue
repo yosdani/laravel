@@ -81,9 +81,11 @@
       @filtered="onFiltered"
     >
       <template #cell(actions)="row">
-        <b-button size="xs" class="mr-1">
-          <b-icon icon="cloud-upload" aria-hidden="true"></b-icon>Edit
-        </b-button>
+        <RouterLink 
+          :to="'/incidences/edit/'+row.item.id"
+        ><b-icon icon="cloud-upload" aria-hidden="true"></b-icon>Edit
+        </RouterLink>
+        
         <b-form>
           <b-button variant="danger" type="submit" size="xs" @click="deleteUser(row.item,$event)">
             <b-icon icon="trash-fill" aria-hidden="true"></b-icon> Delete
@@ -127,12 +129,11 @@ export default {
         sortDirection: 'asc',
         filter: null,
         filterOn: [],
-        infoModal: {
-          id: 'info-modal',
-          title: '',
-          form: ''
-        }
+        uri:''
       }
+    },
+    created() {
+      this.uri = window.origin;
     },
     components:{
     },
@@ -199,7 +200,7 @@ export default {
             })
           })
         })
-      }
+      },
     }
 }
 </script>
