@@ -74,8 +74,8 @@ Route::group(['middleware'=>['web','auth','admin']], function(){
         ]
     ]);
 
-    //Routes resources for interest categories, the index methods are in api route
-    Route::resource('distric', 'DistricController', [
+    //Routes resources for district, the index methods are in api route
+    Route::resource('district', 'DistrictController', [
         'only' => [
             'index', 'store', 'show', 'update', 'destroy',
         ]

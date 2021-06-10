@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Distric;
+use App\District;
 
-class DistricController extends Controller
+class DistrictController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class DistricController extends Controller
     {
         return response()->json([
             'success' => true,
-            'districts' => Distric::all()
+            'districts' => District::all()
         ], 200);
     }
 
@@ -38,7 +38,7 @@ class DistricController extends Controller
      */
     public function store(Request $request):JsonResponse
     {
-        $district = Distric::create($request->all());
+        $district = District::create($request->all());
 
         return response()->json([
             'success' => true,
@@ -54,7 +54,7 @@ class DistricController extends Controller
      */
     public function show($id): JsonResponse
     {
-        if( !Distric::find($id) ){
+        if( !District::find($id) ){
             return response()->json([
                 'success' => false,
                 'message' =>'The specified id does not exist'
@@ -63,7 +63,7 @@ class DistricController extends Controller
 
         return response()->json([
             'success' => true,
-            'district' => Distric::find($id)
+            'district' => District::find($id)
         ]);
     }
 
@@ -96,7 +96,7 @@ class DistricController extends Controller
 
         return response()->json([
             'success' => true,
-            'district' => Distric::find($id)->update($request->all())
+            'district' => District::find($id)->update($request->all())
         ]);
     }
 
@@ -108,13 +108,13 @@ class DistricController extends Controller
      */
     public function destroy($id): JsonResponse
     {
-        if( !Distric::find($id) ){
+        if( !District::find($id) ){
             return response()->json([
                 'success' => false,
                 'message' =>'The specified id does not exist'
             ]);
 
-            Distric::destroy($id);
+            District::destroy($id);
 
             return response()->json([
                 'success' => true,

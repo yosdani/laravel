@@ -4,13 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Street extends Model
+class District extends Model
 {
-    protected $table = 'street';
+    protected $table = 'district';
 
-    protected $fillable = [
-        'street', 'number'
-    ];
+    protected $fillable = [ 'district' ];
+
 
     /**
      * 
