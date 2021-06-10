@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <side-bar :show="show" :elements="listOfData"></side-bar>
-    <nav-bar :show="show" @showSideBar="showSideBar()"></nav-bar>
+    <nav-bar :show="show" @showSideBar="showSideBar()" :user="userAuth"></nav-bar>
     <div :class="navClass">
       <div class="container-fluid">
         <router-view></router-view>
@@ -24,8 +24,7 @@ export default {
       fields: [],
     };
   },
-  props:['user'],
-  mounted() {console.log(this.user);},
+  props:['userAuth'],
   components: {
     SideBar,
     NavBar

@@ -9,12 +9,12 @@ let sideBarLinks = [
         child: [
             {
                 name: "Crear Nueva",
-                route: "news/new",
+                route: "/news/new",
                 icon: 'plus'
             },
             {
                 name: "Noticias",
-                route: "news",
+                route: "/news",
                 icon: 'list'
             },
         ],
@@ -24,12 +24,12 @@ let sideBarLinks = [
         child: [
             {
                 name: "Crear Nueva",
-                route: "categories/new",
+                route: "/categories/new",
                 icon: 'plus'
             },
             {
                 name: "Categorias",
-                route: "categories",
+                route: "/categories",
                 icon: 'list'
             },
         ],
@@ -54,12 +54,12 @@ let sideBarLinks = [
         child: [
             {
                 name: "Crear Nueva",
-                route: "areas/new",
+                route: "/areas/new",
                 icon: 'plus'
             },
             {
                 name: "Areas",
-                route: "areas",
+                route: "/areas",
                 icon: 'list'
             },
         ],
@@ -69,12 +69,12 @@ let sideBarLinks = [
         child: [
             {
                 name: "Crear Nueva",
-                route: "enrolments/new",
+                route: "/enrolments/new",
                 icon: 'plus'
             },
             {
                 name: "Matriculas",
-                route: "enrolments",
+                route: "/enrolments",
                 icon: 'list'
             },
         ],
@@ -99,12 +99,12 @@ let sideBarLinks = [
          child: [
             {
                 name: "Crear Nueva",
-                route: "roles/new",
+                route: "/roles/new",
                 icon: 'plus'
             },
             {
                 name: "Roles",
-                route: "roles",
+                route: "/roles",
                 icon: 'list'
             },
         ],
@@ -114,12 +114,12 @@ let sideBarLinks = [
          child: [
             {
                 name: "Crear Nueva",
-                route: "users/new",
+                route: "/users/new",
                 icon: 'plus'
             },
             {
                 name: "Usuarios",
-                route: "users",
+                route: "/users",
                 icon: 'list'
             },
         ],
