@@ -49,4 +49,15 @@ class News extends Model
     {
         return $this->belongsTo(News::class, 'user_id');
     }
+
+    /**
+     * Get news by user id
+     * @return Collection
+     *
+     */
+    public function newsByUserId($id)
+    {
+        return $this->select('news.*')
+            ->where('news.user_id', $id);
+    }
 }
