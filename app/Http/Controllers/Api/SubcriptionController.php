@@ -50,4 +50,26 @@ class SubcriptionController extends Controller
         return response()->json($categories, 201);
 
     }
+
+    /**
+     * Remove subscription
+     * @return JsonResponse
+     */
+    public function destroy($id):JsonResponse
+    {
+
+
+        $subcription = UserCategory::find($id);
+
+        if (!$subcription) {
+            return response()->json("This subscription is not exist", '400');
+        }
+
+        UserCategory::destroy($id);
+
+        return  response()->json('deleted', 200);
+
+
+    }
+
 }
