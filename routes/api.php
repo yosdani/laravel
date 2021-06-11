@@ -79,7 +79,10 @@ Route::prefix('v1')->group(function () {
 
         /**********  Subscription ************/
         //Route Create a new subcription
-        Route::post('subscription', ['uses'=>'Api\SubcriptionCategoryController@toSubscribe']);
+        Route::post('subscription', ['uses'=>'Api\SubcriptionController@toSubscribe']);
+        //Route Create a new subcription
+        Route::delete('subscription/{id}', ['uses'=>'Api\SubcriptionController@destroy']);
+
         //Route for logout
         Route::get('/logout', 'AuthUserController@logout');
 
