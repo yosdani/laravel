@@ -26,9 +26,12 @@ class CreateIncidenceTable extends Migration
             $table->string('applicant')->nullable();
             $table->string('phone')->nullable();
             $table->string('centerEnrollment')->nullable();
-            $table->string('streetNumber')->nullable();
-            $table->string('district')->nullable();
-            $table->string('neighborhood')->nullable();
+            $table->int('street_id')->unsigned()->nullable();
+            $table->foreign('street_id')->references('id')->on('street');
+            $table->string('district_id')->unsigned()->nullable();
+            $table->foreign('district_id')->references('id')->on('district');
+            $table->string('neighborhood_id')->unsigned()->nullable();
+            $table->foreign('neighborhood_id')->references('id')->on('neighborhood');
             $table->string('addressee')->nullable();
             $table->string('team')->nullable();
             $table->string('location');
