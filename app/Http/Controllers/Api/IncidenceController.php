@@ -28,7 +28,7 @@ use App\User;
 class IncidenceController extends Controller
 {
     /**
-     * List of incidences
+     * List of incidences by citizens
      * @return JsonResponse
      */
     public function index(): JsonResponse
@@ -37,6 +37,36 @@ class IncidenceController extends Controller
             'success' =>true,
             'incidences'
             =>(new Incidence)->incidencesByUserId(JWTAuth::parseToken()->authenticate()->id)
+            ->with('images')
+            ->paginate(15)
+        ], 200);
+    }
+
+    /**
+     * List of incidences by workers
+     * @return JsonResponse
+     * @OA\Get (
+     *      path="/worker/incidence",
+     *      tags={"Incidences Worker"},
+     *      summary="Get all incidences of workers",
+     *      description="Returns the incedence",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      )
+     * )
+     */
+    public function indexWorkers(): JsonResponse
+    {
+        return response()->json([
+            'success' =>true,
+            'incidences'
+            =>(new Incidence)->incidencesByWorkerId(JWTAuth::parseToken()->authenticate()->id)
             ->with('images')
             ->paginate(15)
         ], 200);
@@ -171,7 +201,7 @@ class IncidenceController extends Controller
      * @return JsonResponse
      * @OA\Put(
      *      path="/incidence/{id}",
-     *      tags={"Incidences"},
+     *      tags={"Incidences Worker"},
      *      summary="Update a incidence",
      *      description="Returns updated incidence, this endpoint is for worker app",
      *     @OA\Parameter(
@@ -269,34 +299,7 @@ class IncidenceController extends Controller
      * Delete the existing incidence
      * @param int $id
      * @return JsonResponse
-     * @OA\Delete  (
-     *      path="/incidence/{id}",
-     *      tags={"Incidences"},
-     *      summary="Delete a incidence",
-     *      description="Returns Json response",
-     *     @OA\Parameter(
-     *          name="id",
-     *          description="Incidence id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     * )
+     * 
      */
     public function destroy(int $id): JsonResponse
     {

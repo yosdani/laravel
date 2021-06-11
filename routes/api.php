@@ -51,6 +51,14 @@ Route::prefix('v1')->group(function () {
         Route::post('incidence', ['uses'=>'Api\IncidenceController@store']);
         //Route for update an incidence
         Route::put('incidence/{id}', ['uses'=>'Api\IncidenceController@update']);
+        //Route for get all incidences of workers
+        Route::get('worker/incidence',['uses'=>'Api\IncidenceController@indexWorkers']);
+
+        /**********  Subscription ************/
+        //Route Create a new subcription
+        Route::post('subscription', ['uses'=>'Api\SubcriptionController@toSubscribe']);
+        //Route Create a new subcription
+        Route::delete('subscription/{id}', ['uses'=>'Api\SubcriptionController@destroy']);
 
         //Route for logout
         Route::get('/logout', 'AuthUserController@logout');
@@ -58,4 +66,8 @@ Route::prefix('v1')->group(function () {
         Route::group(['middleware' => ['admin']], function () {
         });
     });
+   // Route::post('tosubscribe', ['uses'=>'Api\SubscriptionsController@toSubscribe']);
+
+//    Route::get('subcribe/{categories}', ['uses'=>'Api\SubscriptionController@subcribe']);
+
 });

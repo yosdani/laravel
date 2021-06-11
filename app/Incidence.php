@@ -123,4 +123,15 @@ class Incidence extends Model
         return $this->select('incidence.*')
                     ->where('incidence.user_id', $id);
     }
+
+    /**
+     * Get incidences by worker id
+     * @return Collection
+     * 
+     */
+    public function incidencesByWorkerId($id)
+    {
+        return $this->select('incidence.*')
+                    ->where('incidence.assignedTo', $id);
+    }
 }

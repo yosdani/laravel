@@ -170,11 +170,17 @@ class NoticeController extends Controller
         $imgExtension = $this->getB64Extension($base64Image);
         $imageName = 'notice_image' .uniqid(). time() . '.' . $imgExtension;
         Storage::disk('local')->put($imageName, $img);
-        $url=storage_path('storage '). $imageName;
+        $url=$this->imageUrl($imageName);
         $image = new NoticeImage();
         $image->image = $imageName;
         $image->notice_id = $id;
         $image->urlImage =$url;
         $image->save();
     }
+
+    private function imageUrl($fileName)
+    {
+        return Storage::url($fileName);
+    }
+
 }
