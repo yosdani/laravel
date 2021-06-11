@@ -19,4 +19,19 @@ class Category extends Model
      * @var string
      */
     protected $fillable = [ 'name' ];
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function notices()
+    {
+        return $this->hasMany(Notice::class, 'category_id');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_categories');
+    }
 }

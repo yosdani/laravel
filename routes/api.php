@@ -54,10 +54,20 @@ Route::prefix('v1')->group(function () {
         //Route for get all incidences of workers
         Route::get('worker/incidence',['uses'=>'Api\IncidenceController@indexWorkers']);
 
+        /**********  Subscription ************/
+        //Route Create a new subcription
+        Route::post('subscription', ['uses'=>'Api\SubcriptionController@toSubscribe']);
+        //Route Create a new subcription
+        Route::delete('subscription/{id}', ['uses'=>'Api\SubcriptionController@destroy']);
+
         //Route for logout
         Route::get('/logout', 'AuthUserController@logout');
 
         Route::group(['middleware' => ['admin']], function () {
         });
     });
+   // Route::post('tosubscribe', ['uses'=>'Api\SubscriptionsController@toSubscribe']);
+
+//    Route::get('subcribe/{categories}', ['uses'=>'Api\SubscriptionController@subcribe']);
+
 });
