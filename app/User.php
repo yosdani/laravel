@@ -83,4 +83,14 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->belongsToMany(Category::class,'user_categories');
     }
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @return  HasMany
+     */
+    public function news()
+    {
+        return $this->hasMany(News::class, 'user_id');
+    }
 }
