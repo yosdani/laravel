@@ -12,9 +12,9 @@ class District extends Model
 
 
     /**
-     * 
+     *
      * @return  \Illuminate\Database\Eloquent\Relations\HasMany
-     * 
+     *
      */
     public function incidence()
     {

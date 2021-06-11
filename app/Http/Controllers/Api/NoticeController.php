@@ -55,7 +55,6 @@ class NoticeController extends Controller
      */
     public function show(int $id): JsonResponse
     {
-
         $notice = Notice::where('id', $id)->with('images')->get();
         if (!$notice) {
             return response()->json("This notice is not exist", '404');
@@ -77,18 +76,15 @@ class NoticeController extends Controller
 
 
         $files= array();
-        if($request->img) {
+        if ($request->img) {
             foreach ($request->img as $image) {
-
                 $files[] = $image;
 
                 $this->saveImage($image, $notice->id);
             }
-
-
         }
 
-        $notice1=Notice::where('id',$notice->id)->with('images')->get();
+        $notice1=Notice::where('id', $notice->id)->with('images')->get();
 
         return response()->json($notice1, 200);
     }
@@ -101,7 +97,6 @@ class NoticeController extends Controller
      */
     public function update(Request $request, int $id):JsonResponse
     {
-
         $notice = Notice::find($id);
 
         if (!$notice) {
@@ -157,21 +152,19 @@ class NoticeController extends Controller
 
     public function getB64Extension(string $base64Image, $full=null)
     {
-
         preg_match("/^data:image\/(.*);base64/i", $base64Image, $imgExtension);
 
         return ($full) ? $imgExtension[0] : $imgExtension[1];
     }
 
-        /**
-         * Store to image in Storage
-         * @param string $base64Image
-         * @param $id
-         * @return void
-         */
-        public function saveImage( string $base64Image,$id)
+    /**
+     * Store to image in Storage
+     * @param string $base64Image
+     * @param $id
+     * @return void
+     */
+    public function saveImage(string $base64Image, $id)
     {
-
         $img = $this->getB64Image($base64Image);
 
         $imgExtension = $this->getB64Extension($base64Image);

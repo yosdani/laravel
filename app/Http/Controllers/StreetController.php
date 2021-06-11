@@ -17,7 +17,7 @@ class StreetController extends Controller
         return response()->json([
             'success' => true,
             'streets' => Street::all(),
-        ],200);
+        ], 200);
     }
 
     /**
@@ -43,7 +43,7 @@ class StreetController extends Controller
         return response()->json([
             'success' => true,
             'street' => $street
-        ],201);
+        ], 201);
     }
 
     /**
@@ -54,11 +54,11 @@ class StreetController extends Controller
      */
     public function show($id): JsonResponse
     {
-        if( !Street::find($id) ){
+        if (!Street::find($id)) {
             return response()->json([
                 'success' => false,
                 'message' => 'The specified id does not exist'
-            ],400);
+            ], 400);
         }
     }
 
@@ -82,7 +82,7 @@ class StreetController extends Controller
      */
     public function update(Request $request, $id):JsonResponse
     {
-        if( !Street::find($id) ){
+        if (!Street::find($id)) {
             return response()->json([
                 'success' => false,
                 'message' => 'The specified id does not exist'
@@ -103,7 +103,7 @@ class StreetController extends Controller
      */
     public function destroy($id): JsonResponse
     {
-        if( !Street::find($id) ){
+        if (!Street::find($id)) {
             return response()->json([
                 'success' => false,
                 'message' =>'The specified id does not exist'

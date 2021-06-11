@@ -7,7 +7,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class TagsController extends Controller{
+class TagsController extends Controller
+{
     /**
      * List of tags
      * @return JsonResponse
@@ -40,7 +41,7 @@ class TagsController extends Controller{
      * @param int $id
      * @return JsonResponse
      *
-     * 
+     *
      */
     public function show(int $id): JsonResponse
     {
@@ -57,7 +58,7 @@ class TagsController extends Controller{
      * Create a new Tags
      * @param Request $request
      * @return JsonResponse
-     *  
+     *
      */
     public function store(Request $request): JsonResponse
     {
@@ -71,7 +72,7 @@ class TagsController extends Controller{
      * @param Request $request
      * @param int $id
      * @return JsonResponse
-     * 
+     *
      */
     public function update(Request $request, int $id): JsonResponse
     {
@@ -94,7 +95,7 @@ class TagsController extends Controller{
      * Delete the existing tags
      * @param int $id
      * @return JsonResponse
-     * 
+     *
      */
     public function destroy(int $id): JsonResponse
     {

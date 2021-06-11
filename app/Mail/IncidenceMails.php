@@ -22,7 +22,7 @@ class IncidenceMails extends Mailable
      *
      * @return void
      */
-    public function __construct(Incidence $incidence,string $image_uri,string $title)
+    public function __construct(Incidence $incidence, string $image_uri, string $title)
     {
         $this->incidence = $incidence;
         $this->title = $title;

@@ -11,9 +11,9 @@ class Neighborhood extends Model
     protected $fillable = [ 'name' ];
 
     /**
-     * 
+     *
      * @return  \Illuminate\Database\Eloquent\Relations\HasMany
-     * 
+     *
      */
     public function incidence()
     {

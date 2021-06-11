@@ -29,44 +29,21 @@ Route::prefix('v1')->group(function () {
 
     Route::group(['middleware' => ['authJWT']], function () {
 
-        /**********Interest Category ********************************/
-        //Route for get all interest categories
-        Route::get('interest_categories', 'InterestCategoryController@index');
-        //Route for get interest categories by id
-        Route::get('interest_categories/{id}', 'InterestCategoryController@show');
-
-        
-
-        
-
-
         /**********  Notice ************/
         //Route for get all notices
         Route::get('notice', ['uses'=>'NoticeController@index']);
         //Route for get an notice by id
         Route::get('notice/{id}', ['uses'=>'NoticeController@show']);
-        //Route for create a new notice
-        Route::post('notice', ['uses'=>'NoticeController@store']);
-        //Route for update an notice
-        Route::put('notice/{id}', ['uses'=>'NoticeController@update']);
-        //Route for delete an notice
-        Route::delete('notice/{id}', ['uses'=>'NoticeController@destroy']);
 
         /**********  Category ************/
         //Route for get all categories
-        Route::get('category', ['uses'=>'CategoryController@index']);
+        Route::get('category', ['uses'=>'Api/CategoryController@index']);
         //Route for get an category by id
-        Route::get('category/{id}', ['uses'=>'CategoryController@show']);
-        //Route for create a new category
-        Route::post('category', ['uses'=>'CategoryController@store']);
-        //Route for update an category
-        Route::put('category/{id}', ['uses'=>'CategoryController@update']);
-        //Route for delete an category
-        Route::delete('category/{id}', ['uses'=>'CategoryController@destroy']);
+        Route::get('category/{id}', ['uses'=>'Api/CategoryController@show']);
        
 
         /**********  Incidence ************/
-        //Route for get all Incidences
+        //Route for get all Incidences by user
         Route::get('incidence', ['uses'=>'Api\IncidenceController@index']);
         //Route for get an incidence by id
         Route::get('incidence/{id}', ['uses'=>'Api\IncidenceController@show']);
@@ -74,8 +51,6 @@ Route::prefix('v1')->group(function () {
         Route::post('incidence', ['uses'=>'Api\IncidenceController@store']);
         //Route for update an incidence
         Route::put('incidence/{id}', ['uses'=>'Api\IncidenceController@update']);
-        //Route for delete an incidence
-        Route::delete('incidence/{id}', ['uses'=>'Api\IncidenceController@destroy']);
 
         /**********  Subscription ************/
         //Route Create a new subcription

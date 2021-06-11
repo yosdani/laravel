@@ -50,7 +50,7 @@ class PublicCenterController extends Controller
      * @param int $id
      * @return JsonResponse
      *
-     * 
+     *
      */
     public function show(int $id):JsonResponse
     {
@@ -83,7 +83,7 @@ class PublicCenterController extends Controller
      * @param Request $request
      * @param int $id
      * @return JsonResponse
-     * 
+     *
      */
     public function update(Request $request, int $id):JsonResponse
     {
@@ -104,7 +104,7 @@ class PublicCenterController extends Controller
      * Delete the existing Public Center
      * @param int $id
      * @return JsonResponse
-     * 
+     *
      */
     public function destroy(int $id):JsonResponse
     {
