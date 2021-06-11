@@ -16,16 +16,26 @@ use App\Category;
 class SubcriptionController extends Controller
 {
 
-    public function subcribe($categoryId,$userId)
+    /**
+     * create new subscription
+     * @return JsonResponse
+     */
+    public function toSubscribe(Request $request)
     {
-
-        $userCategory=new UserCategory();
-        $userCategory->user_id=$userId;
-        $userCategory->category_id=$categoryId;
+        foreach ($request->categories as $category) {
 
 
-        $userCategory->save();
+            $userCategory = new UserCategory();
+            $userCategory->user_id = JWTAuth::parseToken()->authenticate()->id;
+            $userCategory->category_id = $category;
 
-        return $userCategory;
+
+            $userCategory->save();
+
+        }
+        $categories=User::where('id',$userCategory->user_id)->with('userCategory')->get();
+
+        return response()->json($categories, 201);
+
     }
 }
