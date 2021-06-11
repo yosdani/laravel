@@ -9,9 +9,14 @@
 namespace App\Http\Controllers\Api;
 
 
-use App\Http\Controllers\Controller;
 use App\UserCategory;
-use App\Category;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use JWTAuth;
+use App\User;
+use Illuminate\Support\Facades\DB;
+;
 
 class SubcriptionController extends Controller
 {
@@ -24,7 +29,14 @@ class SubcriptionController extends Controller
     {
         foreach ($request->categories as $category) {
 
+           $subscription= DB::table('user_categories')->where('category_id',$category)
+               ->where('user_id',JWTAuth::parseToken()->authenticate()->id)
+                ->first();
 
+           if(!empty($subscription)){
+
+               return response()->json("This subscription   exist", '404');
+           }
             $userCategory = new UserCategory();
             $userCategory->user_id = JWTAuth::parseToken()->authenticate()->id;
             $userCategory->category_id = $category;
