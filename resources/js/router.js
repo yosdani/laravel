@@ -5,6 +5,7 @@ import Dashboard from './views/dashboard/Dashboard.vue';
 import Incidences from './views/incidences/Incidences.vue';
 import IncidenceNew from './views/incidences/IncidenceNew.vue';
 import States from './views/states/States.vue';
+import StatesNew from './views/states/StateNew.vue';
 import Users from './views/users/Users.vue';
 import UserNew from './views/users/UserNew.vue';
 import Roles from './views/roles/Roles.vue';
@@ -33,6 +34,11 @@ export	default	new	VueRouter({
             path:'/states',
             name: "states",
             component: States
+        },
+        {
+            path:'/states/new',
+            name: "newStates",
+            component: StatesNew
         },
         {
             path:'/users',
