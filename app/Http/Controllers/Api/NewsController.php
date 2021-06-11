@@ -28,7 +28,10 @@ class NewsController  extends Controller
     {
         return response()->json([
             'success' =>true,
-            'news' => News::with('images')->paginate(15)
+            'news' =>
+               (new News)->newsByUserId(JWTAuth::parseToken()->authenticate()->id)
+             ->with('images')
+               ->paginate(15)
         ], 200);
     }
 
@@ -182,7 +185,7 @@ class NewsController  extends Controller
 
     private function imageUrl($fileName)
     {
-        return Storage::url($fileName);
+        return Storage::url($fileName,'storage');
     }
 
 }

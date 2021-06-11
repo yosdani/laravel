@@ -356,11 +356,19 @@ class IncidenceController extends Controller
         $imgExtension = $this->getB64Extension($base64Image);
         $imageName = 'incidence_image' .uniqid(). time() . '.' . $imgExtension;
         Storage::disk('local')->put($imageName, $img);
-        $url=storage_path('storage '). $imageName;
+        $url=$this->imageUrl($imageName);
         $image = new IncidenceImage();
         $image->image = $imageName;
         $image->incidence_id = $id;
         $image->urlImage =$url;
         $image->save();
     }
+
+    private function imageUrl($fileName)
+    {
+        return Storage::url($fileName,'storage');
+    }
+
+
+
 }
