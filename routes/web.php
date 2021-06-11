@@ -42,10 +42,8 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
         Route::put('/roles/{id}', 'RoleController@update');
         //Route for delete a role
         Route::delete('/roles/{id}', 'RoleController@delete');
-    });
-    
-    
-    //Routes resources for category
+
+        //Routes resources for category
     Route::resource('category', 'CategoryController', [
         'only' => [
             'index', 'store', 'show', 'update', 'destroy',
@@ -89,15 +87,11 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
 
     /********* States ************/
     //Route for  all states
-    Route::get('states', ['uses'=>'StateController@index']);
-    //Route for  create new state
-    Route::post('states', ['uses'=>'StateController@store']);
-    //Route for  update a state
-    Route::put('states/{id}', ['uses'=>'StateController@update']);
-    //Route for get state by id
-    Route::get('states/{id}', ['uses'=>'StateController@show']);
-    //Route for delete state
-    Route::delete('states/{id}', ['uses'=>'StateController@destroy']);
+    Route::resource('states', 'StateController', [
+        'only' => [
+            'index', 'store', 'show', 'update', 'destroy',
+        ]
+    ]);
 
     /**********  Areas ************/
     //Route for get all areas
@@ -181,6 +175,7 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
     Route::put('category/{id}', ['uses'=>'CategoryController@update']);
     //Route for delete an category
     Route::delete('category/{id}', ['uses'=>'CategoryController@destroy']);
+    });
 });
 
 

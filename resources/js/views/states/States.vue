@@ -13,6 +13,7 @@
                 :total="totalRows" 
                 :offset="perPage"
                 :actions="actions"
+                :route="route"
               ></table-data>
           </b-card-body>
       </b-card>
@@ -27,64 +28,51 @@ export default {
     components:{
         TableData
     },
-    data() {
-    return {
-      items: [],
-      currentPage: 1,
-      totalRows: 0,
-      perPage: 15,
-      bItems: [
-          {
-              text: 'Dashboard',
-              to: { name: 'dashboard' }
-          },
-          {
-              text: 'Estados',
-              active: true
-          }
-      ],
-      fields: [
-          {
-              key: "email",
-              label: "Email",
-              sortable: true,
-              sortDirection: "desc",
-          },
-          {
-              key: "name",
-              label: "Nombre",
-              sortable: true,
-              sortDirection: "desc",
-          },
-          {
-              key: "lastName",
-              label: "Apellidos",
-              sortable: true,
-              sortDirection: "desc",
-          },
-          {
-              key: "phoneNumber",
-              label: "Número teléfono",
-              sortable: true,
-              sortDirection: "desc",
-          },
-          { key: 'actions', label: 'Acciones' }
-      ],
-      actions:'admin/users'
+    data(){
+        return {
+        items: [],
+        currentPage: 1,
+        totalRows: 0,
+        perPage: 15,
+        bItems: [
+            {
+                text: 'Dashboard',
+                to: { name: 'dashboard' }
+            },
+            {
+                text: 'Estados',
+                active: true
+            }
+        ],
+        fields: [
+            {
+                key: "name",
+                label: "Estado",
+                sortable: true,
+                sortDirection: "desc",
+            },
+            { key: 'actions', label: 'Acciones' }
+        ],
+        actions:'admin/states',
+        route:'/states'
     };
   },
-  mounted() {
+  created() {
       this.getStates();
+  },
+  mounted() {
+      EventBus.$on('DELETED_ITEM_'+this.route,() =>{
+          this.getStates();
+      })
   },
   methods: {
       getStates(page=1){
-          let vm = this;
-          axios.get('/admin/states?pages='+page)
+          axios.get("/admin/states?pages="+page)
           .then(response =>{
-            vm.items = response.states.data;
-            vm.perPage = response.states.per_page;
-            vm.currentPage = response.states.current_page;
-            vm.totalRows= response.states.total;
+            this.items = response.data.states.data;
+            this.perPage = response.data.states.per_page;
+            this.currentPage = response.data.states.current_page;
+            this.totalRows= response.data.states.total;
           })
       }
   }

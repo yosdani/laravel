@@ -6,6 +6,7 @@ import Incidences from './views/incidences/Incidences.vue';
 import IncidenceNew from './views/incidences/IncidenceNew.vue';
 import States from './views/states/States.vue';
 import StatesNew from './views/states/StateNew.vue';
+import StatesEdit from './views/states/StateEdit.vue';
 import Users from './views/users/Users.vue';
 import UserNew from './views/users/UserNew.vue';
 import Roles from './views/roles/Roles.vue';
@@ -39,6 +40,11 @@ export	default	new	VueRouter({
             path:'/states/new',
             name: "newStates",
             component: StatesNew
+        },
+        {
+            path:'/states/edit/:id',
+            name: "editStates",
+            component: StatesEdit
         },
         {
             path:'/users',

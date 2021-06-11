@@ -82,7 +82,7 @@
     >
       <template #cell(actions)="row">
         <RouterLink 
-          :to="'/incidences/edit/'+row.item.id"
+          :to="route+'/edit/'+row.item.id"
         ><b-icon icon="cloud-upload" aria-hidden="true"></b-icon>Edit
         </RouterLink>
         
@@ -117,7 +117,7 @@
 <script>
 import EventBus from '../event-bus';
 export default {
-    props:['items','fields', 'current','total','offset','actions'],
+    props:['items','fields', 'current','total','offset','actions','route'],
     data() {
       return {
         totalRows: 1,
@@ -185,7 +185,7 @@ export default {
         }).then((result) => {
           axios.delete(window.origin+'/'+this.actions+'/'+item.id)
           .then(result => {
-            EventBus.$emit('DELETED_ITEM');
+            EventBus.$emit('DELETED_ITEM_'+this.route);
             this.$swal.fire(
               'Deleted!',
               'Your file has been deleted.',

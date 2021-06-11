@@ -44,17 +44,18 @@ export default {
             this.$swal.fire({
                 position: 'top-end',
                 icon: 'success',
-                title: 'Se ha adicionado correctamente',
+                title: 'Se acaba de '+this.formOut.action+' correctamente',
                 showConfirmButton: false,
                 timer: 1500
             })
             this.onReset(event);
+            this.$router.push(this.formOut.route);
         })
         .catch(err =>{
             this.$swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Something went wrong!',
+                text: 'Ha ocurrido un error!',
             })
         })
       },
