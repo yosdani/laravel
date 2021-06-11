@@ -77,10 +77,17 @@ Route::prefix('v1')->group(function () {
         //Route for delete an incidence
         Route::delete('incidence/{id}', ['uses'=>'Api\IncidenceController@destroy']);
 
+        /**********  Subscription ************/
+        //Route Create a new subcription
+        Route::post('subscription', ['uses'=>'Api\SubcriptionCategoryController@toSubscribe']);
         //Route for logout
         Route::get('/logout', 'AuthUserController@logout');
 
         Route::group(['middleware' => ['admin']], function () {
         });
     });
+   // Route::post('tosubscribe', ['uses'=>'Api\SubscriptionsController@toSubscribe']);
+
+//    Route::get('subcribe/{categories}', ['uses'=>'Api\SubscriptionController@subcribe']);
+
 });
