@@ -4,17 +4,17 @@
 
         <b-card>
             <b-card-header class="border-0">
-                <h3 class="mb-0">Adicionar Rol</h3>
+                <h3 class="mb-0">Editar Rol</h3>
             </b-card-header>
             <b-card-body>
-                <form-object :formOut="formIn"></form-object>
+                <form-simple :formOut="formIn"></form-simple>
             </b-card-body>
         </b-card>
     </div>
 </template>
 
 <script>
-import FormObject from "../../components/form/FormObject.vue"
+import FormSimple from '../../components/form/formSimple.vue';
 export default {
     data() {
     return {
@@ -28,23 +28,38 @@ export default {
               to: { name: 'roles' }
           },
           {
-              text: 'Adicionar',
+              text: 'Editar',
               active: true
           }
       ],
       formIn: {
         formFrom:'Roles',
+        label: 'Entre el nuevo tipo de rol',
+        placeholder: 'Entre el nuevo rol',
+        action: 'Editar',
         form: {
             name: ''
         },
         uri:'admin/roles',
-        method: 'POST',
-        route:'/states'
+        method: 'PUT',
+        route:'/roles'
       }
     };
   },
   components:{
-      FormObject
+    FormSimple
+  },
+  mounted() {
+      this.getRolById( this.$route.params.id );
+  },
+  methods:{
+      getRolById(id) {
+          axios.get('/admin/roles/'+id)
+          .then(response => {
+              this.formIn.form.name = response.data.name;
+              this.formIn.uri = this.formIn.uri+'/'+response.data.id;
+          })
+      }
   }
 }
 </script>

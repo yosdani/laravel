@@ -10,7 +10,7 @@
                 <b-card class="col-lg-2 col-md-6 card-roles" v-for="(item) in items" :key="item.id">
                     <b-avatar class="avatar-roles-edit" variant="info"></b-avatar>
                     <div class="mb-2">{{item.name}}</div>
-                    <a class="actions-roles-edit" :id="'icon-edit-role_'+item.id" @click="editRole(item)"><b-icon  icon="cloud-upload" aria-hidden="true"></b-icon></a>
+                    <a class="actions-roles-edit" :id="'icon-edit-role_'+item.id" @click="editRole(item.id)"><b-icon  icon="cloud-upload" aria-hidden="true"></b-icon></a>
                     <b-tooltip :target="'icon-edit-role_'+item.id" triggers="hover">
                         Editar rol
                     </b-tooltip>
@@ -86,36 +86,7 @@ export default {
         })
     },
     editRole(item){
-        this.$swal.fire({
-          title: 'Editar el rol: '+item.name,
-          input:'text',
-          inputAttributes: {
-                value: item.name
-            },
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Si, editar!'
-        }).then((result) => {
-          axios.put(window.origin+'/admin/roles/'+item.id,item.name)
-            then(response=>{
-                this.$swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Se ha adicionado correctamente',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-            })
-            .catch(error=>{
-                this.$swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!',
-                })
-            })
-        })
+        this.$router.push('/roles/edit/'+item);
     },
     editRol(item){
         

@@ -11,6 +11,7 @@ import Users from './views/users/Users.vue';
 import UserNew from './views/users/UserNew.vue';
 import Roles from './views/roles/Roles.vue';
 import RoleNew from './views/roles/RoleNew.vue';
+import RoleEdit from './views/roles/RoleEdit.vue';
 
 Vue.use(VueRouter);
 export	default	new	VueRouter({
@@ -65,6 +66,11 @@ export	default	new	VueRouter({
             path:'/roles/new',
             name: "newRole",
             component: RoleNew
+        },
+        {
+            path:'/roles/edit/:id',
+            name: "editRole",
+            component: RoleEdit
         }
 
 
