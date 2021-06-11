@@ -2,16 +2,24 @@ import	Vue	from	'vue';
 import	VueRouter	from	'vue-router';
 
 import Dashboard from './views/dashboard/Dashboard.vue';
+
 import Incidences from './views/incidences/Incidences.vue';
 import IncidenceNew from './views/incidences/IncidenceNew.vue';
+
 import States from './views/states/States.vue';
 import StatesNew from './views/states/StateNew.vue';
 import StatesEdit from './views/states/StateEdit.vue';
+
 import Users from './views/users/Users.vue';
 import UserNew from './views/users/UserNew.vue';
+
 import Roles from './views/roles/Roles.vue';
 import RoleNew from './views/roles/RoleNew.vue';
 import RoleEdit from './views/roles/RoleEdit.vue';
+
+import Enrollment from './views/enrollment/Enrollment.vue';
+import EnrollmentNew from './views/enrollment/EnrollmentNew.vue';
+import EnrollmentEdit from './views/enrollment/EnrollmentEdit.vue';
 
 Vue.use(VueRouter);
 export	default	new	VueRouter({
@@ -71,6 +79,21 @@ export	default	new	VueRouter({
             path:'/roles/edit/:id',
             name: "editRole",
             component: RoleEdit
+        },
+        {
+            path:'/enrollment',
+            name: "enrollment",
+            component: Enrollment
+        },
+        {
+            path:'/enrollment/new',
+            name: "newEnrollment",
+            component: EnrollmentNew
+        },
+        {
+            path:'/enrollment/edit/:id',
+            name: "editEnrollment",
+            component: EnrollmentEdit
         }
 
 

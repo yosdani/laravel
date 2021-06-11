@@ -58,7 +58,7 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
     ]);
     
     //Routes resources for matriculas
-    Route::resource('matriculas', 'MatriculaController', [
+    Route::resource('enrollment', 'EnrolmentController', [
         'only' => [
             'index', 'store', 'show', 'update', 'destroy',
         ],
@@ -128,18 +128,6 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
     Route::put('publiccenter/{id}', ['uses'=>'PublicCenterController@update']);
     //Route for delete an public center
     Route::delete('publiccenter/{id}', ['uses'=>'PublicCenterController@destroy']);
-
-    /**********  Enrollment ************/
-    //Route for get all enrollment
-    Route::get('enrollment', ['uses'=>'MatriculaController@index']);
-    //Route for get an enrollment by id
-    Route::get('enrollment/{id}', ['uses'=>'MatriculaController@show']);
-    //Route for create a new enrollment
-    Route::post('enrollment', ['uses'=>'MatriculaController@store']);
-    //Route for update an enrollment
-    Route::put('enrollment/{id}', ['uses'=>'MatriculaController@update']);
-    //Route for delete an enrollment
-    Route::delete('enrollment/{id}', ['uses'=>'MatriculaController@destroy']);
 
     /**********  Tags ************/
     //Route for get all tags

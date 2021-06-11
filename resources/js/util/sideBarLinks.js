@@ -69,12 +69,12 @@ let sideBarLinks = [
         child: [
             {
                 name: "Crear Nueva",
-                route: "/enrolments/new",
+                route: "/enrollment/new",
                 icon: 'plus'
             },
             {
                 name: "Matriculas",
-                route: "/enrolments",
+                route: "/enrollment",
                 icon: 'list'
             },
         ],
