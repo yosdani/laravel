@@ -51,6 +51,8 @@ Route::prefix('v1')->group(function () {
         Route::post('incidence', ['uses'=>'Api\IncidenceController@store']);
         //Route for update an incidence
         Route::put('incidence/{id}', ['uses'=>'Api\IncidenceController@update']);
+        //Route for get all incidences of workers
+        Route::get('worker/incidence',['uses'=>'Api\IncidenceController@indexWorkers']);
 
         /**********  Subscription ************/
         //Route Create a new subcription

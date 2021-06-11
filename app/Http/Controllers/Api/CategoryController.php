@@ -49,31 +49,7 @@ class CategoryController extends Controller
      * Create a new Category
      * @param Request $request
      * @return JsonResponse
-     *  * @OA\Post (
-     *      path="/category",
-     *      tags={"Categories"},
-     *      summary="Create a new category",
-     *      description="Returns created category",
-     *     @OA\Parameter(
-     *          name="request",
-     *          description="request all data",
-     *          required=true,
-     *          in="path",
-     *      ),
-     *      @OA\Response(
-     *          response=201,
-     *          description="Successful operation",
-     *
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      )
-     * )
+     *  
      */
     public function store(Request $request): JsonResponse
     {
@@ -155,34 +131,7 @@ class CategoryController extends Controller
      * @param Request $request
      * @param int $id
      * @return JsonResponse
-     * @OA\Put(
-     *      path="/category/{id}",
-     *      tags={"Categories"},
-     *      summary="Update a category",
-     *      description="Returns updated category",
-     *     @OA\Parameter(
-     *          name="id",
-     *          description="Category id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      )
-     * )
+     * 
      */
     public function update(Request $request, int $id): JsonResponse
     {
@@ -206,34 +155,7 @@ class CategoryController extends Controller
      * Delete the existing category
      * @param int $id
      * @return JsonResponse
-     * @OA\Delete  (
-     *      path="/category/{id}",
-     *      tags={"Categories"},
-     *      summary="Delete a category",
-     *      description="Returns Json response",
-     *     @OA\Parameter(
-     *          name="id",
-     *          description="Category id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     * )
+     * 
      */
     public function destroy(int $id): JsonResponse
     {
