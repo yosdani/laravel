@@ -83,5 +83,44 @@ class Incidence extends Model
         return $this->belongsTo(\App\Incidence::class, 'breakdown_id');
     }
 
+    /**
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     *
+     */
+    public function district()
+    {
+        return $this->belongsTo(\App\District::class, 'district');
+    }
 
+    /**
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     *
+     */
+    public function street()
+    {
+        return $this->belongsTo(\App\Street::class, 'streetNumber');
+    }
+
+    /**
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     *
+     */
+    public function neighborhood()
+    {
+        return $this->belongsTo(\App\Neighborhood::class, 'neighborhood');
+    }
+
+    /**
+     * Get incidences by user id
+     * @return Collection
+     *
+     */
+    public function incidencesByUserId($id)
+    {
+        return $this->select('incidence.*')
+                    ->where('incidence.user_id', $id);
+    }
 }

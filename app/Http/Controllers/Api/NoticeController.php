@@ -21,16 +21,7 @@ class NoticeController extends Controller
 {
     /**
      * List of notices
-     * @OA\Get(
-     *      path="/notice",
-     *      tags={"Notices"},
-     *      summary="Get list of notices",
-     *      description="Returns list of notices",
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation")
-     *       )
-     *     )
+     * @return JsonResponse
      */
     public function index():JsonResponse
     {
@@ -61,38 +52,9 @@ class NoticeController extends Controller
      * @param int $id
      * @return JsonResponse
      *
-     * @OA\Get (
-     *      path="/notice/{id}",
-     *      tags={"Notices"},
-     *      summary="Get a notice by id",
-     *      description="Returns the notice",
-     *     @OA\Parameter(
-     *          name="id",
-     *          description="Notice id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *
-     *       ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="The notice not be found",
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      )
-     * )
      */
     public function show(int $id): JsonResponse
     {
-
         $notice = Notice::where('id', $id)->with('images')->get();
         if (!$notice) {
             return response()->json("This notice is not exist", '404');
@@ -105,31 +67,6 @@ class NoticeController extends Controller
      * Create a new notice
      * @param Request $request
      * @return JsonResponse
-     *  * @OA\Post (
-     *      path="/notice",
-     *      tags={"Notices"},
-     *      summary="Create a new notice",
-     *      description="Returns created notice",
-     *     @OA\Parameter(
-     *          name="request",
-     *          description="request all data",
-     *          required=true,
-     *          in="path",
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      )
-     * )
      */
     public function store(Request $request): JsonResponse
     {
@@ -139,18 +76,15 @@ class NoticeController extends Controller
 
 
         $files= array();
-        if($request->img) {
+        if ($request->img) {
             foreach ($request->img as $image) {
-
                 $files[] = $image;
 
                 $this->saveImage($image, $notice->id);
             }
-
-
         }
 
-        $notice1=Notice::where('id',$notice->id)->with('images')->get();
+        $notice1=Notice::where('id', $notice->id)->with('images')->get();
 
         return response()->json($notice1, 200);
     }
@@ -160,38 +94,9 @@ class NoticeController extends Controller
      * @param Request $request
      * @param int $id
      * @return JsonResponse
-     * @OA\Put(
-     *      path="/notice/{id}",
-     *      tags={"Notices"},
-     *      summary="Update a notice",
-     *      description="Returns updated notice",
-     *     @OA\Parameter(
-     *          name="id",
-     *          description="notice id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      )
-     * )
      */
     public function update(Request $request, int $id):JsonResponse
     {
-
         $notice = Notice::find($id);
 
         if (!$notice) {
@@ -210,34 +115,6 @@ class NoticeController extends Controller
      * Delete the existing notice
      * @param int $id
      * @return JsonResponse
-     * @OA\Delete  (
-     *      path="/notice/{id}",
-     *      tags={"Notices"},
-     *      summary="Delete a notice",
-     *      description="Returns Json response",
-     *     @OA\Parameter(
-     *          name="id",
-     *          description="Notice id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     * )
      */
     public function destroy(int $id): JsonResponse
     {
@@ -275,21 +152,19 @@ class NoticeController extends Controller
 
     public function getB64Extension(string $base64Image, $full=null)
     {
-
         preg_match("/^data:image\/(.*);base64/i", $base64Image, $imgExtension);
 
         return ($full) ? $imgExtension[0] : $imgExtension[1];
     }
 
-        /**
-         * Store to image in Storage
-         * @param string $base64Image
-         * @param $id
-         * @return void
-         */
-        public function saveImage( string $base64Image,$id)
+    /**
+     * Store to image in Storage
+     * @param string $base64Image
+     * @param $id
+     * @return void
+     */
+    public function saveImage(string $base64Image, $id)
     {
-
         $img = $this->getB64Image($base64Image);
 
         $imgExtension = $this->getB64Extension($base64Image);

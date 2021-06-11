@@ -75,7 +75,7 @@ class RegisterController extends Controller
         $user->email = $data['email'];
         $user->phoneNumber = $data['phoneNumber'];
         $user->password = $password;
-        $user->token_user = JWTAuth::fromUser( $user );
+        $user->token_user = JWTAuth::fromUser($user);
 
         $user->save();
 

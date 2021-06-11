@@ -153,111 +153,19 @@
                 }
             }
         },
-        "/interest_categories": {
+        "/incidence/{id}": {
             "get": {
                 "tags": [
-                    "Interest Categories"
+                    "Incidences"
                 ],
-                "summary": "Get the list of interest categories",
-                "description": "When the user has been logged in for the first time, will be show all interest categories and him select one or many of this categories",
-                "operationId": "getInterestCategories",
-                "responses": {
-                    "200": {
-                        "description": "Show all interest categories"
-                    },
-                    "401": {
-                        "description": "The token is not valid"
-                    }
-                }
-            }
-        },
-        "/interest_categories/{id}": {
-            "get": {
-                "tags": [
-                    "Interest Categories"
-                ],
-                "summary": "Get by id the interest category",
-                "description": "Get the category of the user",
-                "operationId": "getInterestCategoryById",
+                "summary": "Get a incidence by id",
+                "description": "Returns the incedence",
+                "operationId": "App\\Http\\Controllers\\Api\\IncidenceController::show",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "interest category id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Show all interest categories"
-                    },
-                    "404": {
-                        "description": "The id is not found"
-                    },
-                    "401": {
-                        "description": "The token is not valid"
-                    }
-                }
-            }
-        },
-        "/notice": {
-            "get": {
-                "tags": [
-                    "Notices"
-                ],
-                "summary": "Get list of notices",
-                "description": "Returns list of notices",
-                "operationId": "App\\Http\\Controllers\\Api\\NoticeController::index",
-                "responses": {
-                    "200": {
-                        "description": "Successful operation"
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "Notices"
-                ],
-                "summary": "Create a new notice",
-                "description": "Returns created notice",
-                "operationId": "App\\Http\\Controllers\\Api\\NoticeController::store",
-                "parameters": [
-                    {
-                        "name": "request",
-                        "in": "path",
-                        "description": "request all data",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    }
-                }
-            }
-        },
-        "/notice/{id}": {
-            "get": {
-                "tags": [
-                    "Notices"
-                ],
-                "summary": "Get a notice by id",
-                "description": "Returns the notice",
-                "operationId": "App\\Http\\Controllers\\Api\\NoticeController::show",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Notice id",
+                        "description": "Incidence id",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -269,7 +177,7 @@
                         "description": "Successful operation"
                     },
                     "404": {
-                        "description": "The notice not be found"
+                        "description": "The incidence not be found"
                     },
                     "401": {
                         "description": "Unauthenticated"
@@ -278,16 +186,16 @@
             },
             "put": {
                 "tags": [
-                    "Notices"
+                    "Incidences"
                 ],
-                "summary": "Update a notice",
-                "description": "Returns updated notice",
-                "operationId": "App\\Http\\Controllers\\Api\\NoticeController::update",
+                "summary": "Update a incidence",
+                "description": "Returns updated incidence, this endpoint is for worker app",
+                "operationId": "App\\Http\\Controllers\\Api\\IncidenceController::update",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "notice id",
+                        "description": "incidence id",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -308,20 +216,49 @@
             },
             "delete": {
                 "tags": [
-                    "Notices"
+                    "Incidences"
                 ],
-                "summary": "Delete a notice",
+                "summary": "Delete a incidence",
                 "description": "Returns Json response",
-                "operationId": "App\\Http\\Controllers\\Api\\NoticeController::destroy",
+                "operationId": "App\\Http\\Controllers\\Api\\IncidenceController::destroy",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Notice id",
+                        "description": "Incidence id",
                         "required": true,
                         "schema": {
                             "type": "integer"
                         }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/incidence": {
+            "post": {
+                "tags": [
+                    "Incidences"
+                ],
+                "summary": "Create a new incidence",
+                "description": "Returns created incidence",
+                "operationId": "App\\Http\\Controllers\\Api\\IncidenceController::store",
+                "parameters": [
+                    {
+                        "name": "request",
+                        "in": "path",
+                        "description": "request all data",
+                        "required": true
                     }
                 ],
                 "responses": {

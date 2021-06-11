@@ -17,6 +17,10 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Mail\IncidenceMails;
+use JWTAuth;
+use App\State;
+use App\User;
 
 /**
  * Class IncidenceController
@@ -24,13 +28,17 @@ use Illuminate\Support\Facades\Storage;
 class IncidenceController extends Controller
 {
     /**
+     * List of incidences
      * @return JsonResponse
      */
     public function index(): JsonResponse
     {
         return response()->json([
             'success' =>true,
-            'incidences' => Incidence::with('images')->paginate(15)
+            'incidences'
+            =>(new Incidence)->incidencesByUserId(JWTAuth::parseToken()->authenticate()->id)
+            ->with('images')
+            ->paginate(15)
         ], 200);
     }
 
@@ -54,11 +62,38 @@ class IncidenceController extends Controller
      * @param int $id
      * @return JsonResponse
      *
+     * @OA\Get (
+     *      path="/incidence/{id}",
+     *      tags={"Incidences"},
+     *      summary="Get a incidence by id",
+     *      description="Returns the incedence",
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Incidence id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *
+     *       ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="The incidence not be found",
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      )
+     * )
      */
     public function show(int $id): JsonResponse
     {
-
-        $incidence=Incidence::where('id',$id)->with('images')->get();
+        $incidence=Incidence::where('id', $id)->with('images')->get();
 
         if (!$incidence) {
             return response()->json("This incidence is not exist", '404');
@@ -70,26 +105,60 @@ class IncidenceController extends Controller
      * Create a new incidence
      * @param Request $request
      * @return JsonResponse
+     *  * @OA\Post (
+     *      path="/incidence",
+     *      tags={"Incidences"},
+     *      summary="Create a new incidence",
+     *      description="Returns created incidence",
+     *     @OA\Parameter(
+     *          name="request",
+     *          description="request all data",
+     *          required=true,
+     *          in="path",
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      )
+     * )
      */
     public function store(Request $request): JsonResponse
     {
         $request->json()->all();
 
         $incidence = Incidence::create($request->except('img'));
+        $incidence->user_id = JWTAuth::parseToken()->authenticate()->id;
+        $incidence->save();
 
 
         $files= array();
-        if($request->img) {
+        if ($request->img) {
             foreach ($request->img as $image) {
-
                 $files[] = $image;
 
                 $this->saveImage($image, $incidence->id);
             }
-
-
         }
-        $incidence1=Incidence::where('id',$incidence->id)->with('images')->get();
+        $incidence1=Incidence::where('id', $incidence->id)->with('images')->get();
+
+        
+        try {
+            \Mail::to(JWTAuth::parseToken()->authenticate()->email)->send(new IncidenceMails($incidence, $incidence1[0]->images[0]->urlImage, 'Nueva Incidencia'));
+        } catch (Exception $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => $exception
+            ]);
+        }
 
         return response()->json($incidence1, 200);
     }
@@ -100,7 +169,34 @@ class IncidenceController extends Controller
      * @param Request $request
      * @param int $id
      * @return JsonResponse
+     * @OA\Put(
+     *      path="/incidence/{id}",
+     *      tags={"Incidences"},
+     *      summary="Update a incidence",
+     *      description="Returns updated incidence, this endpoint is for worker app",
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="incidence id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
      *
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      )
+     * )
      */
     public function update(Request $request, int $id): JsonResponse
     {
@@ -132,6 +228,8 @@ class IncidenceController extends Controller
             return response()->json("This incidence is not exist", '400');
         }
 
+        $oldState = $incidence->state;
+
         $incidence->name = $parameters['name'];
         $incidence->assignedTo = $parameters['assignedTo'];
         $incidence->reviewer = $parameters['reviewer'];
@@ -153,6 +251,16 @@ class IncidenceController extends Controller
         $incidence->state = $parameters['idState'];
         $incidence->save();
 
+        if ($oldState != $incidence->state) {
+            try {
+                \Mail::to(User::find($incidence->user_id)->email)->send(new IncidenceMails($incidence, $incidence1[0]->images[0]->urlImage, 'La Incidencia a cambiado al estado: '+ State::find($incidence->state)->name));
+            } catch (Exception $exception) {
+                return response()->json([
+                    'success' => false,
+                    'message' => $exception
+                ]);
+            }
+        }
 
         return response()->json('updated', 200);
     }
@@ -161,7 +269,34 @@ class IncidenceController extends Controller
      * Delete the existing incidence
      * @param int $id
      * @return JsonResponse
+     * @OA\Delete  (
+     *      path="/incidence/{id}",
+     *      tags={"Incidences"},
+     *      summary="Delete a incidence",
+     *      description="Returns Json response",
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Incidence id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
      *
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     * )
      */
     public function destroy(int $id): JsonResponse
     {
@@ -183,7 +318,8 @@ class IncidenceController extends Controller
      *
      * @return false|string
      */
-    public function getB64Image(string $base64Image){
+    public function getB64Image(string $base64Image)
+    {
         $imageServiceStr = substr($base64Image, strpos($base64Image, ",")+1);
         $image = base64_decode($imageServiceStr);
         return $image;
@@ -199,11 +335,9 @@ class IncidenceController extends Controller
 
     public function getB64Extension($base64Image, $full=null)
     {
-
-        preg_match("/^data:image\/(.*);base64/i",$base64Image, $imgExtension);
+        preg_match("/^data:image\/(.*);base64/i", $base64Image, $imgExtension);
 
         return ($full) ?  $imgExtension[0] : $imgExtension[1];
-
     }
 
     /**
@@ -212,9 +346,8 @@ class IncidenceController extends Controller
      * @param $id
      * @return void
      */
-    public function saveImage( string $base64Image,$id)
+    public function saveImage(string $base64Image, $id)
     {
-
         $img = $this->getB64Image($base64Image);
 
         $imgExtension = $this->getB64Extension($base64Image);
@@ -227,5 +360,4 @@ class IncidenceController extends Controller
         $image->urlImage =$url;
         $image->save();
     }
-
 }

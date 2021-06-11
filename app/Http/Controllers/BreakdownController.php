@@ -42,7 +42,7 @@ class BreakdownController extends Controller
      * @param int $id
      * @return JsonResponse
      *
-     * 
+     *
      */
     public function show(int $id)
     {
@@ -58,7 +58,7 @@ class BreakdownController extends Controller
      * Create a new Breakdown
      * @param Request $request
      * @return JsonResponse
-     *  
+     *
      */
     public function store(Request $request)
     {
@@ -73,7 +73,7 @@ class BreakdownController extends Controller
      * @param Request $request
      * @param int $id
      * @return JsonResponse
-     * 
+     *
      */
     public function update(Request $request, int $id)
     {
@@ -95,7 +95,7 @@ class BreakdownController extends Controller
      * Delete the existing breakdown
      * @param int $id
      * @return JsonResponse
-     * 
+     *
      */
     public function destroy(int $id)
     {
