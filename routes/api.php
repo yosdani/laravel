@@ -60,12 +60,20 @@ Route::prefix('v1')->group(function () {
         //Route Create a new subcription
         Route::delete('subscription/{id}', ['uses'=>'Api\SubcriptionController@destroy']);
 
+        /**********  firebase ************/
+
+        Route::post('/fcm/token', 'NotificationsController@postToken');
+        Route::post('/fcm/send', 'NotificationsController@sendAll');
+
+
+
         //Route for logout
         Route::get('/logout', 'AuthUserController@logout');
 
         Route::group(['middleware' => ['admin']], function () {
         });
     });
+
 
 
 });
