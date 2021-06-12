@@ -155,4 +155,19 @@ class UserController extends Controller
             'message' =>'The user was successfully deleted'
         ]);
     }
+
+    /**
+     * 
+     * Get all responsables
+     * @return JsonResponse
+     * 
+     * 
+     */
+    public function getResponsables(): JsonResponse
+    {
+        return response()->json([
+            'success' => true,
+            'responsables' => (new User)->responsables()
+        ]);
+    }
 }

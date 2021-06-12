@@ -11,6 +11,15 @@
                         ></b-form-input>
                     </b-form-group>
 
+                    <b-form-group v-if="formOut.formFrom=='Areas'" id="input-group-3" label="Entre el usuario responsable del area:" label-for="input-3">
+                        <b-form-select
+                        id="input-3"
+                        v-model="form.user_id"
+                        :options="formOut.array"
+                        required
+                        ></b-form-select>
+                    </b-form-group>
+
                     <b-button type="submit" variant="primary">{{ formOut.action }}</b-button>
                 </b-form>
 </template>

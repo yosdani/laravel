@@ -30,6 +30,8 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
                 'index', 'store', 'show', 'update', 'destroy',
             ],
         ]);
+        //Route for get all user with rol responsables
+        Route::get('responsables/areas','UserController@getResponsables');
     
         /********* Roles ************/
         //Route for get all roles

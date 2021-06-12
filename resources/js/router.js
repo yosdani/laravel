@@ -21,6 +21,10 @@ import Enrollment from './views/enrollment/Enrollment.vue';
 import EnrollmentNew from './views/enrollment/EnrollmentNew.vue';
 import EnrollmentEdit from './views/enrollment/EnrollmentEdit.vue';
 
+import Areas from './views/areas/Areas.vue';
+import AreaNew from './views/areas/AreaNew.vue';
+import AreaEdit from './views/areas/AreaEdit.vue';
+
 Vue.use(VueRouter);
 export	default	new	VueRouter({
     mode: 'history',
@@ -94,6 +98,21 @@ export	default	new	VueRouter({
             path:'/enrollment/edit/:id',
             name: "editEnrollment",
             component: EnrollmentEdit
+        },
+        {
+            path:'/areas',
+            name: "areas",
+            component: Areas
+        },
+        {
+            path:'/areas/new',
+            name: "newAreas",
+            component: AreaNew
+        },
+        {
+            path:'/areas/edit/:id',
+            name: "editAreas",
+            component: AreaEdit
         }
 
 
