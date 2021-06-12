@@ -37,9 +37,9 @@ export default {
         form: {
             name: ''
         },
-        roles:[],
         uri:'admin/roles',
-        method: 'POST'
+        method: 'POST',
+        route:'/states'
       }
     };
   },

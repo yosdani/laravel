@@ -93,4 +93,17 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(News::class, 'user_id');
     }
+
+    /**  Get users by rol responsable
+     * @return Collection
+     * 
+     */
+    public function responsables()
+    {
+        return $this->select('users.*')
+                    ->leftjoin('role_user','users.id','=','role_user.user_id')
+                    ->where('role_user.role_id','=',2)
+                    ->get();
+    }
+
 }

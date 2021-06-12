@@ -23,7 +23,7 @@ class AreaController extends Controller
     {
         return response()->json([
             'success' =>true,
-            'incidences' => Area::paginate(15)
+            'areas' => Area::select('area.*')->with('user')->paginate(15)
         ], 200);
     }
 
@@ -51,7 +51,7 @@ class AreaController extends Controller
      */
     public function show(int $id): JsonResponse
     {
-        $area=Area::find($id);
+        $area=Area::where('id','=',$id)->with('user')->first();
 
         if (!$area) {
             return response()->json("This area is not exist", '404');

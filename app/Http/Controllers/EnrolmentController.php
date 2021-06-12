@@ -23,7 +23,7 @@ class EnrolmentController extends Controller
     {
         return response()->json([
             'success' =>true,
-            'enrollments' => Enrolment::all()
+            'enrollment' => Enrolment::select('enrolment.*')->paginate(15)
         ], 200);
     }
 

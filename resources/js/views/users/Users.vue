@@ -67,13 +67,14 @@ export default {
           },
           { key: 'actions', label: 'Acciones' }
       ],
-      actions:'admin/users'
+      actions:'admin/users',
+      route:'/users'
     };
   },
   mounted() {
      this.fetchData();
 
-     EventBus.$on('DELETED_ITEM',() => {
+     EventBus.$on('DELETED_ITEM_'+this.route,() => {
        this.fetchData();
      })
   },

@@ -18,7 +18,7 @@ class StateController extends Controller
     {
         return response()->json([
             'success' =>true,
-            'states' => State::paginate(15)
+            'states' => State::select('states.*')->paginate(15)
         ], 200);
     }
 

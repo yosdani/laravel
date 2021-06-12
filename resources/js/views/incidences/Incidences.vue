@@ -6,7 +6,15 @@
               <h3 class="mb-0">Incidencias</h3>
           </b-card-header>
           <b-card-body>
-              <table-data :items="items" :fields="fields" :current="currentPage" :total="totalRows" :offset="perPage"></table-data>
+              <table-data 
+                :items="items" 
+                :fields="fields" 
+                :current="currentPage" 
+                :total="totalRows" 
+                :offset="perPage"
+                :actions="actions"
+                :route="route"
+              ></table-data>
           </b-card-body>
       </b-card>
 
@@ -51,7 +59,10 @@ export default {
               sortable: true,
               sortDirection: "desc",
           },
+          { key: 'actions', label: 'Acciones' }
       ],
+      actions:'admin/incidence',
+      route:'/incidences'
     };
   },
   mounted() {

@@ -30,6 +30,8 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
                 'index', 'store', 'show', 'update', 'destroy',
             ],
         ]);
+        //Route for get all user with rol responsables
+        Route::get('responsables/areas','UserController@getResponsables');
     
         /********* Roles ************/
         //Route for get all roles
@@ -42,10 +44,8 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
         Route::put('/roles/{id}', 'RoleController@update');
         //Route for delete a role
         Route::delete('/roles/{id}', 'RoleController@delete');
-    });
-    
-    
-    //Routes resources for category
+
+        //Routes resources for category
     Route::resource('category', 'CategoryController', [
         'only' => [
             'index', 'store', 'show', 'update', 'destroy',
@@ -60,7 +60,7 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
     ]);
     
     //Routes resources for matriculas
-    Route::resource('matriculas', 'MatriculaController', [
+    Route::resource('enrollment', 'EnrolmentController', [
         'only' => [
             'index', 'store', 'show', 'update', 'destroy',
         ],
@@ -89,15 +89,11 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
 
     /********* States ************/
     //Route for  all states
-    Route::get('states', ['uses'=>'StateController@index']);
-    //Route for  create new state
-    Route::post('states', ['uses'=>'StateController@store']);
-    //Route for  update a state
-    Route::put('states/{id}', ['uses'=>'StateController@update']);
-    //Route for get state by id
-    Route::get('states/{id}', ['uses'=>'StateController@show']);
-    //Route for delete state
-    Route::delete('states/{id}', ['uses'=>'StateController@destroy']);
+    Route::resource('states', 'StateController', [
+        'only' => [
+            'index', 'store', 'show', 'update', 'destroy',
+        ]
+    ]);
 
     /**********  Areas ************/
     //Route for get all areas
@@ -135,18 +131,6 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
     //Route for delete an public center
     Route::delete('publiccenter/{id}', ['uses'=>'PublicCenterController@destroy']);
 
-    /**********  Enrollment ************/
-    //Route for get all enrollment
-    Route::get('enrollment', ['uses'=>'MatriculaController@index']);
-    //Route for get an enrollment by id
-    Route::get('enrollment/{id}', ['uses'=>'MatriculaController@show']);
-    //Route for create a new enrollment
-    Route::post('enrollment', ['uses'=>'MatriculaController@store']);
-    //Route for update an enrollment
-    Route::put('enrollment/{id}', ['uses'=>'MatriculaController@update']);
-    //Route for delete an enrollment
-    Route::delete('enrollment/{id}', ['uses'=>'MatriculaController@destroy']);
-
     /**********  Tags ************/
     //Route for get all tags
     Route::get('tags', ['uses'=>'TagsController@index']);
@@ -181,6 +165,7 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
     Route::put('category/{id}', ['uses'=>'CategoryController@update']);
     //Route for delete an category
     Route::delete('category/{id}', ['uses'=>'CategoryController@destroy']);
+    });
 });
 
 
