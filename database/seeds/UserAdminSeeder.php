@@ -53,5 +53,25 @@ class UserAdminSeeder extends Seeder
 
             $roleUser->save();
         }
+
+        if (!User::where('email', 'responsable@example.com')->first()) {
+            //worker role
+            $user = new User();
+            $user->name = 'responsable';
+            $user->email = 'responsable@example.com';
+            $user->password = bcrypt('responsable');
+
+            $token_user = JWTAuth::fromUser($user);
+
+            $user->token_user = $token_user;
+
+            $user->save();
+
+            $roleUser = new RoleUser();
+            $roleUser->user_id = $user->id;
+            $roleUser->role_id = 2;
+
+            $roleUser->save();
+        }
     }
 }

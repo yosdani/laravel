@@ -4,17 +4,17 @@
 
         <b-card>
             <b-card-header class="border-0">
-                <h3 class="mb-0">Adicionar Usuario</h3>
+                <h3 class="mb-0">Editar Incidencia</h3>
             </b-card-header>
             <b-card-body>
-                <form-object :formOut="formIn"></form-object>
+                <form-incidence :formOut="formIn"></form-incidence>
             </b-card-body>
         </b-card>
     </div>
 </template>
 
 <script>
-import FormObject from "../../components/form/FormObject.vue"
+import FormIncidence from "../../components/form/FormIncidence.vue"
 export default {
     data() {
     return {
@@ -28,14 +28,13 @@ export default {
               to: { name: 'incidences' }
           },
           {
-              text: 'Adicionar',
+              text: 'Editar',
               active: true
           }
       ],
       formIn: {
         formFrom:'Incidence',
         form: {
-            email: '',
             name: '',
             lastName: '',
             phoneNumber: '',
@@ -49,14 +48,15 @@ export default {
     };
   },
   components:{
-      FormObject
+      FormIncidence
   },
   mounted() {
      this.getRoles();
+    this.getIncidenceById( this.$route.id );
   },
   methods: {
       getRoles(){
-          fetch(window.origin+'/admin/roles')
+          fetch( window.origin+'/admin/roles')
             .then((response) => response.json())
             .then((response) => {
                 response.map(r=>{
@@ -66,6 +66,12 @@ export default {
                     })
                 })
             });
+      },
+      getIncidenceById(id) {
+          axios.get(window.origin+'/admin/incidences/'+id)
+          then(response=>{
+              console.log(response);
+          })
       }
     }
 }

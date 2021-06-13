@@ -81,9 +81,11 @@
       @filtered="onFiltered"
     >
       <template #cell(actions)="row">
-        <b-button size="xs" class="mr-1">
-          <b-icon icon="cloud-upload" aria-hidden="true"></b-icon>Edit
-        </b-button>
+        <RouterLink 
+          :to="route+'/edit/'+row.item.id"
+        ><b-icon icon="cloud-upload" aria-hidden="true"></b-icon>Edit
+        </RouterLink>
+        
         <b-form>
           <b-button variant="danger" type="submit" size="xs" @click="deleteUser(row.item,$event)">
             <b-icon icon="trash-fill" aria-hidden="true"></b-icon> Delete
@@ -115,7 +117,7 @@
 <script>
 import EventBus from '../event-bus';
 export default {
-    props:['items','fields', 'current','total','offset','actions'],
+    props:['items','fields', 'current','total','offset','actions','route'],
     data() {
       return {
         totalRows: 1,
@@ -127,12 +129,11 @@ export default {
         sortDirection: 'asc',
         filter: null,
         filterOn: [],
-        infoModal: {
-          id: 'info-modal',
-          title: '',
-          form: ''
-        }
+        uri:''
       }
+    },
+    created() {
+      this.uri = window.origin;
     },
     components:{
     },
@@ -184,7 +185,7 @@ export default {
         }).then((result) => {
           axios.delete(window.origin+'/'+this.actions+'/'+item.id)
           .then(result => {
-            EventBus.$emit('DELETED_ITEM');
+            EventBus.$emit('DELETED_ITEM_'+this.route);
             this.$swal.fire(
               'Deleted!',
               'Your file has been deleted.',
@@ -199,7 +200,7 @@ export default {
             })
           })
         })
-      }
+      },
     }
 }
 </script>
