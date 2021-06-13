@@ -13,6 +13,7 @@
                 :total="totalRows" 
                 :offset="perPage"
                 :actions="actions"
+                :route="route"
               ></table-data>
           </b-card-body>
       </b-card>

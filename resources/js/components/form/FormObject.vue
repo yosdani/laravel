@@ -28,6 +28,7 @@
                      <b-form-group v-if="formOut.formFrom=='User'" id="input-group-3" label="Entre sus apellidos:" label-for="input-3">
                         <b-form-input
                         id="input-3"
+                        type="text"
                         v-model="form.lastName"
                         placeholder="Entre sus apellidos"
                         ></b-form-input>
@@ -36,6 +37,7 @@
                     <b-form-group v-if="formOut.formFrom=='User'" id="input-group-4" label="Entre su numero telefonico:" label-for="input-4">
                         <b-form-input
                         id="input-4"
+                        type="text"
                         v-model="form.phoneNumber"
                         placeholder="Entre su numero telefonico"
                         ></b-form-input>
@@ -47,14 +49,14 @@
 
                     <b-form-group v-if="formOut.formFrom=='User'" id="input-group-3" label="Entre el rol del usuario:" label-for="input-3">
                         <b-form-select
-                        id="input-3"
+                        id="input-5"
                         v-model="form.role"
                         :options="formOut.roles"
                         required
                         ></b-form-select>
                     </b-form-group>
 
-                    <b-button type="submit" variant="primary">Submit</b-button>
+                    <b-button type="submit" variant="primary">{{ formOut.action }}</b-button>
                 </b-form>
 </template>
 

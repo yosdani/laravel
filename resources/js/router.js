@@ -12,6 +12,7 @@ import StatesEdit from './views/states/StateEdit.vue';
 
 import Users from './views/users/Users.vue';
 import UserNew from './views/users/UserNew.vue';
+import UserEdit from './views/users/UserEdit.vue';
 
 import Roles from './views/roles/Roles.vue';
 import RoleNew from './views/roles/RoleNew.vue';
@@ -68,6 +69,11 @@ export	default	new	VueRouter({
             path:'/users/new',
             name: "newUser",
             component: UserNew,
+        },
+        {
+            path:'/users/edit/:id',
+            name: "editUser",
+            component: UserEdit,
         },
         {
             path:'/roles',

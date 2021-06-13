@@ -84,7 +84,7 @@ class UserController extends Controller
      */
     public function show(int $id):JsonResponse
     {
-        if (!$user = User::find($id)) {
+        if (!User::find($id)) {
             return response()->json([
                 'success'=>false,
                 'message'=>'The specified id does not exist'
@@ -93,7 +93,7 @@ class UserController extends Controller
 
         return response()->json([
             'success'=>true,
-            'user' => $user
+            'user' => User::where('id', '=',$id)->with('userRole')->first()
         ], 200);
     }
 
