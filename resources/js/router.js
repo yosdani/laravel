@@ -26,6 +26,10 @@ import Areas from './views/areas/Areas.vue';
 import AreaNew from './views/areas/AreaNew.vue';
 import AreaEdit from './views/areas/AreaEdit.vue';
 
+import Category from './views/category/Category.vue';
+import CategoryEdit from './views/category/CategoryEdit.vue';
+import CategoryNew from './views/category/CategoryNew.vue';
+
 Vue.use(VueRouter);
 export	default	new	VueRouter({
     mode: 'history',
@@ -119,6 +123,21 @@ export	default	new	VueRouter({
             path:'/areas/edit/:id',
             name: "editAreas",
             component: AreaEdit
+        },
+        {
+            path:'/categories',
+            name: "categories",
+            component: Category
+        },
+        {
+            path:'/categories/new',
+            name: "newCategory",
+            component: CategoryNew
+        },
+        {
+            path:'/categories/edit/:id',
+            name: "editCategory",
+            component: CategoryEdit
         }
 
 
