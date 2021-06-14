@@ -30,6 +30,10 @@ import Category from './views/category/Category.vue';
 import CategoryEdit from './views/category/CategoryEdit.vue';
 import CategoryNew from './views/category/CategoryNew.vue';
 
+import District from './views/district/District.vue';
+import DistrictEdit from './views/district/DistrictEdit.vue';
+import DistrictNew from './views/district/DistrictNew.vue';
+
 Vue.use(VueRouter);
 export	default	new	VueRouter({
     mode: 'history',
@@ -138,6 +142,21 @@ export	default	new	VueRouter({
             path:'/categories/edit/:id',
             name: "editCategory",
             component: CategoryEdit
+        },
+        {
+            path:'/district',
+            name: "district",
+            component: District
+        },
+        {
+            path:'/district/new',
+            name: "newDistrict",
+            component: DistrictNew
+        },
+        {
+            path:'/district/edit/:id',
+            name: "editDistrict",
+            component: DistrictEdit
         }
 
 

@@ -50,10 +50,10 @@ export default {
     FormSimple
   },
   mounted() {
-      this.getStateById( this.$route.params.id );
+      this.getById( this.$route.params.id );
   },
   methods:{
-      getStateById(id) {
+      getById(id) {
           axios.get('/admin/category/'+id)
           .then(response => {
               this.formIn.form.name = response.data.category.name;

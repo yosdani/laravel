@@ -123,6 +123,21 @@ let sideBarLinks = [
                 icon: 'list'
             },
         ],
+    },
+    {
+        name: "Distritos",
+         child: [
+            {
+                name: "Crear Nuevo",
+                route: "/district/new",
+                icon: 'plus'
+            },
+            {
+                name: "Distritos",
+                route: "/district",
+                icon: 'list'
+            },
+        ],
     }
 
 ];
