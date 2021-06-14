@@ -77,6 +77,7 @@ export default {
               this.formIn.form.name = response.data.user.name;
               this.formIn.form.lastName = response.data.user.lastName;
               this.formIn.form.phoneNumber = response.data.user.phoneNumber;
+              this.formIn.form.password = response.data.user.password;
               this.formIn.form.role = response.data.user.user_role[0].id;
               this.formIn.uri = this.formIn.uri+'/'+response.data.user.id;
           })

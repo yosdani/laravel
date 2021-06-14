@@ -43,7 +43,7 @@
                         ></b-form-input>
                     </b-form-group>
 
-                     <b-form-group v-if="formOut.formFrom=='User'" id="input-group-4" label="Entre la contraseña:" label-for="text-password">
+                     <b-form-group v-if="formOut.action=='Adicionar'" id="input-group-4" label="Entre la contraseña:" label-for="text-password">
                         <b-form-input type="password" id="text-password" aria-describedby="password-help-block"></b-form-input>
                     </b-form-group>
 
@@ -71,6 +71,7 @@ export default {
         };
     },
     mounted() {
+        console.log(this.formOut.form);
         this.form = this.formOut.form;
         this.form._token = this.csrf;
     },
@@ -89,7 +90,7 @@ export default {
             this.$swal.fire({
                 position: 'top-end',
                 icon: 'success',
-                title: 'Se ha adicionado correctamente',
+                title: 'Se acaba de '+this.formOut.action+' correctamente',
                 showConfirmButton: false,
                 timer: 1500
             })

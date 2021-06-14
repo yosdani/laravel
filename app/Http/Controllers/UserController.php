@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\User;
 use App\RoleUser;
+use App\Area;
 
 class UserController extends Controller
 {
@@ -125,7 +126,13 @@ class UserController extends Controller
         }
 
         $user->update($request->all());
-        $role_user = RoleUser::where(['user_id'=>$user->id])->get();
+        $role_user = RoleUser::where(['user_id'=>$user->id])->first();
+        $role_user->role_id = $request->role;
+        $role_user->save();
+
+        if($request->role == 3){
+            $this->deleteIfChageRole($id);
+        }
 
         return response()->json([
             'success' =>true,
@@ -184,5 +191,23 @@ class UserController extends Controller
             'success' => true,
             'workers' => (new User)->workers()
         ]);
+    }
+
+    /**
+     * If a area boss is changed of role, delete of boss of area
+     * @param int $id
+     * @return void
+     * 
+     */
+    private function deleteIfChageRole($id):void
+    {
+        $areas = (new Area)->getByUserId($id);
+
+        if(count($areas) > 0){
+            foreach($areas as $area){
+                $area->user_id = null;
+                $area->save();
+            }
+        }
     }
 }
