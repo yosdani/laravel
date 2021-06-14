@@ -29,11 +29,11 @@ Route::prefix('v1')->group(function () {
 
     Route::group(['middleware' => ['authJWT']], function () {
 
-        /**********  Notice ************/
+        /**********  News ************/
         //Route for get all notices
-        Route::get('notice', ['uses'=>'NoticeController@index']);
+        Route::get('news', ['uses'=>'NewsController@index']);
         //Route for get an notice by id
-        Route::get('notice/{id}', ['uses'=>'NoticeController@show']);
+        Route::get('news/{id}', ['uses'=>'NewsController@show']);
 
         /**********  Category ************/
         //Route for get all categories
@@ -60,14 +60,20 @@ Route::prefix('v1')->group(function () {
         //Route Create a new subcription
         Route::delete('subscription/{id}', ['uses'=>'Api\SubcriptionController@destroy']);
 
+        /**********  firebase ************/
+
+        Route::post('/fcm/token', 'NotificationsController@postToken');
+        Route::post('/fcm/send', 'NotificationsController@sendAll');
+
+
+
         //Route for logout
         Route::get('/logout', 'AuthUserController@logout');
 
         Route::group(['middleware' => ['admin']], function () {
         });
     });
-   // Route::post('tosubscribe', ['uses'=>'Api\SubscriptionsController@toSubscribe']);
 
-//    Route::get('subcribe/{categories}', ['uses'=>'Api\SubscriptionController@subcribe']);
+
 
 });

@@ -85,7 +85,16 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
-     * Get users by rol responsable
+     * The attributes that are mass assignable.
+     *
+     * @return  HasMany
+     */
+    public function news()
+    {
+        return $this->hasMany(News::class, 'user_id');
+    }
+
+    /**  Get users by rol responsable
      * @return Collection
      * 
      */
@@ -96,4 +105,5 @@ class User extends Authenticatable implements JWTSubject
                     ->where('role_user.role_id','=',2)
                     ->get();
     }
+
 }
