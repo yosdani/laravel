@@ -4,7 +4,7 @@ import	VueRouter	from	'vue-router';
 import Dashboard from './views/dashboard/Dashboard.vue';
 
 import Incidences from './views/incidences/Incidences.vue';
-import IncidenceNew from './views/incidences/IncidenceNew.vue';
+import IncidenceEdit from './views/incidences/IncidenceEdit.vue';
 
 import States from './views/states/States.vue';
 import StatesNew from './views/states/StateNew.vue';
@@ -51,7 +51,7 @@ export	default	new	VueRouter({
         {
             path:'/incidences/edit/:id',
             name: "editIncidences",
-            component: IncidenceNew
+            component: IncidenceEdit
         },
         {
             path:'/states',

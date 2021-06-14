@@ -1,0 +1,141 @@
+<template>
+    <div>
+        <b-breadcrumb :items="bItems"></b-breadcrumb>
+
+        <b-card>
+            <b-card-header class="border-0">
+                <h3 class="mb-0">Editar Incidencia</h3>
+            </b-card-header>
+            <b-card-body>
+                <form-incidence :formOut="formIn"></form-incidence>
+            </b-card-body>
+        </b-card>
+    </div>
+</template>
+
+<script>
+import FormIncidence from "../../components/form/FormIncidence.vue"
+export default {
+    data() {
+    return {
+      bItems: [
+          {
+              text: 'Dashboard',
+              to: { name: 'dashboard' }
+          },
+          {
+              text: 'Incidencias',
+              to: { name: 'incidences' }
+          },
+          {
+              text: 'Editar',
+              active: true
+          }
+      ],
+      formIn: {
+        formFrom:'Incidence',
+        action: 'Editar',
+        form: {
+            addressee: '',
+            applicant: '',
+            assignedTo: '',
+            attachedContent: '',
+            breakdown_id: '',
+            centerEnrollment: '',
+            deadline: '',
+            description: '',
+            district_id: '',
+            dni:'',
+            name: '',
+            neighborhood_id:'',
+            phone:'',
+            public_center_id: '',
+            responseForCitizen: '',
+            reviewer: '',
+            state_id: '',
+            street_id: '',
+            tags: '',
+            team: '',
+            user_id: ''
+        },
+        roles:[],
+        workers:[],
+        enrollments:[],
+        states:[],
+        uri:'admin/incidences',
+        method: 'PUT',
+        route:'/incidences'
+      }
+    };
+  },
+  components:{
+      FormIncidence
+  },
+  mounted() {
+     //this.getRoles();
+    this.getIncidenceById( this.$route.params.id );
+    this.getWorkers();
+    this.getEnrollment();
+    this.getStates();
+  },
+  methods: {
+      getRoles(){
+          fetch( window.origin+'/admin/roles')
+            .then((response) => response.json())
+            .then((response) => {
+                response.map(r=>{
+                    this.formIn.roles.push({
+                        text: r.name,
+                        value: r.name
+                    })
+                })
+            });
+      },
+      getIncidenceById(id) {
+          axios.get(window.origin+'/admin/incidences/'+id)
+          .then(response=>{
+            this.formIn.form = response.data;
+            this.formIn.form._token = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            this.formIn.uri = this.formIn.uri+'/'+response.data.id;
+          })
+      },
+      getWorkers(){
+          axios.get(window.origin+'/admin/workers')
+          .then(response=>{
+              response.data.workers.map(worker=>{
+                  this.formIn.workers.push({
+                      value: worker.id,
+                      text: worker.email
+                  });
+              })
+          })
+      },
+      getEnrollment(){
+          axios.get(window.origin+'/admin/enrollment')
+          .then(response => {
+              response.data.enrollment.data.map(enrollment => {
+                  this.formIn.enrollments.push({
+                      value: enrollment.id,
+                      text: enrollment.name
+                  })
+              })
+          })
+      },
+      getStates(){
+          axios.get(window.origin+'/admin/states')
+          .then(response => {
+              response.data.states.data.map(state => {
+                  this.formIn.states.push({
+                      value: state.id,
+                      text: state.name
+                  })
+              })
+          })
+      }
+    }
+}
+</script>
+
+<style scoped>
+
+</style>

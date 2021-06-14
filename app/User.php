@@ -106,4 +106,16 @@ class User extends Authenticatable implements JWTSubject
                     ->get();
     }
 
+    /**  Get users by rol worker
+     * @return Collection
+     * 
+     */
+    public function workers()
+    {
+        return $this->select('users.*')
+                    ->leftjoin('role_user','users.id','=','role_user.user_id')
+                    ->where('role_user.role_id','=',3)
+                    ->get();
+    }
+
 }

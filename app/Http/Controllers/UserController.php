@@ -170,4 +170,19 @@ class UserController extends Controller
             'responsables' => (new User)->responsables()
         ]);
     }
+
+    /**
+     * 
+     * Get all workers
+     * @return JsonResponse
+     * 
+     * 
+     */
+    public function getWorkers(): JsonResponse
+    {
+        return response()->json([
+            'success' => true,
+            'workers' => (new User)->workers()
+        ]);
+    }
 }

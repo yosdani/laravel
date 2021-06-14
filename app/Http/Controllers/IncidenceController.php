@@ -59,12 +59,10 @@ class IncidenceController extends Controller
      */
     public function show(int $id): JsonResponse
     {
-        $incidence=Incidence::where('id', $id)->with('images')->get();
-
-        if (!$incidence) {
+        if (!Incidence::find($id)) {
             return response()->json("This incidence is not exist", '404');
         }
-        return response()->json($incidence, 200) ;
+        return response()->json(Incidence::find($id)->with('images')->first(), 200) ;
     }
 
     /**
@@ -100,58 +98,17 @@ class IncidenceController extends Controller
      */
     public function update(Request $request, int $id): JsonResponse
     {
-        $parameters = $request->only(
-            'name',
-            'assignedTo',
-            'reviewer',
-            'deadLine',
-            'creationDate',
-            'tags',
-            'description',
-            'attachedContent',
-            'dni',
-            'applicant',
-            'phone',
-            'centerEnrollment',
-            'streetNumber',
-            'district',
-            'neighborhood',
-            'addressee',
-            'team',
-            'location',
-            'responseForCitizen',
-            'idState'
-        );
-
         $incidence = Incidence::find($id);
         if (!$incidence) {
             return response()->json("This incidence is not exist", '400');
         }
 
-        $oldState = $incidence->state;
+        $oldState = $incidence->state_id;
 
-        $incidence->name = $parameters['name'];
-        $incidence->assignedTo = $parameters['assignedTo'];
-        $incidence->reviewer = $parameters['reviewer'];
-        $incidence->deadLine = $parameters['deadLine'];
-        $incidence->tags = $parameters['tags'];
-        $incidence->description = $parameters['description'];
-        $incidence->attachedContentn = $parameters['attachedContent'];
-        $incidence->dni = $parameters['dni'];
-        $incidence->applicant = $parameters['applicant'];
-        $incidence->phone = $parameters['phone'];
-        $incidence->centerEnrollment = $parameters['centerEnrollment'];
-        $incidence->streetNumber = $parameters['streetNumber'];
-        $incidence->district = $parameters['district'];
-        $incidence->neighborhood = $parameters['neighborhood'];
-        $incidence->address = $parameters['address'];
-        $incidence->team = $parameters['team'];
-        $incidence->location = $parameters['location'];
-        $incidence->responseForCitizen = $parameters['responseForCitizen'];
-        $incidence->state = $parameters['idState'];
+        $incidence->update($request->all());
         $incidence->save();
 
-        if ($oldState != $incidence->state) {
+        if ($oldState != $incidence->state_id) {
             try {
                 \Mail::to(User::find($incidence->user_id)->email)->send(new IncidenceMails($incidence, $incidence1[0]->images[0]->urlImage, 'La Incidencia a cambiado al estado: '+ State::find($incidence->state)->name));
             } catch (Exception $exception) {

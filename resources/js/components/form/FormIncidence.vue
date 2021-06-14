@@ -1,6 +1,6 @@
 <template>
     <b-form @submit="onSubmit" v-if="show">
-                <input type="hidden" name="_token" :value="csrf">
+                <input type="hidden" name="_token" :value="form._token" />
 
                     <b-form-group id="input-group-2" label="Entre el nombre:" label-for="input-2">
                         <b-form-input
@@ -11,7 +11,7 @@
                         ></b-form-input>
                     </b-form-group>
 
-                    <b-form-group id="input-group-3" label="Asignar Área:" label-for="input-3">
+                   <!-- <b-form-group id="input-group-3" label="Asignar Área:" label-for="input-3">
                         <b-form-select
                         id="input-3"
                         v-model="form.area"
@@ -35,30 +35,33 @@
                         v-model="form.lastName"
                         placeholder="Entre sus apellidos"
                         ></b-form-input>
-                    </b-form-group>
+                    </b-form-group>-->
 
-                    <b-form-group v-if="formOut.formFrom=='User'" id="input-group-4" label="Entre su numero telefonico:" label-for="input-4">
-                        <b-form-input
-                        id="input-4"
-                        v-model="form.phoneNumber"
-                        placeholder="Entre su numero telefonico"
-                        ></b-form-input>
-                    </b-form-group>
-
-                     <b-form-group v-if="formOut.formFrom=='User'" id="input-group-4" label="Entre la contraseña:" label-for="text-password">
-                        <b-form-input type="password" id="text-password" aria-describedby="password-help-block"></b-form-input>
-                    </b-form-group>
-
-                    <b-form-group v-if="formOut.formFrom=='User'" id="input-group-3" label="Entre el rol del usuario:" label-for="input-3">
+                    <b-form-group id="input-group-5" label="Entre el estado de la incidencia" label-for="input-5">
                         <b-form-select
-                        id="input-3"
-                        v-model="form.role"
-                        :options="formOut.roles"
-                        required
+                        id="input-5"
+                        v-model="form.state_id"
+                        :options="formOut.states"
                         ></b-form-select>
                     </b-form-group>
 
-                    <b-button type="submit" variant="primary">Submit</b-button>
+                    <b-form-group id="input-group-3" label="Entre la matricula" label-for="input-3">
+                        <b-form-select
+                        id="input-3"
+                        v-model="form.centerEnrollment"
+                        :options="formOut.enrollments"
+                        ></b-form-select>
+                    </b-form-group>
+
+                    <b-form-group id="input-group-4" label="Asignar trabajador:" label-for="input-4">
+                        <b-form-select
+                        id="input-4"
+                        v-model="form.assignedTo"
+                        :options="formOut.workers"
+                        ></b-form-select>
+                    </b-form-group>
+
+                    <b-button type="submit" variant="primary">{{formOut.action}}</b-button>
                 </b-form>
 </template>
 
@@ -68,13 +71,11 @@ export default {
     data() {
         return {
             form: {},
-            show: true,
-            csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            show: true
         };
     },
-    mounted() {
+    updated() {
         this.form = this.formOut.form;
-        this.form._token = this.csrf;
     },
     methods: {
       onSubmit(event) {
@@ -91,11 +92,12 @@ export default {
             this.$swal.fire({
                 position: 'top-end',
                 icon: 'success',
-                title: 'Se ha adicionado correctamente',
+                title: 'La incidencia se acaba de '+this.formOut.action+' correctamente',
                 showConfirmButton: false,
                 timer: 1500
             })
             this.onReset(event);
+            this.$router.push(this.formOut.route);
         })
         .catch(err =>{
             this.$swal.fire({
