@@ -27,13 +27,19 @@ Route::prefix('v1')->group(function () {
     //Route for forgot password, send the email for the url
     Route::post('/password', 'PasswordController@forgotPassword');
 
-    Route::group(['middleware' => ['cors','authJWT']], function () {
+    Route::group(['middleware' => ['authJWT']], function () {
 
         /**********  News ************/
         //Route for get all news
         Route::get('news', ['uses'=>'Api\NewsController@index']);
+        //Route for create a News
+        Route::post('news', ['uses'=>'Api\NewsController@store']);
         //Route for get an notice by id
         Route::get('news/{id}', ['uses'=>'Api\NewsController@show']);
+        //Route for update an incidence
+        Route::put('news/{id}', ['uses'=>'Api\NewsController@update']);
+          //Route delete a News by id
+        Route::delete('news/{id}', ['uses'=>'Api\NewsController@destroy']);
 
         /**********  Category ************/
         //Route for get all categories
