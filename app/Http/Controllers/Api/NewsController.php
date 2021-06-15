@@ -17,6 +17,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\User;
 use App\NoticeImage;
+use JWTAuth;
+
 
 class NewsController  extends Controller
 {
@@ -143,9 +145,14 @@ class NewsController  extends Controller
     {
         $request->json()->all();
 
-        $news = News::create($request->except('img'));
-
-
+        $news=new News();
+        //$news = News::create($request->except('img'));
+      $news->title=$request->title;
+      $news->subTitle=$request->subTitle;
+      $news->subTitle=$request->subTitle;
+      $news->content=$request->contents;
+      $news->user_id=JWTAuth::parseToken()->authenticate()->id;
+      $news->save();
         $files= array();
         if ($request->img) {
             foreach ($request->img as $image) {
