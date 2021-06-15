@@ -94,8 +94,11 @@ export default {
     margin-left: 15px;
     margin-bottom: 15px;
 }
+.nav-title-sidebar a {
+    color: white!important;
+}
 .nav-body-sidebar a {
-    color: white;
+    color: white!important;
     font-size: 16px;
     line-height: 1.8em;
 }
