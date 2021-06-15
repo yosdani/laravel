@@ -113,7 +113,7 @@ let sideBarLinks = [
         name: "Usuarios",
          child: [
             {
-                name: "Crear Nueva",
+                name: "Crear Nuevo",
                 route: "/users/new",
                 icon: 'plus'
             },
