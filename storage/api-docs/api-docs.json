@@ -175,6 +175,56 @@
                 }
             }
         },
+        "/news": {
+            "get": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "News",
+                "description": "All news",
+                "operationId": "App\\Http\\Controllers\\Api\\NewsController::index",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/news/{id}": {
+            "get": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Get a news by id",
+                "description": "Returns the new",
+                "operationId": "App\\Http\\Controllers\\Api\\NewsController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "New id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "The new not be found"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
         "/register": {
             "post": {
                 "tags": [
