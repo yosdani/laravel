@@ -23,6 +23,13 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
                 'index', 'store', 'show', 'update', 'destroy',
             ],
         ]);
+
+        //Route for news
+        Route::resource('news', 'NewsController',[
+            'only' => [
+                'index', 'store', 'show', 'update', 'destroy'
+            ]
+        ]);
     
         //Routes resources for users
         Route::resource('users', 'UserController', [

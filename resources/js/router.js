@@ -38,6 +38,10 @@ import Neighborhood from './views/neighborhood/Neighborhood.vue';
 import NeighborhoodNew from './views/neighborhood/NeighborhoodNew.vue';
 import NeighborhoodEdit from './views/neighborhood/NeighborhoodEdit.vue';
 
+import NewsNew from './views/news/NewsNew.vue';
+import News from './views/news/News.vue';
+import NewsEdit from './views/news/NewsEdit.vue';
+
 Vue.use(VueRouter);
 export	default	new	VueRouter({
     mode: 'history',
@@ -176,6 +180,21 @@ export	default	new	VueRouter({
             path:'/neighborhood/edit/:id',
             name: "editNeighborhood",
             component: NeighborhoodEdit
+        },
+        {
+            path:'/news',
+            name: "news",
+            component: News
+        },
+        {
+            path:'/news/new',
+            name: "newNews",
+            component: NewsNew
+        },
+        {
+            path:'/news/edit/:id',
+            name: "editNews",
+            component: NewsEdit
         }
 
 
