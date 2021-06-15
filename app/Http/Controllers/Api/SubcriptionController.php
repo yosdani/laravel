@@ -22,8 +22,34 @@ class SubcriptionController extends Controller
 {
 
     /**
-     * create new subscription
+     * Create a new subscription
+     * @param Request $request
      * @return JsonResponse
+     *  * @OA\Post (
+     *      path="/subscription",
+     *      tags={"Subscriptions"},
+     *      summary="Create a new subscription",
+     *      description="Returns created subscription",
+     *     @OA\Parameter(
+     *          name="request",
+     *          description="request all data",
+     *          required=true,
+     *          in="path",
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      )
+     * )
      */
     public function toSubscribe(Request $request)
     {
