@@ -20,7 +20,7 @@ let sideBarLinks = [
         ],
     },
     {
-        name: "Categorias",
+        name: "Categorías",
         child: [
             {
                 name: "Crear Nueva",
@@ -28,7 +28,7 @@ let sideBarLinks = [
                 icon: 'plus'
             },
             {
-                name: "Categorias",
+                name: "Categorías",
                 route: "/categories",
                 icon: 'list'
             },
@@ -50,7 +50,7 @@ let sideBarLinks = [
         ],
     },
     {
-        name: "Areas",
+        name: "Áreas",
         child: [
             {
                 name: "Crear Nueva",
@@ -58,14 +58,14 @@ let sideBarLinks = [
                 icon: 'plus'
             },
             {
-                name: "Areas",
+                name: "Áreas",
                 route: "/areas",
                 icon: 'list'
             },
         ],
     },
     {
-        name: "Matriculas",
+        name: "Matrículas",
         child: [
             {
                 name: "Crear Nueva",
@@ -73,7 +73,7 @@ let sideBarLinks = [
                 icon: 'plus'
             },
             {
-                name: "Matriculas",
+                name: "Matrículas",
                 route: "/enrollment",
                 icon: 'list'
             },
