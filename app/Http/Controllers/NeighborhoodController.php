@@ -4,19 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Neighborhood;
+use Illuminate\Http\JsonResponse;
 
 class NeighborhoodController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function index():JsonResponse
     {
         return response()->json([
             'success' => true,
-            'neighborhood' => Neighborhood::all()
+            'neighborhood' => Neighborhood::select('neighborhood.*')->paginate(15)
         ], 200);
     }
 
@@ -34,7 +35,7 @@ class NeighborhoodController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function store(Request $request): JsonResponse
     {
@@ -50,9 +51,9 @@ class NeighborhoodController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function show($id)
+    public function show($id): JsonResponse
     {
         if (!Neighborhood::find($id)) {
             return response()->json([
@@ -83,7 +84,7 @@ class NeighborhoodController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function update(Request $request, $id): JsonResponse
     {
@@ -104,7 +105,7 @@ class NeighborhoodController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function destroy($id): JsonResponse
     {

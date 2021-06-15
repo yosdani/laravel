@@ -34,6 +34,10 @@ import District from './views/district/District.vue';
 import DistrictEdit from './views/district/DistrictEdit.vue';
 import DistrictNew from './views/district/DistrictNew.vue';
 
+import Neighborhood from './views/neighborhood/Neighborhood.vue';
+import NeighborhoodNew from './views/neighborhood/NeighborhoodNew.vue';
+import NeighborhoodEdit from './views/neighborhood/NeighborhoodEdit.vue';
+
 Vue.use(VueRouter);
 export	default	new	VueRouter({
     mode: 'history',
@@ -157,6 +161,21 @@ export	default	new	VueRouter({
             path:'/district/edit/:id',
             name: "editDistrict",
             component: DistrictEdit
+        },
+        {
+            path:'/neighborhood',
+            name: "neighborhood",
+            component: Neighborhood
+        },
+        {
+            path:'/neighborhood/new',
+            name: "newNeighborhood",
+            component: NeighborhoodNew
+        },
+        {
+            path:'/neighborhood/edit/:id',
+            name: "editNeighborhood",
+            component: NeighborhoodEdit
         }
 
 

@@ -40,39 +40,39 @@ export default {
                 to: { name: 'dashboard' }
             },
             {
-                text: 'Estados',
+                text: 'Barrios',
                 active: true
             }
         ],
         fields: [
             {
                 key: "name",
-                label: "Estado",
+                label: "Barrios",
                 sortable: true,
                 sortDirection: "desc",
             },
             { key: 'actions', label: 'Acciones' }
         ],
-        actions:'admin/states',
-        route:'/states'
+        actions:'admin/neighborhood',
+        route:'/neighborhood'
     };
   },
   created() {
-      this.getStates();
+      this.getNeighborhood();
   },
   mounted() {
       EventBus.$on('DELETED_ITEM_'+this.route,() =>{
-          this.getStates();
+          this.getNeighborhood();
       })
   },
   methods: {
-      getStates(page=1){
-          axios.get("/admin/states?pages="+page)
+      getNeighborhood(page=1){
+          axios.get("/admin/neighborhood?pages="+page)
           .then(response =>{
-            this.items = response.data.states.data;
-            this.perPage = response.data.states.per_page;
-            this.currentPage = response.data.states.current_page;
-            this.totalRows= response.data.states.total;
+            this.items = response.data.neighborhood.data;
+            this.perPage = response.data.neighborhood.per_page;
+            this.currentPage = response.data.neighborhood.current_page;
+            this.totalRows= response.data.neighborhood.total;
           })
       }
   }
