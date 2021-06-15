@@ -66,6 +66,51 @@
                 }
             }
         },
+        "/incidence": {
+            "get": {
+                "tags": [
+                    "Incidences"
+                ],
+                "summary": "Get all incidences of user",
+                "description": "Returns the incedence",
+                "operationId": "App\\Http\\Controllers\\Api\\IncidenceController::index",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Incidences"
+                ],
+                "summary": "Create a new incidence",
+                "description": "Returns created incidence",
+                "operationId": "App\\Http\\Controllers\\Api\\IncidenceController::store",
+                "parameters": [
+                    {
+                        "name": "request",
+                        "in": "path",
+                        "description": "request all data",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
         "/worker/incidence": {
             "get": {
                 "tags": [
@@ -131,35 +176,6 @@
                         "schema": {
                             "type": "integer"
                         }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    }
-                }
-            }
-        },
-        "/incidence": {
-            "post": {
-                "tags": [
-                    "Incidences"
-                ],
-                "summary": "Create a new incidence",
-                "description": "Returns created incidence",
-                "operationId": "App\\Http\\Controllers\\Api\\IncidenceController::store",
-                "parameters": [
-                    {
-                        "name": "request",
-                        "in": "path",
-                        "description": "request all data",
-                        "required": true
                     }
                 ],
                 "responses": {
