@@ -84,7 +84,7 @@ export default {
                     id: d.id,
                     name: d.name,
                     user_id: d.user_id,
-                    email: d.user.email
+                    email: d.user?d.user.email:''
                 })
             })
           })

@@ -22,7 +22,55 @@ class AuthUserController extends Controller
      * Register the new user
      * @param Request $request
      * @return JsonResponse
+     *  * @OA\Post (
+     *      path="/register",
+     *      tags={"Auth"},
+     *      summary="Register new user",
+     *      description="Register in system a new user",
+     *     @OA\RequestBody(
+     *          required=true,
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 @OA\Property(
+     *                     property="name",
+     *                     description="Name of user",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="last Name",
+     *                     description="Last Name of user",
+     *                     type="string"
+     *                 ),
+     *                  @OA\Property(
+     *                     property="email",
+     *                     description="Email of user",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="password",
+     *                     description="Password of user",
+     *                     type="string"
+     *                 ),
+     *                  @OA\Property(
+     *                     property="phoneNumber",
+     *                     description="Phone number of user",
+     *                     type="string"
+     *                 ),
+     *             )
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
      *
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      )
+     * )
      */
 
     public function register(Request $request): JsonResponse
@@ -67,7 +115,44 @@ class AuthUserController extends Controller
      * Login the user
      * @param Request $request
      * @return JsonResponse
+     ** @OA\Post (
+     *      path="/login",
+     *      tags={"Auth"},
+     *      summary="Login user",
+     *      description="Login the user",
+     *     @OA\RequestBody(
+     *          required=true,
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                  @OA\Property(
+     *                     property="email",
+     *                     description="Email of user",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="password",
+     *                     description="Password of user",
+     *                     type="string"
+     *                 ),
+     *             )
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
      *
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *       @OA\Response(
+     *          response=404,
+     *          description="Email or password incorrect"
+     *      )
+     * )
      */
     public function login(Request $request): JsonResponse
     {
@@ -98,7 +183,21 @@ class AuthUserController extends Controller
     /**
      * Logout user
      * @return JsonResponse
+     *  @OA\Get (
+     *      path="/logout",
+     *      tags={"Auth"},
+     *      summary="Logout user",
+     *      description="Logout user of system",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
      *
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      )
+     * )
      */
     public function logout(): JsonResponse
     {

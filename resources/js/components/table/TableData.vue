@@ -81,16 +81,21 @@
       @filtered="onFiltered"
     >
       <template #cell(actions)="row">
-        <RouterLink 
-          :to="route+'/edit/'+row.item.id"
-        ><b-icon icon="cloud-upload" aria-hidden="true"></b-icon>Edit
+          <b-row>
+          <b-col>
+        <RouterLink :to="route+'/edit/'+row.item.id">
+            <b-button variant="success" size="sm"><b-icon icon="pen" aria-hidden="true"></b-icon> Edit
+        </b-button>
         </RouterLink>
-        
+          </b-col>
+          <b-col>
         <b-form>
-          <b-button variant="danger" type="submit" size="xs" @click="deleteUser(row.item,$event)">
+          <b-button variant="danger" type="submit" size="sm" @click="deleteUser(row.item,$event)">
             <b-icon icon="trash-fill" aria-hidden="true"></b-icon> Delete
           </b-button>
         </b-form>
+          </b-col>
+          </b-row>
       </template>
       <template #row-details="row">
         <b-card>

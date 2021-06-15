@@ -66,6 +66,51 @@
                 }
             }
         },
+        "/incidence": {
+            "get": {
+                "tags": [
+                    "Incidences"
+                ],
+                "summary": "Get all incidences of user",
+                "description": "Returns the incedence",
+                "operationId": "App\\Http\\Controllers\\Api\\IncidenceController::index",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Incidences"
+                ],
+                "summary": "Create a new incidence",
+                "description": "Returns created incidence",
+                "operationId": "App\\Http\\Controllers\\Api\\IncidenceController::store",
+                "parameters": [
+                    {
+                        "name": "request",
+                        "in": "path",
+                        "description": "request all data",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
         "/worker/incidence": {
             "get": {
                 "tags": [
@@ -146,22 +191,134 @@
                 }
             }
         },
-        "/incidence": {
-            "post": {
+        "/news": {
+            "get": {
                 "tags": [
-                    "Incidences"
+                    "News"
                 ],
-                "summary": "Create a new incidence",
-                "description": "Returns created incidence",
-                "operationId": "App\\Http\\Controllers\\Api\\IncidenceController::store",
+                "summary": "News",
+                "description": "All news",
+                "operationId": "App\\Http\\Controllers\\Api\\NewsController::index",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/news/{id}": {
+            "get": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Get a news by id",
+                "description": "Returns the new",
+                "operationId": "App\\Http\\Controllers\\Api\\NewsController::show",
                 "parameters": [
                     {
-                        "name": "request",
+                        "name": "id",
                         "in": "path",
-                        "description": "request all data",
-                        "required": true
+                        "description": "New id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
                 ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "The new not be found"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Register new user",
+                "description": "Register in system a new user",
+                "operationId": "App\\Http\\Controllers\\AuthUserController::register",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Name of user",
+                                        "type": "string"
+                                    },
+                                    "last Name": {
+                                        "description": "Last Name of user",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "Email of user",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "Password of user",
+                                        "type": "string"
+                                    },
+                                    "phoneNumber": {
+                                        "description": "Phone number of user",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login user",
+                "description": "Login the user",
+                "operationId": "App\\Http\\Controllers\\AuthUserController::login",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "description": "Email of user",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "Password of user",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Successful operation"
@@ -169,8 +326,63 @@
                     "400": {
                         "description": "Bad Request"
                     },
+                    "404": {
+                        "description": "Email or password incorrect"
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout user",
+                "description": "Logout user of system",
+                "operationId": "App\\Http\\Controllers\\AuthUserController::logout",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
                     "401": {
                         "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/password": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Forgot password",
+                "description": "The user reset the password and send by email",
+                "operationId": "App\\Http\\Controllers\\PasswordController::forgotPassword",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "description": "Email of user",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "The email not exists"
+                    },
+                    "404": {
+                        "description": "You are not provided a email"
                     }
                 }
             }

@@ -4,50 +4,50 @@
                     <b-form-group
                         v-if="formOut.formFrom=='User'"
                         id="input-group-1"
-                        label="Entre el email"
+                        label="Email"
                         label-for="input-1"
                     >
                         <b-form-input
                         id="input-1"
                         v-model="form.email"
                         type="email"
-                        placeholder="Entre el email"
+                        placeholder="example@domain.com"
                         required
                         ></b-form-input>
                     </b-form-group>
 
-                    <b-form-group id="input-group-2" label="Entre el nombre:" label-for="input-2">
+                    <b-form-group id="input-group-2" label="Nombre:" label-for="input-2">
                         <b-form-input
                         id="input-2"
                         v-model="form.name"
-                        placeholder="Entre el nombre"
+                        placeholder="Nombre"
                         required
                         ></b-form-input>
                     </b-form-group>
 
-                     <b-form-group v-if="formOut.formFrom=='User'" id="input-group-3" label="Entre sus apellidos:" label-for="input-3">
+                     <b-form-group v-if="formOut.formFrom=='User'" id="input-group-3" label="Apellidos:" label-for="input-3">
                         <b-form-input
                         id="input-3"
                         type="text"
                         v-model="form.lastName"
-                        placeholder="Entre sus apellidos"
+                        placeholder="Apellidos"
                         ></b-form-input>
                     </b-form-group>
 
-                    <b-form-group v-if="formOut.formFrom=='User'" id="input-group-4" label="Entre su numero telefonico:" label-for="input-4">
+                    <b-form-group v-if="formOut.formFrom=='User'" id="input-group-4" label="Teléfono:" label-for="input-4">
                         <b-form-input
                         id="input-4"
                         type="text"
                         v-model="form.phoneNumber"
-                        placeholder="Entre su numero telefonico"
+                        placeholder="0123456789"
                         ></b-form-input>
                     </b-form-group>
 
-                     <b-form-group v-if="formOut.action=='Adicionar'" id="input-group-4" label="Entre la contraseña:" label-for="text-password">
+                     <b-form-group v-if="formOut.formFrom=='User'" id="input-group-4" label="Contraseña:" label-for="text-password">
                         <b-form-input type="password" id="text-password" aria-describedby="password-help-block"></b-form-input>
                     </b-form-group>
 
-                    <b-form-group v-if="formOut.formFrom=='User'" id="input-group-3" label="Entre el rol del usuario:" label-for="input-3">
+                    <b-form-group v-if="formOut.formFrom=='User'" id="input-group-3" label="Rol del usuario:" label-for="input-3">
                         <b-form-select
                         id="input-5"
                         v-model="form.role"
