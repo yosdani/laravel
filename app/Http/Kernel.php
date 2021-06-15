@@ -19,6 +19,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
+        \Fruitcake\Cors\HandleCors::class,
     ];
 
     /**
@@ -63,5 +64,7 @@ class Kernel extends HttpKernel
         'auth.jwt' => \Tymon\JWTAuth\Http\Middleware\Authenticate::class,
         'admin' =>\App\Http\Middleware\AdminMiddleware::class,
         'authJWT' => \App\Http\Middleware\VerifyTokenAuth::class,
+        "cors" => \App\Http\Middleware\Cors::class,
+
     ];
 }
