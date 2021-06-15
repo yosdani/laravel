@@ -12,6 +12,37 @@ use App\User;
 class NotificationsController extends Controller
 {
 
+
+    /**
+     * Save a token device
+     * @param Request $request
+     * @return JsonResponse
+     *  * @OA\Post (
+     *      path="/token",
+     *      tags={"Post Token"},
+     *      summary="Store a token device",
+     *      description="Returns ",
+     *     @OA\Parameter(
+     *          name="request",
+     *          description="request all data",
+     *          required=true,
+     *          in="path",
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      )
+     * )
+     */
     public function postToken(Request $request)
     {
         $user = Auth::guard('api')->user();

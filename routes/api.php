@@ -30,16 +30,22 @@ Route::prefix('v1')->group(function () {
     Route::group(['middleware' => ['authJWT']], function () {
 
         /**********  News ************/
-        //Route for get all notices
-        Route::get('news', ['uses'=>'NewsController@index']);
+        //Route for get all news
+        Route::get('news', ['uses'=>'Api\NewsController@index']);
+        //Route for create a News
+        Route::post('news', ['uses'=>'Api\NewsController@store']);
         //Route for get an notice by id
-        Route::get('news/{id}', ['uses'=>'NewsController@show']);
+        Route::get('news/{id}', ['uses'=>'Api\NewsController@show']);
+        //Route for update an incidence
+        Route::put('news/{id}', ['uses'=>'Api\NewsController@update']);
+          //Route delete a News by id
+        Route::delete('news/{id}', ['uses'=>'Api\NewsController@destroy']);
 
         /**********  Category ************/
         //Route for get all categories
-        Route::get('category', ['uses'=>'Api/CategoryController@index']);
+        Route::get('category', ['uses'=>'Api\CategoryController@index']);
         //Route for get an category by id
-        Route::get('category/{id}', ['uses'=>'Api/CategoryController@show']);
+        Route::get('category/{id}', ['uses'=>'Api\CategoryController@show']);
        
 
         /**********  Incidence ************/
@@ -62,8 +68,8 @@ Route::prefix('v1')->group(function () {
 
         /**********  firebase ************/
 
-        Route::post('/fcm/token', 'NotificationsController@postToken');
-        Route::post('/fcm/send', 'NotificationsController@sendAll');
+        Route::post('/fcm/token', 'Api\NotificationsController@postToken');
+        Route::post('/fcm/send', 'Api\NotificationsController@sendAll');
 
 
 

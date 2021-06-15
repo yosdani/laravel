@@ -17,6 +17,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\User;
 use App\NoticeImage;
+use JWTAuth;
+
 
 class NewsController  extends Controller
 {
@@ -110,17 +112,47 @@ class NewsController  extends Controller
     }
 
     /**
-     * Create a news
+     * Create a News
      * @param Request $request
      * @return JsonResponse
+     *  * @OA\Post (
+     *      path="/news",
+     *      tags={"News"},
+     *      summary="Create a news",
+     *      description="Returns created news",
+     *     @OA\Parameter(
+     *          name="request",
+     *          description="request all data",
+     *          required=true,
+     *          in="path",
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      )
+     * )
      */
     public function store(Request $request): JsonResponse
     {
         $request->json()->all();
 
-        $news = News::create($request->except('img'));
-
-
+        $news=new News();
+        //$news = News::create($request->except('img'));
+      $news->title=$request->title;
+      $news->subTitle=$request->subTitle;
+      $news->subTitle=$request->subTitle;
+      $news->content=$request->contents;
+      $news->user_id=JWTAuth::parseToken()->authenticate()->id;
+      $news->save();
         $files= array();
         if ($request->img) {
             foreach ($request->img as $image) {
@@ -130,7 +162,7 @@ class NewsController  extends Controller
             }
         }
 
-        $news1=Notice::where('id', $news->id)->with('images')->get();
+        $news1=News::where('id', $news->id)->with('images')->get();
 
         return response()->json($news1, 200);
     }
