@@ -27,19 +27,19 @@ Route::prefix('v1')->group(function () {
     //Route for forgot password, send the email for the url
     Route::post('/password', 'PasswordController@forgotPassword');
 
-    Route::group(['middleware' => ['authJWT']], function () {
+    Route::group(['middleware' => ['cors','authJWT']], function () {
 
         /**********  News ************/
-        //Route for get all notices
-        Route::get('news', ['uses'=>'NewsController@index']);
+        //Route for get all news
+        Route::get('news', ['uses'=>'Api\NewsController@index']);
         //Route for get an notice by id
-        Route::get('news/{id}', ['uses'=>'NewsController@show']);
+        Route::get('news/{id}', ['uses'=>'Api\NewsController@show']);
 
         /**********  Category ************/
         //Route for get all categories
-        Route::get('category', ['uses'=>'Api/CategoryController@index']);
+        Route::get('category', ['uses'=>'Api\CategoryController@index']);
         //Route for get an category by id
-        Route::get('category/{id}', ['uses'=>'Api/CategoryController@show']);
+        Route::get('category/{id}', ['uses'=>'Api\CategoryController@show']);
        
 
         /**********  Incidence ************/
@@ -62,8 +62,8 @@ Route::prefix('v1')->group(function () {
 
         /**********  firebase ************/
 
-        Route::post('/fcm/token', 'NotificationsController@postToken');
-        Route::post('/fcm/send', 'NotificationsController@sendAll');
+        Route::post('/fcm/token', 'Api\NotificationsController@postToken');
+        Route::post('/fcm/send', 'Api\NotificationsController@sendAll');
 
 
 
