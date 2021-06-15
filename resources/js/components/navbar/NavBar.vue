@@ -33,8 +33,8 @@
                   </span>
                   <span class="text-white upper">{{ user.name}}</span></em>
             </template>
-            <b-dropdown-item href="#">Perfil</b-dropdown-item>
-            <b-dropdown-item href="#">Salir</b-dropdown-item>
+            <b-dropdown-item href="/profile">Perfil</b-dropdown-item>
+            <b-dropdown-item href="/logout">Salir</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
