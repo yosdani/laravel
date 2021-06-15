@@ -113,13 +113,43 @@ let sideBarLinks = [
         name: "Usuarios",
          child: [
             {
-                name: "Crear Nueva",
+                name: "Crear Nuevo",
                 route: "/users/new",
                 icon: 'plus'
             },
             {
                 name: "Usuarios",
                 route: "/users",
+                icon: 'list'
+            },
+        ],
+    },
+    {
+        name: "Distritos",
+         child: [
+            {
+                name: "Crear Nuevo",
+                route: "/district/new",
+                icon: 'plus'
+            },
+            {
+                name: "Distritos",
+                route: "/district",
+                icon: 'list'
+            },
+        ],
+    },
+    {
+        name: "Barrios",
+         child: [
+            {
+                name: "Crear Nuevo",
+                route: "/neighborhood/new",
+                icon: 'plus'
+            },
+            {
+                name: "Barrios",
+                route: "/neighborhood",
                 icon: 'list'
             },
         ],

@@ -23,6 +23,21 @@ class NewsController  extends Controller
     /**
      * List of news
      * @return JsonResponse
+     * @OA\Get (
+     *      path="/news",
+     *      tags={"News"},
+     *      summary="News",
+     *      description="All news",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      )
+     * )
      */
     public function index():JsonResponse
     {
@@ -55,7 +70,34 @@ class NewsController  extends Controller
      *
      * @param int $id
      * @return JsonResponse
+     *  @OA\Get (
+     *      path="/news/{id}",
+     *      tags={"News"},
+     *      summary="Get a news by id",
+     *      description="Returns the new",
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="New id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
      *
+     *       ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="The new not be found",
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      )
+     * )
      */
     public function show(int $id): JsonResponse
     {

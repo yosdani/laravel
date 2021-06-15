@@ -32,4 +32,18 @@ class Area extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    /**
+     * Get areas by rol
+     * @param int $id
+     * @return Collection
+     * 
+     * 
+     */
+    public function getByUserId($id)
+    {
+        return $this->select('area.*')
+                    ->where('area.user_id',$id)
+                    ->get();
+    }
 }

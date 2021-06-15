@@ -75,17 +75,16 @@ export default {
       getAreas(page=1){
           axios.get("/admin/areas?pages="+page)
           .then(response =>{
-            let data = response.data.areas.data;
             this.perPage = response.data.areas.per_page;
             this.currentPage = response.data.areas.current_page;
             this.totalRows= response.data.areas.total;
 
-            data.map( d=> {
+            response.data.areas.data.map( d=> {
                 this.items.push({
                     id: d.id,
                     name: d.name,
                     user_id: d.user_id,
-                    email: d.user.email
+                    email: d.user?d.user.email:''
                 })
             })
           })

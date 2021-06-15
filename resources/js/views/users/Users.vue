@@ -13,6 +13,7 @@
                 :total="totalRows" 
                 :offset="perPage"
                 :actions="actions"
+                :route="route"
               ></table-data>
           </b-card-body>
       </b-card>
@@ -65,6 +66,12 @@ export default {
               sortable: true,
               sortDirection: "desc",
           },
+          {
+              key: "rol",
+              label: "Rol",
+              sortable: true,
+              sortDirection: "desc",
+          },
           { key: 'actions', label: 'Acciones' }
       ],
       actions:'admin/users',
@@ -87,10 +94,19 @@ export default {
       fetch("/admin/users?page="+page)
         .then((response) => response.json())
         .then((response) => {
-            vm.items = response.users.data;
             vm.perPage = response.users.per_page;
             vm.currentPage = response.users.current_page;
             vm.totalRows= response.users.total;
+            response.users.data.map(user => {
+              vm.items.push({
+                id: user.id,
+                email: user.email,
+                name: user.name,
+                lastName: user.lastName,
+                phoneNumber: user.phoneNumber,
+                rol: user.user_role[0].name
+              })
+            })
         });
     },
   },

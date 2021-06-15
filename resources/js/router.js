@@ -4,7 +4,7 @@ import	VueRouter	from	'vue-router';
 import Dashboard from './views/dashboard/Dashboard.vue';
 
 import Incidences from './views/incidences/Incidences.vue';
-import IncidenceNew from './views/incidences/IncidenceNew.vue';
+import IncidenceEdit from './views/incidences/IncidenceEdit.vue';
 
 import States from './views/states/States.vue';
 import StatesNew from './views/states/StateNew.vue';
@@ -12,6 +12,7 @@ import StatesEdit from './views/states/StateEdit.vue';
 
 import Users from './views/users/Users.vue';
 import UserNew from './views/users/UserNew.vue';
+import UserEdit from './views/users/UserEdit.vue';
 
 import Roles from './views/roles/Roles.vue';
 import RoleNew from './views/roles/RoleNew.vue';
@@ -24,6 +25,18 @@ import EnrollmentEdit from './views/enrollment/EnrollmentEdit.vue';
 import Areas from './views/areas/Areas.vue';
 import AreaNew from './views/areas/AreaNew.vue';
 import AreaEdit from './views/areas/AreaEdit.vue';
+
+import Category from './views/category/Category.vue';
+import CategoryEdit from './views/category/CategoryEdit.vue';
+import CategoryNew from './views/category/CategoryNew.vue';
+
+import District from './views/district/District.vue';
+import DistrictEdit from './views/district/DistrictEdit.vue';
+import DistrictNew from './views/district/DistrictNew.vue';
+
+import Neighborhood from './views/neighborhood/Neighborhood.vue';
+import NeighborhoodNew from './views/neighborhood/NeighborhoodNew.vue';
+import NeighborhoodEdit from './views/neighborhood/NeighborhoodEdit.vue';
 
 Vue.use(VueRouter);
 export	default	new	VueRouter({
@@ -42,7 +55,7 @@ export	default	new	VueRouter({
         {
             path:'/incidences/edit/:id',
             name: "editIncidences",
-            component: IncidenceNew
+            component: IncidenceEdit
         },
         {
             path:'/states',
@@ -68,6 +81,11 @@ export	default	new	VueRouter({
             path:'/users/new',
             name: "newUser",
             component: UserNew,
+        },
+        {
+            path:'/users/edit/:id',
+            name: "editUser",
+            component: UserEdit,
         },
         {
             path:'/roles',
@@ -113,6 +131,51 @@ export	default	new	VueRouter({
             path:'/areas/edit/:id',
             name: "editAreas",
             component: AreaEdit
+        },
+        {
+            path:'/categories',
+            name: "categories",
+            component: Category
+        },
+        {
+            path:'/categories/new',
+            name: "newCategory",
+            component: CategoryNew
+        },
+        {
+            path:'/categories/edit/:id',
+            name: "editCategory",
+            component: CategoryEdit
+        },
+        {
+            path:'/district',
+            name: "district",
+            component: District
+        },
+        {
+            path:'/district/new',
+            name: "newDistrict",
+            component: DistrictNew
+        },
+        {
+            path:'/district/edit/:id',
+            name: "editDistrict",
+            component: DistrictEdit
+        },
+        {
+            path:'/neighborhood',
+            name: "neighborhood",
+            component: Neighborhood
+        },
+        {
+            path:'/neighborhood/new',
+            name: "newNeighborhood",
+            component: NeighborhoodNew
+        },
+        {
+            path:'/neighborhood/edit/:id',
+            name: "editNeighborhood",
+            component: NeighborhoodEdit
         }
 
 

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\User;
 use App\RoleUser;
+use App\Area;
 
 class UserController extends Controller
 {
@@ -84,7 +85,7 @@ class UserController extends Controller
      */
     public function show(int $id):JsonResponse
     {
-        if (!$user = User::find($id)) {
+        if (!User::find($id)) {
             return response()->json([
                 'success'=>false,
                 'message'=>'The specified id does not exist'
@@ -93,7 +94,7 @@ class UserController extends Controller
 
         return response()->json([
             'success'=>true,
-            'user' => $user
+            'user' => User::where('id', '=',$id)->with('userRole')->first()
         ], 200);
     }
 
@@ -125,7 +126,13 @@ class UserController extends Controller
         }
 
         $user->update($request->all());
-        $role_user = RoleUser::where(['user_id'=>$user->id])->get();
+        $role_user = RoleUser::where(['user_id'=>$user->id])->first();
+        $role_user->role_id = $request->role;
+        $role_user->save();
+
+        if($request->role == 3){
+            $this->deleteIfChageRole($id);
+        }
 
         return response()->json([
             'success' =>true,
@@ -169,5 +176,38 @@ class UserController extends Controller
             'success' => true,
             'responsables' => (new User)->responsables()
         ]);
+    }
+
+    /**
+     * 
+     * Get all workers
+     * @return JsonResponse
+     * 
+     * 
+     */
+    public function getWorkers(): JsonResponse
+    {
+        return response()->json([
+            'success' => true,
+            'workers' => (new User)->workers()
+        ]);
+    }
+
+    /**
+     * If a area boss is changed of role, delete of boss of area
+     * @param int $id
+     * @return void
+     * 
+     */
+    private function deleteIfChageRole($id):void
+    {
+        $areas = (new Area)->getByUserId($id);
+
+        if(count($areas) > 0){
+            foreach($areas as $area){
+                $area->user_id = null;
+                $area->save();
+            }
+        }
     }
 }

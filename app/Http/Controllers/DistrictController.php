@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use App\District;
 
 class DistrictController extends Controller
@@ -10,13 +11,13 @@ class DistrictController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function index():JsonResponse
+    public function index(): JsonResponse
     {
         return response()->json([
             'success' => true,
-            'districts' => District::all()
+            'districts' => District::select('district.*')->paginate(15)
         ], 200);
     }
 
@@ -34,11 +35,13 @@ class DistrictController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function store(Request $request):JsonResponse
+    public function store(Request $request): JsonResponse
     {
-        $district = District::create($request->all());
+        $district = new District();
+        $district->district = $request->name;
+        $district->save();
 
         return response()->json([
             'success' => true,
@@ -50,7 +53,7 @@ class DistrictController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function show($id): JsonResponse
     {
@@ -64,7 +67,7 @@ class DistrictController extends Controller
         return response()->json([
             'success' => true,
             'district' => District::find($id)
-        ]);
+        ], 200);
     }
 
     /**
@@ -83,7 +86,7 @@ class DistrictController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function update(Request $request, $id): JsonResponse
     {
@@ -91,35 +94,39 @@ class DistrictController extends Controller
             return response()->json([
                 'success' => false,
                 'message' =>'The specified id does not exist'
-            ]);
+            ], 400);
         }
+
+        $district = District::find($id);
+        $district->district = $request->name;
+        $district->save();
 
         return response()->json([
             'success' => true,
-            'district' => District::find($id)->update($request->all())
-        ]);
+            'district' => $district
+        ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function destroy($id): JsonResponse
+    public function destroy($id)
     {
         if (!District::find($id)) {
             return response()->json([
                 'success' => false,
                 'message' =>'The specified id does not exist'
-            ]);
+            ], 400);
 
-            District::destroy($id);
+            District::remove($id);
 
             return response()->json([
                 'success' => true,
                 'message' => 'The district was successfully deleted'
-            ]);
+            ], 200);
         }
     }
 }

@@ -34,6 +34,7 @@ export default {
       ],
       formIn: {
         formFrom:'User',
+        action:'Adicionar',
         form: {
             email: '',
             name: '',
