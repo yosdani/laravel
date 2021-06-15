@@ -18,7 +18,7 @@ class News extends Model
      * @var string
      */
     protected $fillable = [
-        'title','subtitle','content'
+        'title','subTitle','content'
     ];
 
     /**

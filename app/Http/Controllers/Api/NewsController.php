@@ -110,9 +110,34 @@ class NewsController  extends Controller
     }
 
     /**
-     * Create a news
+     * Create a News
      * @param Request $request
      * @return JsonResponse
+     *  * @OA\Post (
+     *      path="/news",
+     *      tags={"News"},
+     *      summary="Create a news",
+     *      description="Returns created news",
+     *     @OA\Parameter(
+     *          name="request",
+     *          description="request all data",
+     *          required=true,
+     *          in="path",
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      )
+     * )
      */
     public function store(Request $request): JsonResponse
     {
@@ -130,7 +155,7 @@ class NewsController  extends Controller
             }
         }
 
-        $news1=Notice::where('id', $news->id)->with('images')->get();
+        $news1=News::where('id', $news->id)->with('images')->get();
 
         return response()->json($news1, 200);
     }
