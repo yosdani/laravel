@@ -23,7 +23,7 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
                 'index', 'store', 'show', 'update', 'destroy',
             ],
         ]);
-    
+
         //Routes resources for users
         Route::resource('users', 'UserController', [
             'only' => [
@@ -34,46 +34,38 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
         Route::get('responsables/areas','UserController@getResponsables');
         //Route for get all user with rol worker
         Route::get('workers', 'UserController@getWorkers');
-    
+
         /********* Roles ************/
-        //Route for get all roles
-        Route::get('/roles', 'RoleController@index');
-        //Route for get role by id
-        Route::get('/roles/{id}', 'RoleController@show');
-        //Route for create a new role
-        Route::post('/roles', 'RoleController@store');
-        //Route for update a role
-        Route::put('/roles/{id}', 'RoleController@update');
-        //Route for delete a role
-        Route::delete('/roles/{id}', 'RoleController@delete');
+        Route::resource('roles', 'RoleController');
 
         //Routes resources for category
-    Route::resource('category', 'CategoryController', [
-        'only' => [
-            'index', 'store', 'show', 'update', 'destroy',
-        ],
-    ]);
-    
-    //Routes resources for public centers
-    Route::resource('public_center', 'PublicCenterController', [
-        'only' => [
-            'index', 'store', 'show', 'update', 'destroy',
-        ],
-    ]);
-    
-    //Routes resources for matriculas
-    Route::resource('enrollment', 'EnrolmentController', [
-        'only' => [
-            'index', 'store', 'show', 'update', 'destroy',
-        ],
-    ]);
+        Route::resource('category', 'CategoryController', [
+            'only' => [
+                'index', 'store', 'show', 'update', 'destroy',
+            ],
+        ]);
 
-    //Routes resources for district, the index methods are in api route
-    Route::resource('district', 'DistrictController', [
-        'only' => [
-            'index', 'store', 'show', 'update', 'destroy',
-        ]
-    ]);
+
+        //Routes resources for public centers
+        Route::resource('public_center', 'PublicCenterController', [
+            'only' => [
+                'index', 'store', 'show', 'update', 'destroy',
+            ],
+        ]);
+
+        //Routes resources for matriculas
+        Route::resource('enrollment', 'EnrolmentController', [
+            'only' => [
+                'index', 'store', 'show', 'update', 'destroy',
+            ],
+        ]);
+
+        //Routes resources for district, the index methods are in api route
+        Route::resource('district', 'DistrictController', [
+            'only' => [
+                'index', 'store', 'show', 'update', 'destroy',
+            ]
+        ]);
 
     //Routes resources for streets, the index methods are in api route
     Route::resource('street', 'StreetController', [

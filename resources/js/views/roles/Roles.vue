@@ -59,37 +59,40 @@ export default {
     },
     deleteRol(item) {
         this.$swal.fire({
-          title: 'Está seguro?',
-          text: "No va a ser posible revertir esta acción!",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Si, eliminar!'
+            title: 'Está seguro?',
+            text: "No va a ser posible revertir esta acción!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, eliminar!',
         }).then((result) => {
-          axios.delete(window.origin+'/admin/roles/'+item)
-          .then(result => {
-            this.fetchData();
-            this.$swal.fire(
-              'Deleted!',
-              'Your file has been deleted.',
-              'success'
-            )
-          })
-          .catch(error =>{
-            this.$swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: error,
-            })
-          })
+            if(result.isConfirmed){
+                axios.delete(window.origin+'/admin/roles/'+item)
+                    .then(result => {
+                        this.fetchData();
+                        this.$swal.fire(
+                            'Eliminado!',
+                            'El Rol ha sido eliminado.',
+                            'success'
+                        )
+                    })
+                    .catch(error =>{
+                        this.$swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: error,
+                        })
+                    })
+            }
+
         })
     },
     editRole(item){
         this.$router.push('/roles/edit/'+item);
     },
     editRol(item){
-        
+
     }
   },
 };

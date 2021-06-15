@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <side-bar :show="show" :elements="listOfData"></side-bar>
-    <nav-bar :show="show" @showSideBar="showSideBar()" :user="userAuth"></nav-bar>
+    <nav-bar :show="show" @showSideBar="showSideBar()"></nav-bar>
     <div :class="navClass">
       <div class="container-fluid">
         <router-view></router-view>
@@ -32,100 +32,6 @@ export default {
   methods: {
     showSideBar() {
       this.show = !this.show;
-    },
-    getElementForData(event) {
-      switch (event["name"]) {
-        case "Users":
-          this.getUsersDatas();
-          break;
-        case "Roles":
-          this.getRolesDatas();
-          break;
-        case "Matriculas":
-          this.getMatriculasDatas();
-          break;
-        case "Categories":
-          this.getCategoriesDatas();
-          break;
-      }
-    },
-    getUsersDatas() {
-      fetch(this.uri + "/users")
-        .then((response) => response.json())
-        .then((response) => {
-          this.listDataShow = response.users;
-          this.fields = [
-            {
-              key: "name",
-              label: "Name",
-              sortable: true,
-              sortDirection: "desc",
-            },
-            {
-              key: "lastName",
-              label: "Last Name",
-              sortable: true,
-              class: "text-center",
-            },
-            {
-              key: "email",
-              label: "Email",
-              sortable: true,
-              sortDirection: "desc",
-            },
-            {
-              key: "phoneNumber",
-              label: "Phone Number",
-              sortable: true,
-              class: "text-center",
-            },
-          ];
-        });
-    },
-    getRolesDatas() {
-      fetch(this.uri + "/api/v1/roles")
-        .then((response) => response.json())
-        .then((response) => {
-          this.listDataShow = response.users;
-          this.fields = [
-            {
-              key: "name",
-              label: "Name",
-              sortable: true,
-              sortDirection: "desc",
-            },
-          ];
-        });
-    },
-    getMatriculasDatas() {
-      fetch(this.uri + "/matriculas")
-        .then((response) => response.json())
-        .then((response) => {
-          this.listDataShow = response.matriculas;
-          this.fields = [
-            {
-              key: "name",
-              label: "Name",
-              sortable: true,
-              sortDirection: "desc",
-            },
-          ];
-        });
-    },
-    getCategoriesDatas() {
-      fetch(this.uri + "/category")
-        .then((response) => response.json())
-        .then((response) => {
-          this.listDataShow = response.category;
-          this.fields = [
-            {
-              key: "name",
-              label: "Name",
-              sortable: true,
-              sortDirection: "desc",
-            },
-          ];
-        });
     },
   },
   computed: {

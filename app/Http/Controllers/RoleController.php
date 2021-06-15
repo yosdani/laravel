@@ -92,7 +92,7 @@ class RoleController extends Controller
      * @param int $id
      * @return JsonResponse
      */
-    public function delete(int $id): JsonResponse
+    public function destroy(int $id): JsonResponse
     {
         //Validate the id exist
         if (Role::find($id)) {

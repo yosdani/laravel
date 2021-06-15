@@ -17,31 +17,32 @@
 import FormObject from "../../components/form/FormObject.vue"
 export default {
     data() {
-    return {
-      bItems: [
-          {
-              text: 'Dashboard',
-              to: { name: 'dashboard' }
-          },
-          {
-              text: 'Roles',
-              to: { name: 'roles' }
-          },
-          {
-              text: 'Adicionar',
-              active: true
-          }
-      ],
-      formIn: {
-        formFrom:'Roles',
-        form: {
-            name: ''
-        },
-        uri:'admin/roles',
-        method: 'POST',
-        route:'/states'
-      }
-    };
+        return {
+            bItems: [
+                {
+                    text: 'Dashboard',
+                    to: { name: 'dashboard' }
+                },
+                {
+                    text: 'Roles',
+                    to: { name: 'roles' }
+                },
+                {
+                    text: 'Adicionar',
+                    active: true
+                }
+            ],
+            formIn: {
+                formFrom:'Roles',
+                form: {
+                    name: ''
+                },
+                action: 'Guardar',
+                uri:'admin/roles',
+                method: 'POST',
+                route:'/states'
+            }
+        };
   },
   components:{
       FormObject

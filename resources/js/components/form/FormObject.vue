@@ -71,7 +71,6 @@ export default {
         };
     },
     mounted() {
-        console.log(this.formOut.form);
         this.form = this.formOut.form;
         this.form._token = this.csrf;
     },

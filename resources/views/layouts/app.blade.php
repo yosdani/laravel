@@ -10,6 +10,14 @@
     <title>{{ config('app.name', 'Participacion Ciudadana') }}</title>
 
     <!-- Scripts -->
+    <script>
+        window.User = {
+            id: '{{ optional(auth()->user())->id }}',
+            name: '{{ optional(auth()->user())->name() }}',
+            lastname: '{{ optional(auth()->user())->lastname() }}',
+            email: '{{ optional(auth()->user())->email() }}',
+        }
+    </script>
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
@@ -48,7 +56,7 @@
         to {
             transform: rotate(360deg);
         }
-        }            
+        }
     </style>
 </head>
 <body>

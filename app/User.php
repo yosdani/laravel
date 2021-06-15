@@ -96,7 +96,7 @@ class User extends Authenticatable implements JWTSubject
 
     /**  Get users by rol responsable
      * @return Collection
-     * 
+     *
      */
     public function responsables()
     {
@@ -108,7 +108,7 @@ class User extends Authenticatable implements JWTSubject
 
     /**  Get users by rol worker
      * @return Collection
-     * 
+     *
      */
     public function workers()
     {
@@ -118,4 +118,16 @@ class User extends Authenticatable implements JWTSubject
                     ->get();
     }
 
+    public function name()
+    {
+        return $this->name;
+    }
+    public function lastname()
+    {
+        return $this->last;
+    }
+    public function email()
+    {
+        return $this->email;
+    }
 }

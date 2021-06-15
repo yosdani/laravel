@@ -30,7 +30,7 @@ Vue.use(IconsPlugin)
 import App from './components/App.vue';
 import Sweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
-
+import {store} from './store';
 Vue.use(Sweetalert2);
 
 const app = new Vue({
@@ -38,6 +38,7 @@ const app = new Vue({
     components: {
         App
     },
+    store,
     router,
     render: h => h(App)
 
