@@ -30,6 +30,7 @@ class CategoryController extends Controller
      */
     public function index():JsonResponse
     {
+        var_dump('lle');
         return response()->json([
             'success' =>true,
             'category' => Category::paginate(15)
