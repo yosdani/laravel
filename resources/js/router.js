@@ -42,6 +42,18 @@ import NewsNew from './views/news/NewsNew.vue';
 import News from './views/news/News.vue';
 import NewsEdit from './views/news/NewsEdit.vue';
 
+import PublicCenter from './views/publicCenter/PublicCenter.vue';
+import PublicCenterNew from './views/publicCenter/PublicCenterNew.vue';
+import PublicCenterEdit from './views/publicCenter/PublicCenterEdit.vue';
+
+import Tags from './views/tags/Tags.vue';
+import TagsNew from './views/tags/TagsNew.vue';
+import TagsEdit from './views/tags/TagsEdit.vue';
+
+import Street from './views/street/Street.vue';
+import StreetNew from './views/street/StreetNew.vue';
+import StreetEdit from './views/street/StreetEdit.vue';
+
 Vue.use(VueRouter);
 export	default	new	VueRouter({
     mode: 'history',
@@ -195,7 +207,53 @@ export	default	new	VueRouter({
             path:'/news/edit/:id',
             name: "editNews",
             component: NewsEdit
+        },
+        {
+            path:'/public_center',
+            name: "public_center",
+            component: PublicCenter
+        },
+        {
+            path:'/public_center/new',
+            name: "newPublicCenter",
+            component: PublicCenterNew
+        },
+        {
+            path:'/public_center/edit/:id',
+            name: "editPublicCenter",
+            component: PublicCenterEdit
+        },
+        {
+            path:'/tags',
+            name: "tags",
+            component: Tags
+        },
+        {
+            path:'/tags/new',
+            name: "newTags",
+            component: TagsNew
+        },
+        {
+            path:'/tags/edit/:id',
+            name: "editTags",
+            component: TagsEdit
+        },
+        {
+            path:'/street',
+            name: "street",
+            component: Street
+        },
+        {
+            path:'/street/new',
+            name: "newStreet",
+            component: StreetNew
+        },
+        {
+            path:'/street/edit/:id',
+            name: "editStreet",
+            component: StreetEdit
         }
+
 
 
     ]

@@ -17,7 +17,7 @@ class TagsController extends Controller
     {
         return response()->json([
         'success' =>true,
-        'Tags' => Tags::paginate(15)
+        'tags' => Tags::paginate(15)
     ], 200);
     }
 

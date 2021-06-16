@@ -153,6 +153,51 @@ let sideBarLinks = [
                 icon: 'list'
             },
         ],
+    },
+    {
+        name: "Centros Públicos",
+         child: [
+            {
+                name: "Crear Nuevo",
+                route: "/public_center/new",
+                icon: 'plus'
+            },
+            {
+                name: "Centros Públicos",
+                route: "/public_center",
+                icon: 'list'
+            },
+        ],
+    },
+    {
+        name: "Etiquetas",
+         child: [
+            {
+                name: "Crear Nuevo",
+                route: "/tags/new",
+                icon: 'plus'
+            },
+            {
+                name: "Etiquetas",
+                route: "/tags",
+                icon: 'list'
+            },
+        ],
+    },
+    {
+        name: "Calles",
+         child: [
+            {
+                name: "Crear Nuevo",
+                route: "/street/new",
+                icon: 'plus'
+            },
+            {
+                name: "Calles",
+                route: "/street",
+                icon: 'list'
+            },
+        ],
     }
 
 ];
