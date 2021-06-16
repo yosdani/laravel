@@ -2,11 +2,30 @@
     <b-form @submit="onSubmit" v-if="show">
                 <input type="hidden" name="_token" :value="csrf">
 
-                    <b-form-group id="input-group-2" :label="formOut.label" label-for="input-2">
+                    <b-form-group v-if="formOut.formFrom!='Calles'" id="input-group-1" :label="formOut.label" label-for="input-1">
                         <b-form-input
-                        id="input-2"
+                        id="input-1"
                         v-model="form.name"
                         :placeholder="formOut.placeholder"
+                        :required="formOut.required"
+                        ></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group v-if="formOut.formFrom=='Calles'" id="input-group-1" :label="formOut.label" label-for="input-1">
+                        <b-form-input
+                        id="input-1"
+                        v-model="form.street"
+                        :placeholder="formOut.placeholder"
+                        :required="formOut.required"
+                        ></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group v-if="formOut.formFrom=='Calles'" id="input-group-2" label="Número de calle" label-for="input-2">
+                        <b-form-input
+                        type="number"
+                        id="input-2"
+                        v-model="form.number"
+                        placeholder="Entre el número de calle"
                         :required="formOut.required"
                         ></b-form-input>
                     </b-form-group>

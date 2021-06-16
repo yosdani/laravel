@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use App\Street;
 
 class StreetController extends Controller
@@ -10,13 +11,13 @@ class StreetController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function index():JsonResponse
     {
         return response()->json([
             'success' => true,
-            'streets' => Street::all(),
+            'streets' => Street::paginate(15),
         ], 200);
     }
 
@@ -34,7 +35,7 @@ class StreetController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function store(Request $request): JsonResponse
     {
@@ -50,7 +51,7 @@ class StreetController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function show($id): JsonResponse
     {
@@ -60,6 +61,10 @@ class StreetController extends Controller
                 'message' => 'The specified id does not exist'
             ], 400);
         }
+        return response()->json([
+            'success' => true,
+            'street' => Street::find($id)
+        ]);
     }
 
     /**
@@ -78,7 +83,7 @@ class StreetController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function update(Request $request, $id):JsonResponse
     {
@@ -99,7 +104,7 @@ class StreetController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function destroy($id): JsonResponse
     {

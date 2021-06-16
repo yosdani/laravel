@@ -94,6 +94,7 @@ export default {
       fetch("/admin/users?page="+page)
         .then((response) => response.json())
         .then((response) => {
+          vm.items = [];
             vm.perPage = response.users.per_page;
             vm.currentPage = response.users.current_page;
             vm.totalRows= response.users.total;

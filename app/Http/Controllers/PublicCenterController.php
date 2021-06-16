@@ -17,7 +17,7 @@ class PublicCenterController extends Controller
     {
         return response()->json([
             'success' =>true,
-            'public_centers' => PublicCenter::paginate(15)
+            'public_center' => PublicCenter::paginate(15)
         ], 200);
     }
 
@@ -63,7 +63,7 @@ class PublicCenterController extends Controller
 
         return response()->json([
             'success'=>true,
-            'public center'=>PublicCenter::find($id)
+            'public_center'=>PublicCenter::find($id)
         ], 200);
     }
 

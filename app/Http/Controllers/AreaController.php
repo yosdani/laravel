@@ -86,7 +86,7 @@ class AreaController extends Controller
         if (!$area) {
             return response()->json("This area is not exist", '400');
         }
-        $area->name = $request->name;
+        $area->updated($request->all());
 
         $area->save();
         return response()->json([

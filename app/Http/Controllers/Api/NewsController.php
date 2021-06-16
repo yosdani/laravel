@@ -149,9 +149,8 @@ class NewsController  extends Controller
         //$news = News::create($request->except('img'));
       $news->title=$request->title;
       $news->subTitle=$request->subTitle;
-      $news->subTitle=$request->subTitle;
       $news->content=$request->contents;
-      $news->user_id=JWTAuth::parseToken()->authenticate()->id;
+      $news->user_id=Auth::user()->id;
       $news->save();
         $files= array();
         if ($request->img) {
@@ -182,8 +181,8 @@ class NewsController  extends Controller
         }
 
         $news->title = $request->title;
-        $news->subtitle = $request->subtitle;
-        $news->content = $request->contents;
+        $news->subtitle = $request->subTitle;
+        $news->content = $request->content;
 
         $news->save();
 
