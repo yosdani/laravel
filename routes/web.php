@@ -17,6 +17,7 @@ Route::get('/', 'HomeController@index')->name('home')->middleware('auth');
 
 Route::group(['middleware'=>['web','auth','admin']], function () {
     Route::prefix('admin')->group(function () {
+        Route::post('change-password', ['uses'=>'PasswordController@changeAdminPassword']);
         //Routes resources for Incidence
         Route::resource('incidences', 'IncidenceController', [
             'only' => [

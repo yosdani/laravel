@@ -33,8 +33,12 @@
                   </span>
                   <span class="text-white upper">{{ user.name}}</span></em>
             </template>
-            <b-dropdown-item href="/profile">Perfil</b-dropdown-item>
-            <b-dropdown-item href="/logout">Salir</b-dropdown-item>
+                  <b-dropdown-item>
+                      <router-link to="/profile" class="drop-user-item">
+                      <b-icon icon="person"></b-icon> Perfil</router-link></b-dropdown-item>
+                  <b-dropdown-item href="/logout" class="drop-user-item">
+                      <b-icon icon="box-arrow-right"></b-icon> Salir
+                  </b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -87,5 +91,8 @@ export default {
 .upper{
     text-transform: capitalize;
 }
-
+.drop-user-item, .drop-user-item:hover{
+    color: black;
+    text-decoration: none;
+}
 </style>

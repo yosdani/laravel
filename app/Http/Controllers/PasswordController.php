@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Mail\ForgotPassword;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class PasswordController extends Controller
 {
@@ -84,6 +86,41 @@ class PasswordController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Your password has been changed, please check your mails '
+        ], 200);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function changeAdminPassword(Request $request): JsonResponse
+    {
+        $user = Auth::user();
+        $checkEmail = User::where('email', '=', $request->email)->first();
+        if ($checkEmail->id !== $user->id) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Ya existe un usuario con este email'
+            ]);
+
+        }
+        $name = $request->name;
+        $lastName = $request->lastName;
+        $email = $request->email;
+        $password = $request->password;
+
+        if($password){
+            $user->password = bcrypt($request->password);
+        }
+        $user->email = $email;
+        $user->name = $name;
+        $user->lastName = $lastName;
+        $user->save();
+
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Your password has been changed ',
+            'user' => new UserResource($user)
         ], 200);
     }
 }

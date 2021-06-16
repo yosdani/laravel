@@ -29,7 +29,13 @@ export default {
     SideBar,
     NavBar
   },
-  methods: {
+    created() {
+        let user = window.User;
+        let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        this.$store.dispatch('updateUser', user);
+        this.$store.dispatch('setToken', token);
+    },
+    methods: {
     showSideBar() {
       this.show = !this.show;
     },

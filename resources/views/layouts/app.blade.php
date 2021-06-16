@@ -14,7 +14,7 @@
         window.User = {
             id: '{{ optional(auth()->user())->id }}',
             name: '{{ optional(auth()->user())->name() }}',
-            lastname: '{{ optional(auth()->user())->lastname() }}',
+            lastName: '{{ optional(auth()->user())->lastName() }}',
             email: '{{ optional(auth()->user())->email() }}',
         }
     </script>

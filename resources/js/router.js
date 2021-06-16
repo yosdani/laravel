@@ -38,6 +38,8 @@ import Neighborhood from './views/neighborhood/Neighborhood.vue';
 import NeighborhoodNew from './views/neighborhood/NeighborhoodNew.vue';
 import NeighborhoodEdit from './views/neighborhood/NeighborhoodEdit.vue';
 
+import Profile from './views/profile/Profile.vue';
+
 Vue.use(VueRouter);
 export	default	new	VueRouter({
     mode: 'history',
@@ -46,6 +48,11 @@ export	default	new	VueRouter({
             path: '/',
             name: "dashboard",
             component: Dashboard
+        },
+        {
+            path:'/profile',
+            name: "profile",
+            component: Profile
         },
         {
             path:'/incidences',
@@ -177,7 +184,5 @@ export	default	new	VueRouter({
             name: "editNeighborhood",
             component: NeighborhoodEdit
         }
-
-
     ]
 });

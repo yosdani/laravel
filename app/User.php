@@ -122,9 +122,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->name;
     }
-    public function lastname()
+    public function lastName()
     {
-        return $this->last;
+        return $this->lastName;
     }
     public function email()
     {
