@@ -188,22 +188,24 @@ export default {
           cancelButtonColor: '#d33',
           confirmButtonText: 'Si, eliminar!'
         }).then((result) => {
-          axios.delete(window.origin+'/'+this.actions+'/'+item.id)
-          .then(result => {
-            EventBus.$emit('DELETED_ITEM_'+this.route);
-            this.$swal.fire(
-              'Deleted!',
-              'Your file has been deleted.',
-              'success'
-            )
-          })
-          .catch(error =>{
-            this.$swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: error,
+          if(result.isConfirmed) {
+            axios.delete(window.origin+'/'+this.actions+'/'+item.id)
+            .then(result => {
+              EventBus.$emit('DELETED_ITEM_'+this.route);
+              this.$swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              )
             })
-          })
+            .catch(error =>{
+              this.$swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: error,
+              })
+            })
+          }
         })
       },
     }

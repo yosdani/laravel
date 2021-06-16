@@ -87,7 +87,7 @@ class NewsController  extends Controller
             }
         }
 
-        $news1=Notice::where('id', $news->id)->with('images')->get();
+        $news1=News::where('id', $news->id)->with('images')->get();
 
         return response()->json($news1, 200);
     }

@@ -39,7 +39,8 @@ export default {
             img: [],
             title: '',
             subTitle: '',
-            content: ''
+            content: '',
+            _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
         },
         uri:'admin/news',
         method: 'POST',
