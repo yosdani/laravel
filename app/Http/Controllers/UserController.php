@@ -130,7 +130,7 @@ class UserController extends Controller
         $role_user->role_id = $request->role;
         $role_user->save();
 
-        if($request->role == 3){
+        if($request->role != 2){
             $this->deleteIfChageRole($id);
         }
 
@@ -189,7 +189,19 @@ class UserController extends Controller
     {
         return response()->json([
             'success' => true,
-            'workers' => (new User)->workers()
+            'workers' => User::workers()
+        ]);
+    }
+
+    /**
+     * @return JsonResponse
+     * 
+     */
+    public function workersWithoutArea():JsonResponse
+    {
+        return response()->json([
+            'success' => true,
+            'workers' => User::workerWithoutArea()
         ]);
     }
 

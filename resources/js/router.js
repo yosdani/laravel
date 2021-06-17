@@ -55,6 +55,7 @@ import StreetNew from './views/street/StreetNew.vue';
 import StreetEdit from './views/street/StreetEdit.vue';
 
 import Profile from './views/profile/Profile.vue';
+import WorkerAdd from './views/areas/WorkersAdd.vue';
 
 Vue.use(VueRouter);
 export	default	new	VueRouter({
@@ -259,7 +260,13 @@ export	default	new	VueRouter({
             path:'/street/edit/:id',
             name: "editStreet",
             component: StreetEdit
+        },
+        {
+            path:'/workers/add/:id',
+            name: "addWorker",
+            component: WorkerAdd
         }
+
 
 
 
