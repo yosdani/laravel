@@ -28,6 +28,18 @@ class CategoryController extends Controller
     }
 
     /**
+     * List of all categories
+     *
+     */
+    public function all():JsonResponse
+    {
+        return response()->json([
+            'success' =>true,
+            'category' => Category::select('category.id','category.name')->get()
+        ], 200);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return Response

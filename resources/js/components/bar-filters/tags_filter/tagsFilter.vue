@@ -22,7 +22,7 @@ export default {
             values:[],
         }
     },
-    created(){
+    updated(){
         this.values = this.tags;
     },
     components:{

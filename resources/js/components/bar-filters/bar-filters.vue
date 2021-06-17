@@ -50,19 +50,14 @@ export default {
     },
     data(){
         return {
-            tags:[
-                {id: 1,name: "Aceptado"},
-                {id: 2,name: "Rechazado"},
-                {id: 3,name: "Repetido"},
-                {id: 4,name: "Notificacion Core"},
-                {id: 5,name: "Notificacion 72h"},
-            ],
-            categories:[
-                {id: 1,name: "Activas-En Curso"},
-                {id: 2,name: "Historico-Finalizadas"}
-            ],
+            tags:[],
+            categories:[],
             rangeTime:false,
         }
+    },
+    created() {
+        this.getTags();
+        this.getCategory();
     },
     mounted() {
         EventBus.$on('TIMER',payload=>{
@@ -90,6 +85,44 @@ export default {
         giveNewDates(event){
 
         },
+        getTags(){
+            axios.get(window.origin+'/admin/all/tags')
+            .then(response=>{
+                this.tags = [];
+                response.data.tags.map(tag=>{
+                    this.tags.push({
+                        id: tag.id,
+                        name: tag.name
+                    })
+                })
+            })
+            .catch(error=>{
+                this.$swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: error,
+              })
+            })
+        },
+        getCategory(){
+            axios.get(window.origin+'/admin/all/categories')
+            .then(response=>{
+                this.categories = []; 
+                response.data.category.map(category=>{
+                    this.categories.push({
+                        id: category.id,
+                        name: category.name
+                    })
+                })
+            })
+            .catch(error=>{
+                this.$swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: error,
+              })
+            })
+        }
     },
     computed:{
         putOfMarginNegative(){

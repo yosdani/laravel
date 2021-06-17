@@ -54,6 +54,8 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
                 'index', 'store', 'show', 'update', 'destroy',
             ],
         ]);
+        // Route for get all categories
+        Route::get('all/categories','CategoryController@all');
 
 
         //Routes resources for public centers
@@ -131,16 +133,9 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
     Route::delete('publiccenter/{id}', ['uses'=>'PublicCenterController@destroy']);
 
     /**********  Tags ************/
-    //Route for get all tags
-    Route::get('tags', ['uses'=>'TagsController@index']);
-    //Route for get an tags by id
-    Route::get('tags/{id}', ['uses'=>'TagsController@show']);
-    //Route for create a new tags
-    Route::post('tags', ['uses'=>'TagsController@store']);
-    //Route for update an tags
-    Route::put('tags/{id}', ['uses'=>'TagsController@update']);
-    //Route for delete an tags
-    Route::delete('tags/{id}', ['uses'=>'TagsController@destroy']);
+    Route::resource('tags','TagsController');
+    // Route for get all tags
+    Route::get('all/tags','TagsController@all');
 
     /**********  Incidence ************/
     //Route for get all Incidences
