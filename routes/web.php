@@ -42,8 +42,8 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
         Route::get('responsables/areas','UserController@getResponsables');
         //Route for get all user with rol worker
         Route::get('workers', 'UserController@getWorkers');
-        //Route for get workers without areas
-        Route::get('workers/select','UserController@getWorkersWithout');
+        //Route to get workers without areas
+        Route::get('workers/select','UserController@workersWithoutArea');
 
         /********* Roles ************/
         Route::resource('roles', 'RoleController');

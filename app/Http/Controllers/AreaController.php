@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use App\WorkerArea;
 
 class AreaController extends Controller
 {
@@ -122,7 +123,7 @@ class AreaController extends Controller
      * @return JsonResponse
      * 
      */
-    public function addWorkers(Request $request,$id): JsonResponse
+    public function addWorker(Request $request,$id): JsonResponse
     {
         if(!Area::find($id)){
             return response()->json([
@@ -131,14 +132,12 @@ class AreaController extends Controller
             ], 404);
         }
 
-        $idsWorkers = $request->workers;
+        $workerId = $request->id;
 
-        foreach ($idsWorkers as $worker) {
-            WorkerArea::create([
-                'user_id' => $worker,
-                'area_id' => $id
-            ]);
-        }
+        WorkerArea::create([
+            'user_id' => $workerId,
+            'area_id' => $id
+        ]);
 
         return response()->json([
             'success' => true,

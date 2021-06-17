@@ -8,7 +8,7 @@
             </b-card-header>
             <b-card-body>
                 <b-list-group>
-                    <b-list-group-item v-for="worker in workers" :key="worker.id" @click="selectWorker(worker.id)">{{ worker.name }}</b-list-group-item>
+                    <b-list-group-item v-for="worker in workers" :key="worker.id" @click="selectWorker(worker.id)" button>{{ worker.name }}</b-list-group-item>
                 </b-list-group>
             </b-card-body>
         </b-card>
@@ -51,7 +51,10 @@ export default {
           })
       },
       selectWorker(id){
-          axios.post(window.origin+'/admin/workers/area/'+this.areaId,id)
+          let body = {
+              'id' : id
+          }
+          axios.post(window.origin+'/admin/workers/area/'+this.areaId,body)
           .then(response =>{
               this.getWorkers();
           })

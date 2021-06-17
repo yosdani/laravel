@@ -194,17 +194,14 @@ class UserController extends Controller
     }
 
     /**
-     * Get workers without areas
      * @return JsonResponse
      * 
      */
-    public function getWorkersWithout(): JsonResponse
+    public function workersWithoutArea():JsonResponse
     {
-        $workersIds = User::workers()->pluck('id');
-
         return response()->json([
             'success' => true,
-            'workers' => User::workersWithoutAreas($workersIds)
+            'workers' => User::workerWithoutArea()
         ]);
     }
 
