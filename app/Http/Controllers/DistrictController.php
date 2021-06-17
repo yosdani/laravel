@@ -113,20 +113,21 @@ class DistrictController extends Controller
      * @param  int  $id
      * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy(int $id): JsonResponse
     {
-        if (!District::find($id)) {
+        $district = District::find($id); 
+        if (!$district) {
             return response()->json([
                 'success' => false,
                 'message' =>'The specified id does not exist'
             ], 400);
-
-            District::remove($id);
+        }
+            $district->delete();
 
             return response()->json([
                 'success' => true,
                 'message' => 'The district was successfully deleted'
             ], 200);
-        }
+        
     }
 }

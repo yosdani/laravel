@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Area;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements JWTSubject
@@ -57,6 +58,11 @@ class User extends Authenticatable implements JWTSubject
     public function userRole(): BelongsToMany
     {
         return $this->belongsToMany(Role::class, 'role_user');
+    }
+
+    public function workerArea(): BelongsToMany
+    {
+        return $this->belongsToMany(Area::class, 'worker_area');
     }
 
     /**
@@ -111,12 +117,36 @@ class User extends Authenticatable implements JWTSubject
      * @return Collection
      *
      */
-    public function workers()
+    public static function workers()
     {
-        return $this->select('users.*')
+        return User::select('users.*')
                     ->leftjoin('role_user','users.id','=','role_user.user_id')
                     ->where('role_user.role_id','=',3)
                     ->get();
+    }
+
+    /**
+     * 
+     * 
+     */
+    public static function workerWithArea(){
+        return WorkerArea::select('worker_area.user_id')->get();
+    }
+
+    public static function workerWithoutArea(){
+        $list_workers = User::workers();
+
+        $workers_area = User::workerWithArea();
+        
+        foreach($workers_area as $worker){
+            foreach ($list_workers as $key => $list){
+                if($worker->user_id == $list->id){
+                    unset($list_workers[$key]);
+                }
+            }
+        }
+
+        return $list_workers;
     }
 
     public function name()
