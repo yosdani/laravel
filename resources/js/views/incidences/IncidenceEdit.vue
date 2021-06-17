@@ -4,7 +4,7 @@
 
         <b-card>
             <b-card-header class="border-0">
-                <h3 class="mb-0">Editar Incidencia</h3>
+                <h3 class="mb-0">{{translate('general.edit')}} {{translate('general.incidence.incidence')}}</h3>
             </b-card-header>
             <b-card-body>
                 <form-incidence :formOut="formIn"></form-incidence>
@@ -14,7 +14,8 @@
 </template>
 
 <script>
-import FormIncidence from "../../components/form/FormIncidence.vue"
+import FormIncidence from "../../components/form/FormIncidence.vue";
+import trans from '../../VueTranslation/Translation';
 export default {
     data() {
     return {
@@ -24,17 +25,17 @@ export default {
               to: { name: 'dashboard' }
           },
           {
-              text: 'Incidencias',
+              text: trans.translate('general.incidences.incidences'),
               to: { name: 'incidences' }
           },
           {
-              text: 'Editar',
+              text: trans.translate('general.edit'),
               active: true
           }
       ],
       formIn: {
-        formFrom:'Incidence',
-        action: 'Editar',
+        formFrom: trans.translate('general.incidences.incidences'),
+        action: trans.translate('general.edit'),
         form: {
             addressee: '',
             applicant: '',

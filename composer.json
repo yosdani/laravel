@@ -13,6 +13,7 @@
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
         "stechstudio/laravel-php-cs-fixer": "^2.3",
+        "tohidplus/laravel-vue-translation": "^2.1",
         "tymon/jwt-auth": "^1.0",
         "zircote/swagger-php": "^3.2"
     },

@@ -4,7 +4,7 @@
 
         <b-card>
             <b-card-header class="border-0">
-                <h3 class="mb-0">Editar Noticia</h3>
+                <h3 class="mb-0">{{translate('general.edit')}} {{translate('general.news.new')}}</h3>
             </b-card-header>
             <b-card-body>
                 <form-news :formOut="formIn"></form-news>
@@ -15,6 +15,7 @@
 
 <script>
 import FormNews from '../../components/form/FormNews.vue';
+import trans from '../../VueTranslation/Translation';
 export default {
     data() {
     return {
@@ -24,17 +25,17 @@ export default {
               to: { name: 'dashboard' }
           },
           {
-              text: 'Noticias',
+              text: trans.translate('general.news.news'),
               to: { name: 'news' }
           },
           {
-              text: 'Editar',
+              text: trans.translate('general.edit'),
               active: true
           }
       ],
       formIn: {
-        formFrom:'Noticias',
-        action: 'Editar',
+        formFrom: trans.translate('general.news.news'),
+        action: trans.translate('general.edit'),
         form: {
             img: [],
             title: '',

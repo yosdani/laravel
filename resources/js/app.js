@@ -8,7 +8,9 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-
+import trans from './VueTranslation/Translation';
+window.trans = trans;
+Vue.prototype.translate=require('./VueTranslation/Translation').default.translate;
 import Vue from 'vue'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 

@@ -163,7 +163,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         LaravelFCM\FCMServiceProvider::class,
-
+        Tohidplus\Translation\TranslationServiceProvider::class,
 
     ],
 

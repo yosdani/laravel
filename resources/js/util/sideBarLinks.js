@@ -1,3 +1,5 @@
+
+import trans from '../VueTranslation/Translation';
 let sideBarLinks = [
     {
         name: "Dashboard",
@@ -5,7 +7,7 @@ let sideBarLinks = [
         child: []
     },
     {
-        name: "Noticias",
+        name: trans.translate('general.news.news'),
         child: [
             {
                 name: "Crear Nueva",
@@ -13,14 +15,14 @@ let sideBarLinks = [
                 icon: 'plus'
             },
             {
-                name: "Noticias",
+                name: trans.translate('general.news.news'),
                 route: "/news",
                 icon: 'list'
             },
         ],
     },
     {
-        name: "Categorías",
+        name: trans.translate('general.categories.categories'),
         child: [
             {
                 name: "Crear Nueva",
@@ -28,14 +30,14 @@ let sideBarLinks = [
                 icon: 'plus'
             },
             {
-                name: "Categorías",
+                name: trans.translate('general.categories.categories'),
                 route: "/categories",
                 icon: 'list'
             },
         ],
     },
     {
-        name: "Estados",
+        name: trans.translate('general.states.states'),
         child: [
             {
                 name: "Crear Nueva",
@@ -43,14 +45,14 @@ let sideBarLinks = [
                 icon: 'plus'
             },
             {
-                name: "Estados",
+                name: trans.translate('general.states.states'),
                 route: "/states",
                 icon: 'list'
             },
         ],
     },
     {
-        name: "Áreas",
+        name: trans.translate('general.areas.areas'),
         child: [
             {
                 name: "Crear Nueva",
@@ -58,14 +60,14 @@ let sideBarLinks = [
                 icon: 'plus'
             },
             {
-                name: "Áreas",
+                name: trans.translate('general.areas.areas'),
                 route: "/areas",
                 icon: 'list'
             },
         ],
     },
     {
-        name: "Matrículas",
+        name: trans.translate('general.enrolments.enrolments'),
         child: [
             {
                 name: "Crear Nueva",
@@ -73,14 +75,14 @@ let sideBarLinks = [
                 icon: 'plus'
             },
             {
-                name: "Matrículas",
+                name: trans.translate('general.enrolments.enrolments'),
                 route: "/enrollment",
                 icon: 'list'
             },
         ],
     },
     {
-        name: "Incidencias",
+        name: trans.translate('general.incidences.incidences'),
         child: [
             /*{
                 name: "Editar Incidencia",
@@ -88,14 +90,14 @@ let sideBarLinks = [
                 icon: 'plus'
             },*/
             {
-                name: "Incidencias",
+                name: trans.translate('general.incidences'),
                 route: "/incidences",
                 icon: 'list'
             },
         ],
     },
     {
-        name: "Roles",
+        name: trans.translate('general.roles.roles'),
          child: [
             {
                 name: "Crear Nueva",
@@ -103,14 +105,14 @@ let sideBarLinks = [
                 icon: 'plus'
             },
             {
-                name: "Roles",
+                name: trans.translate('general.roles.roles'),
                 route: "/roles",
                 icon: 'list'
             },
         ],
     },
     {
-        name: "Usuarios",
+        name: trans.translate('general.users.users'),
          child: [
             {
                 name: "Crear Nuevo",
@@ -118,14 +120,14 @@ let sideBarLinks = [
                 icon: 'plus'
             },
             {
-                name: "Usuarios",
+                name: trans.translate('general.users.users'),
                 route: "/users",
                 icon: 'list'
             },
         ],
     },
     {
-        name: "Distritos",
+        name: trans.translate('general.districts.districts'),
          child: [
             {
                 name: "Crear Nuevo",
@@ -133,14 +135,14 @@ let sideBarLinks = [
                 icon: 'plus'
             },
             {
-                name: "Distritos",
+                name: trans.translate('general.districts.districts'),
                 route: "/district",
                 icon: 'list'
             },
         ],
     },
     {
-        name: "Barrios",
+        name: trans.translate('general.neighborhoods.neighborhoods'),
          child: [
             {
                 name: "Crear Nuevo",
@@ -148,14 +150,14 @@ let sideBarLinks = [
                 icon: 'plus'
             },
             {
-                name: "Barrios",
+                name: trans.translate('general.neighborhoods.neighborhoods'),
                 route: "/neighborhood",
                 icon: 'list'
             },
         ],
     },
     {
-        name: "Centros Públicos",
+        name: trans.translate('general.public_centers.public_centers'),
          child: [
             {
                 name: "Crear Nuevo",
@@ -163,14 +165,14 @@ let sideBarLinks = [
                 icon: 'plus'
             },
             {
-                name: "Centros Públicos",
+                name: trans.translate('general.public_centers.public_centers'),
                 route: "/public_center",
                 icon: 'list'
             },
         ],
     },
     {
-        name: "Etiquetas",
+        name: trans.translate('general.tags.tags'),
          child: [
             {
                 name: "Crear Nuevo",
@@ -178,14 +180,14 @@ let sideBarLinks = [
                 icon: 'plus'
             },
             {
-                name: "Etiquetas",
+                name: trans.translate('general.tags.tags'),
                 route: "/tags",
                 icon: 'list'
             },
         ],
     },
     {
-        name: "Calles",
+        name: trans.translate('general.streets.streets'),
          child: [
             {
                 name: "Crear Nuevo",
@@ -193,7 +195,7 @@ let sideBarLinks = [
                 icon: 'plus'
             },
             {
-                name: "Calles",
+                name: trans.translate('general.streets.streets'),
                 route: "/street",
                 icon: 'list'
             },

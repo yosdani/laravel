@@ -3,14 +3,14 @@
       <b-breadcrumb :items="bItems"></b-breadcrumb>
       <b-card>
           <b-card-header class="border-0">
-              <h3 class="mb-0">Noticias</h3>
+              <h3 class="mb-0">{{translate('general.news.news')}}</h3>
           </b-card-header>
           <b-card-body>
-              <table-data 
-                :items="items" 
-                :fields="fields" 
-                :current="currentPage" 
-                :total="totalRows" 
+              <table-data
+                :items="items"
+                :fields="fields"
+                :current="currentPage"
+                :total="totalRows"
                 :offset="perPage"
                 :actions="actions"
                 :route="route"
@@ -23,8 +23,9 @@
 <script>
 import EventBus from '../../components/event-bus';
 import TableData from "../../components/table/TableData.vue";
+import trans from '../../VueTranslation/Translation';
 export default {
-    name: "News",
+    name: trans.translate('general.news.news'),
     components:{
         TableData
     },
@@ -40,24 +41,24 @@ export default {
                 to: { name: 'dashboard' }
             },
             {
-                text: 'Noticias',
+                text: trans.translate('general.news.news'),
                 active: true
             }
         ],
         fields: [
             {
                 key: "title",
-                label: "Título",
+                label: trans.translate('general.news.title'),
                 sortable: true,
                 sortDirection: "desc",
             },
             {
                 key: "subTitle",
-                label: "Subtítulo",
+                label: trans.translate('general.news.subtitle'),
                 sortable: true,
                 sortDirection: "desc",
             },
-            { key: 'actions', label: 'Acciones' }
+            { key: 'actions', label: trans.translate('general.edit') }
         ],
         actions:'admin/news',
         route:'/news'

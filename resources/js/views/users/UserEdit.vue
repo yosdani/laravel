@@ -4,7 +4,7 @@
 
         <b-card>
             <b-card-header class="border-0">
-                <h3 class="mb-0">Editar Usuario</h3>
+                <h3 class="mb-0">{{translate('general.edit')}} {{translate('general.users.user')}}</h3>
             </b-card-header>
             <b-card-body>
                 <form-object :formOut="formIn"></form-object>
@@ -14,7 +14,8 @@
 </template>
 
 <script>
-import FormObject from "../../components/form/FormObject.vue"
+import FormObject from "../../components/form/FormObject.vue";
+import trans from '../../VueTranslation/Translation';
 export default {
     data() {
     return {

@@ -3,14 +3,14 @@
       <b-breadcrumb :items="bItems"></b-breadcrumb>
       <b-card>
           <b-card-header class="border-0">
-              <h3 class="mb-0">Incidencias</h3>
+              <h3 class="mb-0">{{translate('general.incidences.incidences')}}</h3>
           </b-card-header>
           <b-card-body>
-              <table-data 
-                :items="items" 
-                :fields="fields" 
-                :current="currentPage" 
-                :total="totalRows" 
+              <table-data
+                :items="items"
+                :fields="fields"
+                :current="currentPage"
+                :total="totalRows"
                 :offset="perPage"
                 :actions="actions"
                 :route="route"
@@ -23,6 +23,7 @@
 
 <script>
 import TableData from "../../components/table/TableData.vue";
+import trans from '../../VueTranslation/Translation';
 export default {
   data() {
     return {
@@ -36,30 +37,30 @@ export default {
               to: { name: 'dashboard' }
           },
           {
-              text: 'Incidencias',
+              text: trans.translate('general.incidences.incidences'),
               active: true
           }
       ],
       fields: [
           {
               key: "name",
-              label: "Nombre",
+              label: trans.translate('general.name'),
               sortable: true,
               sortDirection: "desc",
           },
           {
               key: "description",
-              label: "Descripcion",
+              label: trans.translate('general.description'),
               sortable: true,
               sortDirection: "desc",
           },
           {
               key: "location",
-              label: "Ubicacion",
+              label: trans.translate('general.location'),
               sortable: true,
               sortDirection: "desc",
           },
-          { key: 'actions', label: 'Acciones' }
+          { key: 'actions', label: trans.translate('general.actions')}
       ],
       actions:'admin/incidence',
       route:'/incidences'
