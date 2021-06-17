@@ -59,7 +59,6 @@ import WorkerAdd from './views/areas/WorkersAdd.vue';
 
 Vue.use(VueRouter);
 export	default	new	VueRouter({
-    mode: 'history',
     routes:	[
         {
             path: '/',
