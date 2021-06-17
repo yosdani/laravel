@@ -86,9 +86,10 @@ class AreaController extends Controller
         if (!$area) {
             return response()->json("This area is not exist", '400');
         }
-        $area->updated($request->all());
-
+        $area->name = $request->name;
+        $area->user_id = $request->user_id;
         $area->save();
+
         return response()->json([
             'area'=>$area,
             'success' => true,
@@ -112,5 +113,36 @@ class AreaController extends Controller
         Area::destroy($id);
 
         return  response()->json('deleted', 200);
+    }
+
+    /**
+     * Add workers to area
+     * @param int $id
+     * @param Request $request
+     * @return JsonResponse
+     * 
+     */
+    public function addWorkers(Request $request,$id): JsonResponse
+    {
+        if(!Area::find($id)){
+            return response()->json([
+                'success' => false,
+                'message' =>'The specified id of area is not found'
+            ], 404);
+        }
+
+        $idsWorkers = $request->workers;
+
+        foreach ($idsWorkers as $worker) {
+            WorkerArea::create([
+                'user_id' => $worker,
+                'area_id' => $id
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Workers add successfully'
+        ]);
     }
 }

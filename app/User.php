@@ -58,6 +58,11 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany(Role::class, 'role_user');
     }
 
+    public function workerArea(): BelongsToMany
+    {
+        return $this->belongsToMany(Area::class, 'worker_area');
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -110,11 +115,27 @@ class User extends Authenticatable implements JWTSubject
      * @return Collection
      *
      */
-    public function workers()
+    public static function workers()
     {
-        return $this->select('users.*')
+        return User::select('users.*')
                     ->leftjoin('role_user','users.id','=','role_user.user_id')
                     ->where('role_user.role_id','=',3)
+                    ->get();
+    }
+
+    /**
+     * @param array $ids
+     * @return Collection
+     * 
+     * 
+     */
+    public static function workersWithoutAreas($ids)
+    {
+        return User::select('users.*')
+                    ->leftjoin('role_user','users.id','=','role_user.user_id')
+                    ->leftjoin('worker_area','worker_area.user_id','=','users.id')
+                    ->where('role_user.role_id','=',3)
+                    ->whereIn('worker_area.user_id',$ids)
                     ->get();
     }
 

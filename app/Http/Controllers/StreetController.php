@@ -113,13 +113,13 @@ class StreetController extends Controller
                 'success' => false,
                 'message' =>'The specified id does not exist'
             ]);
-
+        }
             Street::destroy($id);
 
             return response()->json([
                 'success' => true,
                 'message' => 'The street was successfully deleted'
             ], 200);
-        }
+        
     }
 }

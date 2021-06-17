@@ -75,6 +75,7 @@ export default {
       getAreas(page=1){
           axios.get("/admin/areas?pages="+page)
           .then(response =>{
+              this.items = [];
             this.perPage = response.data.areas.per_page;
             this.currentPage = response.data.areas.current_page;
             this.totalRows= response.data.areas.total;

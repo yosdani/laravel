@@ -33,6 +33,11 @@ class Area extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    public function userWorker(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'worker_role');
+    }
+
     /**
      * Get areas by rol
      * @param int $id

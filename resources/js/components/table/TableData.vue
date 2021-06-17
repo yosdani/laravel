@@ -88,6 +88,12 @@
         </b-button>
         </RouterLink>
           </b-col>
+          <b-col v-if="route==='/areas'">
+            <RouterLink :to="'/workers/add/'+row.item.id">
+                <b-button variant="primary" size="sm"><b-icon icon="list" aria-hidden="true"></b-icon> Add workers
+            </b-button>
+            </RouterLink>
+          </b-col>
           <b-col>
         <b-form>
           <b-button variant="danger" type="submit" size="sm" @click="deleteUser(row.item,$event)">

@@ -42,6 +42,8 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
         Route::get('responsables/areas','UserController@getResponsables');
         //Route for get all user with rol worker
         Route::get('workers', 'UserController@getWorkers');
+        //Route for get workers without areas
+        Route::get('workers/select','UserController@getWorkersWithout');
 
         /********* Roles ************/
         Route::resource('roles', 'RoleController');
@@ -99,15 +101,10 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
 
     /**********  Areas ************/
     //Route for get all areas
-    Route::get('areas', ['uses'=>'AreaController@index']);
-    //Route for get an area by id
-    Route::get('areas/{id}', ['uses'=>'AreaController@show']);
-    //Route for create a new area
-    Route::post('areas', ['uses'=>'AreaController@store']);
-    //Route for update an area
-    Route::put('areas/{id}', ['uses'=>'AreaController@update']);
-    //Route for delete an area
-    Route::delete('areas/{id}', ['uses'=>'AreaController@destroy']);
+    Route::resource('areas', 'AreaController');
+
+    //Route to add workers to area
+    Route::post('workers/area/{id}', 'AreaController@addWorker');
 
     /**********  Breakdown ************/
     //Route for get all breakdowns

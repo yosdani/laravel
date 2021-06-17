@@ -16642,6 +16642,10 @@ a.text-dark:focus {
   height: 100vh;
 }
 
+.login-body .login-image {
+  margin-top: 100px;
+}
+
 .login-card {
   background-color: #A6474B !important;
   color: white !important;
