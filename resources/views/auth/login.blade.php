@@ -16,7 +16,7 @@ $bodyClass = 'login-body';
                         @csrf
                         <div class="col-md-10 offset-md-1 mt-5">
                             <div class="form-group row">
-                                <label for="email" class="col-md-12 col-form-label">{{ __('Email') }}</label>
+                                <label for="email" class="col-md-12 col-form-label">{{ __('auth.email') }}</label>
 
                                 <div class="col-md-12">
                                     <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
@@ -30,7 +30,7 @@ $bodyClass = 'login-body';
                             </div>
 
                             <div class="form-group row">
-                                <label for="password" class="col-md-12 col-form-label">{{ __('Contraseña') }}</label>
+                                <label for="password" class="col-md-12 col-form-label">{{ __('auth.password') }}</label>
 
                                 <div class="col-md-12">
                                     <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
@@ -49,7 +49,7 @@ $bodyClass = 'login-body';
                                         <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                                         <label class="form-check-label" for="remember">
-                                            {{ __('Remember Me') }}
+                                            {{ __('auth.remember_me') }}
                                         </label>
                                     </div>
                                 </div>
@@ -58,12 +58,12 @@ $bodyClass = 'login-body';
                             <div class="form-group row mb-0">
                                 <div class="col-md-8">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Entrar') }}
+                                        {{ __('auth.login') }}
                                     </button>
 
                                     @if (Route::has('password.request'))
                                         <a class="btn btn-link text-white-50" href="{{ route('password.request') }}">
-                                            {{ __('Olvidó la contraseña?') }}
+                                            {{ __('auth.forgot') }}
                                         </a>
                                     @endif
                                 </div>

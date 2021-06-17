@@ -1,26 +1,32 @@
 @extends('layouts.app')
-
+@php
+    $bodyClass = 'login-body';
+@endphp
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="text-center login-image" >
+                    <img class="image-rounded" src="{{ asset('images/logo-2.png') }}" width="25%">
+                </div>
+                <div class="card mt-5 login-card">
+                    <h6 class="mt-3 ml-3 mr-3">{{ __('auth.send_password_reset') }}</h6>
+                    <div class="col-12">
+                        @if (session('status'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('status') }}
+                            </div>
+                        @endif
+                    </div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
 
-                    <form method="POST" action="{{ route('password.email') }}">
+                    <form method="POST" class="mt-3" action="{{ route('password.email') }}">
                         @csrf
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                        <div class="form-group row col-md-10 offset-md-1">
+                            <label for="email" class="col-md-12 col-form-label">{{ __('auth.email') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
 
                                 @if ($errors->has('email'))
@@ -31,10 +37,10 @@
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
+                        <div class="form-group row mb-0 col-md-10 offset-md-1">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary mb-3">
+                                    {{ __('general.send') }}
                                 </button>
                             </div>
                         </div>
