@@ -60,7 +60,7 @@
     </style>
 </head>
 <body>
-    <div id="app-container">
+    <div id="app-container" class="{{ $bodyClass ?? '' }}">
         <main class="">
             @yield('content')
         </main>

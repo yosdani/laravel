@@ -16637,3 +16637,13 @@ a.text-dark:focus {
   border: none !important;
 }
 
+.login-body {
+  background-color: #AEBDCE;
+  height: 100vh;
+}
+
+.login-card {
+  background-color: #A6474B !important;
+  color: white !important;
+}
+
