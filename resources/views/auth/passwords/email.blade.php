@@ -10,7 +10,6 @@
                     <img class="image-rounded" src="{{ asset('images/logo-2.png') }}" width="25%">
                 </div>
                 <div class="card mt-5 login-card">
-                    <h6 class="mt-3 ml-3 mr-3">{{ __('auth.send_password_reset') }}</h6>
                     <div class="col-12">
                         @if (session('status'))
                             <div class="alert alert-success" role="alert">
