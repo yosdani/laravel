@@ -4,7 +4,7 @@
 
         <b-card>
             <b-card-header class="border-0">
-                <h3 class="mb-0">Adicionar Rol</h3>
+                <h3 class="mb-0">{{translate('general.add')}} {{translate('general.roles.role')}}</h3>
             </b-card-header>
             <b-card-body>
                 <form-object :formOut="formIn"></form-object>
@@ -14,7 +14,8 @@
 </template>
 
 <script>
-import FormObject from "../../components/form/FormObject.vue"
+import FormObject from "../../components/form/FormObject.vue";
+import trans from '../../VueTranslation/Translation';
 export default {
     data() {
         return {
@@ -24,20 +25,20 @@ export default {
                     to: { name: 'dashboard' }
                 },
                 {
-                    text: 'Roles',
+                    text: trans.translate('general.roles.roles'),
                     to: { name: 'roles' }
                 },
                 {
-                    text: 'Adicionar',
+                    text: trans.translate('general.add'),
                     active: true
                 }
             ],
             formIn: {
-                formFrom:'Roles',
+                formFrom:trans.translate('general.roles.roles'),
                 form: {
-                    name: ''
+                    name: '',
                 },
-                action: 'Guardar',
+                action: trans.translate('general.save'),
                 uri:'admin/roles',
                 method: 'POST',
                 route:'/states'

@@ -4,7 +4,7 @@
 
         <b-card>
             <b-card-header class="border-0">
-                <h3 class="mb-0">Editar Calle</h3>
+                <h3 class="mb-0">{{translate('general.edit')}} {{translate('general.streets.street')}}</h3>
             </b-card-header>
             <b-card-body>
                 <form-simple :formOut="formIn"></form-simple>
@@ -15,6 +15,7 @@
 
 <script>
 import FormSimple from '../../components/form/formSimple.vue';
+import trans from '../../VueTranslation/Translation';
 export default {
     data() {
     return {
@@ -24,19 +25,19 @@ export default {
               to: { name: 'dashboard' }
           },
           {
-              text: 'Calles',
+              text: trans.translate('general.streets.streets'),
               to: { name: 'street' }
           },
           {
-              text: 'Editar',
+              text: trans.translate('general.edit'),
               active: true
           }
       ],
       formIn: {
-        formFrom:'Calles',
-        label: 'Calle',
-        placeholder: 'Entre la calle',
-        action: 'Editar',
+        formFrom: trans.translate('general.streets.streets'),
+        label: trans.translate('general.streets.name'),
+        placeholder: trans.translate('general.streets.name'),
+        action: trans.translate('general.save'),
         form: {
             street: '',
             number: ''

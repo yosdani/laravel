@@ -35,7 +35,7 @@ export default {
       ],
       formIn: {
         formFrom:'User',
-        action: trans.translate('general.add'),
+        action: trans.translate('general.save'),
         form: {
             email: '',
             name: '',

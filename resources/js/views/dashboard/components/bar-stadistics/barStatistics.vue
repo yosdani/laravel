@@ -1,9 +1,9 @@
 <template>
     <div class="card-dashboard row" :style="putOfMarginNegative">
-            <statistics class="col-lg-3 col-md-6 col-sm-12 border-stadistics" :color="'green'" :iconName="'wallet2'" :name="'Total Incidence'" :number="200"/>
-            <statistics class="col-lg-3 col-md-6 col-sm-12 border-stadistics three-component" :color="'orange'" :iconName="'calendar2-check-fill'" :name="'Finished'" :number="105"/>
-            <statistics class="col-lg-3 col-md-6 col-sm-12 border-stadistics" :color="'blue'" :iconName="'bar-chart-steps'" :name="'In Progress'" :number="75"/>
-            <statistics class="col-lg-3 col-md-6 col-sm-12" :color="'red'" :iconName="'exclamation-triangle-fill'" :name="'Not Assigned'" :number="20"/>
+            <statistics class="col-lg-3 col-md-6 col-sm-12 border-statistics" color="green" :iconName="'wallet2'" :name="'Total Incidence'" :number="200"/>
+            <statistics class="col-lg-3 col-md-6 col-sm-12 border-statistics three-component" color="orange" :iconName="'calendar2-check-fill'" :name="'Finished'" :number="105"/>
+            <statistics class="col-lg-3 col-md-6 col-sm-12 border-statistics" color="blue" :iconName="'bar-chart-steps'" :name="'In Progress'" :number="75"/>
+            <statistics class="col-lg-3 col-md-6 col-sm-12" color="red" :iconName="'exclamation-triangle-fill'" :name="'Not Assigned'" :number="20"/>
     </div>
 </template>
 <script>
@@ -33,7 +33,7 @@ export default {
     box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
 }
 
-.border-stadistics{
+.border-statistics{
     border-right: 1px solid #cccc;
 }
 @media (max-width:991px){

@@ -40,7 +40,7 @@ export default {
                 to: { name: 'dashboard' }
             },
             {
-                text: 'Areas',
+                text: trans.translate('general.areas.areas'),
                 active: true
             }
         ],

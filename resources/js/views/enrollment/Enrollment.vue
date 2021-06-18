@@ -3,14 +3,14 @@
       <b-breadcrumb :items="bItems"></b-breadcrumb>
       <b-card>
           <b-card-header class="border-0">
-              <h3 class="mb-0">Matriculas</h3>
+              <h3 class="mb-0">{{translate('general.enrolments.enrolments')}}</h3>
           </b-card-header>
           <b-card-body>
-              <table-data 
-                :items="items" 
-                :fields="fields" 
-                :current="currentPage" 
-                :total="totalRows" 
+              <table-data
+                :items="items"
+                :fields="fields"
+                :current="currentPage"
+                :total="totalRows"
                 :offset="perPage"
                 :actions="actions"
                 :route="route"
@@ -23,6 +23,7 @@
 <script>
 import EventBus from '../../components/event-bus';
 import TableData from "../../components/table/TableData.vue";
+import trans from '../../VueTranslation/Translation';
 export default {
     name: "Matriculas",
     components:{
@@ -51,7 +52,7 @@ export default {
                 sortable: true,
                 sortDirection: "desc",
             },
-            { key: 'actions', label: 'Acciones' }
+           { key: 'actions', label: trans.translate('general.actions')}
         ],
         actions:'admin/enrollment',
         route:'/enrollment'

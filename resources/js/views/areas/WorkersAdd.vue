@@ -4,7 +4,7 @@
 
         <b-card>
             <b-card-header class="border-0">
-                <h3 class="mb-0">Adicionar Trabajadores al Area</h3>
+                <h3 class="mb-0">{{translate('general.areas.add_worker')}}</h3>
             </b-card-header>
             <b-card-body>
                 <b-list-group>
@@ -25,11 +25,11 @@ export default {
               to: { name: 'dashboard' }
           },
           {
-              text: 'Areas',
+              text: trans.translate('general.areas.areas'),
               to: { name: 'areas' }
           },
           {
-              text: 'Adicionar Trabajadores',
+              text: trans.translate('general.areas.add_worker'),
               active: true
           }
       ],

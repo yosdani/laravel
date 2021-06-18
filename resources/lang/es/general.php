@@ -3,16 +3,20 @@ return [
     'save' => 'Guardar',
     'edit' => 'Editar',
     'delete' => 'Eliminar',
-    'add' => 'Adicionar',
+    'add' => 'Añadir',
     'clear' => 'Limpiar',
     'send' => 'Enviar',
     'accept' => 'Aceptar',
     'cancel' => 'Cancelar',
     'total' => 'Total',
+    'name' => 'Nombre',
+    'apply' => 'Aplicar',
     'actions' => 'Acciones',
+    'back' => 'Volver',
     'select' => 'Seleccione una opción',
     'select_file' => 'Seleccione un fichero o suéltelo aquí...',
     'drop_file' => 'Suéltelo aquí...',
+    'error_message' => 'Ha ocurrido un error!',
      'news' => [
          'news' => 'Noticias',
          'new' => 'Noticia',
@@ -63,6 +67,7 @@ return [
         'areas' => 'Áreas',
         'area' => 'Área',
         'responsible_email' => 'Email de Responsable',
+        'add_worker' => 'Añadir Trabajador'
     ],
     'neighborhoods' => [
         'neighborhoods' => 'Barrios',
@@ -79,5 +84,14 @@ return [
     'streets' => [
         'streets' => 'Calles',
         'street' => 'Calle',
+        'number' => 'Número',
+        'name' => 'Nombre'
     ],
+    'graph' => [
+        'today' => 'Hoy',
+        'last_week' => 'Última semana',
+        'last_month' => 'Último mes',
+        'last_year' => 'Último año',
+        'period' => 'Período definido'
+    ]
 ];

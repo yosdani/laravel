@@ -35,7 +35,7 @@ export default {
       ],
       formIn: {
         formFrom: trans.translate('general.news.news'),
-        action: trans.translate('general.edit'),
+        action: trans.translate('general.save'),
         form: {
             images: [],
             title: '',

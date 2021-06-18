@@ -37,7 +37,7 @@ export default {
         formFrom:trans.translate('general.categories.category'),
         label: trans.translate('general.name'),
         placeholder: '',
-        action: trans.translate('general.edit'),
+        action: trans.translate('general.save'),
         form: {
             name: ''
         },

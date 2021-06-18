@@ -73,7 +73,7 @@ export default {
                 }
         })
         EventBus.$on( 'RANGE_SELECTED_DETAILS', payload => {
-            if( payload === 'Periodo definido'){
+            if( payload === trans.translate('general.graph.period')){
                 this.details = true;
             }else{
                 this.details = false;

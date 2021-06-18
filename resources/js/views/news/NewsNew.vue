@@ -28,13 +28,13 @@ export default {
               to: { name: 'states' }
           },
           {
-              text: 'Adicionar',
+              text: trans.translate('general.add'),
               active: true
           }
       ],
       formIn: {
         formFrom:'Noticias',
-        action: 'Adicionar',
+        action: trans.translate('general.save'),
         form: {
             images: [],
             title: '',

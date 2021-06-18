@@ -3,7 +3,7 @@
       <b-breadcrumb :items="bItems"></b-breadcrumb>
       <b-card>
           <b-card-header class="border-0">
-              <h3 class="mb-0">Usuarios</h3>
+              <h3 class="mb-0">{{translate('general.users.users')}}</h3>
           </b-card-header>
           <b-card-body>
               <table-data

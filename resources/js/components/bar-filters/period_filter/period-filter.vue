@@ -24,11 +24,11 @@ export default {
     giveTime
   },
   created() {
-      this.range === 'year'?this.type= 'Ultimo año':
-      this.range === 'month'?this.type= 'Ultimo mes':
-      this.range === 'week'?this.type= 'Ultima semana':
+      this.range === 'year'?this.type= trans.translate('general.graph.last_year'):
+      this.range === 'month'?this.type= trans.translate('general.graph.last_month'):
+      this.range === 'week'?this.type= trans.translate('general.graph.last_week'):
       this.range === 'day'?this.type= 'Hoy':
-      this.type = 'Periodo definido'
+      this.type = trans.translate('general.graph.period')
   },
   mounted() {
     EventBus.$on('RANGE_SELECTED', (payload) => {
@@ -39,11 +39,11 @@ export default {
   methods: {
     getDate(time){
       switch(time){
-        case 'Ultimo año':EventBus.$emit('TIMER','year');break;
-        case 'Ultimo mes':EventBus.$emit('TIMER','month');break;
-        case 'Ultima semana':EventBus.$emit('TIMER','week');break;
-        case 'Hoy':EventBus.$emit('TIMER','day');break;
-        case 'Periodo definido':EventBus.$emit('TIMER','period');break;
+        case trans.translate('general.graph.last_year'):EventBus.$emit('TIMER','year');break;
+        case trans.translate('general.graph.last_month'):EventBus.$emit('TIMER','month');break;
+        case trans.translate('general.graph.last_week'):EventBus.$emit('TIMER','week');break;
+        case trans.translate('general.graph.last_today'):EventBus.$emit('TIMER','day');break;
+        case trans.translate('general.graph.period'):EventBus.$emit('TIMER','period');break;
       }
     }
   }

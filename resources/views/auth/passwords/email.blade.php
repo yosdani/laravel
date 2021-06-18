@@ -42,7 +42,15 @@
                                     {{ __('general.send') }}
                                 </button>
                             </div>
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <a class="btn btn-link text-white-50" href="{{ route('home') }}">
+                                       <i class="fa fa-arrow-left"></i> {{ __('general.back') }}
+                                    </a>
+                                </div>
+                            </div>
                         </div>
+
                     </form>
                 </div>
             </div>

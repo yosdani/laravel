@@ -4,7 +4,7 @@
 
         <b-card>
             <b-card-header class="border-0">
-                <h3 class="mb-0">Editar Distrito</h3>
+                <h3 class="mb-0">{{translate('general.edit')}} {{translate('general.districts.district')}}</h3>
             </b-card-header>
             <b-card-body>
                 <form-simple :formOut="formIn"></form-simple>
@@ -15,6 +15,7 @@
 
 <script>
 import FormSimple from '../../components/form/formSimple.vue';
+import trans from "../../VueTranslation/Translation";
 export default {
     data() {
     return {
@@ -24,19 +25,19 @@ export default {
               to: { name: 'dashboard' }
           },
           {
-              text: 'Distrito',
+              text: trans.translate('general.districts.districts'),
               to: { name: 'district' }
           },
           {
-              text: 'Editar',
+              text: trans.translate('general.edit'),
               active: true
           }
       ],
       formIn: {
-        formFrom:'Distrito',
-        label: 'Entre el nuevo distrito',
-        placeholder: 'Entre el nuevo distrito',
-        action: 'Editar',
+        formFrom:trans.translate('general.districts.districts'),
+        label: trans.translate('general.districts.district'),
+        placeholder: trans.translate('general.districts.district'),
+        action: trans.translate('general.save'),
         form: {
             name: ''
         },

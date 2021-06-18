@@ -3,11 +3,11 @@
     aria-labelledby="dropdownMenu2"
     class="dropdown-menu dropdown-menu-checkbox"
   >
-    <periods :range="'Hoy'" />
-    <periods :range="'Ultima semana'" />
-    <periods :range="'Ultimo mes'" />
-    <periods :range="'Ultimo año'" />
-    <periods :range="'Periodo definido'" />
+    <periods :range="translate('general.graph.today')" />
+    <periods :range="translate('general.graph.last_week')" />
+    <periods :range="translate('general.graph.last_month')" />
+    <periods :range="translate('general.graph.last_year')" />
+    <periods :range="translate('general.graph.period')" />
   </div>
 </template>
 <script>
