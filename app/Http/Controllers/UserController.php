@@ -174,7 +174,7 @@ class UserController extends Controller
     {
         return response()->json([
             'success' => true,
-            'responsables' => (new User)->responsables()
+            'responsables' => User::responsables()
         ]);
     }
 

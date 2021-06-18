@@ -45,7 +45,7 @@ return [
         'incidence' => 'Incidencia',
         'in_progress' => 'En progreso',
         'not_assigned' => 'Sin asignar',
-        'by_locality' => 'Incidencias por localidad',
+        'by_locality' => 'Incidencias por distritos',
         'description' => 'Descripción',
         'locations' => 'Ubicación',
     ],

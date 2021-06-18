@@ -7,12 +7,10 @@
                 <graphic
                     class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
                     :idCanvas="'barGraphic'"
-                    :dataOfGraphic="dataOfGraphicBar"
                 />
-                <graphic
+                <graphic-radar
                     class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
                     :idCanvas="'radarGraphic'"
-                    :dataOfGraphic="dataOfGraphicRadar"
                 />
             </div>
             <div class="list-card col-lg-3 col-md-12 col-sm-12 col-xs-12">
@@ -25,109 +23,120 @@
 <script>
 import BarFilters from "../../components/bar-filters/bar-filters.vue"
 import Graphic from "./components/graphic/graphic";
+import GraphicRadar from './components/graphic/graphicRadar.vue';
 import BarStatistics from "./components/bar-stadistics/barStatistics"
 import Accordion from "./components/listWorkers/lists"
 import Lists from "./components/listWorkers/lists";
+import EventBus from '../../components/event-bus';
 export default {
     components:{
         Lists,
         Graphic,
         BarStatistics,
         Accordion,
-        BarFilters
+        BarFilters,
+        GraphicRadar
     },
-    data(){
-        return {
-            dataOfGraphicBar: null,
-            dataOfGraphicRadar : null
-        }
+    created() {
+        this.getDashboardBar();
+        this.getDashboardRadar();
+        this.getDashboardTeams();
     },
-    created(){
-        this.dataOfGraphicBar = {
-            type: "bar",
-            data: {
-                labels: ["US1","US2","US3","US4","US5"],
-                datasets: [
-                    {
-                        label: trans.translate('general.total'),
-                        data: [158, 164, 54, 120,160],
-                        backgroundColor: "rgba(168,255,137,.3)",
-                        borderColor: "#A8FF89",
-                        borderWidth: 2
+    methods: {
+        getDashboardBar(){
+            axios.get(window.origin + '/admin/dashboard/bar')
+            .then(response => {
+                let dataOfGraphicBar = {
+                    type: "bar",
+                    data: {
+                        labels: response.data.areas,
+                        datasets: [
+                            {
+                                label: trans.translate('general.total'),
+                                data: response.data.totalByAreas,
+                                backgroundColor: "rgba(168,255,137,.3)",
+                                borderColor: "#A8FF89",
+                                borderWidth: 2
+                            },
+                            {
+                                label: "Finished",
+                                data: response.data.totalFinish,
+                                backgroundColor: "rgba(225,193,50,.3)",
+                                borderColor: "#E1C132",
+                                borderWidth: 2
+                            },
+                            {
+                                label: trans.translate('general.incidences.in_progress'),
+                                data: response.data.totalInProgress,
+                                backgroundColor: "rgba(96, 162,255,.3)",
+                                borderColor: "#60A2FF",
+                                borderWidth: 2
+                            },
+                            {
+                                label:  trans.translate('general.incidences.not_assigned'),
+                                data: response.data.totalUnsigned,
+                                backgroundColor: "rgba(255, 75,99,.3)",
+                                borderColor: "#FF4B63",
+                                borderWidth: 2
+                            }
+                        ]
                     },
-                    {
-                        label: "Finished",
-                        data: [79, 82, 27, 60,50],
-                        backgroundColor: "rgba(225,193,50,.3)",
-                        borderColor: "#E1C132",
-                        borderWidth: 2
-                    },
-                    {
-                        label: trans.translate('general.incidences.in_progress'),
-                        data: [60, 50, 10, 55,100],
-                        backgroundColor: "rgba(96, 162,255,.3)",
-                        borderColor: "#60A2FF",
-                        borderWidth: 2
-                    },
-                    {
-                        label:  trans.translate('general.incidences.not_assigned'),
-                        data: [19, 32, 17, 5,10],
-                        backgroundColor: "rgba(255, 75,99,.3)",
-                        borderColor: "#FF4B63",
-                        borderWidth: 2
+                    options: {
+                        responsive: true,
+                        lineTension: 1,
+                        scales: {
+                            yAxes: [
+                                {
+                                    ticks: {
+                                        beginAtZero: true,
+                                        padding: 25
+                                    }
+                                }
+                            ]
+                        }
                     }
-                ]
-            },
-            options: {
-                responsive: true,
-                lineTension: 1,
-                scales: {
-                    yAxes: [
-                        {
-                            ticks: {
-                                beginAtZero: true,
-                                padding: 25
+                }
+                EventBus.$emit('GET_DATAS_GRAPHIC_BAR', dataOfGraphicBar );
+            })
+        },
+        getDashboardRadar(){
+            axios.get(window.origin + '/admin/dashboard/radar')
+            .then(response => {
+                let dataOfGraphicRadar = {
+                    type: "radar",
+                    data: {
+                        labels: response.data.districts,
+                        datasets: [
+                            {
+                                label: trans.translate('general.incidences.by_locality'),
+                                data: response.data.incidences,
+                                fill: true,
+                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                borderColor: 'rgb(255, 99, 132)',
+                                pointBackgroundColor: 'rgb(255, 99, 132)',
+                                pointBorderColor: '#fff',
+                                pointHoverBackgroundColor: '#fff',
+                                pointHoverBorderColor: 'rgb(255, 99, 132)'
+                            }
+                        ]
+                    },
+                    options: {
+                        elements: {
+                            line: {
+                                borderWidth: 3
                             }
                         }
-                    ]
-                }
-            }
-        },
-            this.dataOfGraphicRadar = {
-                type: "radar",
-                data: {
-                    labels: [
-                        "location 1",
-                        "location 2",
-                        "location 3",
-                        "location 4",
-                        "location 5",
-                        "location 6",
-                        "location 7",
-                        "location 8"
-                    ],
-                    datasets: [
-                        {
-                            label: trans.translate('general.incidences.by_locality'),
-                            data: [79, 82, 27, 60,58,89,34,10],
-                            fill: true,
-                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                            borderColor: 'rgb(255, 99, 132)',
-                            pointBackgroundColor: 'rgb(255, 99, 132)',
-                            pointBorderColor: '#fff',
-                            pointHoverBackgroundColor: '#fff',
-                            pointHoverBorderColor: 'rgb(255, 99, 132)'
-                        }
-                    ]
-                },
-                options: {
-                    elements: {
-                        line: {
-                            borderWidth: 3
-                        }
                     }
                 }
-            }
+                EventBus.$emit('GET_DATAS_GRAPHIC_RADAR', dataOfGraphicRadar );
+            })
+        },
+        getDashboardTeams(){
+            axios.get(window.origin + '/admin/dashboard/teams')
+            .then(response => {
+                EventBus.$emit('GET_DATAS_CARD_WORKERS', response.data );
+            })
+        }
     }
 }
 </script>

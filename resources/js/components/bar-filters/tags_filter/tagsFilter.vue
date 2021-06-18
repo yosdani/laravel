@@ -2,7 +2,7 @@
     <div>
         <multiselect
             v-model="values"
-            :options="tags"
+            :options="tags?tags:''"
             label="name"
             track-by="id"
             :multiple="true"

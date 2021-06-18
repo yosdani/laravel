@@ -1,55 +1,31 @@
 <template>
     <div>
-        <div class="boss-US" v-b-toggle.collapse-1>Daniel Valdes
-            <b-badge class="float-right" variant="primary" pill>39</b-badge>
-        </div>
-        <b-collapse id="collapse-1" class="mt-2">
+        <div v-for="(worker,i) in workers" :key="i" class="boss-US" v-b-toggle="'collapse-'+i">{{ worker.response.user?worker.response.user.name:'No tiene responsable asignado' }}
+            <b-badge class="float-right" variant="primary" pill>{{ worker.total }}</b-badge>
+            
+            <b-collapse :id="'collapse-'+i" class="mt-2">
                 <b-list-group>
-                    <b-list-group-item>Trabajador 1
-                        <b-badge class="float-right" variant="primary" pill>14</b-badge>
-                    </b-list-group-item>
-                    <b-list-group-item>Trabajador 2
-                        <b-badge class="float-right" variant="danger" pill>5</b-badge>
-                    </b-list-group-item>
-                    <b-list-group-item>Trabajador 3
-                        <b-badge class="float-right" variant="danger" pill>2</b-badge>
-                    </b-list-group-item>
-                    <b-list-group-item>Trabajador 4
-                        <b-badge class="float-right" variant="danger" pill>8</b-badge>
-                    </b-list-group-item>
-                    <b-list-group-item>Trabajador 5
-                        <b-badge class="float-right" variant="danger" pill>9</b-badge>
+                    <b-list-group-item v-for="(res,j) in worker.workers" :key="j">{{ res?res.name:'' }}
+                        <b-badge class="float-right" variant="primary" pill>{{ res.incidence.length }}</b-badge>
                     </b-list-group-item>
                 </b-list-group>
-        </b-collapse>
-
-        <div class="boss-US" v-b-toggle.collapse-2>Rene
-            <b-badge class="float-right" variant="primary" pill>70</b-badge>
+            </b-collapse>
         </div>
-        <b-collapse id="collapse-2" class="mt-2">
-                <b-list-group>
-                    <b-list-group-item>Trabajador 1
-                        <b-badge class="float-right" variant="success" pill>20</b-badge>
-                    </b-list-group-item>
-                    <b-list-group-item>Trabajador 2
-                        <b-badge class="float-right" variant="danger" pill>1</b-badge>
-                    </b-list-group-item>
-                    <b-list-group-item>Trabajador 3
-                        <b-badge class="float-right" variant="primary" pill>13</b-badge>
-                    </b-list-group-item>
-                    <b-list-group-item>Trabajador 4
-                        <b-badge class="float-right" variant="success" pill>21</b-badge>
-                    </b-list-group-item>
-                    <b-list-group-item>Trabajador 5
-                        <b-badge class="float-right" variant="primary" pill>15</b-badge>
-                    </b-list-group-item>
-                </b-list-group>
-        </b-collapse>
     </div>
 </template>
 <script>
+import EventBus from '../../../../components/event-bus';
 export default {
-
+    data(){
+        return {
+            workers : [],
+        }
+    },
+    mounted() {
+        EventBus.$on('GET_DATAS_CARD_WORKERS', payload=>{
+            this.workers = payload.workers;
+        })
+    }
 }
 </script>
 <style scoped>

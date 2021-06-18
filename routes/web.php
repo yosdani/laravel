@@ -100,6 +100,8 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
             'index', 'store', 'show', 'update', 'destroy',
         ]
     ]);
+    // Route for get all states
+    Route::get('all/states','StateController@all');
 
     /**********  Areas ************/
     //Route for get all areas
@@ -159,6 +161,13 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
     Route::put('category/{id}', ['uses'=>'CategoryController@update']);
     //Route for delete an category
     Route::delete('category/{id}', ['uses'=>'CategoryController@destroy']);
+
+    //Route for get datas of dashboard bar graphic
+    Route::get('dashboard/bar', 'DashboardController@bar');
+    //Route for get datas of dashboard radar graphic
+    Route::get('dashboard/radar', 'DashboardController@radar');
+    //Route for get datas of dashboard responsable and workers
+    Route::get('dashboard/teams', 'DashboardController@teams');
     });
 });
 

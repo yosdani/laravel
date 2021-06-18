@@ -105,11 +105,26 @@ class User extends Authenticatable implements JWTSubject
      * @return Collection
      *
      */
-    public function responsables()
+    public static function responsables()
     {
-        return $this->select('users.*')
+        return User::select('users.*')
                     ->leftjoin('role_user','users.id','=','role_user.user_id')
                     ->where('role_user.role_id','=',2)
+                    ->get();
+    }
+
+    /**  Get users rol responsable by area
+     * @param int $area
+     * @return Collection
+     *
+     */
+    public static function responsableByArea($area)
+    {
+        return User::select('users.*')
+                    ->leftjoin('area','area.user_id','=','users.id')
+                    ->leftjoin('role_user','users.id','=','role_user.user_id')
+                    ->where('role_user.role_id','=',2)
+                    ->where('area.id',$area)
                     ->get();
     }
 
@@ -165,5 +180,22 @@ class User extends Authenticatable implements JWTSubject
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPasswordNotification($token));
+    }
+
+    /**
+     * Get workers by area
+     * @param int $idArea
+     * @return array
+     * 
+     */
+    public static function workersByArea($idArea)
+    {
+        return User::select('users.name')
+                    ->leftjoin('role_user','users.id','=','role_user.user_id')
+                    ->leftjoin('worker_area','worker_area.user_id','=','users.id')
+                    ->where('role_user.role_id','=',3)
+                    ->where('worker_area.area_id',$idArea)
+                    ->with('incidence')
+                    ->get();
     }
 }

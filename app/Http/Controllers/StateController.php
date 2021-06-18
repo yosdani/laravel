@@ -23,6 +23,17 @@ class StateController extends Controller
     }
 
     /**
+     *@return JsonResponse
+     */
+    public function all():JsonResponse
+    {
+        return response()->json([
+            'success' =>true,
+            'states' => State::select('states.*')->get()
+        ], 200);
+    }
+
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data

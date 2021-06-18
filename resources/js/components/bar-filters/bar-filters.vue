@@ -16,9 +16,9 @@
                 <b-icon class="label-filters-category col-lg-2"  icon="archive-fill"></b-icon>
                 <TagsFilter
                     class="col-lg-10"
-                    :tags="categories"
-                    :placeholder="'Filter by category'"
-                    :type="'CATEGORY'"
+                    :tags="states"
+                    :placeholder="'Filter by state'"
+                    :type="'STATES'"
                 />
             </div>
         </div>
@@ -51,13 +51,13 @@ export default {
     data(){
         return {
             tags:[],
-            categories:[],
+            states:[],
             rangeTime:false,
         }
     },
     created() {
         this.getTags();
-        this.getCategory();
+        this.getStates();
     },
     mounted() {
         EventBus.$on('TIMER',payload=>{
@@ -77,7 +77,7 @@ export default {
         EventBus.$on( 'GET_TAGS', payload=> {
             console.log(payload);
         })
-        EventBus.$on('GET_CATEGORY', payload=> {
+        EventBus.$on('GET_STATES', payload=> {
             console.log(payload);
         })
     },
@@ -104,14 +104,14 @@ export default {
               })
             })
         },
-        getCategory(){
-            axios.get(window.origin+'/admin/all/categories')
+        getStates(){
+            axios.get(window.origin+'/admin/all/states')
             .then(response=>{
-                this.categories = []; 
-                response.data.category.map(category=>{
-                    this.categories.push({
-                        id: category.id,
-                        name: category.name
+                this.states = []; 
+                response.data.states.map(states=>{
+                    this.states.push({
+                        id: states.id,
+                        name: states.name
                     })
                 })
             })
