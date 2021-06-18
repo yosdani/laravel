@@ -246,7 +246,7 @@ class IncidenceController extends Controller
     public function update(Request $request, int $id): JsonResponse
     {
         $parameters = $request->only(
-            'name',
+            'title',
             'assignedTo',
             'reviewer',
             'deadLine',

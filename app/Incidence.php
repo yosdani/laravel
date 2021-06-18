@@ -20,7 +20,7 @@ class Incidence extends Model
      * @var string
      */
     protected $fillable = [
-        'name','assignedTo','reviewer','deadLine','tags','description','attachedContent',
+        'title','assignedTo','reviewer','deadLine','tags','description','attachedContent',
         'dni','applicant','phone','centerEnrollment','streetNumber','district','neighborhood','address',
         'team','location','responseForCitizen'
     ];
