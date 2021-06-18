@@ -44,19 +44,19 @@ export default {
       fields: [
           {
               key: "name",
-              label: trans.translate('general.name'),
+              label: trans.translate('general.incidences.name'),
               sortable: true,
               sortDirection: "desc",
           },
           {
               key: "description",
-              label: trans.translate('general.description'),
+              label: trans.translate('general.incidences.description'),
               sortable: true,
               sortDirection: "desc",
           },
           {
               key: "location",
-              label: trans.translate('general.location'),
+              label: trans.translate('general.incidences.location'),
               sortable: true,
               sortDirection: "desc",
           },

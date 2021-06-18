@@ -90,7 +90,7 @@ let sideBarLinks = [
                 icon: 'plus'
             },*/
             {
-                name: trans.translate('general.incidences'),
+                name: trans.translate('general.incidences.incidences'),
                 route: "/incidences",
                 icon: 'list'
             },

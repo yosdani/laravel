@@ -52,7 +52,8 @@ return [
         'not_assigned' => 'Sin asignar',
         'by_locality' => 'Incidencias por localidad',
         'description' => 'Descripción',
-        'locations' => 'Ubicación',
+        'location' => 'Ubicación',
+        'name' => 'Nombre',
     ],
     'districts' => [
         'districts' => 'Distritos',
