@@ -30,7 +30,12 @@ class Area extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function userWorker(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'worker_role');
     }
 
     public function userWorker(): BelongsTo
@@ -50,5 +55,23 @@ class Area extends Model
         return $this->select('area.*')
                     ->where('area.user_id',$id)
                     ->get();
+    }
+
+    /**
+     * Get all information of areas
+     * @return array
+     * 
+     */
+    public static function information(){
+        return Area::select('area.*')->orderBy('created_at','asc')->get();
+    }
+
+    /**
+     * Get names of areas
+     * @return array
+     * 
+     */
+    public static function names(){
+        return Area::select('area.name')->orderBy('created_at','asc')->get();
     }
 }

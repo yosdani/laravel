@@ -6,19 +6,23 @@
 
 <script>
 import Chart from 'chart.js';
+import EventBus from '../../../../components/event-bus'
 export default {
-  props:["idCanvas","dataOfGraphic"],
-  data() {
+  props:["idCanvas"],
+  data(){
     return {
-      dataGraphic: null
+      myChart : null
     }
   },
-  created(){
-      this.dataGraphic = this.dataOfGraphic;
-  },
   mounted() {
-    const ctx = document.getElementById(this.idCanvas);
-    new Chart(ctx, this.dataGraphic);
+    EventBus.$on('GET_DATAS_GRAPHIC_BAR', payload=>{
+      const ctx = document.getElementById(this.idCanvas).getContext("2d");
+    
+      if (this.myChart) {
+          this.myChart.destroy();
+      }
+      this.myChart = new Chart(ctx, payload);
+    })
   }
 }
 </script>

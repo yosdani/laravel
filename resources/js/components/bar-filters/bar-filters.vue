@@ -16,9 +16,9 @@
                 <b-icon class="label-filters-category col-lg-2"  icon="archive-fill"></b-icon>
                 <TagsFilter
                     class="col-lg-10"
-                    :tags="categories"
-                    :placeholder="'Filter by category'"
-                    :type="'CATEGORY'"
+                    :tags="states"
+                    :placeholder="'Filter by state'"
+                    :type="'STATES'"
                 />
             </div>
         </div>
@@ -50,19 +50,14 @@ export default {
     },
     data(){
         return {
-            tags:[
-                {id: 1,name: "Aceptado"},
-                {id: 2,name: "Rechazado"},
-                {id: 3,name: "Repetido"},
-                {id: 4,name: "Notificacion Core"},
-                {id: 5,name: "Notificacion 72h"},
-            ],
-            categories:[
-                {id: 1,name: "Activas-En Curso"},
-                {id: 2,name: "Historico-Finalizadas"}
-            ],
+            tags:[],
+            states:[],
             rangeTime:false,
         }
+    },
+    created() {
+        this.getTags();
+        this.getStates();
     },
     mounted() {
         EventBus.$on('TIMER',payload=>{
@@ -82,7 +77,7 @@ export default {
         EventBus.$on( 'GET_TAGS', payload=> {
             console.log(payload);
         })
-        EventBus.$on('GET_CATEGORY', payload=> {
+        EventBus.$on('GET_STATES', payload=> {
             console.log(payload);
         })
     },
@@ -90,6 +85,44 @@ export default {
         giveNewDates(event){
 
         },
+        getTags(){
+            axios.get(window.origin+'/admin/all/tags')
+            .then(response=>{
+                this.tags = [];
+                response.data.tags.map(tag=>{
+                    this.tags.push({
+                        id: tag.id,
+                        name: tag.name
+                    })
+                })
+            })
+            .catch(error=>{
+                this.$swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: error,
+              })
+            })
+        },
+        getStates(){
+            axios.get(window.origin+'/admin/all/states')
+            .then(response=>{
+                this.states = []; 
+                response.data.states.map(states=>{
+                    this.states.push({
+                        id: states.id,
+                        name: states.name
+                    })
+                })
+            })
+            .catch(error=>{
+                this.$swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: error,
+              })
+            })
+        }
     },
     computed:{
         putOfMarginNegative(){

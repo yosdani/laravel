@@ -22,6 +22,18 @@ class TagsController extends Controller
     }
 
     /**
+     * List of all tags
+     * @return JsonResponse
+     */
+    public function all():JsonResponse
+    {
+        return response()->json([
+        'success' =>true,
+        'tags' => Tags::select('tags.id','tags.name')->get()
+    ], 200);
+    }
+
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data

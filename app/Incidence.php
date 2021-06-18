@@ -135,4 +135,83 @@ class Incidence extends Model
         return $this->select('incidence.*')
                     ->where('incidence.assignedTo', $id);
     }
+
+    /**
+     * Get incidences total
+     * @param int $idResponsable
+     * @return array
+     */
+    public static function incidencesTotalByArea($idResponsable){
+        return Incidence::select('incidence.id')
+                        ->where('incidence.reviewer',$idResponsable)
+                        ->get()
+                        ->count();
+    }
+
+    /**
+     * Get all incidences finished
+     * @param int $idResponsable
+     * @param int $idState
+     * @return array
+     * 
+     */
+    public static function stateActual($idResponsable, $idState){
+        return Incidence::select('incidence.id')
+                        ->where('incidence.reviewer',$idResponsable)
+                        ->where('incidence.state_id',$idState)
+                        ->get()
+                        ->count();
+    }
+
+    /**
+     * Get incidence by district
+     * @param int $idDistrict
+     * @return array
+     * 
+     */
+    public static function getIncidenceByDistrict($idDistrict)
+    {
+        return Incidence::select('incidence.id')
+                        ->where('incidence.district_id',$idDistrict)
+                        ->get()
+                        ->count();
+    }
+
+
+    /**
+     * Get all incidences finished
+     * @return int
+     * 
+     * 
+    */
+    public static function finished(){
+        return Incidence::select('incidence.*')
+                        ->where('incidence.state_id',2)
+                        ->get()
+                        ->count();
+    }
+
+    /**
+     * Get incidences in progress
+     * @return int
+     * 
+     */
+    public static function inProgress(){
+        return Incidence::select('incidence.*')
+                        ->where('incidence.state_id',1)
+                        ->get()
+                        ->count();
+    }
+
+    /**
+     * Get incidences not assigned
+     * @return int
+     * 
+     */
+    public static function notAssigned(){
+        return Incidence::select('incidence.*')
+                        ->where('incidence.state_id',null)
+                        ->get()
+                        ->count();
+    }
 }

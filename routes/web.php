@@ -55,6 +55,8 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
                 'index', 'store', 'show', 'update', 'destroy',
             ],
         ]);
+        // Route for get all categories
+        Route::get('all/categories','CategoryController@all');
 
 
 
@@ -100,6 +102,8 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
             'index', 'store', 'show', 'update', 'destroy',
         ]
     ]);
+    // Route for get all states
+    Route::get('all/states','StateController@all');
 
     /**********  Areas ************/
     //Route for get all areas
@@ -133,16 +137,9 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
     Route::delete('publiccenter/{id}', ['uses'=>'PublicCenterController@destroy']);
 
     /**********  Tags ************/
-    //Route for get all tags
-    Route::get('tags', ['uses'=>'TagsController@index']);
-    //Route for get an tags by id
-    Route::get('tags/{id}', ['uses'=>'TagsController@show']);
-    //Route for create a new tags
-    Route::post('tags', ['uses'=>'TagsController@store']);
-    //Route for update an tags
-    Route::put('tags/{id}', ['uses'=>'TagsController@update']);
-    //Route for delete an tags
-    Route::delete('tags/{id}', ['uses'=>'TagsController@destroy']);
+    Route::resource('tags','TagsController');
+    // Route for get all tags
+    Route::get('all/tags','TagsController@all');
 
     /**********  Incidence ************/
     //Route for get all Incidences
@@ -166,6 +163,15 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
     Route::put('category/{id}', ['uses'=>'CategoryController@update']);
     //Route for delete an category
     Route::delete('category/{id}', ['uses'=>'CategoryController@destroy']);
+
+    //Route for get datas of dashboard bar graphic
+    Route::get('dashboard/bar', 'DashboardController@bar');
+    //Route for get datas of dashboard radar graphic
+    Route::get('dashboard/radar', 'DashboardController@radar');
+    //Route for get datas of dashboard responsable and workers
+    Route::get('dashboard/teams', 'DashboardController@teams');
+    //Route for get general statistics
+    Route::get('dashboard/general', 'DashboardController@getStatistics');
     });
 });
 
