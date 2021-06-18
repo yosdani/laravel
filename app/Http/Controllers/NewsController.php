@@ -48,7 +48,8 @@ class NewsController  extends Controller
     {
         return Validator::make($data, [
             'title' => 'required|string|max:255',
-            'subtitle' => 'required|string|max:255',
+            'content' => 'required|string|max:255',
+            'category_id' => 'required|integer',
 
         ]);
     }

@@ -16,7 +16,6 @@
                         id="input-3"
                         v-model="formOut.form.subtitle"
                         :placeholder="translate('general.news.subtitle')"
-                        required
                     ></b-form-input>
                 </b-form-group>
 
@@ -31,7 +30,7 @@
             </b-col>
             <b-col size="6">
                 <b-form-group id="input-group-category" :label="translate('general.categories.categories')" label-for="input-3">
-                    <b-form-select v-model="formOut.form.category_id">
+                    <b-form-select v-model="formOut.form.category_id" required>
                         <template #first>
                             <b-form-select-option :value="null" disabled>-- {{ translate('general.select') }} --</b-form-select-option>
                         </template>
