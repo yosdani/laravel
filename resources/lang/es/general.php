@@ -3,18 +3,27 @@ return [
     'save' => 'Guardar',
     'edit' => 'Editar',
     'delete' => 'Eliminar',
-    'add' => 'Adicionar',
+    'add' => 'Añadir',
     'clear' => 'Limpiar',
     'send' => 'Enviar',
     'accept' => 'Aceptar',
     'cancel' => 'Cancelar',
     'total' => 'Total',
+    'name' => 'Nombre',
+    'apply' => 'Aplicar',
     'actions' => 'Acciones',
+    'back' => 'Volver',
+    'select' => 'Seleccione una opción',
+    'select_file' => 'Seleccione un fichero o suéltelo aquí...',
+    'drop_file' => 'Suéltelo aquí...',
+    'error_message' => 'Ha ocurrido un error!',
      'news' => [
          'news' => 'Noticias',
          'new' => 'Noticia',
          'title' => 'Título',
-         'subtitle' => 'Subtítulo'
+         'subtitle' => 'Subtítulo',
+         'images' => 'Imágenes',
+         'content' => 'Contenido'
      ],
     'categories' => [
         'categories' => 'Categorías',
@@ -48,7 +57,8 @@ return [
         'not_assigned' => 'Sin asignar',
         'by_district' => 'Incidencias por distritos',
         'description' => 'Descripción',
-        'locations' => 'Ubicación',
+        'location' => 'Ubicación',
+        'name' => 'Nombre',
     ],
     'districts' => [
         'districts' => 'Distritos',
@@ -58,6 +68,7 @@ return [
         'areas' => 'Áreas',
         'area' => 'Área',
         'responsible_email' => 'Email de Responsable',
+        'add_worker' => 'Añadir Trabajador'
     ],
     'neighborhoods' => [
         'neighborhoods' => 'Barrios',
@@ -74,11 +85,20 @@ return [
     'streets' => [
         'streets' => 'Calles',
         'street' => 'Calle',
+        'number' => 'Número',
+        'name' => 'Nombre'
     ],
     'dashboard_statistics' => [
         'total_incidences' => 'Incidencias Total',
         'finished' => 'Terminadas',
         'in_progress' => 'En Progreso',
         'not_assigned' => 'No Asignadas'
+    ],
+    'graph' => [
+        'today' => 'Hoy',
+        'last_week' => 'Última semana',
+        'last_month' => 'Último mes',
+        'last_year' => 'Último año',
+        'period' => 'Período definido'
     ]
 ];

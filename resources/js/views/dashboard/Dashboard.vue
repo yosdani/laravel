@@ -3,9 +3,9 @@
         <bar-filters />
         <bar-statistics />
         <div class="row container-card">
-            <div class="graphics-card col-lg-8 col-md-12 col-sm-12 col-xs-12">
+            <div class="graphics-card col-lg-8 col-md-12 col-sm-12">
                 <graphic
-                    class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                    class="col-lg-12 col-md-12 col-sm-12"
                     :idCanvas="'barGraphic'"
                 />
                 <graphic-radar
@@ -13,7 +13,7 @@
                     :idCanvas="'radarGraphic'"
                 />
             </div>
-            <div class="list-card col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <div class="list-card col-lg-3 col-md-12 col-sm-12">
                 <lists />
             </div>
 

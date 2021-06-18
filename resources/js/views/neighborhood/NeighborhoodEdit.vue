@@ -4,7 +4,7 @@
 
         <b-card>
             <b-card-header class="border-0">
-                <h3 class="mb-0">Editar Barrio</h3>
+                <h3 class="mb-0">{{translate('general.edit')}} {{translate('general.neighborhoods.neighborhood')}}</h3>
             </b-card-header>
             <b-card-body>
                 <form-simple :formOut="formIn"></form-simple>
@@ -24,19 +24,19 @@ export default {
               to: { name: 'dashboard' }
           },
           {
-              text: 'Barrios',
+              text: trans.translate('general.neighborhoods.neighborhoods'),
               to: { name: 'neighborhood' }
           },
           {
-              text: 'Editar',
+              text: trans.translate('general.edit'),
               active: true
           }
       ],
       formIn: {
-        formFrom:'Barrio',
-        label: 'Barrio',
-        placeholder: 'Entre el nuevo barrio',
-        action: 'Editar',
+        formFrom:trans.translate('general.neighborhoods.neighborhood'),
+        label: trans.translate('general.name'),
+        placeholder: trans.translate('general.name'),
+        action: trans.translate('general.save'),
         form: {
             name: ''
         },

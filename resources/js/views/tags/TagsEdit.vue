@@ -4,7 +4,7 @@
 
         <b-card>
             <b-card-header class="border-0">
-                <h3 class="mb-0">Editar Etiqueta</h3>
+                <h3 class="mb-0">{{translate('general.edit')}} {{translate('general.tags.tag')}}</h3>
             </b-card-header>
             <b-card-body>
                 <form-simple :formOut="formIn"></form-simple>
@@ -15,6 +15,7 @@
 
 <script>
 import FormSimple from '../../components/form/formSimple.vue';
+import trans from '../../VueTranslation/Translation';
 export default {
     data() {
     return {
@@ -24,19 +25,19 @@ export default {
               to: { name: 'dashboard' }
           },
            {
-              text: 'Etiquetas',
+              text: trans.translate('general.tags.tags'),
               to: { name: 'tags' }
           },
           {
-              text: 'Editar',
+              text: trans.translate('general.edit'),
               active: true
           }
       ],
       formIn: {
-        formFrom:'Etiquetas',
-        label: 'Etiqueta',
-        placeholder: 'Entre la etiqueta',
-        action: 'Editar',
+        formFrom:trans.translate('general.tags.tags'),
+        label: trans.translate('general.tags.tag'),
+        placeholder: trans.translate('general.tags.tag'),
+        action: trans.translate('general.save'),
         form: {
             name: ''
         },

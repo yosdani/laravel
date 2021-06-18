@@ -4,7 +4,7 @@
 
         <b-card>
             <b-card-header class="border-0">
-                <h3 class="mb-0">Adicionar Estado</h3>
+                <h3 class="mb-0">{{translate('general.add')}} {{translate('general.state.state')}}</h3>
             </b-card-header>
             <b-card-body>
                 <form-simple :formOut="formIn"></form-simple>
@@ -15,6 +15,7 @@
 
 <script>
 import FormSimple from '../../components/form/formSimple.vue';
+import trans from '../../VueTranslation/Translation';
 export default {
     data() {
     return {
@@ -24,19 +25,19 @@ export default {
               to: { name: 'dashboard' }
           },
           {
-              text: 'Estados',
+              text: trans.translate('general.states.states'),
               to: { name: 'states' }
           },
           {
-              text: 'Adicionar',
+              text: trans.translate('general.add'),
               active: true
           }
       ],
       formIn: {
-        formFrom:'Estados',
-        label: 'Entre el tipo de estado',
-        placeholder: 'Entre el estado',
-        action: 'Adicionar',
+        formFrom:trans.translate('general.states.states'),
+        label: trans.translate('general.states.state'),
+        placeholder: trans.translate('general.states.state'),
+        action: trans.translate('general.save'),
         form: {
             name: ''
         },

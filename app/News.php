@@ -5,11 +5,14 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class News extends Model
-{/**
- * The table associated with the model.
- *
- * @var string
- */
+{
+    const IMAGE_PATH = 'public/images/news/';
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
     protected $table = 'news';
 
     /**
@@ -18,7 +21,7 @@ class News extends Model
      * @var string
      */
     protected $fillable = [
-        'title','subTitle','content'
+        'title','subtitle','content'
     ];
 
     /**
@@ -28,7 +31,7 @@ class News extends Model
      */
     public function images()
     {
-        return $this->hasMany(NoticeImage::class, 'news_id');
+        return $this->hasMany(NewsImage::class, 'news_id');
     }
     /**
      * The attributes that are mass assignable.
@@ -37,7 +40,7 @@ class News extends Model
      */
     public function category()
     {
-        return $this->belongsTo(News::class, 'category_id');
+        return $this->belongsTo(Category::class, 'category_id');
     }
 
     /**
@@ -47,17 +50,8 @@ class News extends Model
      */
     public function user()
     {
-        return $this->belongsTo(News::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    /**
-     * Get news by user id
-     * @return Collection
-     *
-     */
-    public function newsByUserId($id)
-    {
-        return $this->select('news.*')
-            ->where('news.user_id', $id);
-    }
+
 }

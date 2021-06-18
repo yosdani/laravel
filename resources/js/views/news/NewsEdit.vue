@@ -35,9 +35,9 @@ export default {
       ],
       formIn: {
         formFrom: trans.translate('general.news.news'),
-        action: trans.translate('general.edit'),
+        action: trans.translate('general.save'),
         form: {
-            img: [],
+            images: [],
             title: '',
             subTitle: '',
             content: '',
@@ -63,7 +63,7 @@ export default {
               this.formIn.form.title = response.data[0].title;
               this.formIn.form.subTitle = response.data[0].subTitle;
               this.formIn.form.content = response.data[0].content;
-              this.formIn.form.img = response.data[0].images;
+              this.formIn.form.images = response.data[0].images;
           })
       }
   }

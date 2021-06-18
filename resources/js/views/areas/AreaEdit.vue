@@ -37,7 +37,7 @@ export default {
         formFrom: trans.translate('general.areas.areas'),
         label: trans.translate('general.name'),
         placeholder: '',
-        action: trans.translate('general.edit'),
+        action: trans.translate('general.save'),
         form: {
             name: '',
             user_id: ''

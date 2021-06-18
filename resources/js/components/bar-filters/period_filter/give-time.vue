@@ -1,9 +1,9 @@
-<template> 
-    <date-range-picker 
+<template>
+    <date-range-picker
         ref="picker"
         :opens="'center'"
-        :startDate="dateRange.startDate" 
-        :endDate="dateRange.endDate" 
+        :startDate="dateRange.startDate"
+        :endDate="dateRange.endDate"
         @update="valuesRange"
         v-model="dateRange"
         :locale-data="locale"
@@ -13,7 +13,7 @@
     >
     <!--Optional scope for the input displaying the dates -->
       <div slot="input" >{{dateRange.startDate +' - '+ dateRange.endDate}}</div>
-    </date-range-picker>                    
+    </date-range-picker>
 </template>
 <script>
 import DateRangePicker from 'vue2-daterange-picker'
@@ -30,10 +30,10 @@ export default {
           direction: 'ltr', //direction of text
           format: 'DD-MM-YYYY', //fomart of the dates displayed
           separator: ' - ', //separator between the two ranges
-          applyLabel: 'Apply',
-          cancelLabel: 'Cancel',
+          applyLabel: trans.translate('general.apply'),
+          cancelLabel: trans.translate('general.cancel'),
           weekLabel: 'W',
-          customRangeLabel: 'Custom Range',
+          customRangeLabel: trans.translate('general.period'),
           daysOfWeek: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
           monthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
           firstDay: 1 //ISO first day of week - see moment documenations for details
@@ -42,10 +42,10 @@ export default {
           direction: 'ltr', //direction of text
           format: 'DD-MM-YYYY', //fomart of the dates displayed
           separator: ' - ', //separator between the two ranges
-          applyLabel: 'Aplicar',
-          cancelLabel: 'Cancelar',
+          applyLabel: trans.translate('general.apply'),
+          cancelLabel: trans.translate('general.cancel'),
           weekLabel: 'W',
-          customRangeLabel: 'Custom Range',
+          customRangeLabel: trans.translate('general.graph.period'),
           daysOfWeek: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
           monthNames: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
           firstDay: 1 //ISO first day of week - see moment documenations for details
@@ -85,4 +85,4 @@ export default {
 };
 </script>
 <style src="vue2-daterange-picker/dist/vue2-daterange-picker.css"></style>
-</style>
+

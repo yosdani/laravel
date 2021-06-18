@@ -3,14 +3,14 @@
       <b-breadcrumb :items="bItems"></b-breadcrumb>
       <b-card>
           <b-card-header class="border-0">
-              <h3 class="mb-0">Etiquetas</h3>
+              <h3 class="mb-0">{{translate('general.tags.tags')}}</h3>
           </b-card-header>
           <b-card-body>
-              <table-data 
-                :items="items" 
-                :fields="fields" 
-                :current="currentPage" 
-                :total="totalRows" 
+              <table-data
+                :items="items"
+                :fields="fields"
+                :current="currentPage"
+                :total="totalRows"
                 :offset="perPage"
                 :actions="actions"
                 :route="route"
@@ -23,8 +23,8 @@
 <script>
 import EventBus from '../../components/event-bus';
 import TableData from "../../components/table/TableData.vue";
+import trans from '../../VueTranslation/Translation';
 export default {
-    name: "States",
     components:{
         TableData
     },
@@ -40,18 +40,18 @@ export default {
                 to: { name: 'dashboard' }
             },
             {
-                text: 'Etiquetas',
+                text: trans.translate('general.tags.tags'),
                 active: true
             }
         ],
         fields: [
             {
                 key: "name",
-                label: "Etiquetas",
+                label: trans.translate('general.name'),
                 sortable: true,
                 sortDirection: "desc",
             },
-            { key: 'actions', label: 'Acciones' }
+           { key: 'actions', label: trans.translate('general.actions')}
         ],
         actions:'admin/tags',
         route:'/tags'

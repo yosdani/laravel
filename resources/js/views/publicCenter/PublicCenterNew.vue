@@ -4,7 +4,7 @@
 
         <b-card>
             <b-card-header class="border-0">
-                <h3 class="mb-0">Adicionar Centro Público</h3>
+                <h3 class="mb-0">{{translate('general.add')}} {{translate('general.public_centers.public_center')}}</h3>
             </b-card-header>
             <b-card-body>
                 <form-simple :formOut="formIn"></form-simple>
@@ -15,6 +15,7 @@
 
 <script>
 import FormSimple from '../../components/form/formSimple.vue';
+import trans from '../../VueTranslation/Translation';
 export default {
     data() {
     return {
@@ -24,19 +25,19 @@ export default {
               to: { name: 'dashboard' }
           },
           {
-              text: 'Centros Públicos',
+              text: trans.translate('general.public_centers.public_centers'),
               to: { name: 'public_center' }
           },
           {
-              text: 'Adicionar',
+              text: trans.translate('general.add'),
               active: true
           }
       ],
       formIn: {
-        formFrom:'Centros Públicos',
-        label: 'Centros Públicos',
-        placeholder: 'Entre el Centros Públicos',
-        action: 'Adicionar',
+        formFrom:trans.translate('general.public_centers.public_centers'),
+        label: trans.translate('general.name'),
+        placeholder: trans.translate('general.name'),
+        action: trans.translate('general.save'),
         form: {
             name: ''
         },

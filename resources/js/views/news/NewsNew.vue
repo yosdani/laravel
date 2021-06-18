@@ -28,18 +28,19 @@ export default {
               to: { name: 'states' }
           },
           {
-              text: 'Adicionar',
+              text: trans.translate('general.add'),
               active: true
           }
       ],
       formIn: {
         formFrom:'Noticias',
-        action: 'Adicionar',
+        action: trans.translate('general.save'),
         form: {
-            img: [],
+            images: [],
             title: '',
-            subTitle: '',
+            subtitle: '',
             content: '',
+            category_id: '',
             _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
         },
         uri:'admin/news',

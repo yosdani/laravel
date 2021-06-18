@@ -34,14 +34,16 @@ import Sweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import {store} from './store';
 Vue.use(Sweetalert2);
+if(document.getElementById('app')){
+    const app = new Vue({
+        el: '#app',
+        components: {
+            App
+        },
+        store,
+        router,
+        render: h => h(App)
 
-const app = new Vue({
-    el: '#app',
-    components: {
-        App
-    },
-    store,
-    router,
-    render: h => h(App)
+    });
+}
 
-});

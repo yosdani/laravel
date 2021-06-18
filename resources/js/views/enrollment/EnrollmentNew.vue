@@ -4,7 +4,7 @@
 
         <b-card>
             <b-card-header class="border-0">
-                <h3 class="mb-0">Adicionar Matricula</h3>
+                <h3 class="mb-0">{{translate('general.edit')}} {{translate('general.enrolments.enrolment')}}</h3>
             </b-card-header>
             <b-card-body>
                 <form-simple :formOut="formIn"></form-simple>
@@ -15,6 +15,7 @@
 
 <script>
 import FormSimple from '../../components/form/formSimple.vue';
+import trans from '../../VueTranslation/Translation';
 export default {
     data() {
     return {
@@ -24,19 +25,19 @@ export default {
               to: { name: 'dashboard' }
           },
           {
-              text: 'Matricula',
+              text: trans.translate('general.enrolments.enrolments'),
               to: { name: 'enrollment' }
           },
           {
-              text: 'Adicionar',
+              text: trans.translate('general.add'),
               active: true
           }
       ],
       formIn: {
-        formFrom:'Matricula',
-        label: 'Entre la nueva matricula',
-        placeholder: 'Entre la matricula',
-        action: 'Adicionar',
+        formFrom:trans.translate('general.enrolments.enrolments'),
+        label: trans.translate('general.enrolments.enrolment'),
+        placeholder: trans.translate('general.enrolments.enrolment'),
+        action: trans.translate('general.save'),
         form: {
             name: ''
         },

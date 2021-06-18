@@ -195,7 +195,7 @@ class IncidenceController extends Controller
         }
         $incidence1=Incidence::where('id', $incidence->id)->with('images')->get();
 
-        
+
         try {
             \Mail::to(JWTAuth::parseToken()->authenticate()->email)->send(new IncidenceMails($incidence, $incidence1[0]->images[0]->urlImage, 'Nueva Incidencia'));
         } catch (Exception $exception) {
@@ -246,7 +246,7 @@ class IncidenceController extends Controller
     public function update(Request $request, int $id): JsonResponse
     {
         $parameters = $request->only(
-            'name',
+            'title',
             'assignedTo',
             'reviewer',
             'deadLine',
@@ -261,7 +261,7 @@ class IncidenceController extends Controller
             'streetNumber',
             'district',
             'neighborhood',
-            'addressee',
+            'address',
             'team',
             'location',
             'responseForCitizen',
@@ -314,7 +314,7 @@ class IncidenceController extends Controller
      * Delete the existing incidence
      * @param int $id
      * @return JsonResponse
-     * 
+     *
      */
     public function destroy(int $id): JsonResponse
     {
@@ -371,11 +371,11 @@ class IncidenceController extends Controller
         $imgExtension = $this->getB64Extension($base64Image);
         $imageName = 'incidence_image' .uniqid(). time() . '.' . $imgExtension;
         Storage::disk('local')->put($imageName, $img);
-        $url=$this->imageUrl($imageName);
+
         $image = new IncidenceImage();
         $image->image = $imageName;
         $image->incidence_id = $id;
-        $image->urlImage =$url;
+
         $image->save();
     }
 

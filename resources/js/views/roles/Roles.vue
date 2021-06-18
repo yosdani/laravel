@@ -4,7 +4,7 @@
 
         <b-card>
             <b-card-header class="border-0">
-                <h3 class="mb-0">Roles</h3>
+                <h3 class="mb-0">{{translate('general.roles.roles')}}</h3>
             </b-card-header>
             <b-card-body class="row">
                 <b-card class="col-lg-2 col-md-6 card-roles" v-for="(item) in items" :key="item.id">
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import trans from '../../VueTranslation/Translation';
 export default {
   data() {
     return {
@@ -35,7 +36,7 @@ export default {
               to: { name: 'dashboard' }
           },
           {
-              text: 'Roles',
+              text: trans.translate('general.roles.roles'),
               active: true
           }
       ],

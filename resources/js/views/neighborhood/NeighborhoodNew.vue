@@ -4,7 +4,7 @@
 
         <b-card>
             <b-card-header class="border-0">
-                <h3 class="mb-0">Adicionar Barrio</h3>
+                <h3 class="mb-0">{{translate('general.add')}} {{translate('general.neighborhoods.neighborhood')}}</h3>
             </b-card-header>
             <b-card-body>
                 <form-simple :formOut="formIn"></form-simple>
@@ -24,19 +24,19 @@ export default {
               to: { name: 'dashboard' }
           },
           {
-              text: 'Barrios',
+              text: trans.translate('general.neighborhoods.neighborhoods'),
               to: { name: 'neighborhood' }
           },
           {
-              text: 'Adicionar',
+              text: trans.translate('general.add'),
               active: true
           }
       ],
       formIn: {
-        formFrom:'Barrios',
-        label: 'Barrio:',
-        placeholder: 'Entre el barrio',
-        action: 'Adicionar',
+        formFrom:trans.translate('general.neighborhoods.neighborhoods'),
+        label: trans.translate('general.name'),
+        placeholder: trans.translate('general.name'),
+        action: trans.translate('general.save'),
         form: {
             name: ''
         },

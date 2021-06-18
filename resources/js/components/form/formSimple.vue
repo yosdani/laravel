@@ -1,49 +1,58 @@
 <template>
     <b-form @submit="onSubmit" v-if="show">
-                <input type="hidden" name="_token" :value="csrf">
-
-                    <b-form-group v-if="formOut.formFrom!='Calles'" id="input-group-1" :label="formOut.label" label-for="input-1">
-                        <b-form-input
+        <input type="hidden" name="_token" :value="csrf">
+        <b-row>
+            <b-col cols="6">
+                <b-form-group v-if="formOut.formFrom != translate('general.streets.streets')" id="input-group-1" :label="formOut.label" label-for="input-1">
+                    <b-form-input
                         id="input-1"
                         v-model="form.name"
                         :placeholder="formOut.placeholder"
                         :required="formOut.required"
-                        ></b-form-input>
-                    </b-form-group>
+                    ></b-form-input>
+                </b-form-group>
 
-                    <b-form-group v-if="formOut.formFrom=='Calles'" id="input-group-1" :label="formOut.label" label-for="input-1">
-                        <b-form-input
+                <b-form-group v-if="formOut.formFrom == translate('general.streets.streets')" id="input-group-1" :label="formOut.label" label-for="input-1">
+                    <b-form-input
                         id="input-1"
                         v-model="form.street"
                         :placeholder="formOut.placeholder"
                         :required="formOut.required"
-                        ></b-form-input>
-                    </b-form-group>
+                    ></b-form-input>
+                </b-form-group>
 
-                    <b-form-group v-if="formOut.formFrom=='Calles'" id="input-group-2" label="Número de calle" label-for="input-2">
-                        <b-form-input
+                <b-form-group v-if="formOut.formFrom == translate('general.streets.streets')" id="input-group-2" :label="translate('general.streets.number')" label-for="input-2">
+                    <b-form-input
                         type="number"
                         id="input-2"
                         v-model="form.number"
-                        placeholder="Entre el número de calle"
+                        :placeholder="translate('general.streets.number')"
                         :required="formOut.required"
-                        ></b-form-input>
-                    </b-form-group>
+                    ></b-form-input>
+                </b-form-group>
 
-                    <b-form-group v-if="formOut.formFrom=='Areas'" id="input-group-3" label="Entre el usuario responsable del area:" label-for="input-3">
-                        <b-form-select
+                <b-form-group v-if="formOut.formFrom == translate('general.areas.areas')" id="input-group-3" label="Entre el usuario responsable del area:" label-for="input-3">
+                    <b-form-select
                         id="input-3"
                         v-model="form.user_id"
                         :options="formOut.array"
                         required
-                        ></b-form-select>
-                    </b-form-group>
+                    ></b-form-select>
+                </b-form-group>
+            </b-col>
+        </b-row>
+        <b-row>
+            <b-col size="12">
+                <b-button type="submit" variant="primary">{{ formOut.action }}</b-button>
+            </b-col>
 
-                    <b-button type="submit" variant="primary">{{ formOut.action }}</b-button>
-                </b-form>
+        </b-row>
+    </b-form>
 </template>
 
 <script>
+import trans from "../../VueTranslation/Translation";
+
 export default {
     props: ["formOut"],
     data() {
@@ -83,7 +92,7 @@ export default {
             this.$swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Ha ocurrido un error!',
+                text: trans.translate('general.error_message'),
             })
         })
       },

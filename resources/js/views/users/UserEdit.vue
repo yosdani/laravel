@@ -29,13 +29,13 @@ export default {
               to: { name: 'users' }
           },
           {
-              text: 'Editar',
+              text: trans.translate('general.edit'),
               active: true
           }
       ],
       formIn: {
         formFrom:'User',
-        action: 'Editar',
+        action: trans.translate('general.save'),
         form: {
             email: '',
             name: '',

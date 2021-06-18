@@ -4,7 +4,7 @@
 
         <b-card>
             <b-card-header class="border-0">
-                <h3 class="mb-0">Editar Rol</h3>
+                <h3 class="mb-0">{{translate('general.edit')}} {{translate('general.roles.role')}}</h3>
             </b-card-header>
             <b-card-body>
                 <form-simple :formOut="formIn"></form-simple>
@@ -15,6 +15,7 @@
 
 <script>
 import FormSimple from '../../components/form/formSimple.vue';
+import trans from '../../VueTranslation/Translation';
 export default {
     data() {
     return {
@@ -24,19 +25,19 @@ export default {
               to: { name: 'dashboard' }
           },
           {
-              text: 'Roles',
+              text: trans.translate('general.roles.roles'),
               to: { name: 'roles' }
           },
           {
-              text: 'Editar',
+              text: trans.translate('general.edit'),
               active: true
           }
       ],
       formIn: {
-        formFrom:'Roles',
-        label: 'Entre el nuevo tipo de rol',
-        placeholder: 'Entre el nuevo rol',
-        action: 'Editar',
+        formFrom: trans.translate('general.roles.roles'),
+        label: trans.translate('general.roles.role'),
+        placeholder: trans.translate('general.roles.role'),
+        action: trans.translate('general.save'),
         form: {
             name: ''
         },
