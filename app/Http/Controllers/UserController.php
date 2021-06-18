@@ -203,6 +203,7 @@ class UserController extends Controller
             'success' => true,
             'workers' => User::workerWithoutArea()
         ]);
+        
     }
 
     /**
