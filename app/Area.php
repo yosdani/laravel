@@ -38,17 +38,12 @@ class Area extends Model
         return $this->belongsTo(User::class, 'worker_role');
     }
 
-    public function userWorker(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'worker_role');
-    }
-
     /**
      * Get areas by rol
      * @param int $id
      * @return Collection
-     * 
-     * 
+     *
+     *
      */
     public function getByUserId($id)
     {
@@ -60,7 +55,7 @@ class Area extends Model
     /**
      * Get all information of areas
      * @return array
-     * 
+     *
      */
     public static function information(){
         return Area::select('area.*')->orderBy('created_at','asc')->get();
@@ -69,7 +64,7 @@ class Area extends Model
     /**
      * Get names of areas
      * @return array
-     * 
+     *
      */
     public static function names(){
         return Area::select('area.name')->orderBy('created_at','asc')->get();
