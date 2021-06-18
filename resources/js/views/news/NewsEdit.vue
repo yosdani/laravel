@@ -21,7 +21,7 @@ export default {
     return {
       bItems: [
           {
-              text: 'Dashboard',
+              text: trans.translate('general.dashboard'),
               to: { name: 'dashboard' }
           },
           {
@@ -34,8 +34,9 @@ export default {
           }
       ],
       formIn: {
-        formFrom: trans.translate('general.news.news'),
+        formFrom: trans.translate('general.news.new'),
         action: trans.translate('general.save'),
+          actionMessage: trans.translate('general.edited') + trans.translate('general.art_female'),
         form: {
             images: [],
             title: '',

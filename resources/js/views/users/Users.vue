@@ -34,7 +34,7 @@ export default {
       perPage: 15,
       bItems: [
           {
-              text: 'Dashboard',
+              text: trans.translate('general.dashboard'),
               to: { name: 'dashboard' }
           },
           {
@@ -108,7 +108,7 @@ export default {
                 id: user.id,
                 email: user.email,
                 name: user.name,
-                lastName: user.lastName,
+                lastName: user.lastname,
                 phoneNumber: user.phoneNumber,
                 rol: user.user_role.length>0?user.user_role[0].name:''
               })

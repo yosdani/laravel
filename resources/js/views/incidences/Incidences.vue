@@ -33,7 +33,7 @@ export default {
       perPage: 15,
       bItems: [
           {
-              text: 'Dashboard',
+              text: trans.translate('general.dashboard'),
               to: { name: 'dashboard' }
           },
           {

@@ -84,7 +84,7 @@ export default {
             this.$swal.fire({
                 position: 'top-end',
                 icon: 'success',
-                title: 'Se acaba de '+this.formOut.action+' correctamente',
+                title: this.formOut.actionMessage + this.formOut.formFrom.toLowerCase(),
                 showConfirmButton: false,
                 timer: 1500
             })
@@ -95,7 +95,7 @@ export default {
             this.$swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Something went wrong!',
+                text: trans.translate('general.error_message'),
             })
         })
       },

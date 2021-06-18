@@ -21,7 +21,7 @@ export default {
     return {
       bItems: [
           {
-              text: 'Dashboard',
+              text: trans.translate('general.dashboard'),
               to: { name: 'dashboard' }
           },
           {

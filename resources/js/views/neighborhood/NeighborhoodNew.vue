@@ -15,12 +15,13 @@
 
 <script>
 import FormSimple from '../../components/form/formSimple.vue';
+import trans from "../../VueTranslation/Translation";
 export default {
     data() {
     return {
       bItems: [
           {
-              text: 'Dashboard',
+              text: trans.translate('general.dashboard'),
               to: { name: 'dashboard' }
           },
           {
@@ -33,10 +34,11 @@ export default {
           }
       ],
       formIn: {
-        formFrom:trans.translate('general.neighborhoods.neighborhoods'),
+        formFrom:trans.translate('general.neighborhoods.neighborhood'),
         label: trans.translate('general.name'),
         placeholder: trans.translate('general.name'),
         action: trans.translate('general.save'),
+          actionMessage: trans.translate('general.created') + trans.translate('general.art_male'),
         form: {
             name: ''
         },

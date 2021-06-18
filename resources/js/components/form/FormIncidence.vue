@@ -2,11 +2,11 @@
     <b-form @submit="onSubmit" v-if="show">
                 <input type="hidden" name="_token" :value="form._token" />
 
-                    <b-form-group id="input-group-2" label="Entre el nombre:" label-for="input-2">
+                    <b-form-group id="input-group-2" :label="translate('general.news.title')" label-for="input-2">
                         <b-form-input
                         id="input-2"
                         v-model="form.name"
-                        placeholder="Entre el nombre"
+                        :placeholder="translate('general.news.title')"
                         required
                         ></b-form-input>
                     </b-form-group>
@@ -37,7 +37,7 @@
                         ></b-form-input>
                     </b-form-group>-->
 
-                    <b-form-group id="input-group-5" label="Entre el estado de la incidencia" label-for="input-5">
+                    <b-form-group id="input-group-5" label="translate('general.incidences.state')" label-for="input-5">
                         <b-form-select
                         id="input-5"
                         v-model="form.state_id"
@@ -45,7 +45,7 @@
                         ></b-form-select>
                     </b-form-group>
 
-                    <b-form-group id="input-group-3" label="Entre la matricula" label-for="input-3">
+                    <b-form-group id="input-group-3" :label="translate('general.enrolments.enrolment')" label-for="input-3">
                         <b-form-select
                         id="input-3"
                         v-model="form.centerEnrollment"
@@ -53,7 +53,7 @@
                         ></b-form-select>
                     </b-form-group>
 
-                    <b-form-group id="input-group-4" label="Asignar trabajador:" label-for="input-4">
+                    <b-form-group id="input-group-4" :label="translate('general.incidences.add_worker')" label-for="input-4">
                         <b-form-select
                         id="input-4"
                         v-model="form.assignedTo"
@@ -92,7 +92,7 @@ export default {
             this.$swal.fire({
                 position: 'top-end',
                 icon: 'success',
-                title: 'La incidencia se acaba de '+this.formOut.action+' correctamente',
+                title: this.formOut.actionMessage + this.formOut.formFrom.toLowerCase(),
                 showConfirmButton: false,
                 timer: 1500
             })
@@ -103,7 +103,7 @@ export default {
             this.$swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Something went wrong!',
+                text: trans.translate('general.error_message'),
             })
         })
       },

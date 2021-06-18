@@ -21,7 +21,7 @@ export default {
     return {
       bItems: [
           {
-              text: 'Dashboard',
+              text: trans.translate('general.dashboard'),
               to: { name: 'dashboard' }
           },
           {
@@ -34,30 +34,31 @@ export default {
           }
       ],
       formIn: {
-        formFrom: trans.translate('general.incidences.incidences'),
-        action: trans.translate('general.save'),
-        form: {
-            address: '',
-            applicant: '',
-            assignedTo: '',
-            attachedContent: '',
-            breakdown_id: '',
-            centerEnrollment: '',
-            deadline: '',
-            description: '',
-            district_id: '',
-            dni:'',
-            name: '',
-            neighborhood_id:'',
-            phone:'',
-            public_center_id: '',
-            responseForCitizen: '',
-            reviewer: '',
-            state_id: '',
-            street_id: '',
-            tags: '',
-            team: '',
-            user_id: ''
+          formFrom: trans.translate('general.incidences.incidence'),
+          action: trans.translate('general.save'),
+          actionMessage: trans.translate('general.edited') + trans.translate('general.art_female'),
+          form: {
+              address: '',
+              applicant: '',
+              assignedTo: '',
+              attachedContent: '',
+              breakdown_id: '',
+              centerEnrollment: '',
+              deadline: '',
+              description: '',
+              district_id: '',
+              dni:'',
+              name: '',
+              neighborhood_id:'',
+              phone:'',
+              public_center_id: '',
+              responseForCitizen: '',
+              reviewer: '',
+              state_id: '',
+              street_id: '',
+              tags: '',
+              team: '',
+              user_id: ''
         },
         roles:[],
         workers:[],

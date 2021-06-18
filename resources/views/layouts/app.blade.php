@@ -20,44 +20,10 @@
     </script>
     <script src="{{ asset('js/app.js') }}" defer></script>
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
-    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/favicon.png') }}">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <style>
-        .loading {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: 1s all;
-            opacity: 0;
-        }
-        .loading.show {
-            opacity: 1;
-        }
-        .loading .spin {
-            border: 3px solid hsla(185, 100%, 62%, 0.2);
-            border-top-color: #3cefff;
-            border-radius: 50%;
-            width: 3em;
-            height: 3em;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-        to {
-            transform: rotate(360deg);
-        }
-        }
-    </style>
+
 </head>
 <body>
     <div id="app-container" class="{{ $bodyClass ?? '' }}">

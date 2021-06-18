@@ -21,7 +21,7 @@ export default {
     return {
       bItems: [
           {
-              text: 'Dashboard',
+              text: trans.translate('general.dashboard'),
               to: { name: 'dashboard' }
           },
           {
@@ -34,21 +34,22 @@ export default {
           }
       ],
       formIn: {
-        formFrom:trans.translate('general.public_centers.public_centers'),
-        label: trans.translate('general.name'),
-        placeholder: trans.translate('general.name'),
-        action: trans.translate('general.save'),
-        form: {
-            name: ''
-        },
-        uri:'admin/public_center',
-        method: 'PUT',
-        route:'/public_center'
+          formFrom:trans.translate('general.public_centers.public_center'),
+          label: trans.translate('general.name'),
+          placeholder: trans.translate('general.name'),
+          action: trans.translate('general.save'),
+          actionMessage: trans.translate('general.edited') + trans.translate('general.art_male'),
+          form: {
+              name: ''
+          },
+          uri:'admin/public_center',
+          method: 'PUT',
+          route:'/public_center'
       }
     };
   },
   components:{
-    FormSimple
+      FormSimple
   },
   mounted() {
       this.getPublicCenterById( this.$route.params.id );

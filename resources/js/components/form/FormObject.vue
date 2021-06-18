@@ -1,10 +1,12 @@
 <template>
     <b-form @submit="onSubmit" v-if="show">
                 <input type="hidden" name="_token" :value="csrf">
+        <b-row>
+            <b-col cols="6">
                     <b-form-group
-                        v-if="formOut.formFrom=='User'"
+                        v-if="formOut.formFrom == translate('general.users.user')"
                         id="input-group-1"
-                        label="Email"
+                        :label="translate('general.users.email')"
                         label-for="input-1"
                     >
                         <b-form-input
@@ -16,25 +18,25 @@
                         ></b-form-input>
                     </b-form-group>
 
-                    <b-form-group id="input-group-2" label="Nombre:" label-for="input-2">
+                    <b-form-group id="input-group-2" :label="translate('general.users.name')" label-for="input-2">
                         <b-form-input
                         id="input-2"
                         v-model="form.name"
-                        placeholder="Nombre"
+                        :placeholder="translate('general.users.name')"
                         required
                         ></b-form-input>
                     </b-form-group>
 
-                     <b-form-group v-if="formOut.formFrom=='User'" id="input-group-3" label="Apellidos:" label-for="input-3">
+                     <b-form-group v-if="formOut.formFrom == translate('general.users.user')" id="input-group-3" :label="translate('general.users.lastname')" label-for="input-3">
                         <b-form-input
                         id="input-3"
                         type="text"
-                        v-model="form.lastName"
-                        placeholder="Apellidos"
+                        v-model="form.lastname"
+                        :placeholder="translate('general.users.lastname')"
                         ></b-form-input>
                     </b-form-group>
 
-                    <b-form-group v-if="formOut.formFrom=='User'" id="input-group-4" label="Teléfono:" label-for="input-4">
+                    <b-form-group v-if="formOut.formFrom == translate('general.users.user')" id="input-group-4" :label="translate('general.users.phone')" label-for="input-4">
                         <b-form-input
                         id="input-4"
                         type="text"
@@ -43,11 +45,11 @@
                         ></b-form-input>
                     </b-form-group>
 
-                     <b-form-group v-if="formOut.formFrom=='User'" id="input-group-4" label="Contraseña:" label-for="text-password">
+                     <b-form-group v-if="formOut.formFrom == translate('general.users.user')" id="input-group-4" :label="translate('general.users.password')" label-for="text-password">
                         <b-form-input type="password" id="text-password" aria-describedby="password-help-block"></b-form-input>
                     </b-form-group>
 
-                    <b-form-group v-if="formOut.formFrom=='User'" id="input-group-3" label="Rol del usuario:" label-for="input-3">
+                    <b-form-group v-if="formOut.formFrom == translate('general.users.user')" id="input-group-3" :label="translate('general.roles.role')" label-for="input-3">
                         <b-form-select
                         id="input-5"
                         v-model="form.role"
@@ -55,12 +57,20 @@
                         required
                         ></b-form-select>
                     </b-form-group>
+            </b-col>
+        </b-row>
+        <b-row>
+            <b-col cols="12">
+                <b-button type="submit" variant="primary">{{ formOut.action }}</b-button>
+            </b-col>
+        </b-row>
 
-                    <b-button type="submit" variant="primary">{{ formOut.action }}</b-button>
                 </b-form>
 </template>
 
 <script>
+import trans from "../../VueTranslation/Translation";
+
 export default {
     props: ["formOut"],
     data() {
@@ -89,7 +99,7 @@ export default {
             this.$swal.fire({
                 position: 'top-end',
                 icon: 'success',
-                title: 'Se acaba de '+this.formOut.action+' correctamente',
+                title: this.formOut.actionMessage + this.formOut.formFrom.toLowerCase(),
                 showConfirmButton: false,
                 timer: 1500
             })
@@ -99,7 +109,7 @@ export default {
             this.$swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Something went wrong!',
+                text: trans.translate('general.error_message'),
             })
         })
       },

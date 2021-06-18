@@ -3,7 +3,7 @@
         <input type="hidden" name="_token" :value="csrf">
         <b-row>
             <b-col cols="6">
-                <b-form-group v-if="formOut.formFrom != translate('general.streets.streets')" id="input-group-1" :label="formOut.label" label-for="input-1">
+                <b-form-group v-if="formOut.formFrom != translate('general.streets.street')" id="input-group-1" :label="formOut.label" label-for="input-1">
                     <b-form-input
                         id="input-1"
                         v-model="form.name"
@@ -12,7 +12,7 @@
                     ></b-form-input>
                 </b-form-group>
 
-                <b-form-group v-if="formOut.formFrom == translate('general.streets.streets')" id="input-group-1" :label="formOut.label" label-for="input-1">
+                <b-form-group v-if="formOut.formFrom == translate('general.streets.street')" id="input-group-1" :label="formOut.label" label-for="input-1">
                     <b-form-input
                         id="input-1"
                         v-model="form.street"
@@ -21,7 +21,7 @@
                     ></b-form-input>
                 </b-form-group>
 
-                <b-form-group v-if="formOut.formFrom == translate('general.streets.streets')" id="input-group-2" :label="translate('general.streets.number')" label-for="input-2">
+                <b-form-group v-if="formOut.formFrom == translate('general.streets.street')" id="input-group-2" :label="translate('general.streets.number')" label-for="input-2">
                     <b-form-input
                         type="number"
                         id="input-2"
@@ -31,7 +31,7 @@
                     ></b-form-input>
                 </b-form-group>
 
-                <b-form-group v-if="formOut.formFrom == translate('general.areas.areas')" id="input-group-3" label="Entre el usuario responsable del area:" label-for="input-3">
+                <b-form-group v-if="formOut.formFrom == translate('general.areas.area')" id="input-group-3" label="Entre el usuario responsable del area:" label-for="input-3">
                     <b-form-select
                         id="input-3"
                         v-model="form.user_id"
@@ -81,7 +81,7 @@ export default {
             this.$swal.fire({
                 position: 'top-end',
                 icon: 'success',
-                title: 'Se acaba de '+this.formOut.action+' correctamente',
+                title: this.formOut.actionMessage + this.formOut.formFrom.toLowerCase(),
                 showConfirmButton: false,
                 timer: 1500
             })

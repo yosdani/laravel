@@ -21,7 +21,7 @@ export default {
     return {
       bItems: [
           {
-              text: 'Dashboard',
+              text: trans.translate('general.dashboard'),
               to: { name: 'dashboard' }
           },
           {
@@ -34,12 +34,13 @@ export default {
           }
       ],
       formIn: {
-        formFrom:'User',
+        formFrom: trans.translate('general.users.user'),
         action: trans.translate('general.save'),
+          actionMessage: trans.translate('general.created') + trans.translate('general.art_male'),
         form: {
             email: '',
             name: '',
-            lastName: '',
+            lastname: '',
             phoneNumber: '',
             password: '',
             role:''

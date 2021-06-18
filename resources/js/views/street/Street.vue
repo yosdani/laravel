@@ -37,24 +37,24 @@ export default {
         perPage: 15,
         bItems: [
             {
-                text: 'Dashboard',
+                text: trans.translate('general.dashboard'),
                 to: { name: 'dashboard' }
             },
             {
-                text: 'Calles',
+                text: trans.translate('general.streets.streets'),
                 active: true
             }
         ],
         fields: [
             {
                 key: "street",
-                label: "Calles",
+                label: trans.translate('general.streets.name'),
                 sortable: true,
                 sortDirection: "desc",
             },
             {
                 key: "number",
-                label: "Número",
+                label: trans.translate('general.streets.number'),
                 sortable: true,
                 sortDirection: "desc",
             },

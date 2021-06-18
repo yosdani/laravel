@@ -21,7 +21,7 @@ export default {
     return {
       bItems: [
           {
-              text: 'Dashboard',
+              text: trans.translate('general.dashboard'),
               to: { name: 'dashboard' }
           },
           {
@@ -38,6 +38,7 @@ export default {
         label: trans.translate('general.roles.role'),
         placeholder: trans.translate('general.roles.role'),
         action: trans.translate('general.save'),
+          actionMessage: trans.translate('general.edited') + trans.translate('general.art_male'),
         form: {
             name: ''
         },

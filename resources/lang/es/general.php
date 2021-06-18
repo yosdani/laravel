@@ -13,10 +13,16 @@ return [
     'apply' => 'Aplicar',
     'actions' => 'Acciones',
     'back' => 'Volver',
+    'dashboard' => 'Dashboard',
     'select' => 'Seleccione una opción',
     'select_file' => 'Seleccione un fichero o suéltelo aquí...',
     'drop_file' => 'Suéltelo aquí...',
     'error_message' => 'Ha ocurrido un error!',
+    'created' => 'Se ha creado ',
+    'edited' => 'Se ha editado ',
+    'deleted' => 'Se ha eliminado ',
+    'art_male' => 'el ',
+    'art_female' => 'la ',
      'news' => [
          'news' => 'Noticias',
          'new' => 'Noticia',
@@ -39,7 +45,13 @@ return [
         'name' => 'Nombre',
         'lastname' => 'Apellidos',
         'email' => 'Email',
-        'phone' => 'Teléfono'
+        'phone' => 'Teléfono',
+        'password' => 'Contraseña',
+        'user_profile' => 'Perfil de usuario',
+        'profile' => 'Perfil',
+        'profile_change_password' => 'Repita la  contraseña para cambiarla',
+        'profile_pass_mismatch' => 'Las contraseñas no coinciden!',
+        'profile_success' => 'Sus datos se han modificado correctamente'
     ],
     'roles' => [
         'roles' => 'Roles',
@@ -58,6 +70,8 @@ return [
         'description' => 'Descripción',
         'location' => 'Ubicación',
         'name' => 'Nombre',
+        'add_worker' => 'Asignar Trabajador',
+        'state' => 'Estado'
     ],
     'districts' => [
         'districts' => 'Distritos',

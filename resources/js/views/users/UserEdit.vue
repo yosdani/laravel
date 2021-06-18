@@ -21,11 +21,11 @@ export default {
     return {
       bItems: [
           {
-              text: 'Dashboard',
+              text: trans.translate('general.dashboard'),
               to: { name: 'dashboard' }
           },
           {
-              text: 'Usuario',
+              text: trans.translate('general.users.users'),
               to: { name: 'users' }
           },
           {
@@ -34,12 +34,13 @@ export default {
           }
       ],
       formIn: {
-        formFrom:'User',
+        formFrom: trans.translate('general.users.user'),
         action: trans.translate('general.save'),
+        actionMessage: trans.translate('general.edited') + trans.translate('general.art_male'),
         form: {
             email: '',
             name: '',
-            lastName: '',
+            lastname: '',
             phoneNumber: '',
             password: '',
             role:''
@@ -76,7 +77,7 @@ export default {
           .then(response=>{
               this.formIn.form.email = response.data.user.email;
               this.formIn.form.name = response.data.user.name;
-              this.formIn.form.lastName = response.data.user.lastName;
+              this.formIn.form.lastname = response.data.user.lastname;
               this.formIn.form.phoneNumber = response.data.user.phoneNumber;
               this.formIn.form.password = response.data.user.password;
               this.formIn.form.role = response.data.user.user_role[0].id;

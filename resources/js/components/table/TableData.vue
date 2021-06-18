@@ -80,6 +80,12 @@
       :show-empty="false"
       @filtered="onFiltered"
     >
+        <template #table-busy>
+            <div class="text-center text-danger my-2">
+                <b-spinner class="align-middle"></b-spinner>
+                <strong>Cargando...</strong>
+            </div>
+        </template>
       <template #cell(actions)="row">
           <b-row>
           <b-col>

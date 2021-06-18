@@ -21,7 +21,7 @@ export default {
     return {
       bItems: [
           {
-              text: 'Dashboard',
+              text: trans.translate('general.dashboard'),
               to: { name: 'dashboard' }
           },
           {
@@ -34,18 +34,19 @@ export default {
           }
       ],
       formIn: {
-        formFrom: trans.translate('general.areas.areas'),
-        label: trans.translate('general.name'),
-        placeholder: '',
-        action: trans.translate('general.save'),
-        form: {
-            name: '',
-            user_id: ''
-        },
-        array:[],
-        uri:'admin/areas',
-        method: 'PUT',
-        route:'/areas'
+          formFrom: trans.translate('general.areas.area'),
+          label: trans.translate('general.name'),
+          placeholder: '',
+          action: trans.translate('general.save'),
+          actionMessage: trans.translate('general.edited') + trans.translate('general.art_male'),
+          form: {
+              name: '',
+              user_id: ''
+          },
+          array:[],
+          uri:'admin/areas',
+          method: 'PUT',
+          route:'/areas'
       }
     };
   },

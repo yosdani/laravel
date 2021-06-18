@@ -15,16 +15,18 @@
 
 <script>
 import FormSimple from '../../components/form/FormNews.vue';
+import trans from "../../VueTranslation/Translation";
 export default {
     data() {
     return {
       bItems: [
           {
-              text: 'Dashboard',
+              text: trans.translate('general.dashboard'),
+
               to: { name: 'dashboard' }
           },
           {
-              text: 'Noticias',
+              text: trans.translate('general.news.news'),
               to: { name: 'states' }
           },
           {
@@ -33,19 +35,20 @@ export default {
           }
       ],
       formIn: {
-        formFrom:'Noticias',
-        action: trans.translate('general.save'),
-        form: {
-            images: [],
-            title: '',
-            subtitle: '',
-            content: '',
-            category_id: '',
-            _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-        },
-        uri:'admin/news',
-        method: 'POST',
-        route:'/news'
+          formFrom: trans.translate('general.news.new'),
+          action: trans.translate('general.save'),
+          actionMessage: trans.translate('general.created') + trans.translate('general.art_female'),
+          form: {
+              images: [],
+              title: '',
+              subtitle: '',
+              content: '',
+              category_id: '',
+              _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+          },
+          uri:'admin/news',
+          method: 'POST',
+          route:'/news'
       }
     };
   },

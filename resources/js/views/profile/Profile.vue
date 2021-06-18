@@ -3,28 +3,28 @@
         <b-breadcrumb :items="bItems"></b-breadcrumb>
         <b-card>
             <b-card-header class="border-0">
-                <h3 class="mb-0">Perfil de usuario</h3>
+                <h3 class="mb-0">{{ translate('general.users.user_profile') }}</h3>
             </b-card-header>
             <b-card-body>
                 <b-row>
                     <b-col size="6">
                         <b-card>
                             <b-card-body>
-                                <p class="text-capitalize">Nombre: {{ user.name }} </p>
-                                <p class="text-capitalize">Apellidos: {{ user.lastName }}</p>
-                                <p><span class="text-capitalize">Email:</span> {{ user.email }}</p>
+                                <p class="text-capitalize">{{ translate('general.users.name') }}: {{ user.name }} </p>
+                                <p class="text-capitalize">{{ translate('general.users.lastname') }}: {{ user.lastName }}</p>
+                                <p><span class="text-capitalize">{{ translate('general.users.email') }}:</span> {{ user.email }}</p>
                             </b-card-body>
                         </b-card>
                     </b-col>
                     <b-col size="6">
-                        <b-button v-b-toggle.collapse-1 variant="primary">Editar perfil</b-button>
+                        <b-button v-b-toggle.collapse-1 variant="primary">{{ translate('general.edit') }} {{ translate('general.users.profile') }}</b-button>
                         <b-collapse id="collapse-1" class="mt-2">
                             <b-card>
                                 <b-card-body>
                                     <b-form @submit="onSubmit" @reset="onReset">
                                         <b-form-group
                                             id="input-group-1"
-                                            label="Nombre:"
+                                            :label="translate('general.users.name')"
                                             label-for="name"
                                         >
                                             <b-form-input
@@ -36,7 +36,7 @@
                                         </b-form-group>
                                         <b-form-group
                                             id="input-group-2"
-                                            label="Apellidos:"
+                                            :label="translate('general.users.name')"
                                             label-for="lastname"
                                         >
                                             <b-form-input
@@ -47,7 +47,7 @@
                                         </b-form-group>
                                         <b-form-group
                                             id="input-group-3"
-                                            label="Email address:"
+                                            :label="translate('general.users.email')"
                                             label-for="email"
                                         >
                                             <b-form-input
@@ -59,29 +59,29 @@
                                         </b-form-group>
                                         <b-form-group
                                             id="input-group-4"
-                                            label="Contraseña:"
+                                            :label="translate('general.users.password')"
                                             label-for="password"
                                         >
                                             <b-form-input
                                                 id="password"
                                                 v-model="form.password"
                                                 type="password"
-                                                placeholder="Contraseña"
+                                                :placeholder="translate('general.users.password')"
                                             ></b-form-input>
                                         </b-form-group>
                                         <b-form-group
                                             id="input-group-5"
-                                            label="Repita la Contraseña:"
+                                            :label="translate('general.users.profile_change_password')"
                                             label-for="password_repeat"
                                         >
                                             <b-form-input
                                                 id="password_repeat"
                                                 v-model="form.password_repeat"
                                                 type="password"
-                                                placeholder="Repita la  contraseña para cambiarla"
+                                                :placeholder="translate('general.users.password')"
                                             ></b-form-input>
                                         </b-form-group>
-                                        <b-button type="submit" variant="primary">Guardar</b-button>
+                                        <b-button type="submit" variant="primary">{{ translate('general.save') }}</b-button>
                                     </b-form>
 
                                 </b-card-body>
@@ -111,11 +111,11 @@ export default {
             },
             bItems: [
                 {
-                    text: 'Dashboard',
+                    text: trans.translate('general.dashboard'),
                     to: { name: 'dashboard' }
                 },
                 {
-                    text: 'Perfil',
+                    text: trans.translate('general.users.profile'),
                     active: true
                 }
             ],
@@ -142,7 +142,7 @@ export default {
                     this.$swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: 'Las contraseñas no coinciden!',
+                        text: trans.translate('general.users.profile_pass_mismatch'),
                     })
                 }else{
                     let payload = { ...vm.form }
@@ -163,7 +163,7 @@ export default {
                                 this.$swal.fire({
                                     position: 'top-end',
                                     icon: 'success',
-                                    title: 'Sus datos se han modificado correctamente',
+                                    title: trans.translate('general.users.profile_success'),
                                     showConfirmButton: false,
                                     timer: 1500
                                 })
@@ -180,7 +180,7 @@ export default {
                             this.$swal.fire({
                                 icon: 'error',
                                 title: 'Oops...',
-                                text: 'Something went wrong!',
+                                text: trans.translate('general.error_message'),
                             })
                         })
                 }
