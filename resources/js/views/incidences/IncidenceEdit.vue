@@ -37,7 +37,7 @@ export default {
         formFrom: trans.translate('general.incidences.incidences'),
         action: trans.translate('general.save'),
         form: {
-            addressee: '',
+            address: '',
             applicant: '',
             assignedTo: '',
             attachedContent: '',

@@ -261,7 +261,7 @@ class IncidenceController extends Controller
             'streetNumber',
             'district',
             'neighborhood',
-            'addressee',
+            'address',
             'team',
             'location',
             'responseForCitizen',

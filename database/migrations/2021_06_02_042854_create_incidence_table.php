@@ -32,7 +32,7 @@ class CreateIncidenceTable extends Migration
             $table->foreign('district_id')->references('id')->on('district')->onDelete('set null');
             $table->integer('neighborhood_id')->unsigned()->nullable();
             $table->foreign('neighborhood_id')->references('id')->on('neighborhood')->onDelete('set null');
-            $table->string('addressee')->nullable();
+            $table->string('address')->nullable();
             $table->string('team')->nullable();
             $table->string('location');
             $table->string('responseForCitizen')->nullable();
