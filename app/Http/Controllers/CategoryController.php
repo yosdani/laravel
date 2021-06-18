@@ -10,13 +10,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Category;
+use App\Http\Resources\CategoryResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
     /**
-     * List of categories
+     * List of categories paginated
      *
      */
     public function index():JsonResponse
@@ -24,6 +25,19 @@ class CategoryController extends Controller
         return response()->json([
             'success' =>true,
             'category' => Category::paginate(15)
+        ], 200);
+    }
+
+    /**
+     * List of categories
+     *
+     */
+    public function getAll():JsonResponse
+    {
+        $categories =Category::all(['id','name']);
+        return response()->json([
+            'success' =>true,
+            'category' => $categories
         ], 200);
     }
 

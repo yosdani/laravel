@@ -4,6 +4,7 @@ namespace App;
 
 use App\Notifications\ResetPasswordNotification;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
@@ -86,7 +87,7 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Incidence::class, 'user_id');
     }
 
-    public function userCategory():BelongsToMany
+    public function userCategories():BelongsToMany
     {
         return $this->belongsToMany(Category::class,'user_categories');
     }
@@ -139,7 +140,7 @@ class User extends Authenticatable implements JWTSubject
                     $workersWithoutArea[] = $area;
             }
 
-        return $workersWithoutArea;       
+        return $workersWithoutArea;
     }
 
     public function name()

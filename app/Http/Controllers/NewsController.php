@@ -9,22 +9,26 @@
 namespace App\Http\Controllers;
 
 
+
 use App\News;
 use App\Http\Controllers\Controller;
+use App\NewsImage;
+use Faker\Provider\Image;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\User;
-use App\NoticeImage;
-use JWTAuth;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class NewsController  extends Controller
 {
     /**
      * List of news
      * @return JsonResponse
-     * 
+     *
      */
     public function index():JsonResponse
     {
@@ -38,7 +42,7 @@ class NewsController  extends Controller
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
-     * @return Validator
+     * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
     {
@@ -54,7 +58,7 @@ class NewsController  extends Controller
      *
      * @param int $id
      * @return JsonResponse
-     *  
+     *
      */
     public function show(int $id): JsonResponse
     {
@@ -76,20 +80,17 @@ class NewsController  extends Controller
         $request->json()->all();
 
         $news = News::create($request->except('img'));
-
-
-        $files= array();
-        if ($request->img) {
-            foreach ($request->img as $image) {
-                $files[] = $image;
-
-                $this->saveImage($image, $news->id);
+        $news->user_id = Auth::user()->id;
+        $news->save();
+        if ($request->images) {
+            foreach ($request->images as $image) {
+               $this->saveImage($image, $news->id);
             }
         }
 
-        $news1=News::where('id', $news->id)->with('images')->get();
+        $result = News::where('id', $news->id)->with('images')->get();
 
-        return response()->json($news1, 200);
+        return response()->json($result, 200);
     }
 
     /**
@@ -108,7 +109,7 @@ class NewsController  extends Controller
 
         $news->title = $request->title;
         $news->subtitle = $request->subTitle;
-        $news->content = $request->content;
+        $news->content = $request->get('content');
 
         $news->save();
 
@@ -164,7 +165,7 @@ class NewsController  extends Controller
     /**
      * Store to image in Storage
      * @param string $base64Image
-     * @param $id
+     * @param int $id
      * @return void
      */
     public function saveImage(string $base64Image, $id)
@@ -173,18 +174,13 @@ class NewsController  extends Controller
 
         $imgExtension = $this->getB64Extension($base64Image);
         $imageName = 'news_image' .uniqid(). time() . '.' . $imgExtension;
-        Storage::disk('local')->put($imageName, $img);
-        $url=$this->imageUrl($imageName);
-        $image = new NoticeImage();
+        Storage::disk('local')->put(News::IMAGE_PATH.$imageName, $img);
+
+        $image = new NewsImage();
         $image->image = $imageName;
         $image->news_id = $id;
-        $image->urlImage =$url;
-        $image->save();
-    }
 
-    private function imageUrl($fileName)
-    {
-        return Storage::url($fileName,'storage');
+        $image->save();
     }
 
 }

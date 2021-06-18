@@ -36,10 +36,11 @@ export default {
         formFrom:'Noticias',
         action: 'Adicionar',
         form: {
-            img: [],
+            images: [],
             title: '',
-            subTitle: '',
+            subtitle: '',
             content: '',
+            category_id: '',
             _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
         },
         uri:'admin/news',

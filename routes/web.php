@@ -31,7 +31,7 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
                 'index', 'store', 'show', 'update', 'destroy'
             ]
         ]);
-    
+
         //Routes resources for users
         Route::resource('users', 'UserController', [
             'only' => [
@@ -49,11 +49,13 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
         Route::resource('roles', 'RoleController');
 
         //Routes resources for category
+        Route::get('category/all', 'CategoryController@getAll');
         Route::resource('category', 'CategoryController', [
             'only' => [
                 'index', 'store', 'show', 'update', 'destroy',
             ],
         ]);
+
 
 
         //Routes resources for public centers

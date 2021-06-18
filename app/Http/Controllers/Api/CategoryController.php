@@ -30,7 +30,6 @@ class CategoryController extends Controller
      */
     public function index():JsonResponse
     {
-        var_dump('lle');
         return response()->json([
             'success' =>true,
             'category' => Category::paginate(15)
@@ -50,7 +49,7 @@ class CategoryController extends Controller
      * Create a new Category
      * @param Request $request
      * @return JsonResponse
-     *  
+     *
      */
     public function store(Request $request): JsonResponse
     {
@@ -132,7 +131,7 @@ class CategoryController extends Controller
      * @param Request $request
      * @param int $id
      * @return JsonResponse
-     * 
+     *
      */
     public function update(Request $request, int $id): JsonResponse
     {
@@ -156,7 +155,7 @@ class CategoryController extends Controller
      * Delete the existing category
      * @param int $id
      * @return JsonResponse
-     * 
+     *
      */
     public function destroy(int $id): JsonResponse
     {
