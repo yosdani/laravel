@@ -81,6 +81,7 @@ class NewsController  extends Controller
 
         $news = News::create($request->except('img'));
         $news->user_id = Auth::user()->id;
+        $news->category_id = $request->category_id;
         $news->save();
         if ($request->images) {
             foreach ($request->images as $image) {

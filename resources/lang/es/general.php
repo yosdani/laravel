@@ -10,11 +10,16 @@ return [
     'cancel' => 'Cancelar',
     'total' => 'Total',
     'actions' => 'Acciones',
+    'select' => 'Seleccione una opción',
+    'select_file' => 'Seleccione un fichero o suéltelo aquí...',
+    'drop_file' => 'Suéltelo aquí...',
      'news' => [
          'news' => 'Noticias',
          'new' => 'Noticia',
          'title' => 'Título',
-         'subtitle' => 'Subtítulo'
+         'subtitle' => 'Subtítulo',
+         'images' => 'Imágenes',
+         'content' => 'Contenido'
      ],
     'categories' => [
         'categories' => 'Categorías',

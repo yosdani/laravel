@@ -2,59 +2,60 @@
     <form @submit="onSubmit" v-if="show" enctype="multipart/form-data">
         <b-row>
             <b-col size="6">
-                <b-form-group id="input-group-2" label="Título:" label-for="input-2">
+                <b-form-group id="input-group-2" :label="translate('general.news.title')" label-for="input-2">
                     <b-form-input
                         id="input-2"
                         v-model="formOut.form.title"
-                        placeholder="Título de la noticia"
+                        :placeholder="translate('general.news.title')"
                         required
                     ></b-form-input>
                 </b-form-group>
 
-                <b-form-group id="input-group-3" label="Subtítulo:" label-for="input-3">
+                <b-form-group id="input-group-3" :label="translate('general.news.subtitle')" label-for="input-3">
                     <b-form-input
                         id="input-3"
                         v-model="formOut.form.subtitle"
-                        placeholder="Subtítulo de la noticia"
+                        :placeholder="translate('general.news.subtitle')"
                         required
                     ></b-form-input>
                 </b-form-group>
 
-                <b-form-group id="input-group-4" label="Contenido:" label-for="input-4">
+                <b-form-group id="input-group-4" :label="translate('general.news.content')" label-for="input-4">
                     <b-form-textarea
                         id="textarea-default"
                         v-model="formOut.form.content"
-                        placeholder="Contenido de la noticia"
+                        :placeholder="translate('general.news.content')"
                         required
                     ></b-form-textarea>
                 </b-form-group>
             </b-col>
             <b-col size="6">
-                <b-form-group id="input-group-category" label="Categoria:" label-for="input-3">
-                <b-form-select v-model="formOut.form.category_id" :options="categories">
-                    <b-form-select-option :value="null">Seleccione una opcion</b-form-select-option>
-                    <b-form-select-option  v-for="category in categories" :key="category_id" :value="category.id">{{ category.name }}</b-form-select-option>
-                </b-form-select>
+                <b-form-group id="input-group-category" :label="translate('general.categories.categories')" label-for="input-3">
+                    <b-form-select v-model="formOut.form.category_id">
+                        <template #first>
+                            <b-form-select-option :value="null" disabled>-- {{ translate('general.select') }} --</b-form-select-option>
+                        </template>
+                        <b-form-select-option  v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</b-form-select-option>
+                    </b-form-select>
                 </b-form-group>
-                <b-form-group id="input-group-images" label="Imagenes:" label-for="input-3">
+                <b-form-group id="input-group-images" :label="translate('general.news.images')" label-for="input-3">
                     <b-form-file
                         @change="onFileChange"
-                        placeholder="Choose a file or drop it here..."
-                        drop-placeholder="Drop file here..."
+                        :placeholder="translate('general.select_file')"
+                        :drop-placeholder="translate('general.drop_file')"
                         multiple
                     ></b-form-file>
                 </b-form-group>
             </b-col>
         </b-row>
 
-
         <b-button type="submit" variant="primary">{{ formOut.action }}</b-button>
-
 
     </form>
 </template>
 
 <script>
+import trans from '../../VueTranslation/Translation';
 export default {
     props: ["formOut"],
     data() {
@@ -107,6 +108,7 @@ export default {
         })
       },
         getCategories(){
+          let vm = this;
             fetch(window.origin+'/admin/category/all',{
                 method: 'GET',
                 headers:{
@@ -114,7 +116,7 @@ export default {
                 },
             }).then(response => response.json())
                 .then(response=>{
-                   this.categories = response.data;
+                   vm.categories = response.category;
                 })
                 .catch(err =>{
                 })
