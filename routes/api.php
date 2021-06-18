@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::prefix('v1')->group(function () {
-
+    Route::get('image/{source}/{filename}','Api\ImageController@image');
     //Routes for authenticate
     //Route for login
     Route::post('/login', 'AuthUserController@login');
@@ -46,7 +46,7 @@ Route::prefix('v1')->group(function () {
         Route::get('category', ['uses'=>'Api\CategoryController@index']);
         //Route for get an category by id
         Route::get('category/{id}', ['uses'=>'Api\CategoryController@show']);
-       
+
 
         /**********  Incidence ************/
         //Route for get all Incidences by user

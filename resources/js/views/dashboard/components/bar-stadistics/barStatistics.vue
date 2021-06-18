@@ -32,15 +32,7 @@ export default {
     border: 1px solid #cccc;
     box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
 }
-.card-dashboard:hover{
-    -webkit-transform:scale(0.95);
-    -moz-transform:scale(0.95);
-    -ms-transform:scale(0.95);
-    -o-transform:scale(0.95);
-    transform:scale(0.95);
-    box-shadow: 0 1px 3px 0.5px rgb(64 60 67 / 16%);
-    transition: width 2s
-}
+
 .border-stadistics{
     border-right: 1px solid #cccc;
 }

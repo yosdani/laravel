@@ -6,11 +6,11 @@
               <h3 class="mb-0">Usuarios</h3>
           </b-card-header>
           <b-card-body>
-              <table-data 
-                :items="items" 
-                :fields="fields" 
-                :current="currentPage" 
-                :total="totalRows" 
+              <table-data
+                :items="items"
+                :fields="fields"
+                :current="currentPage"
+                :total="totalRows"
                 :offset="perPage"
                 :actions="actions"
                 :route="route"
@@ -24,6 +24,7 @@
 <script>
 import EventBus from '../../components/event-bus';
 import TableData from "../../components/table/TableData.vue";
+import trans from '../../VueTranslation/Translation';
 export default {
   data() {
     return {
@@ -37,42 +38,46 @@ export default {
               to: { name: 'dashboard' }
           },
           {
-              text: 'Usuarios',
+              text: trans.translate('general.users.users'),
               active: true
           }
       ],
       fields: [
           {
               key: "email",
-              label: "Email",
+              label: trans.translate('general.users.email'),
               sortable: true,
               sortDirection: "desc",
           },
           {
               key: "name",
-              label: "Nombre",
+              label: trans.translate('general.users.name'),
               sortable: true,
               sortDirection: "desc",
           },
           {
               key: "lastName",
-              label: "Apellidos",
+              label: trans.translate('general.users.lastname'),
               sortable: true,
               sortDirection: "desc",
           },
           {
               key: "phoneNumber",
-              label: "Número teléfono",
+              label: trans.translate('general.users.phone'),
               sortable: true,
               sortDirection: "desc",
           },
           {
               key: "rol",
-              label: "Rol",
+              label: trans.translate('general.roles.role'),
               sortable: true,
               sortDirection: "desc",
           },
-          { key: 'actions', label: 'Acciones' }
+          {
+              key: 'actions',
+              label: trans.translate('general.actions'),
+              filtereable: false
+          }
       ],
       actions:'admin/users',
       route:'/users'
@@ -94,17 +99,18 @@ export default {
       fetch("/admin/users?page="+page)
         .then((response) => response.json())
         .then((response) => {
+          this.items = [];
             vm.perPage = response.users.per_page;
             vm.currentPage = response.users.current_page;
             vm.totalRows= response.users.total;
             response.users.data.map(user => {
-              vm.items.push({
+              this.items.push({
                 id: user.id,
                 email: user.email,
                 name: user.name,
                 lastName: user.lastName,
                 phoneNumber: user.phoneNumber,
-                rol: user.user_role[0].name
+                rol: user.user_role.length>0?user.user_role[0].name:''
               })
             })
         });

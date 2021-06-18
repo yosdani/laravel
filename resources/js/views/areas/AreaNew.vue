@@ -4,7 +4,7 @@
 
         <b-card>
             <b-card-header class="border-0">
-                <h3 class="mb-0">Adicionar Area</h3>
+                <h3 class="mb-0">{{translate('general.add')}} {{translate('general.areas.area')}}</h3>
             </b-card-header>
             <b-card-body>
                 <form-simple :formOut="formIn"></form-simple>
@@ -15,6 +15,7 @@
 
 <script>
 import FormSimple from '../../components/form/formSimple.vue';
+import trans from '../../VueTranslation/Translation';
 export default {
     data() {
     return {
@@ -24,19 +25,19 @@ export default {
               to: { name: 'dashboard' }
           },
           {
-              text: 'Areas',
+              text: trans.translate('general.areas.areas'),
               to: { name: 'areas' }
           },
           {
-              text: 'Adicionar',
+              text: trans.translate('general.add'),
               active: true
           }
       ],
       formIn: {
-        formFrom:'Areas',
-        label: 'Entre el area',
-        placeholder: 'Entre el area',
-        action: 'Adicionar',
+        formFrom: trans.translate('general.areas.areas'),
+        label: trans.translate('general.name'),
+        placeholder: '',
+        action: trans.translate('general.save'),
         form: {
             name: '',
             user_id: ''

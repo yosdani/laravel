@@ -4,7 +4,7 @@
 
         <b-card>
             <b-card-header class="border-0">
-                <h3 class="mb-0">Editar Categoria</h3>
+                <h3 class="mb-0">{{translate('general.edit')}} {{translate('general.categories.category')}}</h3>
             </b-card-header>
             <b-card-body>
                 <form-simple :formOut="formIn"></form-simple>
@@ -15,6 +15,7 @@
 
 <script>
 import FormSimple from '../../components/form/formSimple.vue';
+import trans from '../../VueTranslation/Translation';
 export default {
     data() {
     return {
@@ -24,19 +25,19 @@ export default {
               to: { name: 'dashboard' }
           },
           {
-              text: 'Categoria',
+              text: trans.translate('general.categories.category'),
               to: { name: 'categories' }
           },
           {
-              text: 'Editar',
+              text: trans.translate('general.edit'),
               active: true
           }
       ],
       formIn: {
-        formFrom:'Categoria',
-        label: 'Entre la nueva categoria',
-        placeholder: 'Entre la categoria',
-        action: 'Editar',
+        formFrom:trans.translate('general.categories.category'),
+        label: trans.translate('general.name'),
+        placeholder: '',
+        action: trans.translate('general.edit'),
         form: {
             name: ''
         },

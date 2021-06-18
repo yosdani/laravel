@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Incidence extends Model
 {
+    const IMAGE_PATH = 'public/images/incidences/';
     /**
      * The table associated with the model.
      *
@@ -127,7 +128,7 @@ class Incidence extends Model
     /**
      * Get incidences by worker id
      * @return Collection
-     * 
+     *
      */
     public function incidencesByWorkerId($id)
     {

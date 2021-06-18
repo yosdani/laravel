@@ -21,3 +21,24 @@
   right: 0;
   z-index: 1049;
 }
+
+.multiselect__tags{
+    border: none!important;
+}
+.login-body {
+    background-color: #AEBDCE;
+    height: 100vh;
+    .login-image {
+         margin-top: 100px;
+    }
+    .invalid-feedback{
+        background-color: white!important;
+        padding: 3px!important;
+        border-radius: 4px!important;
+    }
+}
+.login-card {
+    background-color: #A6474B!important;
+    color: white!important;
+}
+

@@ -12,18 +12,26 @@
 */
 
 Auth::routes();
-
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('/', 'HomeController@index')->name('home')->middleware('auth');
 
 Route::group(['middleware'=>['web','auth','admin']], function () {
     Route::prefix('admin')->group(function () {
+        Route::post('change-password', ['uses'=>'PasswordController@changeAdminPassword']);
         //Routes resources for Incidence
         Route::resource('incidences', 'IncidenceController', [
             'only' => [
                 'index', 'store', 'show', 'update', 'destroy',
             ],
         ]);
-    
+
+        //Route for news
+        Route::resource('news', 'NewsController',[
+            'only' => [
+                'index', 'store', 'show', 'update', 'destroy'
+            ]
+        ]);
+
         //Routes resources for users
         Route::resource('users', 'UserController', [
             'only' => [
@@ -34,46 +42,42 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
         Route::get('responsables/areas','UserController@getResponsables');
         //Route for get all user with rol worker
         Route::get('workers', 'UserController@getWorkers');
-    
+        //Route to get workers without areas
+        Route::get('workers/select','UserController@workersWithoutArea');
+
         /********* Roles ************/
-        //Route for get all roles
-        Route::get('/roles', 'RoleController@index');
-        //Route for get role by id
-        Route::get('/roles/{id}', 'RoleController@show');
-        //Route for create a new role
-        Route::post('/roles', 'RoleController@store');
-        //Route for update a role
-        Route::put('/roles/{id}', 'RoleController@update');
-        //Route for delete a role
-        Route::delete('/roles/{id}', 'RoleController@delete');
+        Route::resource('roles', 'RoleController');
 
         //Routes resources for category
-    Route::resource('category', 'CategoryController', [
-        'only' => [
-            'index', 'store', 'show', 'update', 'destroy',
-        ],
-    ]);
-    
-    //Routes resources for public centers
-    Route::resource('public_center', 'PublicCenterController', [
-        'only' => [
-            'index', 'store', 'show', 'update', 'destroy',
-        ],
-    ]);
-    
-    //Routes resources for matriculas
-    Route::resource('enrollment', 'EnrolmentController', [
-        'only' => [
-            'index', 'store', 'show', 'update', 'destroy',
-        ],
-    ]);
+        Route::get('category/all', 'CategoryController@getAll');
+        Route::resource('category', 'CategoryController', [
+            'only' => [
+                'index', 'store', 'show', 'update', 'destroy',
+            ],
+        ]);
 
-    //Routes resources for district, the index methods are in api route
-    Route::resource('district', 'DistrictController', [
-        'only' => [
-            'index', 'store', 'show', 'update', 'destroy',
-        ]
-    ]);
+
+
+        //Routes resources for public centers
+        Route::resource('public_center', 'PublicCenterController', [
+            'only' => [
+                'index', 'store', 'show', 'update', 'destroy',
+            ],
+        ]);
+
+        //Routes resources for matriculas
+        Route::resource('enrollment', 'EnrolmentController', [
+            'only' => [
+                'index', 'store', 'show', 'update', 'destroy',
+            ],
+        ]);
+
+        //Routes resources for district, the index methods are in api route
+        Route::resource('district', 'DistrictController', [
+            'only' => [
+                'index', 'store', 'show', 'update', 'destroy',
+            ]
+        ]);
 
     //Routes resources for streets, the index methods are in api route
     Route::resource('street', 'StreetController', [
@@ -99,15 +103,10 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
 
     /**********  Areas ************/
     //Route for get all areas
-    Route::get('areas', ['uses'=>'AreaController@index']);
-    //Route for get an area by id
-    Route::get('areas/{id}', ['uses'=>'AreaController@show']);
-    //Route for create a new area
-    Route::post('areas', ['uses'=>'AreaController@store']);
-    //Route for update an area
-    Route::put('areas/{id}', ['uses'=>'AreaController@update']);
-    //Route for delete an area
-    Route::delete('areas/{id}', ['uses'=>'AreaController@destroy']);
+    Route::resource('areas', 'AreaController');
+
+    //Route to add workers to area
+    Route::post('workers/area/{id}', 'AreaController@addWorker');
 
     /**********  Breakdown ************/
     //Route for get all breakdowns

@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use App\WorkerArea;
 
 class AreaController extends Controller
 {
@@ -87,8 +88,9 @@ class AreaController extends Controller
             return response()->json("This area is not exist", '400');
         }
         $area->name = $request->name;
-
+        $area->user_id = $request->user_id;
         $area->save();
+
         return response()->json([
             'area'=>$area,
             'success' => true,
@@ -112,5 +114,34 @@ class AreaController extends Controller
         Area::destroy($id);
 
         return  response()->json('deleted', 200);
+    }
+
+    /**
+     * Add workers to area
+     * @param int $id
+     * @param Request $request
+     * @return JsonResponse
+     * 
+     */
+    public function addWorker(Request $request,$id): JsonResponse
+    {
+        if(!Area::find($id)){
+            return response()->json([
+                'success' => false,
+                'message' =>'The specified id of area is not found'
+            ], 404);
+        }
+
+        $workerId = $request->id;
+
+        WorkerArea::create([
+            'user_id' => $workerId,
+            'area_id' => $id
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Workers add successfully'
+        ]);
     }
 }

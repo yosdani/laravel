@@ -88,6 +88,12 @@
         </b-button>
         </RouterLink>
           </b-col>
+          <b-col v-if="route==='/areas'">
+            <RouterLink :to="'/workers/add/'+row.item.id">
+                <b-button variant="primary" size="sm"><b-icon icon="list" aria-hidden="true"></b-icon> Add workers
+            </b-button>
+            </RouterLink>
+          </b-col>
           <b-col>
         <b-form>
           <b-button variant="danger" type="submit" size="sm" @click="deleteUser(row.item,$event)">
@@ -188,22 +194,24 @@ export default {
           cancelButtonColor: '#d33',
           confirmButtonText: 'Si, eliminar!'
         }).then((result) => {
-          axios.delete(window.origin+'/'+this.actions+'/'+item.id)
-          .then(result => {
-            EventBus.$emit('DELETED_ITEM_'+this.route);
-            this.$swal.fire(
-              'Deleted!',
-              'Your file has been deleted.',
-              'success'
-            )
-          })
-          .catch(error =>{
-            this.$swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: error,
+          if(result.isConfirmed) {
+            axios.delete(window.origin+'/'+this.actions+'/'+item.id)
+            .then(result => {
+              EventBus.$emit('DELETED_ITEM_'+this.route);
+              this.$swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              )
             })
-          })
+            .catch(error =>{
+              this.$swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: error,
+              })
+            })
+          }
         })
       },
     }

@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
@@ -11,7 +13,7 @@ class Category extends Model
      *
      * @var string
      */
-    protected $table = 'category';
+    protected $table = 'categories';
 
     /**
      * The attributes that are mass assignable.
@@ -20,20 +22,11 @@ class Category extends Model
      */
     protected $fillable = [ 'name' ];
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @return  \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function notices()
-    {
-        return $this->hasMany(Notice::class, 'category_id');
-    }
 
     /**
      * The attributes that are mass assignable.
      *
-     * @return  \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return  HasMany
      */
     public function news()
     {

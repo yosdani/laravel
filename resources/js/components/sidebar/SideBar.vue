@@ -2,13 +2,13 @@
   <b-sidebar
     :visible="show"
     id="sidebar1"
-    bg-variant="light"
-    text-variant="dark"
+    bg-variant="dark"
+    text-variant="light"
     :shadow="true"
     :no-close-on-route-change="true"
     :style="customSidebar"
   >
-      <div class="text-center">
+      <div class="text-center bg-white">
           <router-link class="navbar-brand" to="/">
              <img :src="logo" class="navbar-brand-img" alt="...">
           </router-link>
@@ -17,7 +17,8 @@
     <div class="px-3 py-2">
       <div class="element-sidebar" v-for="(element, i) in elements" :key="i">
           <div v-if="element.child.length === 0" class="m-1 nav-title-sidebar">
-              <b-icon v-if="element.icon" :icon="element.icon"></b-icon> <router-link :to="element.route" exact>  {{ element.name }}</router-link>
+              <b-icon v-if="element.icon" :icon="element.icon"></b-icon>
+              <router-link :to="element.route" exact>  {{ element.name }}</router-link>
           </div>
         <div
           v-else
@@ -52,7 +53,7 @@ export default {
   data() {
     return {
         rotate: false,
-        logo: 'images/logo.png'
+        logo: 'images/logo-2.png'
     };
   },
   mounted() {
@@ -80,36 +81,48 @@ export default {
 <style lang="scss">
 @import "../../../sass/_variables.scss";
 .nav-title-sidebar {
-  font-size: 1.2rem;
-  font-weight: bold;
-  display: inline;
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: inline;
+    color: white
 }
 .nav-body-sidebar {
-  margin-left: 40px;
-  font-size: 15px;
+    margin-left: 40px;
+    font-size: 15px;
 }
 .element-sidebar {
-  margin-left: 15px;
-  margin-bottom: 15px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+}
+.nav-title-sidebar a {
+    color: white!important;
 }
 .nav-body-sidebar a {
-  color: #0c0c0c;
-  font-size: 16px;
-  line-height: 1.8em;
+    color: white!important;
+    font-size: 16px;
+    line-height: 1.8em;
 }
 .b-sidebar-outer {
-  max-width: $sidebar-width;
-  max-height: 100%;
-  width: 100%;
+    max-width: $sidebar-width;
+    max-height: 100%;
+    width: 100%;
+    background-color: $primary;
 }
 .b-sidebar-outer .sidebar-dashboard {
-  width: $sidebar-width;
+    width: $sidebar-width;
 }
 .rotate-icon {
-  transform: rotate(90deg);
+    transform: rotate(90deg);
 }
 .navbar-brand-img{
     width: 80px;
-    height: 80px;
+    height: 52px;
 }
+#sidebar1 {
+    background-color: $primary!important;
+    .b-sidebar-header{
+        padding: 0 1rem!important;
+    }
+}
+
 </style>

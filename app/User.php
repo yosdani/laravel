@@ -2,11 +2,14 @@
 
 namespace App;
 
+use App\Notifications\ResetPasswordNotification;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Area;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements JWTSubject
@@ -58,6 +61,11 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany(Role::class, 'role_user');
     }
 
+    public function workerArea(): BelongsToMany
+    {
+        return $this->belongsToMany(Area::class, 'worker_area');
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -79,7 +87,7 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Incidence::class, 'user_id');
     }
 
-    public function userCategory():BelongsToMany
+    public function userCategories():BelongsToMany
     {
         return $this->belongsToMany(Category::class,'user_categories');
     }
@@ -96,7 +104,7 @@ class User extends Authenticatable implements JWTSubject
 
     /**  Get users by rol responsable
      * @return Collection
-     * 
+     *
      */
     public function responsables()
     {
@@ -108,14 +116,48 @@ class User extends Authenticatable implements JWTSubject
 
     /**  Get users by rol worker
      * @return Collection
-     * 
+     *
      */
-    public function workers()
+    public static function workers()
     {
-        return $this->select('users.*')
+        return User::select('users.*')
                     ->leftjoin('role_user','users.id','=','role_user.user_id')
                     ->where('role_user.role_id','=',3)
                     ->get();
     }
 
+    public static function workerWithoutArea(){
+        $workerWithArea = User::select('users.*')
+                            ->leftjoin('role_user','users.id','=','role_user.user_id')
+                            ->leftjoin('worker_area','worker_area.user_id','=','users.id')
+                            ->where('role_user.role_id','=',3)
+                            ->with('workerArea')
+                            ->get();
+        $workersWithoutArea = [];
+
+            foreach ($workerWithArea as $area){
+                if(!isset($area->worker_area))
+                    $workersWithoutArea[] = $area;
+            }
+
+        return $workersWithoutArea;
+    }
+
+    public function name()
+    {
+        return $this->name;
+    }
+    public function lastName()
+    {
+        return $this->lastName;
+    }
+    public function email()
+    {
+        return $this->email;
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
+    }
 }

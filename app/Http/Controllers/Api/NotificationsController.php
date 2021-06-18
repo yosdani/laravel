@@ -6,8 +6,9 @@
  * Time: 11:19 PM
  */
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 use App\User;
+use App\Http\Controllers\Controller;
 
 class NotificationsController extends Controller
 {

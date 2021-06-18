@@ -7,15 +7,23 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Participacion Ciudadana') }}</title>
+    <title>{{ config('app.name') }}</title>
 
     <!-- Scripts -->
+    <script>
+        window.User = {
+            id: '{{ optional(auth()->user())->id }}',
+            name: '{{ optional(auth()->user())->name() }}',
+            lastName: '{{ optional(auth()->user())->lastName() }}',
+            email: '{{ optional(auth()->user())->email() }}',
+        }
+    </script>
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
-
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
@@ -48,11 +56,11 @@
         to {
             transform: rotate(360deg);
         }
-        }            
+        }
     </style>
 </head>
 <body>
-    <div id="app-container">
+    <div id="app-container" class="{{ $bodyClass ?? '' }}">
         <main class="">
             @yield('content')
         </main>

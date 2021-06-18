@@ -49,7 +49,7 @@ export default {
                 labels: ["US1","US2","US3","US4","US5"],
                 datasets: [
                     {
-                        label: "Total",
+                        label: trans.translate('general.total'),
                         data: [158, 164, 54, 120,160],
                         backgroundColor: "rgba(168,255,137,.3)",
                         borderColor: "#A8FF89",
@@ -63,14 +63,14 @@ export default {
                         borderWidth: 2
                     },
                     {
-                        label: "In Progress",
+                        label: trans.translate('general.incidences.in_progress'),
                         data: [60, 50, 10, 55,100],
                         backgroundColor: "rgba(96, 162,255,.3)",
                         borderColor: "#60A2FF",
                         borderWidth: 2
                     },
                     {
-                        label: "Not Assigned",
+                        label:  trans.translate('general.incidences.not_assigned'),
                         data: [19, 32, 17, 5,10],
                         backgroundColor: "rgba(255, 75,99,.3)",
                         borderColor: "#FF4B63",
@@ -108,7 +108,7 @@ export default {
                     ],
                     datasets: [
                         {
-                            label: "Incidences for location",
+                            label: trans.translate('general.incidences.by_locality'),
                             data: [79, 82, 27, 60,58,89,34,10],
                             fill: true,
                             backgroundColor: 'rgba(255, 99, 132, 0.2)',
