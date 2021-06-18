@@ -102,4 +102,19 @@ class DashboardController extends Controller
             'workers' => $workers
         ]);
     }
+
+    /**
+     * Get general statistics
+     * @return JsonResponse
+     * 
+     */
+    public function getStatistics():JsonResponse
+    {
+        return response()->json([
+            'total' => Incidence::all()->count(),
+            'finished' => Incidence::finished(),
+            'in_progress' => Incidence::inProgress(),
+            'not_assigned' => Incidence::notAssigned()
+        ]);
+    }
 }

@@ -168,6 +168,8 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
     Route::get('dashboard/radar', 'DashboardController@radar');
     //Route for get datas of dashboard responsable and workers
     Route::get('dashboard/teams', 'DashboardController@teams');
+    //Route for get general statistics
+    Route::get('dashboard/general', 'DashboardController@getStatistics');
     });
 });
 

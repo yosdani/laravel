@@ -38,11 +38,18 @@ export default {
         GraphicRadar
     },
     created() {
+        this.getStatistics();
         this.getDashboardBar();
         this.getDashboardRadar();
         this.getDashboardTeams();
     },
     methods: {
+        getStatistics(){
+            axios.get(window.origin + '/admin/dashboard/general')
+            .then(response => {
+                EventBus.$emit('GET_GENERAL_STATISTICS', response.data );
+            })
+        },
         getDashboardBar(){
             axios.get(window.origin + '/admin/dashboard/bar')
             .then(response => {
@@ -59,7 +66,7 @@ export default {
                                 borderWidth: 2
                             },
                             {
-                                label: "Finished",
+                                label: trans.translate('general.incidences.finished'),
                                 data: response.data.totalFinish,
                                 backgroundColor: "rgba(225,193,50,.3)",
                                 borderColor: "#E1C132",
@@ -108,7 +115,7 @@ export default {
                         labels: response.data.districts,
                         datasets: [
                             {
-                                label: trans.translate('general.incidences.by_locality'),
+                                label: trans.translate('general.incidences.by_district'),
                                 data: response.data.incidences,
                                 fill: true,
                                 backgroundColor: 'rgba(255, 99, 132, 0.2)',

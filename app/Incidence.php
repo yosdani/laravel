@@ -175,4 +175,42 @@ class Incidence extends Model
                         ->get()
                         ->count();
     }
+
+
+    /**
+     * Get all incidences finished
+     * @return int
+     * 
+     * 
+    */
+    public static function finished(){
+        return Incidence::select('incidence.*')
+                        ->where('incidence.state_id',2)
+                        ->get()
+                        ->count();
+    }
+
+    /**
+     * Get incidences in progress
+     * @return int
+     * 
+     */
+    public static function inProgress(){
+        return Incidence::select('incidence.*')
+                        ->where('incidence.state_id',1)
+                        ->get()
+                        ->count();
+    }
+
+    /**
+     * Get incidences not assigned
+     * @return int
+     * 
+     */
+    public static function notAssigned(){
+        return Incidence::select('incidence.*')
+                        ->where('incidence.state_id',null)
+                        ->get()
+                        ->count();
+    }
 }

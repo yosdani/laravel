@@ -44,8 +44,9 @@ return [
         'incidences' => 'Incidencias',
         'incidence' => 'Incidencia',
         'in_progress' => 'En progreso',
+        'finished' => 'Terminadas',
         'not_assigned' => 'Sin asignar',
-        'by_locality' => 'Incidencias por distritos',
+        'by_district' => 'Incidencias por distritos',
         'description' => 'Descripción',
         'locations' => 'Ubicación',
     ],
@@ -74,4 +75,10 @@ return [
         'streets' => 'Calles',
         'street' => 'Calle',
     ],
+    'dashboard_statistics' => [
+        'total_incidences' => 'Incidencias Total',
+        'finished' => 'Terminadas',
+        'in_progress' => 'En Progreso',
+        'not_assigned' => 'No Asignadas'
+    ]
 ];
