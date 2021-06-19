@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-for="(worker,i) in workers" :key="i" class="boss-US" v-b-toggle="'collapse-'+i">{{ worker.response.user?worker.response.user.name:'No tiene responsable asignado' }}
+        <div v-for="(worker,i) in workers" :key="i" class="boss-US" v-b-toggle="'collapse-'+i">{{ worker.response.user?worker.response.user.name: translate('general.card_workers.not_assigned') }}
             <b-badge class="float-right" variant="primary" pill>{{ worker.total }}</b-badge>
             
             <b-collapse :id="'collapse-'+i" class="mt-2">
@@ -15,6 +15,7 @@
 </template>
 <script>
 import EventBus from '../../../../components/event-bus';
+import trans from '../../../../VueTranslation/Translation'
 export default {
     data(){
         return {

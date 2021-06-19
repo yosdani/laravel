@@ -1,14 +1,15 @@
 <template>
     <div class="card-dashboard row" :style="putOfMarginNegative">
-            <statistics class="col-lg-3 col-md-6 col-sm-12 border-stadistics" :color="'green'" :iconName="'wallet2'" :name="'Total Incidence'" :number="total"/>
-            <statistics class="col-lg-3 col-md-6 col-sm-12 border-stadistics three-component" :color="'orange'" :iconName="'calendar2-check-fill'" :name="'Finished'" :number="finished"/>
-            <statistics class="col-lg-3 col-md-6 col-sm-12 border-stadistics" :color="'blue'" :iconName="'bar-chart-steps'" :name="'In Progress'" :number="inProgress"/>
-            <statistics class="col-lg-3 col-md-6 col-sm-12" :color="'red'" :iconName="'exclamation-triangle-fill'" :name="'Not Assigned'" :number="notAssigned"/>
+            <statistics class="col-lg-3 col-md-6 col-sm-12 border-stadistics" :color="'green'" :iconName="'wallet2'" :name="translate('general.dashboard_statistics.total_incidences')" :number="total"/>
+            <statistics class="col-lg-3 col-md-6 col-sm-12 border-stadistics three-component" :color="'orange'" :iconName="'calendar2-check-fill'" :name="translate('general.dashboard_statistics.finished')" :number="finished"/>
+            <statistics class="col-lg-3 col-md-6 col-sm-12 border-stadistics" :color="'blue'" :iconName="'bar-chart-steps'" :name="translate('general.dashboard_statistics.in_progress')" :number="inProgress"/>
+            <statistics class="col-lg-3 col-md-6 col-sm-12" :color="'red'" :iconName="'exclamation-triangle-fill'" :name="translate('general.dashboard_statistics.not_assigned')" :number="notAssigned"/>
     </div>
 </template>
 <script>
 import Statistics from './statistics'
 import EventBus from '../../../../components/event-bus';
+import trans from '../../../../VueTranslation/Translation'
 export default {
     props:["arrayOfDatas"],
     data() {

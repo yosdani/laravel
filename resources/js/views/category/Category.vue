@@ -3,7 +3,8 @@
       <b-breadcrumb :items="bItems"></b-breadcrumb>
       <b-card>
           <b-card-header class="border-0">
-              <h3 class="mb-0">{{translate('general.categories.categories')}}</h3>
+              <h3 class="mb-0 name-model">{{translate('general.categories.categories')}}</h3>
+              <button-add :options="options"/>
           </b-card-header>
           <b-card-body>
               <table-data
@@ -21,16 +22,19 @@
 </template>
 
 <script>
+import ButtonAdd from '../../components/button/ButtonAdd.vue';
 import EventBus from '../../components/event-bus';
 import TableData from "../../components/table/TableData.vue";
 import trans from '../../VueTranslation/Translation';
 export default {
     components:{
-        TableData
+        TableData,
+        ButtonAdd
     },
     data(){
         return {
         items: [],
+        options: '/categories/new',
         currentPage: 1,
         totalRows: 0,
         perPage: 15,

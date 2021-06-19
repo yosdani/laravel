@@ -36,7 +36,6 @@
                         id="input-3"
                         v-model="form.user_id"
                         :options="formOut.array"
-                        required
                     ></b-form-select>
                 </b-form-group>
             </b-col>

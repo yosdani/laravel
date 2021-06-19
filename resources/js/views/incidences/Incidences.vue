@@ -3,7 +3,8 @@
       <b-breadcrumb :items="bItems"></b-breadcrumb>
       <b-card>
           <b-card-header class="border-0">
-              <h3 class="mb-0">{{translate('general.incidences.incidences')}}</h3>
+              <h3 class="mb-0 name-model">{{translate('general.incidences.incidences')}}</h3>
+              
           </b-card-header>
           <b-card-body>
               <table-data
@@ -22,6 +23,7 @@
 </template>
 
 <script>
+import ButtonAdd from '../../components/button/ButtonAdd.vue';
 import TableData from "../../components/table/TableData.vue";
 import trans from '../../VueTranslation/Translation';
 export default {
@@ -71,6 +73,7 @@ export default {
   },
   components: {
     TableData,
+    ButtonAdd
   },
   methods: {
     fetchData(page=1) {

@@ -50,6 +50,11 @@ export default {
   },
 };
 </script>
+<style>
+.name-model{
+  display: inline-block;
+}
+</style>
 <style lang="scss">
 @import "../../sass/_variables.scss";
 .main-content {

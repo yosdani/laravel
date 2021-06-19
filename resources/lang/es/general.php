@@ -23,6 +23,7 @@ return [
     'deleted' => 'Se ha eliminado ',
     'art_male' => 'el ',
     'art_female' => 'la ',
+    'button_add' => 'Adicionar',
      'news' => [
          'news' => 'Noticias',
          'new' => 'Noticia',
@@ -114,5 +115,8 @@ return [
         'last_month' => 'Último mes',
         'last_year' => 'Último año',
         'period' => 'Período definido'
+    ],
+    'card_workers' => [
+        'not_assigned' => 'No tiene responsable asignado'
     ]
 ];
