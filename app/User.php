@@ -142,8 +142,8 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
-     * 
-     * 
+     *
+     *
      */
     public static function workerWithArea(){
         return WorkerArea::select('worker_area.user_id')->get();
@@ -153,7 +153,7 @@ class User extends Authenticatable implements JWTSubject
         $list_workers = User::workers();
 
         $workers_area = User::workerWithArea();
-        
+
         foreach($workers_area as $worker){
             foreach ($list_workers as $key => $list){
                 if($worker->user_id == $list->id){
@@ -187,7 +187,7 @@ class User extends Authenticatable implements JWTSubject
      * Get workers by area
      * @param int $idArea
      * @return array
-     * 
+     *
      */
     public static function workersByArea($idArea)
     {

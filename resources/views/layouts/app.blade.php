@@ -9,15 +9,6 @@
 
     <title>{{ config('app.name') }}</title>
 
-    <!-- Scripts -->
-    <script>
-        window.User = {
-            id: '{{ optional(auth()->user())->id }}',
-            name: '{{ optional(auth()->user())->name() }}',
-            lastName: '{{ optional(auth()->user())->lastName() }}',
-            email: '{{ optional(auth()->user())->email() }}',
-        }
-    </script>
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/favicon.png') }}">

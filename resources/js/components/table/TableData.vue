@@ -90,20 +90,20 @@
           <b-row>
           <b-col>
         <RouterLink :to="route+'/edit/'+row.item.id">
-            <b-button variant="success" size="sm"><b-icon icon="pen" aria-hidden="true"></b-icon> Edit
+            <b-button variant="success" size="sm"><b-icon icon="pen" aria-hidden="true"></b-icon>  {{ translate('general.edit') }}
         </b-button>
         </RouterLink>
           </b-col>
           <b-col v-if="route==='/areas'">
             <RouterLink :to="'/workers/add/'+row.item.id">
-                <b-button variant="primary" size="sm"><b-icon icon="list" aria-hidden="true"></b-icon> Add workers
+                <b-button variant="primary" size="sm"><b-icon icon="list" aria-hidden="true"></b-icon> {{ translate('general.areas.add_worker') }}
             </b-button>
             </RouterLink>
           </b-col>
           <b-col>
         <b-form>
           <b-button variant="danger" type="submit" size="sm" @click="deleteUser(row.item,$event)">
-            <b-icon icon="trash-fill" aria-hidden="true"></b-icon> Delete
+            <b-icon icon="trash-fill" aria-hidden="true"></b-icon> {{ translate('general.delete') }}
           </b-button>
         </b-form>
           </b-col>

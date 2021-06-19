@@ -3,19 +3,24 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
 
 class AdminMiddleware
 {
+    const ROLES = [
+       'Admin',
+       'Responsable'
+    ];
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
-        if ($request->user()->userRole()->first()->id != 1) {
+        if (!in_array($request->user()->userRole()->first()->name, self::ROLES)) {
             return response() -> json([
                 'success' => 'error',
                 'message' => 'Its not authorized'

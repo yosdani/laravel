@@ -23,6 +23,7 @@ return [
     'deleted' => 'Se ha eliminado ',
     'art_male' => 'el ',
     'art_female' => 'la ',
+    'loading' => 'Cargando...',
      'news' => [
          'news' => 'Noticias',
          'new' => 'Noticia',

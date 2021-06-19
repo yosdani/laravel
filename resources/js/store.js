@@ -3,15 +3,16 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 Vue.use(Vuex);
-
+const webservices = require('./webservices')();
 export const store = new Vuex.Store({
     state: {
        user: {
            name: null,
            lastName: null,
            email: null,
-           _token: null
-       }
+           role: null
+       },
+        loading: true
     },
     getters: {
 
@@ -22,18 +23,26 @@ export const store = new Vuex.Store({
             state.user.name = payload.name;
             state.user.lastName = payload.lastName;
             state.user.email = payload.email;
+            state.user.role = payload.role;
         },
-        setToken(state, payload){
-           state.user._token = payload
+        setLoading(state, loading){
+            state.loading = loading;
         }
-
     },
     actions: {
         updateUser({commit}, payload){
            commit('updateUser',payload)
        },
-        setToken({commit}, payload){
-            commit('setToken', payload)
+        setLoading({commit}, payload){
+            commit('setLoading',payload)
+        },
+        getUserInfo({commit}){
+            commit('setLoading', true);
+            return webservices.getUserInfo().then((response) => {
+                commit('updateUser', response.data);
+                commit('setLoading', false);
+            }).finally(() => {
+            })
         }
     }
 });

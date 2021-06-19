@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\User;
 use App\RoleUser;
 use App\Area;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\UnauthorizedException;
 
 class UserController extends Controller
 {
@@ -164,11 +167,11 @@ class UserController extends Controller
     }
 
     /**
-     * 
+     *
      * Get all responsables
      * @return JsonResponse
-     * 
-     * 
+     *
+     *
      */
     public function getResponsables(): JsonResponse
     {
@@ -179,11 +182,11 @@ class UserController extends Controller
     }
 
     /**
-     * 
+     *
      * Get all workers
      * @return JsonResponse
-     * 
-     * 
+     *
+     *
      */
     public function getWorkers(): JsonResponse
     {
@@ -195,7 +198,7 @@ class UserController extends Controller
 
     /**
      * @return JsonResponse
-     * 
+     *
      */
     public function workersWithoutArea():JsonResponse
     {
@@ -203,14 +206,14 @@ class UserController extends Controller
             'success' => true,
             'workers' => User::workerWithoutArea()
         ]);
-        
+
     }
 
     /**
      * If a area boss is changed of role, delete of boss of area
      * @param int $id
      * @return void
-     * 
+     *
      */
     private function deleteIfChageRole($id):void
     {
@@ -222,5 +225,13 @@ class UserController extends Controller
                 $area->save();
             }
         }
+    }
+
+    public function getUserInfo()
+    {
+        if(!Auth::user()){
+            throw new UnauthorizedException();
+        }
+        return new UserResource(Auth::user());
     }
 }
