@@ -4,7 +4,7 @@
 
         <b-card>
             <b-card-header class="border-0">
-                <h3 class="mb-0">{{translate('general.edit')}} {{translate('general.incidence.incidence')}}</h3>
+                <h3 class="mb-0">{{translate('general.edit')}} {{translate('general.incidences.incidence')}}</h3>
             </b-card-header>
             <b-card-body>
                 <form-incidence :formOut="formIn"></form-incidence>
@@ -40,25 +40,23 @@ export default {
           form: {
               address: '',
               applicant: '',
-              assignedTo: '',
+              assigned_id: '',
               attachedContent: '',
               breakdown_id: '',
-              centerEnrollment: '',
+              enrolment_id: '',
               deadline: '',
               description: '',
               district_id: '',
-              dni:'',
-              name: '',
+              title: '',
               neighborhood_id:'',
-              phone:'',
               public_center_id: '',
               responseForCitizen: '',
-              reviewer: '',
               state_id: '',
               street_id: '',
               tags: '',
               team: '',
-              user_id: ''
+              user_id: '',
+              area_id: '',
         },
         roles:[],
         workers:[],

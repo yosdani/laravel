@@ -11,9 +11,11 @@ namespace App\Http\Controllers;
 use App\Incidence;
 use App\Http\Controllers\Controller;
 use App\IncidenceImage;
+use Exception;
 use Faker\Provider\Image;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -30,9 +32,17 @@ class IncidenceController extends Controller
      */
     public function index(): JsonResponse
     {
+        $incidences = [];
+        $user = Auth::user();
+        $area = $user->area;
+        if($user->hasRole('Admin')){
+            $incidences = Incidence::with('user')->paginate(15);
+        }elseif ($user->hasRole('Responsable')){
+            $incidences = Incidence::where('area_id',$area->id)->with('user')->paginate(15);
+        }
         return response()->json([
             'success' =>true,
-            'incidences' => Incidence::with('images')->paginate(15)
+            'incidences' => $incidences
         ], 200);
     }
 
@@ -45,7 +55,7 @@ class IncidenceController extends Controller
     protected function validator(array $data): \Illuminate\Contracts\Validation\Validator
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
 
         ]);
     }
@@ -60,7 +70,7 @@ class IncidenceController extends Controller
     public function show(int $id): JsonResponse
     {
         if (!Incidence::find($id)) {
-            return response()->json("This incidence is not exist", '404');
+            return response()->json("This incidence does not exist", '404');
         }
         return response()->json(Incidence::find($id)->with('images')->first(), 200) ;
     }
@@ -99,8 +109,9 @@ class IncidenceController extends Controller
     public function update(Request $request, int $id): JsonResponse
     {
         $incidence = Incidence::find($id);
+        $oldIncidence = clone $incidence;
         if (!$incidence) {
-            return response()->json("This incidence is not exist", '400');
+            return response()->json("This incidence does not exist", '400');
         }
 
         $oldState = $incidence->state_id;
@@ -110,7 +121,7 @@ class IncidenceController extends Controller
 
         if ($oldState != $incidence->state_id) {
             try {
-                \Mail::to(User::find($incidence->user_id)->email)->send(new IncidenceMails($incidence, $incidence1[0]->images[0]->urlImage, 'La Incidencia a cambiado al estado: '+ State::find($incidence->state)->name));
+                \Mail::to(User::find($incidence->user_id)->email)->send(new IncidenceMails($incidence, $oldIncidence[0]->images[0]->urlImage, 'La Incidencia a cambiado al estado: '+ State::find($incidence->state)->name));
             } catch (Exception $exception) {
                 return response()->json([
                     'success' => false,
@@ -133,7 +144,7 @@ class IncidenceController extends Controller
         $incidence = Incidence::find($id);
 
         if (!$incidence) {
-            return response()->json("This incidence is not exist", '400');
+            return response()->json("This incidence does not exist", '400');
         }
 
         Incidence::destroy($id);

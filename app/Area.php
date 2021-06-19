@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Area extends Model
 {
@@ -39,6 +40,15 @@ class Area extends Model
     }
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @return  HasMany
+     */
+    public function incidences(): HasMany
+    {
+        return $this->hasMany(Incidence::class, 'area_id');
+    }
+    /**
      * Get areas by rol
      * @param int $id
      * @return Collection
@@ -57,7 +67,8 @@ class Area extends Model
      * @return array
      *
      */
-    public static function information(){
+    public static function information(): array
+    {
         return Area::select('area.*')->orderBy('created_at','asc')->get();
     }
 
@@ -66,7 +77,8 @@ class Area extends Model
      * @return array
      *
      */
-    public static function names(){
+    public static function names(): array
+    {
         return Area::select('area.name')->orderBy('created_at','asc')->get();
     }
 }

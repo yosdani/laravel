@@ -61,6 +61,17 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany(Role::class, 'role_user');
     }
 
+    public function hasRole($role): bool
+    {
+        foreach ($this->userRole as $r){
+            if ($r->name = $role){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     public function workerArea(): BelongsToMany
     {
         return $this->belongsToMany(Area::class, 'worker_area');
@@ -82,9 +93,19 @@ class User extends Authenticatable implements JWTSubject
      *
      * @return  HasMany
      */
-    public function incidence()
+    public function incidences(): HasMany
     {
         return $this->hasMany(Incidence::class, 'user_id');
+    }
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @return  HasMany
+     */
+    public function incidencesAssigned(): HasMany
+    {
+        return $this->hasMany(Incidence::class, 'assigned_id');
     }
 
     public function userCategories():BelongsToMany
@@ -97,7 +118,7 @@ class User extends Authenticatable implements JWTSubject
      *
      * @return  HasMany
      */
-    public function news()
+    public function news(): HasMany
     {
         return $this->hasMany(News::class, 'user_id');
     }

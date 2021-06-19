@@ -44,7 +44,7 @@ return [
         'users' => 'Usuarios',
         'user' => 'Usuario',
         'name' => 'Nombre',
-        'lastname' => 'Apellidos',
+        'lastName' => 'Apellidos',
         'email' => 'Email',
         'phone' => 'Teléfono',
         'password' => 'Contraseña',
@@ -73,7 +73,9 @@ return [
         'location' => 'Ubicación',
         'name' => 'Nombre',
         'add_worker' => 'Asignar Trabajador',
-        'state' => 'Estado'
+        'state' => 'Estado',
+        'add_area' => 'Asignar Área',
+        'add_tag' => 'Asignar Etiqueta'
     ],
     'districts' => [
         'districts' => 'Distritos',

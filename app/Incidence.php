@@ -2,7 +2,10 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Incidence extends Model
 {
@@ -20,46 +23,40 @@ class Incidence extends Model
      * @var string
      */
     protected $fillable = [
-        'title','assignedTo','reviewer','deadLine','tags','description','attachedContent',
-        'dni','applicant','phone','centerEnrollment','streetNumber','district','neighborhood','address',
+        'title','assigned_id','reviewer','deadLine','tags','description','attachedContent','applicant','centerEnrollment','streetNumber','district','neighborhood','address',
         'team','location','responseForCitizen'
     ];
 
     /**
      * The attributes that are mass assignable.
      *
-     * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return  BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Incidence::class, 'user_id');
+        return $this->belongsTo(Incidence::class, 'user_id', 'id');
+    }
+
+    public function assignedTo(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'assigned_role','id');
+    }
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @return  BelongsTo
+     */
+    public function state(): BelongsTo
+    {
+        return $this->belongsTo(Incidence::class, 'state_id','id');
     }
 
     /**
      * The attributes that are mass assignable.
      *
-     * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return  BelongsTo
      */
-    public function state()
-    {
-        return $this->belongsTo(Incidence::class, 'state_id');
-    }
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @return  \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function images()
-    {
-        return $this->hasMany(IncidenceImage::class, 'incidence_id');
-    }
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function enrolment()
+    public function enrolment(): BelongsTo
     {
         return $this->belongsTo(\App\Enrolment::class, 'enrolment_id', 'id');
     }
@@ -67,9 +64,29 @@ class Incidence extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return  HasMany
      */
-    public function publicCenter()
+    public function images(): HasMany
+    {
+        return $this->hasMany(IncidenceImage::class, 'incidence_id');
+    }
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @return  BelongsTo
+     */
+    public function area(): BelongsTo
+    {
+        return $this->belongsTo(\App\Area::class, 'area_id', 'id');
+    }
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @return  BelongsTo
+     */
+    public function publicCenter(): BelongsTo
     {
         return $this->belongsTo(\App\PublicCenter::class, 'public_center_id', 'id');
     }
@@ -77,49 +94,49 @@ class Incidence extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return  BelongsTo
      */
-    public function breakdown()
+    public function breakdown(): BelongsTo
     {
         return $this->belongsTo(\App\Incidence::class, 'breakdown_id');
     }
 
     /**
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      *
      */
-    public function district()
+    public function district(): BelongsTo
     {
         return $this->belongsTo(\App\District::class, 'district');
     }
 
     /**
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      *
      */
-    public function street()
+    public function street(): BelongsTo
     {
         return $this->belongsTo(\App\Street::class, 'streetNumber');
     }
 
     /**
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      *
      */
-    public function neighborhood()
+    public function neighborhood(): BelongsTo
     {
         return $this->belongsTo(\App\Neighborhood::class, 'neighborhood');
     }
 
     /**
      * Get incidences by user id
+     * @param $id
      * @return Collection
-     *
      */
-    public function incidencesByUserId($id)
+    public function incidencesByUserId($id): Collection
     {
         return $this->select('incidence.*')
                     ->where('incidence.user_id', $id);
@@ -127,37 +144,38 @@ class Incidence extends Model
 
     /**
      * Get incidences by worker id
+     * @param int $id
      * @return Collection
-     *
      */
-    public function incidencesByWorkerId($id)
+    public function incidencesByWorkerId(int $id): Collection
     {
         return $this->select('incidence.*')
-                    ->where('incidence.assignedTo', $id);
+                    ->where('incidence.assigned_id', $id);
     }
 
     /**
      * Get incidences total
-     * @param int $idResponsable
+     * @param int $idResponsible
      * @return array
      */
-    public static function incidencesTotalByArea($idResponsable){
+    public static function incidencesTotalByArea(int $idResponsible): array
+    {
         return Incidence::select('incidence.id')
-                        ->where('incidence.reviewer',$idResponsable)
+                        ->where('incidence.reviewer',$idResponsible)
                         ->get()
                         ->count();
     }
 
     /**
      * Get all incidences finished
-     * @param int $idResponsable
+     * @param int $idResponsible
      * @param int $idState
      * @return array
-     * 
+     *
      */
-    public static function stateActual($idResponsable, $idState){
+    public static function stateActual(int $idResponsible, int $idState){
         return Incidence::select('incidence.id')
-                        ->where('incidence.reviewer',$idResponsable)
+                        ->where('incidence.reviewer',$idResponsible)
                         ->where('incidence.state_id',$idState)
                         ->get()
                         ->count();
@@ -167,9 +185,9 @@ class Incidence extends Model
      * Get incidence by district
      * @param int $idDistrict
      * @return array
-     * 
+     *
      */
-    public static function getIncidenceByDistrict($idDistrict)
+    public static function getIncidenceByDistrict(int $idDistrict): array
     {
         return Incidence::select('incidence.id')
                         ->where('incidence.district_id',$idDistrict)
@@ -181,10 +199,11 @@ class Incidence extends Model
     /**
      * Get all incidences finished
      * @return int
-     * 
-     * 
+     *
+     *
     */
-    public static function finished(){
+    public static function finished(): int
+    {
         return Incidence::select('incidence.*')
                         ->where('incidence.state_id',2)
                         ->get()
@@ -194,9 +213,10 @@ class Incidence extends Model
     /**
      * Get incidences in progress
      * @return int
-     * 
+     *
      */
-    public static function inProgress(){
+    public static function inProgress(): int
+    {
         return Incidence::select('incidence.*')
                         ->where('incidence.state_id',1)
                         ->get()
@@ -206,9 +226,10 @@ class Incidence extends Model
     /**
      * Get incidences not assigned
      * @return int
-     * 
+     *
      */
-    public static function notAssigned(){
+    public static function notAssigned(): int
+    {
         return Incidence::select('incidence.*')
                         ->where('incidence.state_id',null)
                         ->get()

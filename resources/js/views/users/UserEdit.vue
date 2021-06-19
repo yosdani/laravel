@@ -40,7 +40,7 @@ export default {
         form: {
             email: '',
             name: '',
-            lastname: '',
+            lastName: '',
             phoneNumber: '',
             password: '',
             role:''
@@ -77,7 +77,7 @@ export default {
           .then(response=>{
               this.formIn.form.email = response.data.user.email;
               this.formIn.form.name = response.data.user.name;
-              this.formIn.form.lastname = response.data.user.lastname;
+              this.formIn.form.lastName = response.data.user.lastName;
               this.formIn.form.phoneNumber = response.data.user.phoneNumber;
               this.formIn.form.password = response.data.user.password;
               this.formIn.form.role = response.data.user.user_role[0].id;

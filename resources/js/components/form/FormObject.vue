@@ -27,12 +27,12 @@
                         ></b-form-input>
                     </b-form-group>
 
-                     <b-form-group v-if="formOut.formFrom == translate('general.users.user')" id="input-group-3" :label="translate('general.users.lastname')" label-for="input-3">
+                     <b-form-group v-if="formOut.formFrom == translate('general.users.user')" id="input-group-3" :label="translate('general.users.lastName')" label-for="input-3">
                         <b-form-input
                         id="input-3"
                         type="text"
-                        v-model="form.lastname"
-                        :placeholder="translate('general.users.lastname')"
+                        v-model="form.lastName"
+                        :placeholder="translate('general.users.lastName')"
                         ></b-form-input>
                     </b-form-group>
 
