@@ -25,6 +25,9 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
                 'index', 'store', 'show', 'update', 'destroy',
             ],
         ]);
+        //Route for historic
+        Route::get('historic', 'HistoricController@index');
+        Route::get('historic/{id}', 'HistoricController@show');
 
         //Route for news
         Route::resource('news', 'NewsController',[

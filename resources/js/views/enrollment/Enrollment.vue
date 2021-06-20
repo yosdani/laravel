@@ -31,32 +31,32 @@ export default {
     },
     data(){
         return {
-        items: [],
-        currentPage: 1,
-        totalRows: 0,
-        perPage: 15,
-        bItems: [
-            {
-                text: trans.translate('general.dashboard'),
-                to: { name: 'dashboard' }
-            },
-            {
-                text: 'Matriculas',
-                active: true
-            }
-        ],
-        fields: [
-            {
-                key: "name",
-                label: "Matricula",
-                sortable: true,
-                sortDirection: "desc",
-            },
-           { key: 'actions', label: trans.translate('general.actions')}
-        ],
-        actions:'admin/enrollment',
-        route:'/enrollment'
-    };
+            items: [],
+            currentPage: 1,
+            totalRows: 0,
+            perPage: 15,
+            bItems: [
+                {
+                    text: trans.translate('general.dashboard'),
+                    to: { name: 'dashboard' }
+                },
+                {
+                    text: trans.translate('general.enrolments.enrolment'),
+                    active: true
+                }
+            ],
+            fields: [
+                {
+                    key: "name",
+                    label: trans.translate('general.enrolments.enrolment'),
+                    sortable: true,
+                    sortDirection: "desc",
+                },
+                { key: 'actions', label: trans.translate('general.actions')}
+            ],
+            actions:'admin/enrollment',
+            route:'/enrollment'
+        }
   },
   created() {
       this.getEnrollment();

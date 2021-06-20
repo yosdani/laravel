@@ -56,6 +56,9 @@ import StreetEdit from './views/street/StreetEdit.vue';
 
 import Profile from './views/profile/Profile.vue';
 import WorkerAdd from './views/areas/WorkersAdd.vue';
+import Historic from './views/historic/Historic.vue';
+import HistoricShow from './views/historic/HistoricShow.vue';
+
 
 Vue.use(VueRouter);
 export	default	new	VueRouter({
@@ -264,10 +267,17 @@ export	default	new	VueRouter({
             path:'/workers/add/:id',
             name: "addWorker",
             component: WorkerAdd
-        }
-
-
-
+        },
+        {
+            path:'/historic',
+            name: "historic",
+            component: Historic
+        },
+        {
+            path:'/historic/:id',
+            name: "showHistoric",
+            component: HistoricShow
+        },
 
     ]
 });
