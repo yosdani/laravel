@@ -90,7 +90,7 @@
           <b-row>
               <b-col>
                   <RouterLink :to="route+'/edit/'+row.item.id"  v-if="allowEdit">
-                      <b-button variant="success" size="sm"><b-icon icon="pen" aria-hidden="true"></b-icon>  {{ translate('general.edit') }}
+                      <b-button variant="success" size="sm"><b-icon icon="pencil" aria-hidden="true"></b-icon>  {{ translate('general.edit') }}
                       </b-button>
                   </RouterLink>
               </b-col>

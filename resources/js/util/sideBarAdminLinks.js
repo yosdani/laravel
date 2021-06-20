@@ -4,6 +4,7 @@ let sideBarAdminLinks = [
     {
         name: "Dashboard",
         route: '/',
+        icon: 'clipboard-data',
         child: []
     },
     {
@@ -12,22 +13,12 @@ let sideBarAdminLinks = [
             {
                 name: trans.translate('general.news.news'),
                 route: "/news",
-                icon: 'list'
+                icon: 'newspaper'
             },
             {
                 name: trans.translate('general.categories.categories'),
                 route: "/categories",
-                icon: 'list'
-            },
-        ],
-    },
-    {
-        name: trans.translate('general.areas.areas'),
-        child: [
-            {
-                name: trans.translate('general.areas.areas'),
-                route: "/areas",
-                icon: 'list'
+                icon: 'layout-text-window-reverse'
             },
         ],
     },
@@ -37,44 +28,45 @@ let sideBarAdminLinks = [
             {
                 name: trans.translate('general.incidences.incidences'),
                 route: "/incidences",
-                icon: 'list'
+                icon: 'exclamation-circle'
             },
             {
                 name: trans.translate('general.states.states'),
                 route: "/states",
-                icon: 'list'
+                icon: 'toggles'
             },
             {
                 name: trans.translate('general.tags.tags'),
                 route: "/tags",
-                icon: 'list'
+                icon: 'tag'
             },
             {
                 name: trans.translate('general.enrolments.enrolments'),
                 route: "/enrollment",
-                icon: 'list'
+                icon: 'shield-exclamation'
             },
             {
                 name: trans.translate('general.districts.districts'),
                 route: "/district",
-                icon: 'list'
+                icon: 'geo-alt-fill'
             },
             {
                 name: trans.translate('general.streets.streets'),
                 route: "/street",
-                icon: 'list'
+                icon: 'signpost'
             },
             {
                 name: trans.translate('general.neighborhoods.neighborhoods'),
                 route: "/neighborhood",
-                icon: 'list'
+                icon: 'signpost2'
             },
             {
                 name: trans.translate('general.public_centers.public_centers'),
                 route: "/public_center",
-                icon: 'list'
+                icon: 'intersect'
             },
         ],
+        icon: 'exclamation-circle'
     },
     {
         name: trans.translate('general.users.users'),
@@ -82,19 +74,26 @@ let sideBarAdminLinks = [
             {
                 name: trans.translate('general.users.users'),
                 route: "/users",
-                icon: 'list'
+                icon: 'people'
             },
              {
                  name: trans.translate('general.roles.roles'),
                  route: "/roles",
-                 icon: 'list'
+                 icon: 'people-fill'
              },
         ],
+        icon: 'file-person'
+    },
+    {
+        name: trans.translate('general.areas.areas'),
+        route: "/areas",
+        icon: 'exclude',
+        child: []
     },
     {
         name: trans.translate('general.historic.historic'),
         route: "/historic",
-        icon: '',
+        icon: 'clock',
         child: []
     },
 

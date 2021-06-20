@@ -26,6 +26,7 @@
           v-b-toggle="'collapse' + i"
           class="m-1 nav-title-sidebar"
         >
+            <b-icon v-if="element.icon" :icon="element.icon"></b-icon>
           {{ element.name }}
           <b-icon
             icon="text-right"

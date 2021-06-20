@@ -5,7 +5,6 @@ use App\Area;
 use App\Historic;
 use App\Http\Util\EntityChanges;
 use App\Incidence;
-use App\Mail\IncidenceMails;
 use App\Notifications\IncidenceCreatedNotification;
 use App\Notifications\IncidenceEditedNotification;
 use App\State;
