@@ -10,6 +10,7 @@ export const store = new Vuex.Store({
            name: null,
            lastName: null,
            email: null,
+           filters: null,
            _token: null
        }
     },
@@ -22,6 +23,7 @@ export const store = new Vuex.Store({
             state.user.name = payload.name;
             state.user.lastName = payload.lastName;
             state.user.email = payload.email;
+            state.user.filters = payload.filters;
         },
         setToken(state, payload){
            state.user._token = payload

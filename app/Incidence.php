@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Incidence extends Model
 {
@@ -141,9 +142,11 @@ class Incidence extends Model
      * @param int $idResponsable
      * @return array
      */
-    public static function incidencesTotalByArea($idResponsable){
+    public static function incidencesTotalByArea($idResponsable, $dateInit, $dateEnd){
         return Incidence::select('incidence.id')
                         ->where('incidence.reviewer',$idResponsable)
+                        ->where('incidence.created_at','>=',$dateInit)
+                        ->where('incidence.created_at','<=',$dateEnd)
                         ->get()
                         ->count();
     }
@@ -152,13 +155,19 @@ class Incidence extends Model
      * Get all incidences finished
      * @param int $idResponsable
      * @param int $idState
+     * @param Carbon $dateInit
+     * @param Carbon $dateEnd
+     * @param array $tags
      * @return array
      * 
      */
-    public static function stateActual($idResponsable, $idState){
+    public static function stateActual($idResponsable, $idState, $dateInit, $dateEnd, $tags){
         return Incidence::select('incidence.id')
                         ->where('incidence.reviewer',$idResponsable)
                         ->where('incidence.state_id',$idState)
+                        ->where('incidence.created_at','>=',$dateInit)
+                        ->where('incidence.created_at','<=',$dateEnd)
+                        ->whereIn('incidence.tags',$tags)
                         ->get()
                         ->count();
     }
@@ -180,37 +189,67 @@ class Incidence extends Model
 
     /**
      * Get all incidences finished
+     * @param Carbon $dateInit
+     * @param Carbon $dateEnd
      * @return int
      * 
      * 
     */
-    public static function finished(){
+    public static function finished( $dateInit, $dateEnd){
         return Incidence::select('incidence.*')
                         ->where('incidence.state_id',2)
+                        ->where('incidence.created_at','>=',$dateInit)
+                        ->where('incidence.created_at','<=',$dateEnd)
                         ->get()
                         ->count();
     }
 
     /**
      * Get incidences in progress
+     * @param Carbon $dateInit
+     * @param Carbon $dateEnd
+     * @param array $tags
      * @return int
      * 
      */
-    public static function inProgress(){
+    public static function inProgress( $dateInit, $dateEnd, $tags){
         return Incidence::select('incidence.*')
                         ->where('incidence.state_id',1)
+                        ->where('incidence.created_at','>=',$dateInit)
+                        ->where('incidence.created_at','<=',$dateEnd)
+                        ->whereIn('incidence.tags',$tags)
                         ->get()
                         ->count();
     }
 
     /**
      * Get incidences not assigned
+     * @param Carbon $dateInit
+     * @param Carbon $dateEnd
      * @return int
      * 
      */
-    public static function notAssigned(){
+    public static function notAssigned( $dateInit, $dateEnd){
         return Incidence::select('incidence.*')
                         ->where('incidence.state_id',null)
+                        ->where('incidence.created_at','>=',$dateInit)
+                        ->where('incidence.created_at','<=',$dateEnd)
+                        ->get()
+                        ->count();
+    }
+
+    /**
+     * Get all incidences
+     * @param Carbon $dateInit
+     * @param Carbon $dateEnd
+     * @return int
+     * 
+     */
+    public static function allIncidence($dateInit, $dateEnd)
+    {
+        return Incidence::select('incidence.id')
+                        ->where('incidence.created_at','>=',$dateInit)
+                        ->where('incidence.created_at','<=',$dateEnd)
                         ->get()
                         ->count();
     }

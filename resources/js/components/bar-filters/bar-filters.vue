@@ -4,7 +4,7 @@
             <div class="dropdown col-lg-5 label-filters">
                 <b-icon class="label-filters-calendar col-lg-2 "  icon="calendar2-week-fill"></b-icon>
                 <period-filter
-                    :range="'month'"
+                    :range="filters.period"
                 />
                 <drop-down />
                 <give-time
@@ -42,6 +42,7 @@ import EventBus from '../event-bus'
 import dropDown from "./period_filter/drop-down.vue"
 import giveTime from "./period_filter/give-time.vue"
 export default {
+    props: ['filters'],
     components:{
         TagsFilter,
         periodFilter,
@@ -61,6 +62,7 @@ export default {
     },
     mounted() {
         EventBus.$on('TIMER',payload=>{
+            EventBus.$emit('GET_TIMER_FILTERS', payload);
             if(payload === 'period'){
                 this.rangeTime = true;
             }else{
@@ -74,16 +76,10 @@ export default {
                 this.details = false;
             }
         })
-        EventBus.$on( 'GET_TAGS', payload=> {
-            console.log(payload);
-        })
-        EventBus.$on('GET_STATES', payload=> {
-            console.log(payload);
-        })
     },
     methods:{
         giveNewDates(event){
-
+            EventBus.$emit('GET_TIMER_PERIOD', event);
         },
         getTags(){
             axios.get(window.origin+'/admin/all/tags')

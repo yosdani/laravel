@@ -42,7 +42,7 @@ export default {
         case trans.translate('general.graph.last_year'):EventBus.$emit('TIMER','year');break;
         case trans.translate('general.graph.last_month'):EventBus.$emit('TIMER','month');break;
         case trans.translate('general.graph.last_week'):EventBus.$emit('TIMER','week');break;
-        case trans.translate('general.graph.last_today'):EventBus.$emit('TIMER','day');break;
+        case trans.translate('general.graph.today'):EventBus.$emit('TIMER','day');break;
         case trans.translate('general.graph.period'):EventBus.$emit('TIMER','period');break;
       }
     }

@@ -1,6 +1,6 @@
 <template>
     <div style="margin-top: 20px;">
-        <bar-filters />
+        <bar-filters :filters="filters"/>
         <bar-statistics />
         <div class="row container-card">
             <div class="graphics-card col-lg-8 col-md-12 col-sm-12">
@@ -29,6 +29,17 @@ import Accordion from "./components/listWorkers/lists"
 import Lists from "./components/listWorkers/lists";
 import EventBus from '../../components/event-bus';
 export default {
+    data() {
+        return{
+            filters:{
+                period:'',
+                dateInit:'',
+                dateEnd:'',
+                tags:[],
+                states:[]
+            }
+        }
+    },
     components:{
         Lists,
         Graphic,
@@ -38,20 +49,65 @@ export default {
         GraphicRadar
     },
     created() {
-        this.getStatistics();
-        this.getDashboardBar();
-        this.getDashboardRadar();
-        this.getDashboardTeams();
+        this.filters.period = this.$store.state.user.filters?this.$store.state.user.filters.period:'year';
+        this.filters.dateInit = this.$store.state.user.filters?this.$store.state.user.filters.dateInit:null;
+        this.filters.dateEnd = this.$store.state.user.filters?this.$store.state.user.filters.dateEnd:null;
+        this.filters.tags = this.$store.state.user.filters?this.$store.state.user.filters.tags:null;
+        this.filters.states = this.$store.state.user.filters?this.$store.state.user.filters.states:null;
+        this.getStatistics( this.filters );
+        this.getDashboardBar( this.filters );
+        this.getDashboardRadar( this.filters );
+        this.getDashboardTeams( this.filters );
+    },
+    mounted() {
+        EventBus.$on('GET_TIMER_FILTERS', payload=>{
+            this.filters.period = payload;
+            if(payload != 'period'){
+                this.getStatistics( this.filters );
+                this.getDashboardBar( this.filters );
+                this.getDashboardRadar( this.filters );
+                this.getDashboardTeams( this.filters );
+            }
+        });
+        EventBus.$on('GET_TIMER_PERIOD', payload =>{
+            this.filters.dateInit = payload[0];
+            this.filters.dateEnd = payload[1];
+
+            this.getDashboardBar( this.filters );
+            this.getDashboardRadar( this.filters );
+        });
+        EventBus.$on('GET_TAGS', payload=> {
+            let tags = [];
+            payload.map(tag => {
+                tags.push(tag.id);
+            })
+            this.filters.tags = tags;
+
+            this.getDashboardBar( this.filters );
+            this.getDashboardRadar( this.filters );
+        })
+        EventBus.$on('GET_STATES', payload=> {
+            let states = [];
+            payload.map( state => {
+                states.push( state.id );
+            })
+            this.filters.states = states;
+
+            this.getStatistics( this.filters );
+            this.getDashboardBar( this.filters );
+            this.getDashboardRadar( this.filters );
+            this.getDashboardTeams( this.filters );
+        })
     },
     methods: {
-        getStatistics(){
-            axios.get(window.origin + '/admin/dashboard/general')
+        getStatistics( filter_time ){
+            axios.post(window.origin + '/admin/dashboard/general',filter_time)
             .then(response => {
                 EventBus.$emit('GET_GENERAL_STATISTICS', response.data );
             })
         },
-        getDashboardBar(){
-            axios.get(window.origin + '/admin/dashboard/bar')
+        getDashboardBar( filter_time ){
+            axios.post(window.origin + '/admin/dashboard/bar',filter_time)
             .then(response => {
                 let dataOfGraphicBar = {
                     type: "bar",
@@ -106,8 +162,8 @@ export default {
                 EventBus.$emit('GET_DATAS_GRAPHIC_BAR', dataOfGraphicBar );
             })
         },
-        getDashboardRadar(){
-            axios.get(window.origin + '/admin/dashboard/radar')
+        getDashboardRadar( filter_time ){
+            axios.post(window.origin + '/admin/dashboard/radar',filter_time)
             .then(response => {
                 let dataOfGraphicRadar = {
                     type: "radar",
@@ -138,8 +194,8 @@ export default {
                 EventBus.$emit('GET_DATAS_GRAPHIC_RADAR', dataOfGraphicRadar );
             })
         },
-        getDashboardTeams(){
-            axios.get(window.origin + '/admin/dashboard/teams')
+        getDashboardTeams( filter_time ){
+            axios.post(window.origin + '/admin/dashboard/teams',filter_time)
             .then(response => {
                 EventBus.$emit('GET_DATAS_CARD_WORKERS', response.data );
             })

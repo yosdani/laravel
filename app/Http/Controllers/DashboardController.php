@@ -8,18 +8,24 @@ use App\Area;
 use App\Incidence;
 use App\District;
 use App\User;
+use Carbon\Carbon;
+use App\Tags;
+use App\State;
 
 class DashboardController extends Controller
 {
     /**
      * Get all information about bar graphic
+     * @param Request $request
      * @return JsonResponse
      * 
      * 
      */
-    public function bar():JsonResponse
+    public function bar( Request $request ):JsonResponse
     {
-        $areas = Area::information();
+        $filters = $this->getFilters($request);
+        
+        $areas = Area::information( $filters['dateInit'], $filters['dateEnd'] );
 
         $totalIncidences = [];
         $totalIncidencesFinished = [];
@@ -28,16 +34,16 @@ class DashboardController extends Controller
         $names = [];
 
         foreach ($areas as $area){
-            $totalIncidences [] = Incidence::incidencesTotalByArea( $area->user_id );
+            $totalIncidences [] = Incidence::incidencesTotalByArea( $area->user_id, $filters['dateInit'], $filters['dateEnd'],$filters['tags'] );
 
-            $totalIncidencesFinished [] = Incidence::stateActual( $area->user_id, 2);
+            $totalIncidencesFinished [] = Incidence::stateActual( $area->user_id, 2, $filters['dateInit'], $filters['dateEnd'],$filters['tags']);
 
-            $totalIncidencesInProgress [] = Incidence::stateActual( $area->user_id, 1);
+            $totalIncidencesInProgress [] = Incidence::stateActual( $area->user_id, 1, $filters['dateInit'], $filters['dateEnd'],$filters['tags']);
 
-            $totalIncidencesUnsigned [] = Incidence::stateActual( $area->user_id, null);
+            $totalIncidencesUnsigned [] = Incidence::stateActual( $area->user_id, null, $filters['dateInit'], $filters['dateEnd'],$filters['tags']);
         }
 
-        foreach(Area::names() as $name) {
+        foreach(Area::names( $filters['dateInit'], $filters['dateEnd'] ) as $name) {
             $names[]= $name->name;
         }
 
@@ -52,22 +58,25 @@ class DashboardController extends Controller
 
     /**
      * Get all information about radar graphic
+     * @param Request $request
      * @return JsonResponse
      * 
      */
-    public function radar():JsonResponse
+    public function radar( Request $request ):JsonResponse
     {
-        $district = District::information();
+        $filters = $this->getFilters( $request );
+
+        $district = District::information( $filters['dateInit'], $filters['dateEnd'] );
 
         $incidenceByDistrict = [];
 
         foreach ($district as $dist){
-            $incidenceByDistrict [] = Incidence::getIncidenceByDistrict( $dist->id );
+            $incidenceByDistrict [] = Incidence::getIncidenceByDistrict( $dist->id, $filters['dateInit'], $filters['dateEnd'],$filters['tags'], $filters['states'] );
         }
 
         $names = [];
 
-        foreach(District::names() as $name) {
+        foreach(District::names( $filters['dateInit'], $filters['dateEnd'] ) as $name) {
             $names[]= $name->district;
         }
 
@@ -79,15 +88,17 @@ class DashboardController extends Controller
 
     /**
      * Get teams of work, responsable and workers
+     * @param Request $request
      * @return JsonResponse
      * 
      */
-    public function teams():JsonResponse
+    public function teams( Request $request ):JsonResponse
     {
-        $areas = Area::information();
+        $filters = $this->getFilters( $request );
 
-        $workersByArea = [];
-        $responsablesByArea = [];
+        $areas = Area::information( $filters['dateInit'], $filters['dateEnd'] );
+
+        $workers = [];
 
         foreach ($areas as $area){
             $workers [] = [
@@ -105,16 +116,67 @@ class DashboardController extends Controller
 
     /**
      * Get general statistics
+     * @param Request $request
      * @return JsonResponse
      * 
      */
-    public function getStatistics():JsonResponse
+    public function getStatistics( Request $request ):JsonResponse
     {
+        $filters = $this->getFilters( $request );
+
         return response()->json([
-            'total' => Incidence::all()->count(),
-            'finished' => Incidence::finished(),
-            'in_progress' => Incidence::inProgress(),
-            'not_assigned' => Incidence::notAssigned()
+            'total' => Incidence::allIncidence($filters['dateInit'], $filters['dateEnd']),
+            'finished' => Incidence::finished( $filters['dateInit'], $filters['dateEnd'] ),
+            'in_progress' => Incidence::inProgress( $filters['dateInit'], $filters['dateEnd'], $filters['tags'] ),
+            'not_assigned' => Incidence::notAssigned( $filters['dateInit'], $filters['dateEnd'] )
         ]);
+    }
+
+    /**
+     * Get filters to all
+     * @param Request $request
+     * @return array
+     * 
+     */
+    private function getFilters( Request $request ): array
+    {
+        //dd($request);
+        $period = $request->period;
+
+        $this->saveFilters( 
+            $period, 
+            $request->dateInit,
+            $request->dateEnd,
+            $request->tags,
+            $request->states
+        );
+        $filters = json_decode(auth()->user()->filters);
+
+        if (!$filters->dateEnd)
+            $filters->dateEnd = Carbon::now()->endOfDay();
+            else {
+                $filters->dateEnd = new Carbon($filters->dateEnd);
+            }
+            // If the initial date is undefined
+        if (!$filters->dateInit) {
+            $filters->dateInit = $this->typeDateFilter($filters->dateEnd, $filters->period);
+            } else {
+                $filters->dateInit = new Carbon($filters->dateInit);
+            }
+
+        if( $filters->tags == null){
+            $filters->tags = Tags::allTags( $filters->dateInit, $filters->dateEnd);
+        }
+
+        if( $filters->states == null){
+            $filters->states = State::allStates( $filters->dateInit, $filters->dateEnd);
+        }
+
+        return array(
+            'dateInit' => $filters->dateInit,
+            'dateEnd' => $filters->dateEnd,
+            'tags' => $filters->tags,
+            'states' => $filters->states
+        );
     }
 }

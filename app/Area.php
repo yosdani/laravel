@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Carbon\Carbon;
 
 class Area extends Model
 {
@@ -54,19 +55,31 @@ class Area extends Model
 
     /**
      * Get all information of areas
+     * @param Carbon $dateInit
+     * @param Carbon $dateEnd
      * @return array
      *
      */
-    public static function information(){
-        return Area::select('area.*')->orderBy('created_at','asc')->get();
+    public static function information( $dateInit, $dateEnd){
+        return Area::select('area.*')
+                    ->where('area.created_at','>=',$dateInit)
+                    ->where('area.created_at','<=',$dateEnd)
+                    ->orderBy('created_at','asc')
+                    ->get();
     }
 
     /**
      * Get names of areas
+     * @param Carbon $dateInit
+     * @param Carbon $dateEnd
      * @return array
      *
      */
-    public static function names(){
-        return Area::select('area.name')->orderBy('created_at','asc')->get();
+    public static function names( $dateInit, $dateEnd){
+        return Area::select('area.name')
+                    ->where('created_at','>=',$dateInit)
+                    ->where('created_at','<=',$dateEnd)
+                    ->orderBy('created_at','asc')
+                    ->get();
     }
 }

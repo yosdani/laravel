@@ -22,8 +22,11 @@ export default {
             values:[],
         }
     },
-    updated(){
+    mounted(){
         this.values = this.tags;
+    },
+    updated(){
+        EventBus.$emit('GET_'+this.type, this.values);
     },
     components:{
         Multiselect
@@ -31,7 +34,6 @@ export default {
     methods:{
         addTag(newTag){
             this.values.push(newTag);
-            EventBus.$emit('GET_'+this.type, this.values);
         }
     }
 }

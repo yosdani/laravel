@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Tags extends Model
 {
@@ -21,4 +22,17 @@ class Tags extends Model
     protected $fillable = [
         'name',
     ];
+
+    /**
+     * Get tags 
+     * @param Carbon $dateInit
+     * @param Carbon $dateEnd
+     * @return Collection
+     */
+    public static function allTags( $dateInit, $dateEnd){
+        return Tags::select('tags.id')
+                    ->where('tags.created_at','>=',$dateInit)
+                    ->where('tags.created_at','<=',$dateEnd)
+                    ->get();
+    }
 }

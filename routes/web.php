@@ -165,13 +165,13 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
     Route::delete('category/{id}', ['uses'=>'CategoryController@destroy']);
 
     //Route for get datas of dashboard bar graphic
-    Route::get('dashboard/bar', 'DashboardController@bar');
+    Route::post('dashboard/bar', 'DashboardController@bar');
     //Route for get datas of dashboard radar graphic
-    Route::get('dashboard/radar', 'DashboardController@radar');
+    Route::post('dashboard/radar', 'DashboardController@radar');
     //Route for get datas of dashboard responsable and workers
-    Route::get('dashboard/teams', 'DashboardController@teams');
+    Route::post('dashboard/teams', 'DashboardController@teams');
     //Route for get general statistics
-    Route::get('dashboard/general', 'DashboardController@getStatistics');
+    Route::post('dashboard/general', 'DashboardController@getStatistics');
     });
 });
 

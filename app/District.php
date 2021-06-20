@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class District extends Model
 {
@@ -23,19 +24,31 @@ class District extends Model
 
     /**
      * Get all names of distinct
-     * @return array
+     * @param Carbon $dateInit
+     * @param Carbon $dateEnd
+     * @return Collection
      * 
      */
-    public static function names(){
-        return District::select('district.district')->orderBy('created_at','asc')->get();
+    public static function names( $dateInit, $dateEnd ){
+        return District::select('district.district')
+                        ->where('district.created_at','>=',$dateInit)
+                        ->where('district.created_at','<=',$dateEnd)
+                        ->orderBy('created_at','asc')
+                        ->get();
     }
 
     /**
      * Get all information of district
-     * @return array
+     * @param Carbon $dateInit
+     * @param Carbon $dateEnd
+     * @return Collection
      * 
      */
-    public static function information(){
-        return District::select('district.*')->orderBy('created_at','asc')->get();
+    public static function information( $dateInit, $dateEnd ){
+        return District::select('district.*')
+                        ->where('district.created_at','>=',$dateInit)
+                        ->where('district.created_at','<=',$dateEnd)
+                        ->orderBy('created_at','asc')
+                        ->get();
     }
 }

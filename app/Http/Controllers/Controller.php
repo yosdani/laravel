@@ -6,6 +6,9 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use App\User;
 
 /**
  * @OA\Info(
@@ -35,4 +38,57 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    /**
+     * Save the filters of user authenticate
+     * @param string $period
+     * @param Carbon $dateInit
+     * @param Carbon $dateEnd
+     * @param array $tags
+     * @param array $states
+     * 
+     * @return void 
+     * 
+     */
+    public function saveFilters( $period, $dateInit, $dateEnd, $tags, $states):void
+    {
+        $user = User::find(auth()->user()->id);
+
+        $user->filters=json_encode([
+                'period' => $period,
+                'dateInit' => $dateInit,
+                'dateEnd' => $dateEnd,
+                'tags' => $tags,
+                'states' => $states
+        ]);
+        $user->save();
+    }
+
+    /**
+     * Get date by period
+     * @param string $period
+     * @param Carbon $dateEnd
+     * @return Carbon
+     */
+    public function typeDateFilter($dateEnd, $type):Carbon
+    {
+        switch ($type) {
+        case 'year': {
+            $dateInit = new Carbon($dateEnd);
+            return $dateInit->subYear()->startOfDay();
+            }
+        case 'month': {
+            $dateInit = new Carbon($dateEnd);
+            return $dateInit->subMonth()->startOfDay();
+            }
+        case 'week': {
+            $dateInit = new Carbon($dateEnd);
+            return $dateInit->subWeek()->startOfDay();
+            }
+        case 'day': {
+            $dateInit = new Carbon($dateEnd);
+            return $dateInit->startOfDay();
+            }
+        }
+    }
 }
