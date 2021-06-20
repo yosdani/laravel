@@ -11,6 +11,7 @@ namespace App\Http\Controllers\Api;
 use App\Incidence;
 use App\Http\Controllers\Controller;
 use App\IncidenceImage;
+use App\Notifications\IncidenceEditedNotification;
 use Faker\Provider\Image;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;

@@ -8,7 +8,6 @@
                         id="input-2"
                         v-model="form.title"
                         :placeholder="translate('general.news.title')"
-                        required
                     ></b-form-input>
                 </b-form-group>
 
@@ -17,7 +16,6 @@
                         id="input-3"
                         v-model="form.area_id"
                         :options="formOut.areas"
-                        required
                     ></b-form-select>
                 </b-form-group>
 
@@ -26,7 +24,6 @@
                        id="input-3"
                        v-model="form.tags"
                        :options="formOut.tags"
-                       required
                        ></b-form-select>
                    </b-form-group>
                     </b-col>

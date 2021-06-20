@@ -38,6 +38,7 @@ export default {
           action: trans.translate('general.save'),
           actionMessage: trans.translate('general.edited') + trans.translate('general.art_female'),
           form: {
+              id: '',
               address: '',
               applicant: '',
               assigned_id: '',

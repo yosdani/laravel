@@ -43,8 +43,8 @@ export default {
       ],
       fields: [
           {
-              key: "name",
-              label: trans.translate('general.incidences.name'),
+              key: "title",
+              label: trans.translate('general.incidences.title'),
               sortable: true,
               sortDirection: "desc",
           },

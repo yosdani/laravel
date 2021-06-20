@@ -11,11 +11,13 @@ namespace App\Http\Controllers;
 use App\Incidence;
 use App\Http\Controllers\Controller;
 use App\IncidenceImage;
+use App\Notifications\IncidenceEditedNotification;
 use Exception;
 use Faker\Provider\Image;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -86,8 +88,6 @@ class IncidenceController extends Controller
 
         $incidence = Incidence::create($request->except('img'));
 
-
-
         if ($request->img) {
             $files[] = $request->img;
             foreach ($files as $file) {
@@ -109,26 +109,12 @@ class IncidenceController extends Controller
     public function update(Request $request, int $id): JsonResponse
     {
         $incidence = Incidence::find($id);
-        $oldIncidence = clone $incidence;
         if (!$incidence) {
             return response()->json("This incidence does not exist", '400');
         }
 
-        $oldState = $incidence->state_id;
-
         $incidence->update($request->all());
         $incidence->save();
-
-        if ($oldState != $incidence->state_id) {
-            try {
-                \Mail::to(User::find($incidence->user_id)->email)->send(new IncidenceMails($incidence, $oldIncidence[0]->images[0]->urlImage, 'La Incidencia a cambiado al estado: '+ State::find($incidence->state)->name));
-            } catch (Exception $exception) {
-                return response()->json([
-                    'success' => false,
-                    'message' => $exception
-                ]);
-            }
-        }
 
         return response()->json('updated', 200);
     }

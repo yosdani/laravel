@@ -6,9 +6,12 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Notifications\Notifiable;
 
 class Incidence extends Model
 {
+    use Notifiable;
+
     const IMAGE_PATH = 'public/images/incidences/';
     /**
      * The table associated with the model.
@@ -34,7 +37,7 @@ class Incidence extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo(Incidence::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function assignedTo(): BelongsTo
@@ -234,5 +237,17 @@ class Incidence extends Model
                         ->where('incidence.state_id',null)
                         ->get()
                         ->count();
+    }
+
+    /**
+     * Route notifications for the mail channel.
+     *
+     * @param  \Illuminate\Notifications\Notification  $notification
+     * @return array|string
+     */
+    public function routeNotificationForMail($notification)
+    {
+        return $this->user->email;
+
     }
 }
