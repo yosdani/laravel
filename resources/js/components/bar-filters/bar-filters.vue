@@ -4,7 +4,7 @@
             <div class="dropdown col-lg-5 label-filters">
                 <b-icon class="label-filters-calendar col-lg-2 "  icon="calendar2-week-fill"></b-icon>
                 <period-filter
-                    :range="filters.period"
+                    :range="filters?filters.period:'year'"
                 />
                 <drop-down />
                 <give-time
@@ -90,14 +90,15 @@ export default {
             .then(response=>{
                 this.tags = [];
                 response.data.tags.map(tag=>{
-                    this.filters.tags.map(t=>{
-                        if(t == tag.id){
-                            this.value_tags.push({
-                                id: t,
-                                name: tag.name
-                            })
-                        }
-                    })
+                    if(this.filters != null)
+                        this.filters.tags.map(t=>{
+                            if(t == tag.id){
+                                this.value_tags.push({
+                                    id: t,
+                                    name: tag.name
+                                })
+                            }
+                        })
                     this.tags.push({
                         id: tag.id,
                         name: tag.name
@@ -118,14 +119,15 @@ export default {
             .then(response=>{
                 this.states = []; 
                 response.data.states.map(states=>{
-                    this.filters.states.map(s=>{
-                        if(s == states.id){
-                            this.value_states.push({
-                                id: s,
-                                name: states.name
-                            })
-                        }
-                    })
+                    if(this.filters != null)
+                        this.filters.states.map(s=>{
+                            if(s == states.id){
+                                this.value_states.push({
+                                    id: s,
+                                    name: states.name
+                                })
+                            }
+                        })
                     this.states.push({
                         id: states.id,
                         name: states.name

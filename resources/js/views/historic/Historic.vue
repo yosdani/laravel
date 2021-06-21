@@ -92,7 +92,7 @@ export default {
                     this.perPage = response.data.historic.per_page;
                     this.currentPage = response.data.historic.current_page;
                     this.totalRows= response.data.historic.total;
-                    console.log('Id ' + this.items[0].id)
+                    //console.log('Id ' + this.items[0].id)
                 })
         }
     }

@@ -1,17 +1,17 @@
 <template>
+    <div>
+        <b-breadcrumb :items="bItems"></b-breadcrumb>
+        <b-card>
+            <b-card-header class="border-0">
+                <h3 class="mb-0">{{translate('general.historic.historic')}}</h3>
+            </b-card-header>
+            <b-card-body>
 
+            </b-card-body>
+        </b-card>
+    </div>
 </template>
-<div>
-<b-breadcrumb :items="bItems"></b-breadcrumb>
-<b-card>
-    <b-card-header class="border-0">
-        <h3 class="mb-0">{{translate('general.historic.historic')}}</h3>
-    </b-card-header>
-    <b-card-body>
 
-    </b-card-body>
-</b-card>
-</div>
 <script>
 import trans from '../../VueTranslation/Translation';
 export default {

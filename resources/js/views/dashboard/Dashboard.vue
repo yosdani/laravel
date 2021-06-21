@@ -49,10 +49,12 @@ export default {
         GraphicRadar
     },
     created() {
-        this.filters = JSON.parse(this.$store.state.user.filters);
-        if(this.filters.period == null){
-            this.filters.period = 'year';
-        }
+        if(JSON.parse(this.$store.state.user.filters) != null)
+            this.filters = JSON.parse(this.$store.state.user.filters);
+        if(this.filters != null)
+            if(this.filters.period == null){
+                this.filters.period = 'year';
+            }
         
         //this.getStatistics( this.filters );
         //this.getDashboardBar( this.filters );
