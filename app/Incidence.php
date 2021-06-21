@@ -247,7 +247,7 @@ class Incidence extends Model
      */
     public function routeNotificationForMail($notification)
     {
-        return $this->user->email;
+        return $notification->getUser()->email;
 
     }
 }

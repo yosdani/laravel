@@ -15,7 +15,7 @@ class IncidenceCreatedNotification extends Notification
     use Queueable;
 
     /**
-     * @var Authenticatable|null
+     * @var Authenticatable
      */
     private $user;
 
@@ -66,4 +66,14 @@ class IncidenceCreatedNotification extends Notification
             //
         ];
     }
+
+    /**
+     * @return Authenticatable
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+
 }

@@ -19,9 +19,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Mail\IncidenceMails;
-use JWTAuth;
 use App\State;
 use App\User;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 /**
  * Class IncidenceController
@@ -180,7 +180,7 @@ class IncidenceController extends Controller
     {
         $request->json()->all();
 
-        $incidence = Incidence::create($request->except('img'));
+        $incidence = Incidence::create($request->except(['img','user_id']));
         $incidence->user_id = JWTAuth::parseToken()->authenticate()->id;
         $incidence->save();
 
@@ -194,16 +194,6 @@ class IncidenceController extends Controller
             }
         }
         $incidence1=Incidence::where('id', $incidence->id)->with('images')->get();
-
-
-        try {
-            \Mail::to(JWTAuth::parseToken()->authenticate()->email)->send(new IncidenceMails($incidence, $incidence1[0]->images[0]->urlImage, 'Nueva Incidencia'));
-        } catch (Exception $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => $exception
-            ]);
-        }
 
         return response()->json($incidence1, 200);
     }
@@ -270,10 +260,8 @@ class IncidenceController extends Controller
         if (!$incidence) {
             return response()->json("This incidence does not exist", '400');
         }
-        $oldIncidence = clone $incidence;
-        $oldState = $incidence->state;
 
-        $incidence->name = $parameters['name'];
+        $incidence->title = $parameters['title'];
         $incidence->assigned_id = $parameters['assignedTo'];
         $incidence->deadLine = $parameters['deadLine'];
         $incidence->tags = $parameters['tags'];
@@ -291,17 +279,6 @@ class IncidenceController extends Controller
         $incidence->state = $parameters['idState'];
         $incidence->area_id = $parameters['areaId'];
         $incidence->save();
-
-        if ($oldState != $incidence->state) {
-            try {
-                \Mail::to(User::find($incidence->user_id)->email)->send(new IncidenceMails($incidence, $oldIncidence->images[0]->urlImage, 'La Incidencia a cambiado al estado: '+ State::find($incidence->state)->name));
-            } catch (Exception $exception) {
-                return response()->json([
-                    'success' => false,
-                    'message' => $exception
-                ]);
-            }
-        }
 
         return response()->json('updated', 200);
     }
