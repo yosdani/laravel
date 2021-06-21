@@ -42,6 +42,7 @@ export default {
             title: '',
             subTitle: '',
             content: '',
+            category_id: '',
             _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
         },
         uri:'admin/news',
@@ -65,6 +66,7 @@ export default {
               this.formIn.form.subTitle = response.data[0].subTitle;
               this.formIn.form.content = response.data[0].content;
               this.formIn.form.images = response.data[0].images;
+              this.formIn.form.category_id = response.data[0].category_id
           })
       }
   }

@@ -88,7 +88,6 @@ export default {
                   })
                   this.onReset(event);
                   this.$router.push(this.formOut.route);
-                  resolve({data});
               },
               (error) => {
               this.$swal.fire({

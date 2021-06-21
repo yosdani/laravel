@@ -112,6 +112,7 @@ class NewsController  extends Controller
         $news->title = $request->title;
         $news->subtitle = $request->subtitle;
         $news->content = $request->get('content');
+        $news->category_id = $request->category_id;
 
         $news->save();
 
