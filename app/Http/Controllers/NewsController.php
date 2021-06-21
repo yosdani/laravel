@@ -110,7 +110,7 @@ class NewsController  extends Controller
         }
 
         $news->title = $request->title;
-        $news->subtitle = $request->subTitle;
+        $news->subtitle = $request->subtitle;
         $news->content = $request->get('content');
 
         $news->save();
