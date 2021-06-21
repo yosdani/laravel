@@ -73,15 +73,11 @@ class IncidenceEditedNotification extends Notification
     }
 
     /**
-
-     * Get the array representation of the notification.
-
-     *
-
-     * @param  mixed  $notifiable
-
-     * @return array
-
+     * @return Authenticatable|null
      */
+    public function getUser()
+    {
+        return $this->user;
+    }
 
 }
