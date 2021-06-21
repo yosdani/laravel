@@ -159,9 +159,10 @@ class NewsController  extends Controller
 
     public function getB64Extension(string $base64Image, $full=null)
     {
-        preg_match("/^data:image\/(.*);base64/i", $base64Image, $imgExtension);
+        $parts = explode('/',$base64Image);
+        $ext = explode(';', $parts[1])[0];
 
-        return ($full) ? $imgExtension[0] : $imgExtension[1];
+        return ($full) ? $ext : null;
     }
 
     /**

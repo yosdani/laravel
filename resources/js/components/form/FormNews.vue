@@ -25,6 +25,7 @@
                         v-model="formOut.form.content"
                         :placeholder="translate('general.news.content')"
                         required
+                        rows="10"
                     ></b-form-textarea>
                 </b-form-group>
             </b-col>
@@ -75,7 +76,8 @@ export default {
           axios({
               method: vm.formOut.method,
               url: window.origin+'/'+vm.formOut.uri,
-              data: this.formOut.form
+              data: this.formOut.form,
+              headers: {'content-type': 'application/json'}
           }).then(response => {
                   this.$swal.fire({
                       position: 'top-end',
