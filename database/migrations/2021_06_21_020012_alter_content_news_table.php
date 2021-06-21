@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInterestCategoryTable extends Migration
+class AlterContentNewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateInterestCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('interest_category', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->timestamps();
+        Schema::table('news', function (Blueprint $table) {
+            $table->longText('content')->change();
+
         });
     }
 
@@ -27,6 +26,6 @@ class CreateInterestCategoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('interest_category');
+        //
     }
 }

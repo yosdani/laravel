@@ -63,6 +63,7 @@ export default {
         workers:[],
         enrollments:[],
         states:[],
+        areas: [],
         uri:'admin/incidences',
         method: 'PUT',
         route:'/incidences'

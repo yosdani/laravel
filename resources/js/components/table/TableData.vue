@@ -10,7 +10,7 @@
               id="filter-input"
               v-model="filter"
               type="search"
-              placeholder="Buscar"
+              :placeholder="translate('general.search')"
             ></b-form-input>
 
             <b-input-group-append>
@@ -23,7 +23,7 @@
       <b-col lg="6" class="my-1">
         <b-form-group
           v-model="sortDirection"
-          label="Filtrar por"
+          :label="translate('general.filter_by')"
           description=""
           label-cols-sm="3"
           label-align-sm="right"
@@ -36,13 +36,13 @@
             :aria-describedby="ariaDescribedby"
             class="mt-1"
           >
-            <b-form-checkbox v-show="items" v-for="field in fields" :key="field.key" @change="getFilterOn($event)" :value="field.key">{{field.label}}</b-form-checkbox>
+            <b-form-checkbox v-show="items" v-for="field in filterField" :key="field.key" @change="getFilterOn($event)" :value="field.key">{{field.label}}</b-form-checkbox>
           </b-form-checkbox-group>
         </b-form-group>
       </b-col>
         <b-col sm="6" md="3" class="my-1">
             <b-form-group
-                label="Por página"
+                :label="translate('pagination.per_page')"
                 label-for="per-page-select"
                 label-cols-sm="6"
                 label-cols-md="4"
@@ -88,23 +88,27 @@
         </template>
       <template #cell(actions)="row">
           <b-row>
-          <b-col>
-        <RouterLink :to="route+'/edit/'+row.item.id">
-            <b-button variant="success" size="sm"><b-icon icon="pen" aria-hidden="true"></b-icon>  {{ translate('general.edit') }}
-        </b-button>
-        </RouterLink>
-          </b-col>
-          <b-col v-if="route==='/areas'">
-            <RouterLink :to="'/workers/add/'+row.item.id">
-                <b-button variant="primary" size="sm"><b-icon icon="list" aria-hidden="true"></b-icon> {{ translate('general.areas.add_worker') }}
-            </b-button>
-            </RouterLink>
-          </b-col>
+              <b-col>
+                  <RouterLink :to="route+'/edit/'+row.item.id"  v-if="allowEdit">
+                      <b-button variant="success" size="sm"><b-icon icon="pencil" aria-hidden="true"></b-icon>  {{ translate('general.edit') }}
+                      </b-button>
+                  </RouterLink>
+              </b-col>
+              <b-col v-if="route==='/areas'">
+                  <RouterLink :to="'/workers/add/'+row.item.id">
+                      <b-button variant="primary" size="sm"><b-icon icon="list" aria-hidden="true"></b-icon> {{ translate('general.areas.add_worker') }}
+                      </b-button>
+                  </RouterLink>
+              </b-col>
           <b-col>
         <b-form>
-          <b-button variant="danger" type="submit" size="sm" @click="deleteUser(row.item,$event)">
-            <b-icon icon="trash-fill" aria-hidden="true"></b-icon> {{ translate('general.delete') }}
-          </b-button>
+            <b-button variant="danger" type="submit" size="sm" @click="deleteUser(row.item,$event)" v-if="allowDelete">
+                <b-icon icon="trash-fill" aria-hidden="true"></b-icon> {{ translate('general.delete') }}
+            </b-button>
+            <RouterLink :to="route+'/'+row.item.id"  v-if="allowShow">
+                <b-button variant="info" size="sm"><b-icon icon="eye" aria-hidden="true"></b-icon>  {{ translate('general.show') }}
+                </b-button>
+            </RouterLink>
         </b-form>
           </b-col>
           </b-row>
@@ -146,11 +150,16 @@ export default {
         sortDirection: 'asc',
         filter: null,
         filterOn: [],
-        uri:''
+        uri:'',
+        filterField: []
       }
     },
     created() {
       this.uri = window.origin;
+      this.fields.map(field => {
+        if( field.key != 'actions')
+          this.filterField.push(field);
+      })
     },
     components:{
     },
@@ -178,7 +187,16 @@ export default {
           .map(f => {
             return { text: f.label, value: f.key }
           })
-      }
+      },
+        allowEdit(){
+          return !(this.route === '/historic' || this.route === '/roles');
+        },
+        allowDelete(){
+            return !(this.route === '/historic' || this.route === '/roles');
+        },
+        allowShow(){
+            return (this.route === '/historic');
+        }
     },
     methods: {
       onFiltered(filteredItems) {
@@ -192,21 +210,20 @@ export default {
       deleteUser(item,event){
         event.preventDefault()
         this.$swal.fire({
-          title: 'Está seguro?',
-          text: "No va a ser posible revertir esta acción!",
+          title: trans.translate('general.are_you_sure'),
+          text: trans.translate('general.not_reversible'),
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
-          confirmButtonText: 'Si, eliminar!'
+          confirmButtonText: trans.translate('general.yes')
         }).then((result) => {
           if(result.isConfirmed) {
             axios.delete(window.origin+'/'+this.actions+'/'+item.id)
             .then(result => {
               EventBus.$emit('DELETED_ITEM_'+this.route);
               this.$swal.fire(
-                'Deleted!',
-                'Your file has been deleted.',
+                  trans.translate('general.deleted'),
                 'success'
               )
             })

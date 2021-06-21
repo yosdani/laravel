@@ -38,7 +38,7 @@ class IncidenceCreatedNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail','database'];
+        return ['mail'];
     }
 
     /**
@@ -65,15 +65,5 @@ class IncidenceCreatedNotification extends Notification
         return [
             //
         ];
-    }
-
-    public function toDatabase($notifiable)
-    {
-        return [
-            'user' => new UserResource($this->user),
-            'title' => $notifiable->title
-
-        ];
-
     }
 }

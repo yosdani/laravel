@@ -5,6 +5,7 @@ namespace App\Notifications;
 use App\Http\Resources\UserResource;
 use App\User;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -14,18 +15,24 @@ class IncidenceEditedNotification extends Notification
     use Queueable;
 
     /**
-     * @var \Illuminate\Contracts\Auth\Authenticatable|null
+     * @var Authenticatable|null
      */
     private $user;
+    /**
+     * @var array
+     */
+    private $changes;
 
     /**
      * Create a new notification instance.
      *
      * @param User $user
+     * @param array $changes
      */
-    public function __construct(User $user)
+    public function __construct(User $user, array $changes)
     {
         $this->user = $user;
+        $this->changes = $changes;
     }
 
     /**
@@ -36,7 +43,7 @@ class IncidenceEditedNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail','database'];
+        return ['mail'];
     }
 
     /**
@@ -48,7 +55,6 @@ class IncidenceEditedNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-
                     ->line('Se ha editado la incidencia '.$notifiable->title)
                     ->line('Thank you for using our application!');
     }
@@ -77,15 +83,5 @@ class IncidenceEditedNotification extends Notification
      * @return array
 
      */
-
-    public function toDatabase($notifiable)
-    {
-        return [
-            'user' => new UserResource($this->user),
-            'title' => $notifiable->title
-
-        ];
-
-    }
 
 }

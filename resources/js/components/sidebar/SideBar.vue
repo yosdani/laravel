@@ -26,6 +26,7 @@
           v-b-toggle="'collapse' + i"
           class="m-1 nav-title-sidebar"
         >
+            <b-icon v-if="element.icon" :icon="element.icon"></b-icon>
           {{ element.name }}
           <b-icon
             icon="text-right"
@@ -97,10 +98,14 @@ export default {
 .nav-title-sidebar a {
     color: white!important;
 }
+.nav-title-sidebar a:hover {
+    text-decoration: none!important;
+}
 .nav-body-sidebar a {
     color: white!important;
     font-size: 16px;
     line-height: 1.8em;
+    text-decoration: none!important;
 }
 .b-sidebar-outer {
     max-width: $sidebar-width;

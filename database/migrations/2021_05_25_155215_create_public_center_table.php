@@ -15,7 +15,7 @@ class CreatePublicCenterTable extends Migration
     {
         Schema::create('public_center', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->unique();
             $table->timestamps();
         });
     }

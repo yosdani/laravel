@@ -15,5 +15,6 @@ return [
 
     'previous' => '« Anterior',
     'next' => 'Siguiente »',
+    'per_page' => 'Por página'
 
 ];

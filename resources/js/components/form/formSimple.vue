@@ -12,28 +12,28 @@
                     ></b-form-input>
                 </b-form-group>
 
-                <b-form-group v-if="formOut.formFrom == translate('general.streets.street')" id="input-group-1" :label="formOut.label" label-for="input-1">
+                <b-form-group v-if="formOut.formFrom == translate('general.streets.street')" id="input-group-2" :label="formOut.label" label-for="input-2">
                     <b-form-input
-                        id="input-1"
+                        id="input-2"
                         v-model="form.street"
                         :placeholder="formOut.placeholder"
                         :required="formOut.required"
                     ></b-form-input>
                 </b-form-group>
 
-                <b-form-group v-if="formOut.formFrom == translate('general.streets.street')" id="input-group-2" :label="translate('general.streets.number')" label-for="input-2">
+                <b-form-group v-if="formOut.formFrom == translate('general.streets.street')" id="input-group-3" :label="translate('general.streets.number')" label-for="input-3">
                     <b-form-input
                         type="number"
-                        id="input-2"
+                        id="input-3"
                         v-model="form.number"
                         :placeholder="translate('general.streets.number')"
                         :required="formOut.required"
                     ></b-form-input>
                 </b-form-group>
 
-                <b-form-group v-if="formOut.formFrom == translate('general.areas.area')" id="input-group-3" :label="translate('general.areas.add_resp')" label-for="input-3">
+                <b-form-group v-if="formOut.formFrom == translate('general.areas.area')" id="input-group-4" :label="translate('general.areas.add_resp')" label-for="input-4">
                     <b-form-select
-                        id="input-3"
+                        id="input-4"
                         v-model="form.user_id"
                         :options="formOut.array"
                     ></b-form-select>

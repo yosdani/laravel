@@ -10,10 +10,14 @@ return [
     'cancel' => 'Cancelar',
     'total' => 'Total',
     'name' => 'Nombre',
+    'search' => 'Buscar',
     'apply' => 'Aplicar',
     'actions' => 'Acciones',
     'back' => 'Volver',
     'dashboard' => 'Dashboard',
+    'show' => 'Mostrar',
+    'date' => 'Fecha',
+    'filter_by' => 'Filtrar por',
     'select' => 'Seleccione una opción',
     'select_file' => 'Seleccione un fichero o suéltelo aquí...',
     'drop_file' => 'Suéltelo aquí...',
@@ -25,6 +29,10 @@ return [
     'art_female' => 'la ',
     'button_add' => 'Adicionar',
     'loading' => 'Cargando...',
+    'not_reversible' => 'No es posible revertir esta acción!',
+    'are_you_sure' => '¿Está seguro?',
+    'yes' => 'Si',
+    'no' => 'No',
      'news' => [
          'news' => 'Noticias',
          'new' => 'Noticia',
@@ -76,7 +84,8 @@ return [
         'add_worker' => 'Asignar Trabajador',
         'state' => 'Estado',
         'add_area' => 'Asignar Área',
-        'add_tag' => 'Asignar Etiqueta'
+        'add_tag' => 'Asignar Etiqueta',
+        'responseForCitizen' => 'Respuesta al ciudadano'
     ],
     'districts' => [
         'districts' => 'Distritos',
@@ -121,5 +130,10 @@ return [
     ],
     'card_workers' => [
         'not_assigned' => 'No tiene responsable asignado'
+    ],
+    'historic' => [
+        'historic' => 'Histórico',
+        'field' => 'Datos modificados',
+        'area' => 'Área'
     ]
 ];

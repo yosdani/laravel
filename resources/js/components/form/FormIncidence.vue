@@ -19,9 +19,9 @@
                     ></b-form-select>
                 </b-form-group>
 
-                 <b-form-group id="input-group-3" :label="translate('general.incidences.add_tag')" label-for="input-3">
+                 <b-form-group id="input-group-4" :label="translate('general.incidences.add_tag')" label-for="input-4">
                        <b-form-select
-                       id="input-3"
+                       id="input-4"
                        v-model="form.tags"
                        :options="formOut.tags"
                        ></b-form-select>
@@ -36,18 +36,18 @@
                             ></b-form-select>
                         </b-form-group>
 
-                        <b-form-group id="input-group-3" :label="translate('general.enrolments.enrolment')" label-for="input-3">
+                        <b-form-group id="input-group-6" :label="translate('general.enrolments.enrolment')" label-for="input-6">
                             <b-form-select
-                                id="input-3"
+                                id="input-6"
                                 v-model="form.enrolment_id"
                                 :options="formOut.enrollments"
                             ></b-form-select>
                         </b-form-group>
 
-                        <b-form-group id="input-group-4" :label="translate('general.incidences.add_worker')" label-for="input-4">
+                        <b-form-group id="input-group-7" :label="translate('general.incidences.add_worker')" label-for="input-7">
                             <b-form-select
-                                id="input-4"
-                                v-model="form.assignedTo"
+                                id="input-7"
+                                v-model="form.assigned_id"
                                 :options="formOut.workers"
                             ></b-form-select>
                         </b-form-group>
@@ -104,14 +104,14 @@ export default {
         })
       },
       onReset(event) {
-        event.preventDefault()
-        // Reset our form values
-        this.form = this.formOut;
-        // Trick to reset/clear native browser form validation state
-        this.show = false
-        this.$nextTick(() => {
-          this.show = true
-        })
+          event.preventDefault()
+          // Reset our form values
+          this.form = this.formOut;
+          // Trick to reset/clear native browser form validation state
+          this.show = false
+          this.$nextTick(() => {
+              this.show = true
+          })
       }
     }
 }

@@ -3,8 +3,12 @@
       <b-breadcrumb :items="bItems"></b-breadcrumb>
       <b-card>
           <b-card-header class="border-0">
-              <h3 class="mb-0 name-model">{{translate('general.news.news')}}</h3>
-              <button-add :options="options"/>
+              <h3 class="mb-0 d-inline-block">{{translate('general.news.news')}}</h3>
+              <RouterLink :to="route+'/new'" class="float-right">
+                  <b-button variant="primary" size="sm">
+                      <b-icon icon="plus-circle" aria-hidden="true"></b-icon>  {{ translate('general.add') }}
+                  </b-button>
+              </RouterLink>
           </b-card-header>
           <b-card-body>
               <table-data
@@ -62,7 +66,7 @@ export default {
                 sortable: true,
                 sortDirection: "desc",
             },
-            { key: 'actions', label: trans.translate('general.edit') }
+            { key: 'actions', label: trans.translate('general.actions') }
         ],
         actions:'admin/news',
         route:'/news'

@@ -49,12 +49,11 @@ class IncidenceController extends Controller
      */
     public function index(): JsonResponse
     {
+        $incidences = Incidence::where('user_id',JWTAuth::parseToken()->authenticate()->id)->with('images')
+            ->paginate(15);
         return response()->json([
             'success' =>true,
-            'incidences'
-            =>(new Incidence)->incidencesByUserId(JWTAuth::parseToken()->authenticate()->id)
-            ->with('images')
-            ->paginate(15)
+            'incidences'=> $incidences
         ], 200);
     }
 

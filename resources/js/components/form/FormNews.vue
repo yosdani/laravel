@@ -25,6 +25,7 @@
                         v-model="formOut.form.content"
                         :placeholder="translate('general.news.content')"
                         required
+                        rows="10"
                     ></b-form-textarea>
                 </b-form-group>
             </b-col>
@@ -72,32 +73,29 @@ export default {
       onSubmit(event) {
         let vm = this;
         event.preventDefault();
-        fetch(window.origin+'/'+vm.formOut.uri,{
-            method: vm.formOut.method,
-            headers:{
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(this.formOut.form)
-        })
-        .then(response => response.json())
-        .then(response=>{
-            this.$swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: this.formOut.actionMessage + this.formOut.formFrom.toLowerCase(),
-                showConfirmButton: false,
-                timer: 1500
-            })
-            this.onReset(event);
-            this.$router.push(this.formOut.route);
-        })
-        .catch(err =>{
-            this.$swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: trans.translate('general.error_message'),
-            })
-        })
+          axios({
+              method: vm.formOut.method,
+              url: window.origin+'/'+vm.formOut.uri,
+              data: this.formOut.form,
+              headers: {'content-type': 'application/json'}
+          }).then(response => {
+                  this.$swal.fire({
+                      position: 'top-end',
+                      icon: 'success',
+                      title: this.formOut.actionMessage + this.formOut.formFrom.toLowerCase(),
+                      showConfirmButton: false,
+                      timer: 1500
+                  })
+                  this.onReset(event);
+                  this.$router.push(this.formOut.route);
+              },
+              (error) => {
+              this.$swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: trans.translate('general.error_message'),
+              })
+          });
       },
       onReset(event) {
         event.preventDefault()

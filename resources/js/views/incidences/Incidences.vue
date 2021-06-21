@@ -4,7 +4,7 @@
       <b-card>
           <b-card-header class="border-0">
               <h3 class="mb-0 name-model">{{translate('general.incidences.incidences')}}</h3>
-              <button-export class="float-right" :options="''"></button-export>
+              <!--<button-export class="float-right" :options="''"></button-export>-->
           </b-card-header>
           <b-card-body>
               <table-data

@@ -3,8 +3,12 @@
       <b-breadcrumb :items="bItems"></b-breadcrumb>
       <b-card>
           <b-card-header class="border-0">
-              <h3 class="mb-0 name-model">{{translate('general.enrolments.enrolments')}}</h3>
-              <button-add :options="options"/>
+              <h3 class="mb-0 d-inline-block">{{translate('general.enrolments.enrolments')}}</h3>
+              <RouterLink :to="route+'/new'" class="float-right">
+                  <b-button variant="primary" size="sm">
+                      <b-icon icon="plus-circle" aria-hidden="true"></b-icon>  {{ translate('general.add') }}
+                  </b-button>
+              </RouterLink>
           </b-card-header>
           <b-card-body>
               <table-data
@@ -34,33 +38,32 @@ export default {
     },
     data(){
         return {
-        items: [],
-        currentPage: 1,
-        options:'/enrollment/new',
-        totalRows: 0,
-        perPage: 15,
-        bItems: [
-            {
-                text: trans.translate('general.dashboard'),
-                to: { name: 'dashboard' }
-            },
-            {
-                text: 'Matriculas',
-                active: true
-            }
-        ],
-        fields: [
-            {
-                key: "name",
-                label: "Matricula",
-                sortable: true,
-                sortDirection: "desc",
-            },
-           { key: 'actions', label: trans.translate('general.actions')}
-        ],
-        actions:'admin/enrollment',
-        route:'/enrollment'
-    };
+            items: [],
+            currentPage: 1,
+            totalRows: 0,
+            perPage: 15,
+            bItems: [
+                {
+                    text: trans.translate('general.dashboard'),
+                    to: { name: 'dashboard' }
+                },
+                {
+                    text: trans.translate('general.enrolments.enrolment'),
+                    active: true
+                }
+            ],
+            fields: [
+                {
+                    key: "name",
+                    label: trans.translate('general.enrolments.enrolment'),
+                    sortable: true,
+                    sortDirection: "desc",
+                },
+                { key: 'actions', label: trans.translate('general.actions')}
+            ],
+            actions:'admin/enrollment',
+            route:'/enrollment'
+        }
   },
   created() {
       this.getEnrollment();

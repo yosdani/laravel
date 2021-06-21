@@ -22,9 +22,12 @@ class TagsSeeder extends Seeder
             'Notificación 72h'
         ];
         foreach ($array as $tag) {
-            $newtag = new Tags();
-            $newtag->name = $tag;
-            $newtag->save();
+            if(!Tags::where('name',$tag)->first()){
+                $newtag = new Tags();
+                $newtag->name = $tag;
+                $newtag->save();
+            }
+
         }
     }
 }
