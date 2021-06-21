@@ -36,11 +36,11 @@
                                         </b-form-group>
                                         <b-form-group
                                             id="input-group-2"
-                                            :label="translate('general.users.name')"
-                                            label-for="lastname"
+                                            :label="translate('general.users.lastName')"
+                                            label-for="lastName"
                                         >
                                             <b-form-input
-                                                id="lastname"
+                                                id="lastName"
                                                 v-model="form.lastName"
                                                 type="text"
                                             ></b-form-input>
@@ -149,40 +149,31 @@ export default {
                     if(null == vm.form.password_repeat || 0 === vm.form.password_repeat.length){
                         payload.password = null;
                     }
-                    fetch(window.origin+'/admin/change-password',{
-                        method: 'POST',
-                        headers:{
-                            'content-type': 'application/json'
-                        },
-                        body: JSON.stringify(payload)
-                    })
-                        .then(response => response.json())
-                        .then(response=>{
-                            if(response.success){
-                                vm.$store.dispatch('updateUser', response.user);
-                                this.$swal.fire({
-                                    position: 'top-end',
-                                    icon: 'success',
-                                    title: trans.translate('general.users.profile_success'),
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                })
-                            }else{
-                                this.$swal.fire({
-                                    icon: 'error',
-                                    title: 'Oops...',
-                                    text: response.message,
-                                })
-                            }
-
-                        })
-                        .catch(err =>{
+                    axios.post(window.origin+'/admin/change-password',
+                        payload).then(response => {
+                        if(response.data.success){
+                            vm.$store.dispatch('updateUser', response.data.user);
+                            this.$swal.fire({
+                                position: 'top-end',
+                                icon: 'success',
+                                title: trans.translate('general.users.profile_success'),
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        }else{
                             this.$swal.fire({
                                 icon: 'error',
                                 title: 'Oops...',
-                                text: trans.translate('general.error_message'),
+                                text: response.data.message,
                             })
+                        }
+                    },(error)=>{
+                        this.$swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: trans.translate('general.error_message'),
                         })
+                    });
                 }
         },
         onReset(){
