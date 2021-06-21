@@ -12,12 +12,15 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        $categoryOne = new Category();
-        $categoryOne->name = 'Categoria 1';
-        $categoryOne->save();
-
-        $categoryTwo = new Category();
-        $categoryTwo->name = 'Categoria 2';
-        $categoryTwo->save();
+        if(!Category::where('name','Categoria 1')->first()){
+            $categoryOne = new Category();
+            $categoryOne->name = 'Categoria 1';
+            $categoryOne->save();
+        }
+        if(!Category::where('name','Categoria 2')->first()){
+            $categoryTwo = new Category();
+            $categoryTwo->name = 'Categoria 2';
+            $categoryTwo->save();
+        }
     }
 }

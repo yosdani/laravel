@@ -3,7 +3,12 @@
       <b-breadcrumb :items="bItems"></b-breadcrumb>
       <b-card>
           <b-card-header class="border-0">
-              <h3 class="mb-0">{{translate('general.streets.streets')}}</h3>
+              <h3 class="mb-0 d-inline-block">{{translate('general.streets.streets')}}</h3>
+              <RouterLink :to="route+'/new'" class="float-right">
+                  <b-button variant="primary" size="sm">
+                      <b-icon icon="plus-circle" aria-hidden="true"></b-icon>  {{ translate('general.add') }}
+                  </b-button>
+              </RouterLink>
           </b-card-header>
           <b-card-body>
               <table-data

@@ -12,19 +12,24 @@ class UserRolesSeeder extends Seeder
      */
     public function run()
     {
-        //create Admin role
-        $role = new Role();
-        $role ->name = 'Admin';
-        $role ->save();
+        if(!Role::where('name', 'Admin')->first()){
+            //create Admin role
+            $role = new Role();
+            $role ->name = 'Admin';
+            $role ->save();
+        }
+        if(!Role::where('name', 'Responsable')->first()){
+            //create Responsable role
+            $role = new Role();
+            $role ->name = 'Responsable';
+            $role ->save();
+        }
+        if(!Role::where('name', 'Trabajador')->first()){
+            //create Worker role
+            $role = new Role();
+            $role ->name = 'Trabajador';
+            $role ->save();
+        }
 
-        //create Responsable role
-        $role = new Role();
-        $role ->name = 'Responsable';
-        $role ->save();
-
-        //create Worker role
-        $role = new Role();
-        $role ->name = 'Trabajador';
-        $role ->save();
     }
 }

@@ -21,6 +21,7 @@ let sideBarAdminLinks = [
                 icon: 'layout-text-window-reverse'
             },
         ],
+        icon: 'newspaper'
     },
     {
         name: trans.translate('general.incidences.incidences'),

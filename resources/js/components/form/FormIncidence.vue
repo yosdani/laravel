@@ -47,7 +47,7 @@
                         <b-form-group id="input-group-4" :label="translate('general.incidences.add_worker')" label-for="input-4">
                             <b-form-select
                                 id="input-4"
-                                v-model="form.assignedTo"
+                                v-model="form.assigned_id"
                                 :options="formOut.workers"
                             ></b-form-select>
                         </b-form-group>
@@ -104,14 +104,14 @@ export default {
         })
       },
       onReset(event) {
-        event.preventDefault()
-        // Reset our form values
-        this.form = this.formOut;
-        // Trick to reset/clear native browser form validation state
-        this.show = false
-        this.$nextTick(() => {
-          this.show = true
-        })
+          event.preventDefault()
+          // Reset our form values
+          this.form = this.formOut;
+          // Trick to reset/clear native browser form validation state
+          this.show = false
+          this.$nextTick(() => {
+              this.show = true
+          })
       }
     }
 }
