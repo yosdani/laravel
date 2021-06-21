@@ -5,6 +5,7 @@
                 <b-icon class="label-filters-calendar col-lg-2 "  icon="calendar2-week-fill"></b-icon>
                 <period-filter
                     :range="filters?filters.period:'year'"
+                    @timer="getTimer($event)"
                 />
                 <drop-down />
                 <give-time
@@ -18,8 +19,9 @@
                     class="col-lg-10"
                     :tags="states"
                     :placeholder="'Filter by state'"
-                    :type="'STATES'"
+                    :type="'States'"
                     :values="value_states"
+                    @updateValueStates="getValuesStates($event)"
                 />
             </div>
         </div>
@@ -30,8 +32,9 @@
                     class="col-lg-10"
                     :tags="tags"
                     :placeholder="'Filter by tag'"
-                    :type="'TAGS'"
+                    :type="'Tags'"
                     :values="value_tags"
+                    @updateValueTags="getValuesTags($event)"
                 />
             </div>
         </div>
@@ -64,24 +67,21 @@ export default {
         this.getTags();
         this.getStates();
     },
-    mounted() {
-        EventBus.$on('TIMER',payload=>{
-            EventBus.$emit('GET_TIMER_FILTERS', payload);
-            if(payload === 'period'){
+    methods:{
+        getValuesStates(event){
+            this.$emit('sendStates',event);
+        },
+        getValuesTags(event){
+            this.$emit('sendTags',event);
+        },
+        getTimer(event){
+            if(event === 'period'){
                 this.rangeTime = true;
             }else{
                 this.rangeTime = false;
-                }
-        })
-        EventBus.$on( 'RANGE_SELECTED_DETAILS', payload => {
-            if( payload === trans.translate('general.graph.period')){
-                this.details = true;
-            }else{
-                this.details = false;
             }
-        })
-    },
-    methods:{
+            this.$emit('sendTimer', event);
+        },
         giveNewDates(event){
             EventBus.$emit('GET_TIMER_PERIOD', event);
         },
@@ -104,7 +104,7 @@ export default {
                         name: tag.name
                     })
                 })
-                EventBus.$emit('SENT_VALUES_TAGS',this.value_tags);
+                EventBus.$emit('SENT_VALUES_Tags',this.value_tags);
             })
             .catch(error=>{
                 this.$swal.fire({
@@ -133,7 +133,7 @@ export default {
                         name: states.name
                     })
                 })
-                EventBus.$emit('SENT_VALUES_STATES',this.value_states);
+                EventBus.$emit('SENT_VALUES_States',this.value_states);
             })
             .catch(error=>{
                 this.$swal.fire({

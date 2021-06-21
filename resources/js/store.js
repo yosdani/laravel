@@ -14,7 +14,8 @@ export const store = new Vuex.Store({
            _token: null,
            role: null
        },  
-       loading: true        
+       loading: true,
+       loadingBody: true
     },
     getters: {
 
@@ -28,16 +29,28 @@ export const store = new Vuex.Store({
             state.user.filters = payload.filters;
             state.user.role = payload.role;
         },
+        updateFiltersUser(state, payload) {
+            state.user.filters = payload;
+        },
         setLoading(state, loading){
             state.loading = loading;
+        },
+        setLoadingBody(state, loadingBody){
+            state.loadingBody = loadingBody;
         }
     },
     actions: {
         updateUser({commit}, payload){
            commit('updateUser',payload)
        },
+       updateFiltersUser({commit}, payload){
+           commit('updateFiltersUser',payload)
+       },
         setLoading({commit}, payload){
             commit('setLoading',payload)
+        },
+        setLoadingBody({commit}, payload){
+            commit('setLoadingBody', payload);
         },
         getUserInfo({commit}){
             commit('setLoading', true);
@@ -46,6 +59,12 @@ export const store = new Vuex.Store({
                 commit('setLoading', false);
             }).finally(() => {
             })
+        },
+        dataCharge({commit}){
+            commit('setLoadingBody', false);
+        },
+        initdataCharge({commit}){
+            commit('setLoadingBody', true);
         }
     }
 });

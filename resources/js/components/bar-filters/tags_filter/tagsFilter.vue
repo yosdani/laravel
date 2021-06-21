@@ -29,7 +29,7 @@ export default {
         
     },
     updated(){
-        EventBus.$emit('GET_'+this.type, this.value);
+        this.value != this.values?this.$emit('updateValue'+this.type, this.value):'';
     },
     components:{
         Multiselect
