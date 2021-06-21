@@ -54,7 +54,7 @@ class Controller extends BaseController
     {
         $user = User::find(auth()->user()->id);
 
-        $user->user_filters=json_encode([
+        $user->filters=json_encode([
                 'period' => $period,
                 'dateInit' => $dateInit,
                 'dateEnd' => $dateEnd,

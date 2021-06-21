@@ -150,7 +150,7 @@ class DashboardController extends Controller
             $request->tags,
             $request->states
         );
-        $filters = json_decode(auth()->user()->user_filters);
+        $filters = json_decode(auth()->user()->filters);
 
         if (!$filters->dateEnd)
             $filters->dateEnd = Carbon::now()->endOfDay();
