@@ -46,15 +46,15 @@ class Controller extends BaseController
      * @param Carbon $dateEnd
      * @param array $tags
      * @param array $states
-     * 
-     * @return void 
-     * 
+     *
+     * @return void
+     *
      */
     public function saveFilters( $period, $dateInit, $dateEnd, $tags, $states):void
     {
         $user = User::find(auth()->user()->id);
 
-        $user->filters=json_encode([
+        $user->user_filters=json_encode([
                 'period' => $period,
                 'dateInit' => $dateInit,
                 'dateEnd' => $dateEnd,

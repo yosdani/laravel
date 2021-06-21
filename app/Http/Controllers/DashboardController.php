@@ -18,13 +18,13 @@ class DashboardController extends Controller
      * Get all information about bar graphic
      * @param Request $request
      * @return JsonResponse
-     * 
-     * 
+     *
+     *
      */
     public function bar( Request $request ):JsonResponse
     {
         $filters = $this->getFilters($request);
-        
+
         $areas = Area::information( $filters['dateInit'], $filters['dateEnd'] );
 
         $totalIncidences = [];
@@ -60,7 +60,7 @@ class DashboardController extends Controller
      * Get all information about radar graphic
      * @param Request $request
      * @return JsonResponse
-     * 
+     *
      */
     public function radar( Request $request ):JsonResponse
     {
@@ -90,7 +90,7 @@ class DashboardController extends Controller
      * Get teams of work, responsable and workers
      * @param Request $request
      * @return JsonResponse
-     * 
+     *
      */
     public function teams( Request $request ):JsonResponse
     {
@@ -118,7 +118,7 @@ class DashboardController extends Controller
      * Get general statistics
      * @param Request $request
      * @return JsonResponse
-     * 
+     *
      */
     public function getStatistics( Request $request ):JsonResponse
     {
@@ -136,21 +136,21 @@ class DashboardController extends Controller
      * Get filters to all
      * @param Request $request
      * @return array
-     * 
+     *
      */
     private function getFilters( Request $request ): array
     {
 
         $period = $request->period;
 
-        $this->saveFilters( 
-            $period, 
+        $this->saveFilters(
+            $period,
             $request->dateInit,
             $request->dateEnd,
             $request->tags,
             $request->states
         );
-        $filters = json_decode(auth()->user()->filters);
+        $filters = json_decode(auth()->user()->user_filters);
 
         if (!$filters->dateEnd)
             $filters->dateEnd = Carbon::now()->endOfDay();

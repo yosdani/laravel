@@ -14,7 +14,7 @@ class AddFiltersUserTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->json('filters')->nullable();
+            $table->json('user_filters')->nullable();
 
             //
         });
