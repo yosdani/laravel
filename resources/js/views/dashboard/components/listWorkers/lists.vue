@@ -6,7 +6,7 @@
             <b-collapse :id="'collapse-'+i" class="mt-2">
                 <b-list-group>
                     <b-list-group-item v-for="(res,j) in worker.workers" :key="j">{{ res?res.name:'' }}
-                        <b-badge class="float-right" variant="primary" pill>{{ res.incidence.length }}</b-badge>
+                        <b-badge class="float-right" variant="primary" pill>{{ res.incidences_assigned.length }}</b-badge>
                     </b-list-group-item>
                 </b-list-group>
             </b-collapse>

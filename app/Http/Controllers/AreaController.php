@@ -11,6 +11,7 @@ namespace App\Http\Controllers;
 use App\Area;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\WorkerArea;
@@ -20,11 +21,19 @@ class AreaController extends Controller
     /**
      * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
+        $user = Auth::user();
+        $areas = [];
+        if($user->hasRole('Admin')){
+            $areas = Area::select('area.*')->with('user')->paginate(15);
+        }elseif ($user->hasRole('Responsable')){
+            $areas = Area::where('user_id',$user->id)->with('user')->paginate(15);
+        }
+
         return response()->json([
             'success' =>true,
-            'areas' => Area::select('area.*')->with('user')->paginate(15)
+            'areas' => $areas
         ], 200);
     }
 
@@ -121,7 +130,7 @@ class AreaController extends Controller
      * @param int $id
      * @param Request $request
      * @return JsonResponse
-     * 
+     *
      */
     public function addWorker(Request $request,$id): JsonResponse
     {

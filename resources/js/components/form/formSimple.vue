@@ -31,7 +31,7 @@
                     ></b-form-input>
                 </b-form-group>
 
-                <b-form-group v-if="formOut.formFrom == translate('general.areas.area')" id="input-group-3" label="Entre el usuario responsable del area:" label-for="input-3">
+                <b-form-group v-if="formOut.formFrom == translate('general.areas.area')" id="input-group-3" :label="translate('general.areas.add_resp')" label-for="input-3">
                     <b-form-select
                         id="input-3"
                         v-model="form.user_id"

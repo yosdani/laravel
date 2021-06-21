@@ -61,6 +61,17 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany(Role::class, 'role_user');
     }
 
+    public function hasRole($role): bool
+    {
+        foreach ($this->userRole as $r){
+            if ($r->name = $role){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     public function workerArea(): BelongsToMany
     {
         return $this->belongsToMany(Area::class, 'worker_area');
@@ -82,9 +93,19 @@ class User extends Authenticatable implements JWTSubject
      *
      * @return  HasMany
      */
-    public function incidence()
+    public function incidences(): HasMany
     {
         return $this->hasMany(Incidence::class, 'user_id');
+    }
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @return  HasMany
+     */
+    public function incidencesAssigned(): HasMany
+    {
+        return $this->hasMany(Incidence::class, 'assigned_id');
     }
 
     public function userCategories():BelongsToMany
@@ -97,7 +118,7 @@ class User extends Authenticatable implements JWTSubject
      *
      * @return  HasMany
      */
-    public function news()
+    public function news(): HasMany
     {
         return $this->hasMany(News::class, 'user_id');
     }
@@ -142,8 +163,8 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
-     * 
-     * 
+     *
+     *
      */
     public static function workerWithArea(){
         return WorkerArea::select('worker_area.user_id')->get();
@@ -153,7 +174,7 @@ class User extends Authenticatable implements JWTSubject
         $list_workers = User::workers();
 
         $workers_area = User::workerWithArea();
-        
+
         foreach($workers_area as $worker){
             foreach ($list_workers as $key => $list){
                 if($worker->user_id == $list->id){
@@ -187,7 +208,7 @@ class User extends Authenticatable implements JWTSubject
      * Get workers by area
      * @param int $idArea
      * @return array
-     * 
+     *
      */
     public static function workersByArea($idArea)
     {
@@ -196,7 +217,7 @@ class User extends Authenticatable implements JWTSubject
                     ->leftjoin('worker_area','worker_area.user_id','=','users.id')
                     ->where('role_user.role_id','=',3)
                     ->where('worker_area.area_id',$idArea)
-                    ->with('incidence')
+                    ->with('incidencesAssigned')
                     ->get();
     }
 }

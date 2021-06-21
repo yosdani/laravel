@@ -9,7 +9,7 @@ import excel from 'vue-excel-export';
 export default {
     props: ["options"],
     components:{
-        excel
+        'export-excel': excel
     },
     methods:{
         executeAction(){

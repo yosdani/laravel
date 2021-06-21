@@ -1,6 +1,6 @@
 
 import trans from '../VueTranslation/Translation';
-let sideBarLinks = [
+let sideBarAdminLinks = [
     {
         name: "Dashboard",
         route: '/',
@@ -139,4 +139,4 @@ let sideBarLinks = [
 
 ];
 
-export default sideBarLinks;
+export default sideBarAdminLinks;

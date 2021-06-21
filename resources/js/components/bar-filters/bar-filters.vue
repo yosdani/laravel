@@ -19,6 +19,7 @@
                     :tags="states"
                     :placeholder="'Filter by state'"
                     :type="'STATES'"
+                    :values="value_states"
                 />
             </div>
         </div>
@@ -30,6 +31,7 @@
                     :tags="tags"
                     :placeholder="'Filter by tag'"
                     :type="'TAGS'"
+                    :values="value_tags"
                 />
             </div>
         </div>
@@ -54,6 +56,8 @@ export default {
             tags:[],
             states:[],
             rangeTime:false,
+            value_tags:[],
+            value_states:[]
         }
     },
     created() {
@@ -86,11 +90,20 @@ export default {
             .then(response=>{
                 this.tags = [];
                 response.data.tags.map(tag=>{
+                    this.filters.tags.map(t=>{
+                        if(t == tag.id){
+                            this.value_tags.push({
+                                id: t,
+                                name: tag.name
+                            })
+                        }
+                    })
                     this.tags.push({
                         id: tag.id,
                         name: tag.name
                     })
                 })
+                EventBus.$emit('SENT_VALUES_TAGS',this.value_tags);
             })
             .catch(error=>{
                 this.$swal.fire({
@@ -105,11 +118,20 @@ export default {
             .then(response=>{
                 this.states = []; 
                 response.data.states.map(states=>{
+                    this.filters.states.map(s=>{
+                        if(s == states.id){
+                            this.value_states.push({
+                                id: s,
+                                name: states.name
+                            })
+                        }
+                    })
                     this.states.push({
                         id: states.id,
                         name: states.name
                     })
                 })
+                EventBus.$emit('SENT_VALUES_STATES',this.value_states);
             })
             .catch(error=>{
                 this.$swal.fire({

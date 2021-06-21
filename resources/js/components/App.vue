@@ -1,53 +1,68 @@
 <template>
   <div class="wrapper">
-    <side-bar :show="show" :elements="listOfData"></side-bar>
-    <nav-bar :show="show" @showSideBar="showSideBar()"></nav-bar>
-    <div :class="navClass">
-      <div class="container-fluid">
-        <router-view></router-view>
+      <div class="text-center myLoading" v-if="loading">
+          <b-spinner class="align-middle"></b-spinner>
+          <strong>{{ translate('general.loading') }}</strong>
       </div>
-    </div>
+      <div  v-else>
+          <side-bar :show="show" :elements="listOfData"></side-bar>
+          <nav-bar :show="show" @showSideBar="showSideBar()"></nav-bar>
+          <div :class="navClass">
+              <div class="container-fluid">
+                  <router-view></router-view>
+              </div>
+          </div>
+      </div>
+
   </div>
 </template>
 <script>
 import NavBar from "./navbar/NavBar.vue";
-import sideBarLinks from "../util/sideBarLinks";
+import sideBarLinks from "../util/sideBarAdminLinks";
+import sideBarResponsibleLinks from "../util/sideBarResponsibleLinks";
 import SideBar from "./sidebar/SideBar";
+import {mapState} from "vuex";
 
 export default {
   data() {
-    return {
-      show: true,
-      listOfData: sideBarLinks,
-      uri: window.origin,
-      listDataShow: [],
-      fields: [],
-    };
+      return {
+          show: true,
+          adminLinksData: sideBarLinks,
+          responsibleLinksData:  sideBarResponsibleLinks,
+          uri: window.origin,
+          listDataShow: [],
+          fields: []
+      }
   },
-  props:['userAuth'],
-  components: {
-    SideBar,
-    NavBar
-  },
-    created() {
-        let user = window.User;
-        let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        this.$store.dispatch('updateUser', user);
-        this.$store.dispatch('setToken', token);
+    components: {
+        SideBar,
+        NavBar
+    },
+    mounted() {
+        this.$store.dispatch('getUserInfo');
     },
     methods: {
-    showSideBar() {
-      this.show = !this.show;
+        showSideBar() {
+            this.show = !this.show;
+        },
     },
-  },
-  computed: {
-    giveMarginBottom() {
-      return "margin-bottom:10px";
+    computed: {
+      ...mapState({
+          loading: state => state.loading
+      }),
+        giveMarginBottom() {
+            return "margin-bottom:10px";
+        },
+        navClass() {
+            return true === this.show ? "main-content" : "main-content-mobile";
+        },
+        listOfData(){
+            if(!this.$store.state.user.role){
+                return [];
+            }
+            return this.$store.state.user.role === 'Admin' ? this.adminLinksData : this.responsibleLinksData;
+        }
     },
-    navClass() {
-      return true === this.show ? "main-content" : "main-content-mobile";
-    },
-  },
 };
 </script>
 <style>
@@ -79,6 +94,10 @@ export default {
   border: 1px solid #fff;
   outline: none;
   padding: 0;
+}
+.myLoading{
+    margin-top: 10%;
+    color: $secondary;
 }
 .button-side-bar__text {
   padding: 0.25rem;

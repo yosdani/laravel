@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Area extends Model
 {
@@ -39,6 +40,15 @@ class Area extends Model
         return $this->belongsTo(User::class, 'worker_role');
     }
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @return  HasMany
+     */
+    public function incidences(): HasMany
+    {
+        return $this->hasMany(Incidence::class, 'area_id');
+    }
     /**
      * Get areas by rol
      * @param int $id

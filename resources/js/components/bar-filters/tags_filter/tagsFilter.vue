@@ -1,7 +1,7 @@
 <template>
     <div>
         <multiselect
-            v-model="values"
+            v-model="value"
             :options="tags?tags:''"
             label="name"
             track-by="id"
@@ -16,24 +16,27 @@
 import Multiselect from 'vue-multiselect'
 import EventBus from '../../event-bus'
 export default {
-    props:["tags","placeholder","type"],
+    props:["tags","placeholder","type","values"],
     data() {
         return {
-            values:[],
+            value:[],
         }
     },
     mounted(){
-        this.values = this.tags;
+        EventBus.$on('SENT_VALUES_'+this.type, payload=>{
+            this.value = payload;
+        });
+        
     },
     updated(){
-        EventBus.$emit('GET_'+this.type, this.values);
+        EventBus.$emit('GET_'+this.type, this.value);
     },
     components:{
         Multiselect
     },
     methods:{
         addTag(newTag){
-            this.values.push(newTag);
+            this.value.push(newTag);
         }
     }
 }

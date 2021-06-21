@@ -4,7 +4,7 @@
       <b-card>
           <b-card-header class="border-0">
               <h3 class="mb-0 name-model">{{translate('general.incidences.incidences')}}</h3>
-              
+              <button-export class="float-right" :options="''"></button-export>
           </b-card-header>
           <b-card-body>
               <table-data
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import ButtonAdd from '../../components/button/ButtonAdd.vue';
+import ButtonExport from "../../components/button/ButtonExport.vue";
 import TableData from "../../components/table/TableData.vue";
 import trans from '../../VueTranslation/Translation';
 export default {
@@ -45,8 +45,8 @@ export default {
       ],
       fields: [
           {
-              key: "name",
-              label: trans.translate('general.incidences.name'),
+              key: "title",
+              label: trans.translate('general.incidences.title'),
               sortable: true,
               sortDirection: "desc",
           },
@@ -73,7 +73,7 @@ export default {
   },
   components: {
     TableData,
-    ButtonAdd
+    ButtonExport
   },
   methods: {
     fetchData(page=1) {

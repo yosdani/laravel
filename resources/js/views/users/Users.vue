@@ -60,7 +60,7 @@ export default {
           },
           {
               key: "lastName",
-              label: trans.translate('general.users.lastname'),
+              label: trans.translate('general.users.lastName'),
               sortable: true,
               sortDirection: "desc",
           },
@@ -112,7 +112,7 @@ export default {
                 id: user.id,
                 email: user.email,
                 name: user.name,
-                lastName: user.lastname,
+                lastName: user.lastName,
                 phoneNumber: user.phoneNumber,
                 rol: user.user_role.length>0?user.user_role[0].name:''
               })

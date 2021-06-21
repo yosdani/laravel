@@ -24,6 +24,7 @@ return [
     'art_male' => 'el ',
     'art_female' => 'la ',
     'button_add' => 'Adicionar',
+    'loading' => 'Cargando...',
      'news' => [
          'news' => 'Noticias',
          'new' => 'Noticia',
@@ -44,7 +45,7 @@ return [
         'users' => 'Usuarios',
         'user' => 'Usuario',
         'name' => 'Nombre',
-        'lastname' => 'Apellidos',
+        'lastName' => 'Apellidos',
         'email' => 'Email',
         'phone' => 'Teléfono',
         'password' => 'Contraseña',
@@ -71,9 +72,11 @@ return [
         'by_district' => 'Incidencias por distritos',
         'description' => 'Descripción',
         'location' => 'Ubicación',
-        'name' => 'Nombre',
+        'title' => 'Título',
         'add_worker' => 'Asignar Trabajador',
-        'state' => 'Estado'
+        'state' => 'Estado',
+        'add_area' => 'Asignar Área',
+        'add_tag' => 'Asignar Etiqueta'
     ],
     'districts' => [
         'districts' => 'Distritos',

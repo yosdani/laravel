@@ -11,6 +11,7 @@ namespace App\Http\Controllers\Api;
 use App\Incidence;
 use App\Http\Controllers\Controller;
 use App\IncidenceImage;
+use App\Notifications\IncidenceEditedNotification;
 use Faker\Provider\Image;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
@@ -96,7 +97,7 @@ class IncidenceController extends Controller
     protected function validator(array $data): \Illuminate\Contracts\Validation\Validator
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
 
         ]);
     }
@@ -141,7 +142,7 @@ class IncidenceController extends Controller
         $incidence=Incidence::where('id', $id)->with('images')->get();
 
         if (!$incidence) {
-            return response()->json("This incidence is not exist", '404');
+            return response()->json("This incidence does not exist", '404');
         }
         return response()->json($incidence, 200) ;
     }
@@ -247,17 +248,14 @@ class IncidenceController extends Controller
     {
         $parameters = $request->only(
             'title',
-            'assignedTo',
-            'reviewer',
+            'assigned_id',
             'deadLine',
             'creationDate',
             'tags',
             'description',
             'attachedContent',
-            'dni',
             'applicant',
-            'phone',
-            'centerEnrollment',
+            'enrolment_id',
             'streetNumber',
             'district',
             'neighborhood',
@@ -265,26 +263,24 @@ class IncidenceController extends Controller
             'team',
             'location',
             'responseForCitizen',
-            'idState'
+            'idState',
+            'area_id'
         );
 
         $incidence = Incidence::find($id);
         if (!$incidence) {
-            return response()->json("This incidence is not exist", '400');
+            return response()->json("This incidence does not exist", '400');
         }
-
+        $oldIncidence = clone $incidence;
         $oldState = $incidence->state;
 
         $incidence->name = $parameters['name'];
-        $incidence->assignedTo = $parameters['assignedTo'];
-        $incidence->reviewer = $parameters['reviewer'];
+        $incidence->assigned_id = $parameters['assignedTo'];
         $incidence->deadLine = $parameters['deadLine'];
         $incidence->tags = $parameters['tags'];
         $incidence->description = $parameters['description'];
         $incidence->attachedContentn = $parameters['attachedContent'];
-        $incidence->dni = $parameters['dni'];
         $incidence->applicant = $parameters['applicant'];
-        $incidence->phone = $parameters['phone'];
         $incidence->centerEnrollment = $parameters['centerEnrollment'];
         $incidence->streetNumber = $parameters['streetNumber'];
         $incidence->district = $parameters['district'];
@@ -294,11 +290,12 @@ class IncidenceController extends Controller
         $incidence->location = $parameters['location'];
         $incidence->responseForCitizen = $parameters['responseForCitizen'];
         $incidence->state = $parameters['idState'];
+        $incidence->area_id = $parameters['areaId'];
         $incidence->save();
 
         if ($oldState != $incidence->state) {
             try {
-                \Mail::to(User::find($incidence->user_id)->email)->send(new IncidenceMails($incidence, $incidence1[0]->images[0]->urlImage, 'La Incidencia a cambiado al estado: '+ State::find($incidence->state)->name));
+                \Mail::to(User::find($incidence->user_id)->email)->send(new IncidenceMails($incidence, $oldIncidence->images[0]->urlImage, 'La Incidencia a cambiado al estado: '+ State::find($incidence->state)->name));
             } catch (Exception $exception) {
                 return response()->json([
                     'success' => false,
@@ -321,7 +318,7 @@ class IncidenceController extends Controller
         $incidence = Incidence::find($id);
 
         if (!$incidence) {
-            return response()->json("This incidence is not exist", '400');
+            return response()->json("This incidence does not exist", '400');
         }
 
         Incidence::destroy($id);

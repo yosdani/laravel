@@ -34,13 +34,13 @@ class DashboardController extends Controller
         $names = [];
 
         foreach ($areas as $area){
-            $totalIncidences [] = Incidence::incidencesTotalByArea( $area->user_id, $filters['dateInit'], $filters['dateEnd'],$filters['tags'] );
+            $totalIncidences [] = Incidence::incidencesTotalByArea( $area->id, $filters['dateInit'], $filters['dateEnd'],$filters['tags'] );
 
-            $totalIncidencesFinished [] = Incidence::stateActual( $area->user_id, 2, $filters['dateInit'], $filters['dateEnd'],$filters['tags']);
+            $totalIncidencesFinished [] = Incidence::stateActual( $area->id, 2, $filters['dateInit'], $filters['dateEnd'],$filters['tags']);
 
-            $totalIncidencesInProgress [] = Incidence::stateActual( $area->user_id, 1, $filters['dateInit'], $filters['dateEnd'],$filters['tags']);
+            $totalIncidencesInProgress [] = Incidence::stateActual( $area->id, 1, $filters['dateInit'], $filters['dateEnd'],$filters['tags']);
 
-            $totalIncidencesUnsigned [] = Incidence::stateActual( $area->user_id, null, $filters['dateInit'], $filters['dateEnd'],$filters['tags']);
+            $totalIncidencesUnsigned [] = Incidence::stateActual( $area->id, null, $filters['dateInit'], $filters['dateEnd'],$filters['tags']);
         }
 
         foreach(Area::names( $filters['dateInit'], $filters['dateEnd'] ) as $name) {
@@ -102,7 +102,7 @@ class DashboardController extends Controller
 
         foreach ($areas as $area){
             $workers [] = [
-                'total' => Incidence::where('reviewer','=',Area::where('id','=',$area->id)->with('user')->first()->id)->count(),
+                'total' => Incidence::where('area_id','=',$area->id)->count(),
                 'response' => Area::where('id','=',$area->id)->with('user')->first(),
                 'workers' => User::workersByArea( $area->id )
             ];
@@ -140,7 +140,7 @@ class DashboardController extends Controller
      */
     private function getFilters( Request $request ): array
     {
-        //dd($request);
+
         $period = $request->period;
 
         $this->saveFilters( 

@@ -40,7 +40,7 @@ export default {
         form: {
             email: '',
             name: '',
-            lastname: '',
+            lastName: '',
             phoneNumber: '',
             password: '',
             role:''

@@ -49,15 +49,15 @@ export default {
         GraphicRadar
     },
     created() {
-        this.filters.period = this.$store.state.user.filters?this.$store.state.user.filters.period:'year';
-        this.filters.dateInit = this.$store.state.user.filters?this.$store.state.user.filters.dateInit:null;
-        this.filters.dateEnd = this.$store.state.user.filters?this.$store.state.user.filters.dateEnd:null;
-        this.filters.tags = this.$store.state.user.filters?this.$store.state.user.filters.tags:null;
-        this.filters.states = this.$store.state.user.filters?this.$store.state.user.filters.states:null;
-        this.getStatistics( this.filters );
-        this.getDashboardBar( this.filters );
-        this.getDashboardRadar( this.filters );
-        this.getDashboardTeams( this.filters );
+        this.filters = JSON.parse(this.$store.state.user.filters);
+        if(this.filters.period == null){
+            this.filters.period = 'year';
+        }
+        
+        //this.getStatistics( this.filters );
+        //this.getDashboardBar( this.filters );
+        //this.getDashboardRadar( this.filters );
+        //this.getDashboardTeams( this.filters );
     },
     mounted() {
         EventBus.$on('GET_TIMER_FILTERS', payload=>{
