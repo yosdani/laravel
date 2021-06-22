@@ -133,7 +133,7 @@ class IncidenceObserver
     {
         if ($incidence->wasChanged('area_id')) {
             $oldValue = $incidence->getOriginal('area_id');
-            $oldValue = Area::find($oldValue)->name;
+            $oldValue = null !== $oldValue ? Area::find($oldValue)->name : null;
             $change = new EntityChanges(
                 __('general.historic.area'),
                 $oldValue,

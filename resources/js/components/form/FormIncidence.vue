@@ -14,7 +14,7 @@
 
                 <b-form-group id="input-group-3" :label="translate('general.incidences.add_area')" label-for="input-3">
                     <b-form-select v-model="formOut.form.area">
-                        <template #first>
+                        <template>
                             <b-form-select-option :value="null" disabled>-- {{ translate('general.select') }} --</b-form-select-option>
                         </template>
                         <b-form-select-option  v-for="area in formOut.areas" :key="area.id" :value="area.id">{{ area.name }}</b-form-select-option>
@@ -29,49 +29,49 @@
                          <b-form-select-option  v-for="tag in formOut.tags" :key="tag.id" :value="tag.id">{{ tag.name }}</b-form-select-option>
                      </b-form-select>
                    </b-form-group>
-                    </b-col>
-                    <b-col cols="6">
-                        <b-form-group id="input-group-5" :label="translate('general.incidences.state')" label-for="input-5">
-                            <b-form-select v-model="formOut.form.state">
-                                <template #first>
-                                    <b-form-select-option :value="null" disabled>-- {{ translate('general.select') }} --</b-form-select-option>
-                                </template>
-                                <b-form-select-option  v-for="state in formOut.states" :key="state.id" :value="state.id">{{ state.name }}</b-form-select-option>
-                            </b-form-select>
-                        </b-form-group>
+            </b-col>
+            <b-col cols="6">
+                <b-form-group id="input-group-5" :label="translate('general.incidences.state')" label-for="input-5">
+                    <b-form-select v-model="formOut.form.state">
+                        <template>
+                            <b-form-select-option :value="null" disabled>-- {{ translate('general.select') }} --</b-form-select-option>
+                        </template>
+                        <b-form-select-option  v-for="state in formOut.states" :key="state.id" :value="state.id">{{ state.name }}</b-form-select-option>
+                    </b-form-select>
+                </b-form-group>
 
-                        <b-form-group id="input-group-6" :label="translate('general.enrolments.enrolment')" label-for="input-6">
-                            <b-form-select v-model="formOut.form.enrollment">
-                                <template #first>
-                                    <b-form-select-option :value="null" disabled>-- {{ translate('general.select') }} --</b-form-select-option>
-                                </template>
-                                <b-form-select-option  v-for="enrolment in formOut.enrolments" :key="enrolment.id" :value="enrolment.id">{{ enrolment.name }}</b-form-select-option>
-                            </b-form-select>
-                        </b-form-group>
+                <b-form-group id="input-group-6" :label="translate('general.enrolments.enrolment')" label-for="input-6">
+                    <b-form-select v-model="formOut.form.enrollment">
+                        <template>
+                            <b-form-select-option :value="null" disabled>-- {{ translate('general.select') }} --</b-form-select-option>
+                        </template>
+                        <b-form-select-option  v-for="enrolment in formOut.enrolments" :key="enrolment.id" :value="enrolment.id">{{ enrolment.name }}</b-form-select-option>
+                    </b-form-select>
+                </b-form-group>
 
-                        <b-form-group id="input-group-7" :label="translate('general.incidences.add_worker')" label-for="input-7">
-                            <b-form-select v-model="formOut.form.workers">
-                                <template #first>
-                                    <b-form-select-option :value="null" disabled>-- {{ translate('general.select') }} --</b-form-select-option>
-                                </template>
-                                <b-form-select-option  v-for="worker in formOut.workers" :key="worker.id" :value="worker.id">{{ worker.name }} {{ worker.lastname }}</b-form-select-option>
-                            </b-form-select>
-                        </b-form-group>
-                        <b-form-group id="input-group-images" :label="translate('general.incidences.images')" label-for="input-3">
-                            <b-form-file
-                                @change="onFileChange"
-                                :placeholder="translate('general.select_file')"
-                                :drop-placeholder="translate('general.drop_file')"
-                                multiple
-                            ></b-form-file>
-                        </b-form-group>
-                    </b-col>
-                </b-row>
-                <b-row>
-                    <b-col cols="12">
-                        <b-button type="submit" variant="primary">{{formOut.action}}</b-button>
-                    </b-col>
-                </b-row>
+                <b-form-group id="input-group-7" :label="translate('general.incidences.add_worker')" label-for="input-7">
+                    <b-form-select v-model="formOut.form.workers">
+                        <template>
+                            <b-form-select-option :value="null" disabled>-- {{ translate('general.select') }} --</b-form-select-option>
+                        </template>
+                        <b-form-select-option  v-for="worker in formOut.workers" :key="worker.id" :value="worker.id">{{ worker.name }} {{ worker.lastname }}</b-form-select-option>
+                    </b-form-select>
+                </b-form-group>
+                <b-form-group id="input-group-images" :label="translate('general.incidences.images')" label-for="input-3">
+                    <b-form-file
+                        @change="onFileChange"
+                        :placeholder="translate('general.select_file')"
+                        :drop-placeholder="translate('general.drop_file')"
+                        multiple
+                    ></b-form-file>
+                </b-form-group>
+            </b-col>
+        </b-row>
+        <b-row>
+            <b-col cols="12">
+                <b-button type="submit" variant="primary">{{formOut.action}}</b-button>
+            </b-col>
+        </b-row>
     </b-form>
 </template>
 
