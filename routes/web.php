@@ -148,11 +148,13 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
     // Route for get all tags
     Route::get('all/tags','TagsController@all');
 
-    /**********  Incidence ************/
-    //Route for get all Incidences
-    Route::get('incidence', 'IncidenceController@index');
-    //Route for get an incidence by id
-    Route::get('incidence/{id}', 'IncidenceController@show');
+        /**********  Incidence ************/
+        //Route for get all Incidences
+        Route::get('incidence/form-data/', 'IncidenceController@getFormData');
+        Route::get('incidence', 'IncidenceController@index');
+        //Route for get an incidence by id
+        Route::get('incidence/{id}', 'IncidenceController@show');
+
     //Route for create a new incidence
     //Route::post('incidence', 'IncidenceController@store');
     //Route for update an incidence

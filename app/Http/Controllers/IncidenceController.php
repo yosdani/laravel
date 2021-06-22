@@ -8,13 +8,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Area;
+use App\Http\Resources\AreaResource;
+use App\Http\Resources\EnrolmentResource;
 use App\Http\Resources\IncidenceResource;
+use App\Http\Resources\NeighborResource;
+use App\Http\Resources\PublicCenterResource;
+use App\Http\Resources\StateResource;
+use App\Http\Resources\TagResource;
+use App\Http\Resources\UserResource;
 use App\Incidence;
 use App\Http\Controllers\Controller;
 use App\IncidenceImage;
+use App\Neighborhood;
 use App\Notifications\IncidenceEditedNotification;
+use App\PublicCenter;
+use App\State;
+use App\Street;
+use App\Tags;
 use Exception;
 use Faker\Provider\Image;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -109,12 +123,24 @@ class IncidenceController extends Controller
      */
     public function update(Request $request, int $id): JsonResponse
     {
-        $incidence = Incidence::find($id);
-        if (!$incidence) {
-            return response()->json("This incidence does not exist", '400');
-        }
-
-        $incidence->update($request->all());
+        $incidence = Incidence::findOrFail($id);
+        $incidence->title = $request->title;
+        $incidence->assigned_id = $request->assignedTo;
+        $incidence->deadLine = $request->deadLine;
+     //   $incidence->tags = $request->tags;
+        $incidence->description = $request->description;
+        $incidence->attachedContent = $request->attachedContent;
+      //  $incidence->applicant = $request->applicant;
+        $incidence->enrolment_id = $request->enrolment;
+        $incidence->street_id = $request->street;
+        $incidence->district_id = $request->district;
+        $incidence->neighborhood_id = $request->neighborhood;
+        $incidence->address = $request->address;
+     //   $incidence->team = $request->team;
+        $incidence->location = $request->location;
+        $incidence->responseForCitizen = $request->responseForCitizen;
+        $incidence->state_id = $request->state;
+        $incidence->area_id = $request->area;
         $incidence->save();
 
         return response()->json('updated', 200);
@@ -200,5 +226,24 @@ class IncidenceController extends Controller
         return response()->json([
             'incidences' => $json_data
         ]);
+    }
+
+    public function getFormData(): JsonResponse
+    {
+        $workers = User::whereHas('userRole', function ($query){
+            $query->where('name','=','Trabajador');
+        })->get();
+        return response()->json(
+            [
+                'areas' => AreaResource::collection(Area::all()),
+                'states' => StateResource::collection(State::all()),
+                'tags' => TagResource::collection(Tags::all()),
+                'public_centers' => PublicCenterResource::collection(PublicCenter::all()),
+                'enrolments' => EnrolmentResource::collection(Area::all()),
+                'streets' => StateResource::collection(Street::all()),
+                'neighbors' => NeighborResource::collection(Neighborhood::all()),
+                'workers' => UserResource::forList($workers)
+            ]
+        );
     }
 }

@@ -88,7 +88,8 @@ return [
         'add_area' => 'Asignar Área',
         'add_tag' => 'Asignar Etiqueta',
         'responseForCitizen' => 'Respuesta al ciudadano',
-        'export' => 'Exportar'
+        'export' => 'Exportar',
+        'images' => 'Imágenes',
     ],
     'districts' => [
         'districts' => 'Distritos',
@@ -98,7 +99,8 @@ return [
         'areas' => 'Áreas',
         'area' => 'Área',
         'responsible_email' => 'Email de Responsable',
-        'add_worker' => 'Añadir Trabajador'
+        'add_worker' => 'Añadir Trabajador',
+        'add_resp' => 'Añadir responsable'
     ],
     'neighborhoods' => [
         'neighborhoods' => 'Barrios',

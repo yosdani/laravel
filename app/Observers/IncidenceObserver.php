@@ -153,7 +153,7 @@ class IncidenceObserver
     {
         if ($incidence->wasChanged('state_id')) {
             $oldValue = $incidence->getOriginal('state_id');
-            $oldValue = State::find($oldValue)->name;
+            $oldValue = null !== $oldValue ? State::find($oldValue)->name : null;
             $change = new EntityChanges(
                 __('general.states.state'),
                 $oldValue,
