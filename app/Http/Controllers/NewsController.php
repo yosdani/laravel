@@ -160,10 +160,11 @@ class NewsController  extends Controller
 
     public function getB64Extension(string $base64Image, $full=null)
     {
-        $parts = explode('/',$base64Image);
-        $ext = explode(';', $parts[1])[0];
+        $img = explode(',', $base64Image);
+        $ini =substr($img[0], 11);
+        $type = explode(';', $ini);
 
-        return ($full) ? $ext : null;
+        return $type[0];
     }
 
     /**
@@ -177,6 +178,7 @@ class NewsController  extends Controller
         $img = $this->getB64Image($base64Image);
 
         $imgExtension = $this->getB64Extension($base64Image);
+
         $imageName = 'news_image' .uniqid(). time() . '.' . $imgExtension;
         Storage::disk('local')->put(News::IMAGE_PATH.$imageName, $img);
 

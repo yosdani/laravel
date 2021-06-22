@@ -46,14 +46,10 @@ class ImageController extends Controller
             abort(404);
         }
 
+
         $file = File::get($path);
         $type = File::mimeType($path);
-
-        $response = Response::make($file, 200);
-
-        $response->header("Content-Type", $type);
-
-        return $response;
+        return Response::make($file, 200, ["Content-Type" => $type]);
     }
 
 
