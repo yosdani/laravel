@@ -1,6 +1,6 @@
 <template>
   <div class="graphic-dashboard">
-    <canvas :id="idCanvas"></canvas>
+    <canvas id="idRadarGraph"></canvas>
   </div>
 </template>
 
@@ -8,7 +8,6 @@
 import Chart from 'chart.js';
 import EventBus from '../../../../components/event-bus'
 export default {
-  props:["idCanvas"],
   data(){
     return {
       myChart : null
@@ -16,7 +15,7 @@ export default {
   },
   mounted() {
     EventBus.$on('GET_DATAS_GRAPHIC_RADAR', payload=>{
-      const ctx = document.getElementById(this.idCanvas).getContext("2d");
+      const ctx = document.getElementById('idRadarGraph').getContext("2d");
     
       if (this.myChart) {
           this.myChart.destroy();

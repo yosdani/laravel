@@ -85,7 +85,8 @@ return [
         'state' => 'Estado',
         'add_area' => 'Asignar Área',
         'add_tag' => 'Asignar Etiqueta',
-        'responseForCitizen' => 'Respuesta al ciudadano'
+        'responseForCitizen' => 'Respuesta al ciudadano',
+        'export' => 'Exportar'
     ],
     'districts' => [
         'districts' => 'Distritos',
