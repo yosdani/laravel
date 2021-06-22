@@ -188,4 +188,18 @@ class IncidenceController extends Controller
         $image->urlImage=$url;
         $image->save();
     }
+
+    /**
+     * Export incidence
+     * @return JsonResponse
+     * 
+     */
+    public function export():JsonResponse
+    {
+        $json_data = Incidence::export();
+
+        return response()->json([
+            'incidences' => $json_data
+        ]);
+    }
 }

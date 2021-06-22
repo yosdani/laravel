@@ -6,7 +6,7 @@
             @sendStates="getStates($event)"
             @sendTags="getTags($event)"
         />
-        <bar-statistics />
+        <bar-statistics :datas="statistics"/>
         <div class="row container-card">
             <div class="text-center myLoading" v-if="loadingBody">
                 <b-spinner class="align-middle"></b-spinner>
@@ -46,7 +46,13 @@ export default {
                 tags:[],
                 states:[]
             },
-            loadingBody:false
+            loadingBody:false,
+            statistics:{ 
+                total: 0,
+                finished:0,
+                inProgress:0,
+                notAssigned:0,
+            }
         }
     },
     components:{
@@ -123,7 +129,11 @@ export default {
         getStatistics( filter_time ){
             axios.post(window.origin + '/admin/dashboard/general',filter_time)
             .then(response => {
-                EventBus.$emit('GET_GENERAL_STATISTICS', response.data );
+                this.statistics.total = response.data.total;
+                this.statistics.finished = response.data.finished;
+                this.statistics.inProgress = response.data.in_progress;
+                this.statistics.notAssigned = response.data.not_assigned;
+                //EventBus.$emit('GET_GENERAL_STATISTICS', response.data );
             })
         },
         getDashboardBar( filter_time ){

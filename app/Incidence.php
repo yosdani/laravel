@@ -118,7 +118,7 @@ class Incidence extends Model
      */
     public function district(): BelongsTo
     {
-        return $this->belongsTo(\App\District::class, 'district');
+        return $this->belongsTo(\App\District::class, 'district_id');
     }
 
     /**
@@ -138,7 +138,7 @@ class Incidence extends Model
      */
     public function neighborhood(): BelongsTo
     {
-        return $this->belongsTo(\App\Neighborhood::class, 'neighborhood');
+        return $this->belongsTo(\App\Neighborhood::class, 'neighborhood_id');
     }
 
     /**
@@ -189,11 +189,12 @@ class Incidence extends Model
      */
     public static function stateActual($idArea, $idState, $dateInit, $dateEnd, $tags){
         return Incidence::select('incidence.id')
+                        ->leftjoin('incidence_tag','incidence_tag.incidence_id','=','incidence.id')
                         ->where('incidence.area_id',$idArea)
                         ->where('incidence.state_id',$idState)
                         ->where('incidence.created_at','>=',$dateInit)
                         ->where('incidence.created_at','<=',$dateEnd)
-                        ->whereIn('incidence.tags',$tags)
+                        ->whereIn('incidence_tag.tag_id',$tags)
                         ->get()
                         ->count();
     }
@@ -240,10 +241,11 @@ class Incidence extends Model
      */
     public static function inProgress( $dateInit, $dateEnd, $tags){
         return Incidence::select('incidence.*')
+                        ->leftjoin('incidence_tag','incidence_tag.incidence_id','=','incidence.id')
                         ->where('incidence.state_id',1)
                         ->where('incidence.created_at','>=',$dateInit)
                         ->where('incidence.created_at','<=',$dateEnd)
-                        ->whereIn('incidence.tags',$tags)
+                        ->whereIn('incidence_tag.tag_id',$tags)
                         ->get()
                         ->count();
     }
@@ -290,5 +292,44 @@ class Incidence extends Model
     {
         return $notification->getUser()->email;
 
+    }
+
+    /**
+     * Export incidences
+     * 
+     */
+    public static function export(){
+        $datas = Incidence::select('incidence.*')
+                                ->with('user','tags','state','street','area','assignedTo','publicCenter','enrolment','district')
+                                ->get();
+
+        $json_data = [];
+        
+        foreach ($datas as $data){
+            $tags = '';
+            foreach($data->tags as $tag){
+                $tags = $tag->name .',';
+            }
+            $json_data[] = [
+                'id' => $data->id,
+                'title' => $data->title,
+                'description' => $data->description,
+                'location' => $data->location,
+                'address' => $data->address,
+                'street' => $data->street?$data->street->street:'',
+                'neighborhood' => $data->neighborhood?$data->neighborhood->name:'',
+                'tags' => $tags,
+                'user' => $data->user->email,
+                'area' => $data->area?$data->area->name:'',
+                'assignedTo' => $data->assignedTo?$data->assignedTo->email:'',
+                'state' => $data->state?$data->state->name:'',
+                'public_center' => $data->public_center?$data->public_center->name:'',
+                'enrollment' => $data->enrollment?$data->enrollment->name:'',
+                'created_at' => $data->created_at,
+                'district' => $data->district?$data->district->name:'',
+            ];
+        }
+
+        return $json_data;
     }
 }
