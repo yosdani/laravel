@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\IncidenceResource;
 use App\Incidence;
 use App\Http\Controllers\Controller;
 use App\IncidenceImage;
@@ -42,9 +43,10 @@ class IncidenceController extends Controller
         }elseif ($user->hasRole('Responsable')){
             $incidences = Incidence::where('area_id',$area->id)->with('user')->paginate(15);
         }
+
         return response()->json([
             'success' =>true,
-            'incidences' => $incidences
+            'incidences' => IncidenceResource::collection($incidences)
         ], 200);
     }
 

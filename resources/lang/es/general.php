@@ -81,6 +81,7 @@ return [
         'by_district' => 'Incidencias por distritos',
         'description' => 'Descripción',
         'location' => 'Ubicación',
+        'created' => 'Fecha',
         'title' => 'Título',
         'add_worker' => 'Asignar Trabajador',
         'state' => 'Estado',
