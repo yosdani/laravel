@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Incidence;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -44,5 +45,44 @@ class IncidenceResource extends JsonResource
             'updatedAt' => $this->updated_at->format('d/m/Y h:i'),
             'images' =>  $images,
         ];
+    }
+
+    /**
+     * Export incidences
+     *
+     */
+    public static function export(){
+        $datas = Incidence::select('incidence.*')
+            ->with('user','tags','state','street','area','assignedTo','publicCenter','enrolment','district')
+            ->get();
+
+        $json_data = [];
+
+        foreach ($datas as $data){
+            $tags = '';
+            foreach($data->tags as $tag){
+                $tags = $tag->name .',';
+            }
+            $json_data[] = [
+                'id' => $data->id,
+                'title' => $data->title,
+                'description' => $data->description,
+                'location' => $data->location,
+                'address' => $data->address,
+                'street' => $data->street?$data->street->street:'',
+                'neighborhood' => $data->neighborhood?$data->neighborhood->name:'',
+                'tags' => $tags,
+                'user' => $data->user->email,
+                'area' => $data->area?$data->area->name:'',
+                'assignedTo' => $data->assignedTo?$data->assignedTo->email:'',
+                'state' => $data->state?$data->state->name:'',
+                'public_center' => $data->public_center?$data->public_center->name:'',
+                'enrollment' => $data->enrollment?$data->enrollment->name:'',
+                'created_at' => $data->created_at,
+                'district' => $data->district?$data->district->name:'',
+            ];
+        }
+
+        return $json_data;
     }
 }

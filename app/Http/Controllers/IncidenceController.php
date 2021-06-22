@@ -221,7 +221,7 @@ class IncidenceController extends Controller
      */
     public function export():JsonResponse
     {
-        $json_data = Incidence::export();
+        $json_data = IncidenceResource::export();
 
         return response()->json([
             'incidences' => $json_data
