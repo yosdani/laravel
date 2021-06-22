@@ -50,7 +50,7 @@
                 </b-form-group>
 
                 <b-form-group id="input-group-7" :label="translate('general.incidences.add_worker')" label-for="input-7">
-                    <b-form-select v-model="formOut.form.workers">
+                    <b-form-select v-model="formOut.form.assignedTo">
                         <template>
                             <b-form-select-option :value="null" disabled>-- {{ translate('general.select') }} --</b-form-select-option>
                         </template>

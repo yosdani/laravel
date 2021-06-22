@@ -102,6 +102,7 @@ export default {
               this.formIn.form.area =  data.area ? data.area.id : null;
               this.formIn.form.enrolment =  data.enrolment ? data.enrolement.id : null
               this.formIn.form.public_center =  data.public_center ? data.public_center.id : null;
+              this.formIn.form.assignedTo =  data.assignedTo ? data.assignedTo.id : null;
 
               this.formIn.form._token = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
               this.formIn.uri = this.formIn.uri+'/'+response.data.id;
