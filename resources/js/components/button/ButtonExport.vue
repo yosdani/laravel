@@ -12,7 +12,7 @@
 import JsonExcel from "vue-json-excel";
 import trans from "../../VueTranslation/Translation";
 export default {
-    props: ["options"],
+    props: ["json_data"],
     components:{
         'downloadExcel': JsonExcel
     },
