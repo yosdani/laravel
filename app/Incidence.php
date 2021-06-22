@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 
@@ -43,7 +44,12 @@ class Incidence extends Model
 
     public function assignedTo(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'assigned_role','id');
+        return $this->belongsTo(User::class, 'assigned_id','id');
+    }
+
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tags::class, 'incidence_tag', 'incidence_id', 'tag_id');
     }
     /**
      * The attributes that are mass assignable.
@@ -263,7 +269,7 @@ class Incidence extends Model
      * @param Carbon $dateInit
      * @param Carbon $dateEnd
      * @return int
-     * 
+     *
      */
     public static function allIncidence($dateInit, $dateEnd)
     {

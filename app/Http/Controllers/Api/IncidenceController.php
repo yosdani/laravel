@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Resources\IncidenceResource;
 use App\Incidence;
 use App\Http\Controllers\Controller;
 use App\IncidenceImage;
@@ -53,7 +54,7 @@ class IncidenceController extends Controller
             ->paginate(15);
         return response()->json([
             'success' =>true,
-            'incidences'=> $incidences
+            'incidences'=> IncidenceResource::collection($incidences)
         ], 200);
     }
 
@@ -343,7 +344,7 @@ class IncidenceController extends Controller
 
         $imgExtension = $this->getB64Extension($base64Image);
         $imageName = 'incidence_image' .uniqid(). time() . '.' . $imgExtension;
-        Storage::disk('local')->put($imageName, $img);
+        Storage::disk('local')->put(Incidence::IMAGE_PATH.$imageName, $img);
 
         $image = new IncidenceImage();
         $image->image = $imageName;
@@ -351,12 +352,5 @@ class IncidenceController extends Controller
 
         $image->save();
     }
-
-    private function imageUrl($fileName)
-    {
-        return Storage::url($fileName,'storage');
-    }
-
-
 
 }
