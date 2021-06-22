@@ -34,7 +34,7 @@ Route::prefix('v1')->group(function () {
         Route::get('news', ['uses'=>'Api\NewsController@index']);
         //Route for create a News
         Route::post('news', ['uses'=>'Api\NewsController@store']);
-        //Route for get an notice by id
+        //Route for get an news by id
         Route::get('news/{id}', ['uses'=>'Api\NewsController@show']);
         //Route for update an incidence
         Route::put('news/{id}', ['uses'=>'Api\NewsController@update']);
