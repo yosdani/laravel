@@ -35,8 +35,11 @@ class IncidenceObserver
      */
     public function created(Incidence $incidence)
     {
-        $incidence->notify(new IncidenceCreatedNotification($this->user));
+        try {
+            $incidence->notify(new IncidenceCreatedNotification($this->user));
+        }catch (\Exception $exception){
 
+        }
     }
 
     /**
@@ -56,11 +59,15 @@ class IncidenceObserver
         $changes = $this->registerDescription($incidence, $changes);
 
 
+        try{
+            if($incidence->created_at->format('d/m/Y H:i:s') !== $incidence->updated_at->format('d/m/Y H:i:s')){
+                $incidence->notify(new IncidenceEditedNotification($this->user, $changes));
+                $this->saveHistoric($incidence, $changes);
+            }
+        }catch (\Exception $exception){
 
-        if($incidence->created_at->format('d/m/Y H:i:s') !== $incidence->updated_at->format('d/m/Y H:i:s')){
-            $incidence->notify(new IncidenceEditedNotification($this->user, $changes));
-            $this->saveHistoric($incidence, $changes);
         }
+
 
     }
 
