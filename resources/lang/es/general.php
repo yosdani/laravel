@@ -150,5 +150,21 @@ return [
         'send' => 'Enviar',
         'via' => 'Seleccione una via',
         'sent' => 'Las notificaciones han sido enviadas.'
+    ],
+    'export_incidence' => [
+        'title' => 'Título',
+        'description' => 'Descripción',
+        'location' => 'Localización',
+        'direction' => 'Dirección',
+        'street' => 'Calle',
+        'neighborhood' => 'Barrio',
+        'tags' => 'Etiquetas',
+        'user' => 'Usuario',
+        'area' => 'Área',
+        'assignedTo' => 'Asignada a',
+        'state' => 'Estado',
+        'public_center' => 'Centro Público',
+        'enrollment' => 'Matrícula',
+        'created_at' => 'Creada',
     ]
 ];

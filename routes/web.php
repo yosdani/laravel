@@ -160,6 +160,9 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
     //Route for delete an incidence
     Route::delete('incidence/{id}', 'Api\IncidenceController@destroy');
 
+    //Route to export all incidences
+    Route::get('export/incidence', 'IncidenceController@export');
+
     //Route for get all categories
     Route::get('category', ['uses'=>'CategoryController@index']);
     //Route for get an category by id

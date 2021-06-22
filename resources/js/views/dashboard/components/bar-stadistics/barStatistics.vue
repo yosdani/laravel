@@ -1,9 +1,9 @@
 <template>
     <div class="card-dashboard row" :style="putOfMarginNegative">
-            <statistics class="col-lg-3 col-md-6 col-sm-12 border-stadistics" :color="'green'" :iconName="'wallet2'" :name="translate('general.dashboard_statistics.total_incidences')" :number="total"/>
-            <statistics class="col-lg-3 col-md-6 col-sm-12 border-stadistics three-component" :color="'orange'" :iconName="'calendar2-check-fill'" :name="translate('general.dashboard_statistics.finished')" :number="finished"/>
-            <statistics class="col-lg-3 col-md-6 col-sm-12 border-stadistics" :color="'blue'" :iconName="'bar-chart-steps'" :name="translate('general.dashboard_statistics.in_progress')" :number="inProgress"/>
-            <statistics class="col-lg-3 col-md-6 col-sm-12" :color="'red'" :iconName="'exclamation-triangle-fill'" :name="translate('general.dashboard_statistics.not_assigned')" :number="notAssigned"/>
+            <statistics class="col-lg-3 col-md-6 col-sm-12 border-stadistics" :color="'green'" :iconName="'wallet2'" :name="translate('general.dashboard_statistics.total_incidences')" :number="datas.total"/>
+            <statistics class="col-lg-3 col-md-6 col-sm-12 border-stadistics three-component" :color="'orange'" :iconName="'calendar2-check-fill'" :name="translate('general.dashboard_statistics.finished')" :number="datas.finished"/>
+            <statistics class="col-lg-3 col-md-6 col-sm-12 border-stadistics" :color="'blue'" :iconName="'bar-chart-steps'" :name="translate('general.dashboard_statistics.in_progress')" :number="datas.inProgress"/>
+            <statistics class="col-lg-3 col-md-6 col-sm-12" :color="'red'" :iconName="'exclamation-triangle-fill'" :name="translate('general.dashboard_statistics.not_assigned')" :number="datas.notAssigned"/>
     </div>
 </template>
 <script>
@@ -11,25 +11,9 @@ import Statistics from './statistics'
 import EventBus from '../../../../components/event-bus';
 import trans from '../../../../VueTranslation/Translation'
 export default {
-    props:["arrayOfDatas"],
-    data() {
-        return {
-            total: 0,
-            finished: 0,
-            inProgress: 0,
-            notAssigned: 0
-        }
-    },
+    props:["datas"],
     components:{
         Statistics
-    },
-    mounted() {
-        EventBus.$on('GET_GENERAL_STATISTICS', payload=>{
-            this.total = payload.total;
-            this.finished = payload.finished;
-            this.inProgress = payload.in_progress;
-            this.notAssigned = payload.not_assigned;
-        })
     },
     computed:{
         putOfMarginNegative(){
