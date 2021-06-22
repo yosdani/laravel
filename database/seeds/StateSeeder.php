@@ -13,8 +13,8 @@ class StateSeeder extends Seeder
     public function run()
     {
         $array = [
-            'En Proceso',
-            'Finalizadas'
+            'En Curso',
+            'Finalizada'
         ];
         foreach ($array as $tag) {
             if(!State::where('name',$tag)->first()){
