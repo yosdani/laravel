@@ -2,7 +2,7 @@
     <b-form @submit="onSubmit" v-if="show">
                 <input type="hidden" name="_token" :value="csrf">
         <b-row>
-            <b-col cols="6">
+            <b-col md="6">
                     <b-form-group
                         v-if="formOut.formFrom == translate('general.users.user')"
                         id="input-group-1"

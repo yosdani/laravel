@@ -59,6 +59,7 @@ import WorkerAdd from './views/areas/WorkersAdd.vue';
 import Historic from './views/historic/Historic.vue';
 import HistoricShow from './views/historic/HistoricShow.vue';
 
+import Notifications from './views/notifications/Notifications.vue';
 
 Vue.use(VueRouter);
 export	default	new	VueRouter({
@@ -277,6 +278,11 @@ export	default	new	VueRouter({
             path:'/historic/:id',
             name: "showHistoric",
             component: HistoricShow
+        },
+        {
+            path:'/notifications',
+            name: "notifications",
+            component: Notifications
         },
 
     ]

@@ -92,9 +92,15 @@ let sideBarAdminLinks = [
         child: []
     },
     {
+        name: trans.translate('general.notifications.notifications'),
+        route: '/notifications',
+        child: [],
+        icon: 'bell'
+    },
+    {
         name: trans.translate('general.historic.historic'),
         route: "/historic",
-        icon: 'clock',
+        icon: 'clock-history',
         child: []
     },
 

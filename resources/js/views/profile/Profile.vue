@@ -7,7 +7,7 @@
             </b-card-header>
             <b-card-body>
                 <b-row>
-                    <b-col size="6">
+                    <b-col md="6">
                         <b-card>
                             <b-card-body>
                                 <p class="text-capitalize">{{ translate('general.users.name') }}: {{ user.name }} </p>
@@ -16,7 +16,7 @@
                             </b-card-body>
                         </b-card>
                     </b-col>
-                    <b-col size="6">
+                    <b-col md="6">
                         <b-button v-b-toggle.collapse-1 variant="primary">{{ translate('general.edit') }} {{ translate('general.users.profile') }}</b-button>
                         <b-collapse id="collapse-1" class="mt-2">
                             <b-card>

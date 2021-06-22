@@ -4,6 +4,7 @@ return [
     'edit' => 'Editar',
     'delete' => 'Eliminar',
     'add' => 'Añadir',
+    'create' => 'Crear',
     'clear' => 'Limpiar',
     'send' => 'Enviar',
     'accept' => 'Aceptar',
@@ -136,5 +137,17 @@ return [
         'historic' => 'Histórico',
         'field' => 'Datos modificados',
         'area' => 'Área'
+    ],
+    'notifications' => [
+        'notifications' => 'Notificaciones',
+        'notification' => 'Notificación',
+        'via_email' => 'Email',
+        'via_push' => 'Notificaciones Push',
+        'title' => 'Título',
+        'body' => 'Contenido',
+        'create' => 'Crear Notificación',
+        'send' => 'Enviar',
+        'via' => 'Seleccione una via',
+        'sent' => 'Las notificaciones han sido enviadas.'
     ]
 ];
