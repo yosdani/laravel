@@ -21,15 +21,20 @@ use Symfony\Component\Translation\Exception\NotFoundResourceException;
 class ImageController extends Controller
 {
     /**
-     * List of categories
+     * Get an Image
      * @OA\Get(
      *      path="/image/{source}/{filename}",
      *      tags={"Images"},
-     *      summary="Get an image",
-     *      description="Returns list of category",
+     *      summary="Get an image with all details",
+     *      description="Returns response",
      *      @OA\Response(
      *          response=200,
-     *          description="Successful operation")
+     *          description="Successful operation"),
+     *     @OA\Response(
+     *          response=404,
+     *          description="Not found"
+     *      )
+     *
      *       )
      *     )
      */
