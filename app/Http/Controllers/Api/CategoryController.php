@@ -24,9 +24,17 @@ class CategoryController extends Controller
      *      description="Returns list of category",
      *      @OA\Response(
      *          response=200,
-     *          description="Successful operation")
-     *       )
-     *     )
+     *          description="Successful operation"),
+     *
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      )
+     * )
      */
     public function index():JsonResponse
     {
@@ -73,8 +81,8 @@ class CategoryController extends Controller
      * @OA\Get (
      *      path="/category/{id}",
      *      tags={"Categories"},
-     *      summary="Get a category by id",
-     *      description="Returns the category",
+     *      summary="Search a category by id",
+     *      description="Returns all the details of category",
      *     @OA\Parameter(
      *          name="id",
      *          description="Category id",
@@ -87,8 +95,11 @@ class CategoryController extends Controller
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
+     *          @OA\Schema(ref="Category"),
+
+     *          @OA\Schema(ref="#/components/schemas/Category")
+     *         ),
      *
-     *       ),
      *      @OA\Response(
      *          response=400,
      *          description="The category not be found",

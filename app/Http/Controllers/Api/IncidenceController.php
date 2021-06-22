@@ -110,8 +110,8 @@ class IncidenceController extends Controller
      * @OA\Get (
      *      path="/incidence/{id}",
      *      tags={"Incidences"},
-     *      summary="Get a incidence by id",
-     *      description="Returns the incedence",
+     *      summary="Search a incidence by id",
+     *      description="Returns all the details of incidence",
      *     @OA\Parameter(
      *          name="id",
      *          description="Incidence id",
@@ -230,7 +230,11 @@ class IncidenceController extends Controller
      *      @OA\Response(
      *          response=401,
      *          description="Unauthenticated",
-     *      )
+     *      ),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Forbidden"
+     *      ),
      * )
      */
     public function update(Request $request, int $id): JsonResponse
