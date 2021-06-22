@@ -2,7 +2,7 @@
     <div class="stadistics-dashboard">
         <div>{{ name }}</div>
         <div>
-            <b-icon class="icon-stadistics" :style="giveColorIcons" :icon="iconName"></b-icon>{{ count }}</div>
+            <b-icon class="icon-stadistics" :style="giveColorIcons" :icon="iconName"></b-icon>{{ number }}</div>
     </div>
 </template>
 <script>
@@ -19,7 +19,7 @@ export default {
     methods: {
         _setInterval: function() {
                 this.interval = setInterval(() => {
-                    if (this.count === this.number) {
+                    if (this.count === this._number) {
                         clearInterval(this.interval);
                     } else {
                         this.count += 1;

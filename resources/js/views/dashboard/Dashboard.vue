@@ -3,8 +3,6 @@
         <bar-filters 
             :filters="filters" 
             @sendTimer="getTimer($event)"
-            @sendStates="getStates($event)"
-            @sendTags="getTags($event)"
         />
         <bar-statistics :datas="statistics"/>
         <div class="row container-card">
@@ -14,9 +12,11 @@
             </div>
             <div v-else class="graphics-card col-lg-8 col-md-12 col-sm-12">
                 <graphic
+                    :data="dataOfGraphicBar"
                     class="col-lg-12 col-md-12 col-sm-12"
                 />
                 <graphic-radar
+                    :data="dataOfGraphicRadar"
                     class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
                 />
             </div>
@@ -46,13 +46,15 @@ export default {
                 tags:[],
                 states:[]
             },
-            loadingBody:false,
+            loadingBody:true,
             statistics:{ 
                 total: 0,
                 finished:0,
                 inProgress:0,
                 notAssigned:0,
-            }
+            },
+            dataOfGraphicBar: null,
+            dataOfGraphicRadar: null,
         }
     },
     components:{
@@ -63,68 +65,57 @@ export default {
         BarFilters,
         GraphicRadar
     },
+    beforeCreate(){
+        axios.get(window.origin+'/admin/users/'+this.$store.state.user.id)
+        .then(response => {
+            if(response.data.user.filters != null){
+                this.filters.period = JSON.parse(response.data.user.filters).period;
+                this.filters.dateInit = JSON.parse(response.data.user.filters).dateInit;
+                this.filters.dateEnd = JSON.parse(response.data.user.filters).dateEnd;
+                this.filters.states = JSON.parse(response.data.user.filters).states;
+                this.filters.tags = JSON.parse(response.data.user.filters).tags;
+            }
+        })
+    },
     created() {
-        this.getFilters();
-        
-        this.getAllDatas( this.filters );
+        this.loadingBody = true;
+        this.getStatistics( this.filters );
     },
     mounted() {
         EventBus.$on('GET_TIMER_PERIOD', payload =>{
             this.filters.dateInit = payload[0];
             this.filters.dateEnd = payload[1];
 
-            this.getGraphicDatas( this.filters );
+            this.getStatistics( this.filters );
         });
+
+        EventBus.$on('UPDATE_FILTERS_tags', payload=>{
+            let tags = [];
+            payload.map(tag => {
+                tags.push(tag.id);
+            })
+            
+            this.filters.tags = tags;
+
+            this.getStatistics( this.filters );
+        })
+
+        EventBus.$on('UPDATE_FILTERS_states', payload=>{
+            let states = [];
+            payload.map(state => {
+                states.push(state.id);
+            })
+            this.filters.states = states;
+
+            this.getStatistics( this.filters );
+        })
     },
     methods: {
-        getFilters(){
-            axios.get(window.origin+'/admin/users/'+this.$store.state.user.id)
-            .then(response => {
-                if(response.data.user.filters != null)
-                    this.filters.period = JSON.parse(response.data.user.filters).period;
-                    this.filters.dateInit = JSON.parse(response.data.user.filters).dateInit;
-                    this.filters.dateEnd = JSON.parse(response.data.user.filters).dateEnd;
-                    this.filters.states = JSON.parse(response.data.user.filters).states;
-                    this.filters.tags = JSON.parse(response.data.user.filters).tags;
-            })
-        },
         getTimer(event){
             this.filters.period = event;
             if(event != 'period'){
-                this.getAllDatas( this.filters );
+                this.getStatistics( this.filters );
             }
-        },
-        getStates(event){
-            let states = [];
-            event.map( state => {
-                states.push( state.id );
-            })
-            this.filters.states = states;
-            this.getGraphicDatas( this.filters );
-        },
-        getTags(event){
-            let tags = [];
-            event.map(tag => {
-                tags.push(tag.id);
-            })
-            this.filters.tags = tags;
-
-            this.getAllDatas( this.filters );
-        },
-        getAllDatas( filters ){
-            this.getStatistics( filters );
-            this.getDashboardBar( filters );
-            this.getDashboardRadar( filters );
-            this.getDashboardTeams( filters );
-
-            this.$store.dispatch('dataCharge');
-            
-        },
-        getGraphicDatas( filters ){
-            this.getDashboardBar( filters );
-            this.getDashboardRadar( filters )
-
-            this.$store.dispatch('dataCharge');
         },
         getStatistics( filter_time ){
             axios.post(window.origin + '/admin/dashboard/general',filter_time)
@@ -133,41 +124,36 @@ export default {
                 this.statistics.finished = response.data.finished;
                 this.statistics.inProgress = response.data.in_progress;
                 this.statistics.notAssigned = response.data.not_assigned;
-                //EventBus.$emit('GET_GENERAL_STATISTICS', response.data );
-            })
-        },
-        getDashboardBar( filter_time ){
-            axios.post(window.origin + '/admin/dashboard/bar',filter_time)
-            .then(response => {
-                let dataOfGraphicBar = {
+                
+                this.dataOfGraphicBar = {
                     type: "bar",
                     data: {
-                        labels: response.data.areas,
+                        labels: response.data.bar.areas,
                         datasets: [
                             {
                                 label: trans.translate('general.total'),
-                                data: response.data.totalByAreas,
+                                data: response.data.bar.totalByAreas,
                                 backgroundColor: "rgba(168,255,137,.3)",
                                 borderColor: "#A8FF89",
                                 borderWidth: 2
                             },
                             {
                                 label: trans.translate('general.incidences.finished'),
-                                data: response.data.totalFinish,
+                                data: response.data.bar.totalFinish,
                                 backgroundColor: "rgba(225,193,50,.3)",
                                 borderColor: "#E1C132",
                                 borderWidth: 2
                             },
                             {
                                 label: trans.translate('general.incidences.in_progress'),
-                                data: response.data.totalInProgress,
+                                data: response.data.bar.totalInProgress,
                                 backgroundColor: "rgba(96, 162,255,.3)",
                                 borderColor: "#60A2FF",
                                 borderWidth: 2
                             },
                             {
                                 label:  trans.translate('general.incidences.not_assigned'),
-                                data: response.data.totalUnsigned,
+                                data: response.data.bar.totalUnsigned,
                                 backgroundColor: "rgba(255, 75,99,.3)",
                                 borderColor: "#FF4B63",
                                 borderWidth: 2
@@ -189,20 +175,15 @@ export default {
                         }
                     }
                 }
-                EventBus.$emit('GET_DATAS_GRAPHIC_BAR', dataOfGraphicBar );
-            })
-        },
-        getDashboardRadar( filter_time ){
-            axios.post(window.origin + '/admin/dashboard/radar',filter_time)
-            .then(response => {
-                let dataOfGraphicRadar = {
+
+                this.dataOfGraphicRadar = {
                     type: "radar",
                     data: {
-                        labels: response.data.districts,
+                        labels: response.data.radar.districts,
                         datasets: [
                             {
                                 label: trans.translate('general.incidences.by_district'),
-                                data: response.data.incidences,
+                                data: response.data.radar.incidences,
                                 fill: true,
                                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                                 borderColor: 'rgb(255, 99, 132)',
@@ -221,13 +202,10 @@ export default {
                         }
                     }
                 }
-                EventBus.$emit('GET_DATAS_GRAPHIC_RADAR', dataOfGraphicRadar );
-            })
-        },
-        getDashboardTeams( filter_time ){
-            axios.post(window.origin + '/admin/dashboard/teams',filter_time)
-            .then(response => {
-                EventBus.$emit('GET_DATAS_CARD_WORKERS', response.data );
+
+                EventBus.$emit('GET_DATAS_CARD_WORKERS', response.data.teams );
+
+                this.loadingBody = false;
             })
         }
     }

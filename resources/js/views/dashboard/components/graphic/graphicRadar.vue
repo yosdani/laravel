@@ -8,20 +8,19 @@
 import Chart from 'chart.js';
 import EventBus from '../../../../components/event-bus'
 export default {
+  props: ['data'],
   data(){
     return {
       myChart : null
     }
   },
   mounted() {
-    EventBus.$on('GET_DATAS_GRAPHIC_RADAR', payload=>{
       const ctx = document.getElementById('idRadarGraph').getContext("2d");
     
       if (this.myChart) {
           this.myChart.destroy();
       }
-      this.myChart = new Chart(ctx, payload);
-    })
+      this.myChart = new Chart(ctx, this.data);
   }
 }
 </script>
