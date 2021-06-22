@@ -73,10 +73,9 @@ class IncidenceController extends Controller
      */
     public function show(int $id): JsonResponse
     {
-        if (!Incidence::find($id)) {
-            return response()->json("This incidence does not exist", '404');
-        }
-        return response()->json(Incidence::find($id)->with('images')->first(), 200) ;
+        $incidence = Incidence::findOrFail($id);
+
+        return response()->json(new IncidenceResource($incidence)) ;
     }
 
     /**
@@ -192,7 +191,7 @@ class IncidenceController extends Controller
     /**
      * Export incidence
      * @return JsonResponse
-     * 
+     *
      */
     public function export():JsonResponse
     {

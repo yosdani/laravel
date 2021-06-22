@@ -331,9 +331,11 @@ class IncidenceController extends Controller
 
     public function getB64Extension($base64Image, $full=null)
     {
-        preg_match("/^data:image\/(.*);base64/i", $base64Image, $imgExtension);
+        $img = explode(',', $base64Image);
+        $ini =substr($img[0], 11);
+        $type = explode(';', $ini);
 
-        return ($full) ?  $imgExtension[0] : $imgExtension[1];
+        return $type[0];
     }
 
     /**
