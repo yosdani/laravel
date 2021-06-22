@@ -90,8 +90,7 @@ export default {
   methods: {
     fetchData(page=1) {
       let vm = this;
-      fetch("/admin/incidences?page="+page)
-        .then((response) => response.json())
+      axios.get("/admin/incidences?page="+page)
         .then((response) => {
             vm.items = response.incidences;
             vm.perPage = response.incidences.per_page;

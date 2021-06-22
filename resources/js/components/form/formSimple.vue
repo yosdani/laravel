@@ -68,14 +68,11 @@ export default {
     methods: {
       onSubmit(event) {
         event.preventDefault()
-        fetch(window.origin+'/'+this.formOut.uri,{
+        axios(window.origin+'/'+this.formOut.uri,{
             method: this.formOut.method,
-            headers:{
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(this.form)
+            headers:{'content-type': 'application/json'},
+            data: JSON.stringify(this.form)
         })
-        .then(response => response.json())
         .then(response=>{
             this.$swal.fire({
                 position: 'top-end',

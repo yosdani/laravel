@@ -104,8 +104,7 @@ export default {
   methods: {
     fetchData(page=1) {
       let vm = this;
-      fetch("/admin/users?page="+page)
-        .then((response) => response.json())
+      axios.get("/admin/users?page="+page)
         .then((response) => {
           this.items = [];
             vm.perPage = response.users.per_page;
