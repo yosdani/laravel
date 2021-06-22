@@ -1,7 +1,7 @@
 <template>
     <form @submit="onSubmit" v-if="show" enctype="multipart/form-data">
         <b-row>
-            <b-col size="6">
+            <b-col md="6">
                 <b-form-group id="input-group-2" :label="translate('general.news.title')" label-for="input-2">
                     <b-form-input
                         id="input-2"
@@ -29,7 +29,7 @@
                     ></b-form-textarea>
                 </b-form-group>
             </b-col>
-            <b-col size="6">
+            <b-col md="6">
                 <b-form-group id="input-group-category" :label="translate('general.categories.categories')" label-for="input-3">
                     <b-form-select v-model="formOut.form.category_id" required>
                         <template #first>

@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Tags extends Model
 {
@@ -23,8 +24,12 @@ class Tags extends Model
         'name',
     ];
 
+    public function incidences(): BelongsTo
+    {
+        return $this->belongsTo(Incidence::class);
+    }
     /**
-     * Get tags 
+     * Get tags
      * @param Carbon $dateInit
      * @param Carbon $dateEnd
      * @return Collection

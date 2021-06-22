@@ -1,15 +1,20 @@
 <template>
-    <export-excel class= "btn btn-primary text-right" :data="options">
-        Download Data
-    </export-excel>
+    <download-excel
+        class="btn btn-primary"
+        :data="json_data"
+        name="incidences.xls"
+    >
+       {{ translate('general.incidences.export')}}
+    </download-excel>
 </template>
 
 <script>
-import excel from 'vue-excel-export';
+import JsonExcel from "vue-json-excel";
+import trans from "../../VueTranslation/Translation";
 export default {
-    props: ["options"],
+    props: ["json_data"],
     components:{
-        'export-excel': excel
+        'downloadExcel': JsonExcel
     },
     methods:{
         executeAction(){

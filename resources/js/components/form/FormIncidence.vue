@@ -2,7 +2,7 @@
     <b-form @submit="onSubmit" v-if="show">
         <input type="hidden" name="_token" :value="form._token" />
         <b-row>
-            <b-col cols="6">
+            <b-col md="6">
                 <b-form-group id="input-group-2" :label="translate('general.news.title')" label-for="input-2">
                     <b-form-input
                         id="input-2"

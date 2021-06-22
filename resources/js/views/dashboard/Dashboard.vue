@@ -1,16 +1,23 @@
 <template>
     <div style="margin-top: 20px;">
-        <bar-filters :filters="filters"/>
+        <bar-filters 
+            :filters="filters" 
+            @sendTimer="getTimer($event)"
+            @sendStates="getStates($event)"
+            @sendTags="getTags($event)"
+        />
         <bar-statistics />
         <div class="row container-card">
-            <div class="graphics-card col-lg-8 col-md-12 col-sm-12">
+            <div class="text-center myLoading" v-if="loadingBody">
+                <b-spinner class="align-middle"></b-spinner>
+                <strong>{{ translate('general.loading') }}</strong>
+            </div>
+            <div v-else class="graphics-card col-lg-8 col-md-12 col-sm-12">
                 <graphic
                     class="col-lg-12 col-md-12 col-sm-12"
-                    :idCanvas="'barGraphic'"
                 />
                 <graphic-radar
                     class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
-                    :idCanvas="'radarGraphic'"
                 />
             </div>
             <div class="list-card col-lg-3 col-md-12 col-sm-12">
@@ -28,16 +35,18 @@ import BarStatistics from "./components/bar-stadistics/barStatistics"
 import Accordion from "./components/listWorkers/lists"
 import Lists from "./components/listWorkers/lists";
 import EventBus from '../../components/event-bus';
+import {mapState} from "vuex";
 export default {
     data() {
         return{
             filters:{
-                period:'',
+                period:'year',
                 dateInit:'',
                 dateEnd:'',
                 tags:[],
                 states:[]
-            }
+            },
+            loadingBody:false
         }
     },
     components:{
@@ -49,59 +58,68 @@ export default {
         GraphicRadar
     },
     created() {
-        if(JSON.parse(this.$store.state.user.filters) != null)
-            this.filters = JSON.parse(this.$store.state.user.filters);
-        if(this.filters != null)
-            if(this.filters.period == null){
-                this.filters.period = 'year';
-            }
+        this.getFilters();
         
-        //this.getStatistics( this.filters );
-        //this.getDashboardBar( this.filters );
-        //this.getDashboardRadar( this.filters );
-        //this.getDashboardTeams( this.filters );
+        this.getAllDatas( this.filters );
     },
     mounted() {
-        EventBus.$on('GET_TIMER_FILTERS', payload=>{
-            this.filters.period = payload;
-            if(payload != 'period'){
-                this.getStatistics( this.filters );
-                this.getDashboardBar( this.filters );
-                this.getDashboardRadar( this.filters );
-                this.getDashboardTeams( this.filters );
-            }
-        });
         EventBus.$on('GET_TIMER_PERIOD', payload =>{
             this.filters.dateInit = payload[0];
             this.filters.dateEnd = payload[1];
 
-            this.getDashboardBar( this.filters );
-            this.getDashboardRadar( this.filters );
+            this.getGraphicDatas( this.filters );
         });
-        EventBus.$on('GET_TAGS', payload=> {
+    },
+    methods: {
+        getFilters(){
+            axios.get(window.origin+'/admin/users/'+this.$store.state.user.id)
+            .then(response => {
+                if(response.data.user.filters != null)
+                    this.filters.period = JSON.parse(response.data.user.filters).period;
+                    this.filters.dateInit = JSON.parse(response.data.user.filters).dateInit;
+                    this.filters.dateEnd = JSON.parse(response.data.user.filters).dateEnd;
+                    this.filters.states = JSON.parse(response.data.user.filters).states;
+                    this.filters.tags = JSON.parse(response.data.user.filters).tags;
+            })
+        },
+        getTimer(event){
+            this.filters.period = event;
+            if(event != 'period'){
+                this.getAllDatas( this.filters );
+            }
+        },
+        getStates(event){
+            let states = [];
+            event.map( state => {
+                states.push( state.id );
+            })
+            this.filters.states = states;
+            this.getGraphicDatas( this.filters );
+        },
+        getTags(event){
             let tags = [];
-            payload.map(tag => {
+            event.map(tag => {
                 tags.push(tag.id);
             })
             this.filters.tags = tags;
 
-            this.getDashboardBar( this.filters );
-            this.getDashboardRadar( this.filters );
-        })
-        EventBus.$on('GET_STATES', payload=> {
-            let states = [];
-            payload.map( state => {
-                states.push( state.id );
-            })
-            this.filters.states = states;
+            this.getAllDatas( this.filters );
+        },
+        getAllDatas( filters ){
+            this.getStatistics( filters );
+            this.getDashboardBar( filters );
+            this.getDashboardRadar( filters );
+            this.getDashboardTeams( filters );
 
-            this.getStatistics( this.filters );
-            this.getDashboardBar( this.filters );
-            this.getDashboardRadar( this.filters );
-            this.getDashboardTeams( this.filters );
-        })
-    },
-    methods: {
+            this.$store.dispatch('dataCharge');
+            
+        },
+        getGraphicDatas( filters ){
+            this.getDashboardBar( filters );
+            this.getDashboardRadar( filters )
+
+            this.$store.dispatch('dataCharge');
+        },
         getStatistics( filter_time ){
             axios.post(window.origin + '/admin/dashboard/general',filter_time)
             .then(response => {

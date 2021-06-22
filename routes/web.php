@@ -25,6 +25,9 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
                 'index', 'store', 'show', 'update', 'destroy',
             ],
         ]);
+        //Route for notifications
+        Route::post('send-notifications', 'NotificationsController@create');
+
         //Route for historic
         Route::get('historic', 'HistoricController@index');
         Route::get('historic/{id}', 'HistoricController@show');

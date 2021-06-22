@@ -4,7 +4,7 @@
       <b-card>
           <b-card-header class="border-0">
               <h3 class="mb-0 name-model">{{translate('general.incidences.incidences')}}</h3>
-              <!--<button-export class="float-right" :options="''"></button-export>-->
+              <button-export class="float-right" :json_data="items"></button-export>
           </b-card-header>
           <b-card-body>
               <table-data
@@ -57,15 +57,27 @@ export default {
               sortDirection: "desc",
           },
           {
-              key: "location",
-              label: trans.translate('general.incidences.location'),
+              key: "user.email",
+              label: trans.translate('general.users.user'),
+              sortable: true,
+              sortDirection: "desc",
+          },
+          {
+              key: "createdAt",
+              label: trans.translate('general.incidences.created'),
+              sortable: true,
+              sortDirection: "desc",
+          },
+          {
+              key: "state.name",
+              label: trans.translate('general.incidences.state'),
               sortable: true,
               sortDirection: "desc",
           },
           { key: 'actions', label: trans.translate('general.actions')}
       ],
       actions:'admin/incidence',
-      route:'/incidences'
+      route:'/incidences',
     };
   },
   mounted() {
@@ -81,7 +93,7 @@ export default {
       fetch("/admin/incidences?page="+page)
         .then((response) => response.json())
         .then((response) => {
-            vm.items = response.incidences.data;
+            vm.items = response.incidences;
             vm.perPage = response.incidences.per_page;
             vm.currentPage = response.incidences.current_page;
             vm.totalRows= response.incidences.total;

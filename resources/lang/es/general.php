@@ -4,6 +4,7 @@ return [
     'edit' => 'Editar',
     'delete' => 'Eliminar',
     'add' => 'Añadir',
+    'create' => 'Crear',
     'clear' => 'Limpiar',
     'send' => 'Enviar',
     'accept' => 'Aceptar',
@@ -80,12 +81,14 @@ return [
         'by_district' => 'Incidencias por distritos',
         'description' => 'Descripción',
         'location' => 'Ubicación',
+        'created' => 'Fecha',
         'title' => 'Título',
         'add_worker' => 'Asignar Trabajador',
         'state' => 'Estado',
         'add_area' => 'Asignar Área',
         'add_tag' => 'Asignar Etiqueta',
-        'responseForCitizen' => 'Respuesta al ciudadano'
+        'responseForCitizen' => 'Respuesta al ciudadano',
+        'export' => 'Exportar'
     ],
     'districts' => [
         'districts' => 'Distritos',
@@ -135,5 +138,17 @@ return [
         'historic' => 'Histórico',
         'field' => 'Datos modificados',
         'area' => 'Área'
+    ],
+    'notifications' => [
+        'notifications' => 'Notificaciones',
+        'notification' => 'Notificación',
+        'via_email' => 'Email',
+        'via_push' => 'Notificaciones Push',
+        'title' => 'Título',
+        'body' => 'Contenido',
+        'create' => 'Crear Notificación',
+        'send' => 'Enviar',
+        'via' => 'Seleccione una via',
+        'sent' => 'Las notificaciones han sido enviadas.'
     ]
 ];
