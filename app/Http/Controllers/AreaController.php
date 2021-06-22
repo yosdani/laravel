@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 use App\Area;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AreaResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -26,14 +27,14 @@ class AreaController extends Controller
         $user = Auth::user();
         $areas = [];
         if($user->hasRole('Admin')){
-            $areas = Area::select('area.*')->with('user')->paginate(15);
+            $areas = Area::paginate(15);
         }elseif ($user->hasRole('Responsable')){
-            $areas = Area::where('user_id',$user->id)->with('user')->paginate(15);
+            $areas = Area::where('user_id',$user->id)->paginate(15);
         }
 
         return response()->json([
             'success' =>true,
-            'areas' => $areas
+            'areas' => AreaResource::collection($areas)
         ], 200);
     }
 

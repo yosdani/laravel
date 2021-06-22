@@ -64,7 +64,7 @@ export default {
         enrollments:[],
         states:[],
         areas: [],
-        uri:'admin/incidences',
+        uri:'admin/incidence',
         method: 'PUT',
         route:'/incidences'
       }
@@ -74,63 +74,37 @@ export default {
       FormIncidence
   },
   mounted() {
-     //this.getRoles();
-    this.getIncidenceById( this.$route.params.id );
-    this.getWorkers();
-    this.getEnrollment();
-    this.getStates();
+      this.getIncidenceById( this.$route.params.id );
+      this.getData();
   },
   methods: {
-      getRoles(){
-          axios.get( window.origin+'/admin/roles')
-            .then((response) => {
-                response.map(r=>{
-                    this.formIn.roles.push({
-                        text: r.name,
-                        value: r.name
-                    })
-                })
-            });
+      getData() {
+          axios.get(window.origin+'/admin/incidence/form-data/')
+              .then(response=>{
+                  let data = response.data;
+                  this.formIn.areas = data.areas;
+                  this.formIn.states = data.states;
+                  this.formIn.enrolemnts = data.enrolments;
+                  this.formIn.public_centers = data.public_centers;
+                  this.formIn.streets = data.streets;
+                  this.formIn.neighbors = data.neighbors;
+                  this.formIn.workers = data.workers;
+                  this.formIn.form._token = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                  this.formIn.uri = this.formIn.uri+'/'+response.data.id;
+              })
       },
       getIncidenceById(id) {
           axios.get(window.origin+'/admin/incidences/'+id)
           .then(response=>{
-            this.formIn.form = response.data;
-            this.formIn.form._token = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            this.formIn.uri = this.formIn.uri+'/'+response.data.id;
-          })
-      },
-      getWorkers(){
-          axios.get(window.origin+'/admin/workers')
-          .then(response=>{
-              response.data.workers.map(worker=>{
-                  this.formIn.workers.push({
-                      value: worker.id,
-                      text: worker.email
-                  });
-              })
-          })
-      },
-      getEnrollment(){
-          axios.get(window.origin+'/admin/enrollment')
-          .then(response => {
-              response.data.enrollment.data.map(enrollment => {
-                  this.formIn.enrollments.push({
-                      value: enrollment.id,
-                      text: enrollment.name
-                  })
-              })
-          })
-      },
-      getStates(){
-          axios.get(window.origin+'/admin/states')
-          .then(response => {
-              response.data.states.data.map(state => {
-                  this.formIn.states.push({
-                      value: state.id,
-                      text: state.name
-                  })
-              })
+              let data = response.data;
+              this.formIn.form = data;
+              this.formIn.form.state =  data.state ? data.state.id : null;
+              this.formIn.form.area =  data.area ? data.area.id : null;
+              this.formIn.form.enrolment =  data.enrolment ? data.enrolement.id : null
+              this.formIn.form.public_center =  data.public_center ? data.public_center.id : null;
+
+              this.formIn.form._token = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+              this.formIn.uri = this.formIn.uri+'/'+response.data.id;
           })
       }
     }

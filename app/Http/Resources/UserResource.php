@@ -25,4 +25,20 @@ class UserResource extends JsonResource
             'filters' => $this->filters
         ];
     }
+
+    public static function forList($users): array
+    {
+        $results = [];
+        foreach ($users as $user){
+            $results[] = [
+                'id' => $user->id,
+                'name' => $user->name,
+                'lastName' => $user->lastName,
+                'email' => $user->email,
+                'phoneNumber' => $user->phoneNumber,
+            ];
+        }
+
+        return $results;
+    }
 }

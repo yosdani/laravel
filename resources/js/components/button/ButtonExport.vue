@@ -17,10 +17,6 @@ export default {
             json_data:[],
         }
     },
-    created() {
-        this.getData();
-    },
-
     components:{
         'downloadExcel': JsonExcel
     },
