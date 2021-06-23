@@ -28,14 +28,14 @@
                     </b-form-select>
                 </b-form-group>
 
-                 <b-form-group id="input-group-4" :label="translate('general.incidences.add_tag')" label-for="input-4">
-                     <b-form-select v-model="formOut.form.tags">
-                         <template #first>
-                             <b-form-select-option :value="null" disabled>-- {{ translate('general.select') }} --</b-form-select-option>
-                         </template>
-                         <b-form-select-option  v-for="tag in formOut.tags" :key="tag.id" :value="tag.id">{{ tag.name }}</b-form-select-option>
-                     </b-form-select>
-                   </b-form-group>
+                <b-form-group id="input-group-4" :label="translate('general.incidences.add_tag')" label-for="input-4">
+                    <b-form-select v-model="formOut.form.tags">
+                        <template #first>
+                            <b-form-select-option :value="null" disabled>-- {{ translate('general.select') }} --</b-form-select-option>
+                        </template>
+                        <b-form-select-option  v-for="tag in formOut.tags" :key="tag.id" :value="tag.id">{{ tag.name }}</b-form-select-option>
+                    </b-form-select>
+                </b-form-group>
                 <b-form-group id="input-group-3" :label="translate('general.incidences.public_center')" label-for="input-3">
                     <b-form-select v-model="formOut.form.public_center">
                         <template>
@@ -49,7 +49,7 @@
                         <template>
                             <b-form-select-option :value="null" disabled>-- {{ translate('general.select') }} --</b-form-select-option>
                         </template>
-                        <b-form-select-option  v-for="street in formOut.streets" :key="street.id" :value="pc.id">{{ street.name }}</b-form-select-option>
+                        <b-form-select-option  v-for="street in formOut.streets" :key="street.id" :value="street.id">{{ street.name }}</b-form-select-option>
                     </b-form-select>
                 </b-form-group>
                 <b-form-group :label="translate('general.incidences.neighbor')" label-for="input-3">
@@ -121,43 +121,43 @@ export default {
         this.form = this.formOut.form;
     },
     methods: {
-      onSubmit(event) {
-          let vm = this;
-          event.preventDefault()
-          axios({
-              method: vm.formOut.method,
-              url: window.origin+'/admin/incidences/'+this.formOut.form.id,
-              data: this.formOut.form,
-              headers: {'content-type': 'application/json'}
-          }).then(response => {
-                  this.$swal.fire({
-                      position: 'top-end',
-                      icon: 'success',
-                      title: this.formOut.actionMessage + this.formOut.formFrom.toLowerCase(),
-                      showConfirmButton: false,
-                      timer: 1500
-                  })
-                  this.onReset(event);
-                  this.$router.push(this.formOut.route);
-              },
-              (error) => {
-                  this.$swal.fire({
-                      icon: 'error',
-                      title: 'Oops...',
-                      text: trans.translate('general.error_message'),
-                  })
-              });
-      },
-      onReset(event) {
-          event.preventDefault()
-          // Reset our form values
-          this.form = this.formOut;
-          // Trick to reset/clear native browser form validation state
-          this.show = false
-          this.$nextTick(() => {
-              this.show = true
-          })
-      },
+        onSubmit(event) {
+            let vm = this;
+            event.preventDefault()
+            axios({
+                method: vm.formOut.method,
+                url: window.origin+'/admin/incidences/'+this.formOut.form.id,
+                data: this.formOut.form,
+                headers: {'content-type': 'application/json'}
+            }).then(response => {
+                    this.$swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: this.formOut.actionMessage + this.formOut.formFrom.toLowerCase(),
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    this.onReset(event);
+                    this.$router.push(this.formOut.route);
+                },
+                (error) => {
+                    this.$swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: trans.translate('general.error_message'),
+                    })
+                });
+        },
+        onReset(event) {
+            event.preventDefault()
+            // Reset our form values
+            this.form = this.formOut;
+            // Trick to reset/clear native browser form validation state
+            this.show = false
+            this.$nextTick(() => {
+                this.show = true
+            })
+        },
         onFileChange(e) {
             let files = e.target.files || e.dataTransfer.files;
             if (!files.length)return;

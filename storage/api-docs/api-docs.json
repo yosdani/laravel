@@ -297,7 +297,7 @@
                 }
             }
         },
-        "/user/disable/notify/{notify}": {
+        "/user/enable/notify/{notify}": {
             "post": {
                 "tags": [
                     "Subscriptions"
@@ -309,7 +309,7 @@
                     {
                         "name": "notify",
                         "in": "path",
-                        "description": "boolean value 0(enable notifications) or 1(disable notifications)",
+                        "description": "boolean value 0(disable notifications) or 1(enable notifications)",
                         "required": true
                     }
                 ],

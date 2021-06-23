@@ -58,16 +58,32 @@ class NotificationsController extends Controller
 
     public function sendAll(Request $request)
     {
-        $recipients = User::whereNotNull('fcm_token')
+        $recipientsSound = User::whereNotNull('fcm_token')
+            ->andWhere('allow_notify', true)
             ->pluck('fcm_token')->toArray();
 
+        $recipients = User::whereNotNull('fcm_token')
+            ->andWhere('allow_notify', false)
+            ->pluck('fcm_token')->toArray();
         fcm()
-            ->to($recipients)
+            ->to($recipientsSound)
             ->notification([
                 'title' => $request->input('title'),
-                'body' => $request->input('body')
+                'body' => $request->input('body'),
+                'sound' => 'default'
             ])
             ->send();
+        if(count($recipients) > 0){
+            fcm()
+                ->to($recipients)
+                ->notification([
+                    'title' => $request->input('title'),
+                    'body' => $request->input('body'),
+                    'sound' => ''
+                ])
+                ->send();
+        }
+
 
         $notification = 'Notifications for all users.';
         return back()->with(compact('notification'));
@@ -78,13 +94,13 @@ class NotificationsController extends Controller
      * @param Request $request
      * @return JsonResponse
      *  * @OA\Post (
-     *      path="/user/disable/notify/{notify}",
+     *      path="/user/enable/notify/{notify}",
      *      tags={"Subscriptions"},
      *      summary="Enable/Disable Notifications alert for authenticated user",
      *      description="Returns ",
      *     @OA\Parameter(
      *          name="notify",
-     *          description="boolean value 0(enable notifications) or 1(disable notifications)",
+     *          description="boolean value 0(disable notifications) or 1(enable notifications)",
      *          required=true,
      *          in="path",
      *      ),
@@ -108,7 +124,7 @@ class NotificationsController extends Controller
         $user = User::findOrFail(JWTAuth::parseToken()->authenticate()->id);
         $user->allow_notify = $notify;
         $user->update();
-        $mess = $notify == 0 ? 'activado' : 'desactivado';
+        $mess = $notify == 1 ? 'activado' : 'desactivado';
 
         return response()->json([
             'success' =>true,

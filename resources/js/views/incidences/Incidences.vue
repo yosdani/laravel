@@ -92,10 +92,10 @@ export default {
       let vm = this;
       axios.get("/admin/incidences?page="+page)
         .then((response) => {
-            vm.items = response.incidences;
-            vm.perPage = response.incidences.per_page;
-            vm.currentPage = response.incidences.current_page;
-            vm.totalRows= response.incidences.total;
+            vm.items = response.data.incidences;
+            vm.perPage = response.data.incidences.per_page;
+            vm.currentPage = response.data.incidences.current_page;
+            vm.totalRows= response.data.incidences.total;
         });
     },
   },

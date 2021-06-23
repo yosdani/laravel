@@ -14,7 +14,7 @@ class AddAllowNotifyUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('allow_notify')->nullable();
+            $table->boolean('allow_notify')->default(true);
         });
     }
 
