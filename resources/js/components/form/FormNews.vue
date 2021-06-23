@@ -106,17 +106,12 @@ export default {
       },
         getCategories(){
           let vm = this;
-            fetch(window.origin+'/admin/category/all',{
-                method: 'GET',
-                headers:{
-                    'content-type': 'application/json'
-                },
-            }).then(response => response.json())
-                .then(response=>{
-                   vm.categories = response.category;
-                })
-                .catch(err =>{
-                })
+            axios.get(window.origin+'/admin/category/all')
+            .then(response=>{
+               vm.categories = response.category;
+            })
+            .catch(err =>{
+            })
         },
         onFileChange(e) {
             let files = e.target.files || e.dataTransfer.files;

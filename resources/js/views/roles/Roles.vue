@@ -52,8 +52,7 @@ export default {
   methods: {
     fetchData(page=1) {
       let vm = this;
-      fetch("/admin/roles")
-        .then((response) => response.json())
+      axios.get("/admin/roles")
         .then((response) => {
             vm.items = response;
         });

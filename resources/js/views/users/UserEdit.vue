@@ -61,8 +61,7 @@ export default {
   },
   methods: {
       getRoles(){
-          fetch(window.origin+'/admin/roles')
-            .then((response) => response.json())
+          axios.get(window.origin+'/admin/roles')
             .then((response) => {
                 response.map(r=>{
                     this.formIn.roles.push({

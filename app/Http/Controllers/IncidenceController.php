@@ -224,6 +224,7 @@ class IncidenceController extends Controller
         $json_data = IncidenceResource::export();
 
         return response()->json([
+            'status' => 'ok',
             'incidences' => $json_data
         ]);
     }

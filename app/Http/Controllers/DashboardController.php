@@ -16,14 +16,13 @@ class DashboardController extends Controller
 {
     /**
      * Get all information about bar graphic
-     * @param Request $request
-     * @return JsonResponse
+     * @param $filters
+     * @return array
      *
      *
      */
-    public function bar( Request $request ):JsonResponse
+    public function bar( $filters ):array
     {
-        $filters = $this->getFilters($request);
 
         $areas = Area::information( $filters['dateInit'], $filters['dateEnd'] );
 
@@ -47,24 +46,23 @@ class DashboardController extends Controller
             $names[]= $name->name;
         }
 
-        return response()->json([
+        return [
             'areas' => $names,
             'totalByAreas' => $totalIncidences,
             'totalFinish' => $totalIncidencesFinished,
             'totalInProgress' => $totalIncidencesInProgress,
             'totalUnsigned' => $totalIncidencesUnsigned
-        ], 200);
+        ];
     }
 
     /**
      * Get all information about radar graphic
-     * @param Request $request
-     * @return JsonResponse
+     * @param  $filters
+     * @return array
      *
      */
-    public function radar( Request $request ):JsonResponse
+    public function radar( $filters ):array
     {
-        $filters = $this->getFilters( $request );
 
         $district = District::information( $filters['dateInit'], $filters['dateEnd'] );
 
@@ -80,21 +78,20 @@ class DashboardController extends Controller
             $names[]= $name->district;
         }
 
-        return response()->json([
+        return [
             'districts' => $names,
             'incidences' => $incidenceByDistrict
-        ]);
+        ];
     }
 
     /**
      * Get teams of work, responsable and workers
-     * @param Request $request
-     * @return JsonResponse
+     * @param $filters
+     * @return array
      *
      */
-    public function teams( Request $request ):JsonResponse
+    public function teams( $filters ):array 
     {
-        $filters = $this->getFilters( $request );
 
         $areas = Area::information( $filters['dateInit'], $filters['dateEnd'] );
 
@@ -109,9 +106,9 @@ class DashboardController extends Controller
         }
 
 
-        return response()->json([
+        return [
             'workers' => $workers
-        ]);
+        ];
     }
 
     /**
@@ -128,7 +125,10 @@ class DashboardController extends Controller
             'total' => Incidence::allIncidence($filters['dateInit'], $filters['dateEnd']),
             'finished' => Incidence::finished( $filters['dateInit'], $filters['dateEnd'] ),
             'in_progress' => Incidence::inProgress( $filters['dateInit'], $filters['dateEnd'], $filters['tags'] ),
-            'not_assigned' => Incidence::notAssigned( $filters['dateInit'], $filters['dateEnd'] )
+            'not_assigned' => Incidence::notAssigned( $filters['dateInit'], $filters['dateEnd'] ),
+            'bar' => $this->bar( $filters ),
+            'radar' => $this->radar( $filters ),
+            'teams' => $this->teams( $filters ),
         ]);
     }
 

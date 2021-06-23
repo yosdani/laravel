@@ -19,9 +19,9 @@
                     class="col-lg-10"
                     :tags="states"
                     :placeholder="'Filter by state'"
-                    :type="'States'"
+                    :type="'states'"
                     :values="value_states"
-                    @updateValueStates="getValuesStates($event)"
+                    @addStates="getValuesStates($event)"
                 />
             </div>
         </div>
@@ -32,9 +32,9 @@
                     class="col-lg-10"
                     :tags="tags"
                     :placeholder="'Filter by tag'"
-                    :type="'Tags'"
+                    :type="'tags'"
                     :values="value_tags"
-                    @updateValueTags="getValuesTags($event)"
+                    @addTags="getValuesTags($event)"
                 />
             </div>
         </div>
@@ -68,12 +68,6 @@ export default {
         this.getStates();
     },
     methods:{
-        getValuesStates(event){
-            this.$emit('sendStates',event);
-        },
-        getValuesTags(event){
-            this.$emit('sendTags',event);
-        },
         getTimer(event){
             if(event === 'period'){
                 this.rangeTime = true;
@@ -104,7 +98,6 @@ export default {
                         name: tag.name
                     })
                 })
-                EventBus.$emit('SENT_VALUES_Tags',this.value_tags);
             })
             .catch(error=>{
                 this.$swal.fire({
@@ -133,7 +126,6 @@ export default {
                         name: states.name
                     })
                 })
-                EventBus.$emit('SENT_VALUES_States',this.value_states);
             })
             .catch(error=>{
                 this.$swal.fire({

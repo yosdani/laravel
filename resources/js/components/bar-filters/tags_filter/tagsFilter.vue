@@ -7,8 +7,8 @@
             track-by="id"
             :multiple="true"
             :taggable="true"
-            @tag="addTag"
             :placeholder="placeholder"
+            @input="getValues"
         ></multiselect>
     </div>
 </template>
@@ -20,24 +20,19 @@ export default {
     data() {
         return {
             value:[],
+            general:[]
         }
     },
-    mounted(){
-        EventBus.$on('SENT_VALUES_'+this.type, payload=>{
-            this.value = payload;
-        });
-        
+    beforeMount() {
+        this.value = this.values;
     },
-    updated(){
-        this.value != this.values?this.$emit('updateValue'+this.type, this.value):'';
+    methods:{
+        getValues(){
+            EventBus.$emit('UPDATE_FILTERS_'+this.type, this.value)
+        }
     },
     components:{
         Multiselect
-    },
-    methods:{
-        addTag(newTag){
-            this.value.push(newTag);
-        }
     }
 }
 </script>
