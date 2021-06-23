@@ -30,7 +30,6 @@ import ButtonAdd from '../../components/button/ButtonAdd.vue';
 import EventBus from '../../components/event-bus';
 import TableData from "../../components/table/TableData.vue";
 export default {
-    name: "Neighborhood",
     components:{
         TableData,
         ButtonAdd

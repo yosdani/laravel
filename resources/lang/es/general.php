@@ -90,6 +90,9 @@ return [
         'responseForCitizen' => 'Respuesta al ciudadano',
         'export' => 'Exportar',
         'images' => 'Imágenes',
+        'public_center' => 'Centro Público',
+        'street' => 'Calle',
+        'neighbor' => 'Barrio'
     ],
     'districts' => [
         'districts' => 'Distritos',
@@ -139,7 +142,9 @@ return [
     'historic' => [
         'historic' => 'Histórico',
         'field' => 'Datos modificados',
-        'area' => 'Área'
+        'area' => 'Área',
+        'oldValue' => 'Valor anterior',
+        'value' => 'Nuevo valor'
     ],
     'notifications' => [
         'notifications' => 'Notificaciones',

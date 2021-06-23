@@ -100,7 +100,7 @@ export default {
               this.formIn.form = data;
               this.formIn.form.state =  data.state ? data.state.id : null;
               this.formIn.form.area =  data.area ? data.area.id : null;
-              this.formIn.form.enrolment =  data.enrolment ? data.enrolement.id : null
+              this.formIn.form.enrolment =  data.enrolment ? data.enrolment.id : null
               this.formIn.form.public_center =  data.public_center ? data.public_center.id : null;
               this.formIn.form.assignedTo =  data.assignedTo ? data.assignedTo.id : null;
 

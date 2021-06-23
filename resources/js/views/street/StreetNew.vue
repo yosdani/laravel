@@ -34,7 +34,7 @@ export default {
           }
       ],
       formIn: {
-          formFrom:trans.translate('general.streets.streets'),
+          formFrom:trans.translate('general.streets.street'),
           label: trans.translate('general.streets.name'),
           placeholder: trans.translate('general.streets.name'),
           action: trans.translate('general.save'),

@@ -66,8 +66,8 @@ class IncidenceObserver
 
         try{
             if($incidence->created_at->format('d/m/Y H:i:s') !== $incidence->updated_at->format('d/m/Y H:i:s')){
-                $incidence->notify(new IncidenceEditedNotification($this->user, $changes));
                 $this->saveHistoric($incidence, $changes);
+                $incidence->notify(new IncidenceEditedNotification($this->user, $changes));
             }
         }catch (\Exception $exception){
 

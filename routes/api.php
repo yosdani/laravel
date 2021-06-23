@@ -71,6 +71,7 @@ Route::prefix('v1')->group(function () {
         Route::post('/fcm/token', 'Api\NotificationsController@postToken');
         Route::post('/fcm/send', 'Api\NotificationsController@sendAll');
 
+        Route::post('/user/disable/notify/{notify}','Api\NotificationsController@disableNotificationAlert' );
 
 
         //Route for logout

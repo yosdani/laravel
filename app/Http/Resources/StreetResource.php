@@ -16,7 +16,8 @@ class StreetResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name
+            'street' => $this->street,
+            'number' => $this->number
         ];
     }
 }

@@ -11,7 +11,14 @@
                         required
                     ></b-form-input>
                 </b-form-group>
-
+                <b-form-group id="input-group-3" :label="translate('general.incidences.responseForCitizen')" label-for="input-3">
+                    <b-textarea
+                        id="input-2"
+                        v-model="form.responseForCitizen"
+                        :placeholder="translate('general.incidences.responseForCitizen')"
+                        rows="3"
+                    ></b-textarea>
+                </b-form-group>
                 <b-form-group id="input-group-3" :label="translate('general.incidences.add_area')" label-for="input-3">
                     <b-form-select v-model="formOut.form.area">
                         <template>
@@ -29,6 +36,30 @@
                          <b-form-select-option  v-for="tag in formOut.tags" :key="tag.id" :value="tag.id">{{ tag.name }}</b-form-select-option>
                      </b-form-select>
                    </b-form-group>
+                <b-form-group id="input-group-3" :label="translate('general.incidences.public_center')" label-for="input-3">
+                    <b-form-select v-model="formOut.form.public_center">
+                        <template>
+                            <b-form-select-option :value="null" disabled>-- {{ translate('general.select') }} --</b-form-select-option>
+                        </template>
+                        <b-form-select-option  v-for="pc in formOut.public_centers" :key="pc.id" :value="pc.id">{{ pc.name }}</b-form-select-option>
+                    </b-form-select>
+                </b-form-group>
+                <b-form-group :label="translate('general.incidences.street')" label-for="input-3">
+                    <b-form-select v-model="formOut.form.street">
+                        <template>
+                            <b-form-select-option :value="null" disabled>-- {{ translate('general.select') }} --</b-form-select-option>
+                        </template>
+                        <b-form-select-option  v-for="street in formOut.streets" :key="street.id" :value="pc.id">{{ street.name }}</b-form-select-option>
+                    </b-form-select>
+                </b-form-group>
+                <b-form-group :label="translate('general.incidences.neighbor')" label-for="input-3">
+                    <b-form-select v-model="formOut.form.neighbor">
+                        <template>
+                            <b-form-select-option :value="null" disabled>-- {{ translate('general.select') }} --</b-form-select-option>
+                        </template>
+                        <b-form-select-option  v-for="neighbor in formOut.neighbors" :key="neighbor.id" :value="neighbor.id">{{ neighbor.name }}</b-form-select-option>
+                    </b-form-select>
+                </b-form-group>
             </b-col>
             <b-col cols="6">
                 <b-form-group id="input-group-5" :label="translate('general.incidences.state')" label-for="input-5">

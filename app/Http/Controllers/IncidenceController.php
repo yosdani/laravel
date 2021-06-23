@@ -12,7 +12,7 @@ use App\Area;
 use App\Http\Resources\AreaResource;
 use App\Http\Resources\EnrolmentResource;
 use App\Http\Resources\IncidenceResource;
-use App\Http\Resources\NeighborResource;
+use App\Http\Resources\NeighborhoodResource;
 use App\Http\Resources\PublicCenterResource;
 use App\Http\Resources\StateResource;
 use App\Http\Resources\TagResource;
@@ -241,7 +241,7 @@ class IncidenceController extends Controller
                 'public_centers' => PublicCenterResource::collection(PublicCenter::all()),
                 'enrolments' => EnrolmentResource::collection(Area::all()),
                 'streets' => StateResource::collection(Street::all()),
-                'neighbors' => NeighborResource::collection(Neighborhood::all()),
+                'neighbors' => NeighborhoodResource::collection(Neighborhood::all()),
                 'workers' => UserResource::forList($workers)
             ]
         );

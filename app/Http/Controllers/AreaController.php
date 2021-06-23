@@ -34,7 +34,7 @@ class AreaController extends Controller
 
         return response()->json([
             'success' =>true,
-            'areas' => AreaResource::collection($areas)
+            'areas' => $areas
         ], 200);
     }
 
