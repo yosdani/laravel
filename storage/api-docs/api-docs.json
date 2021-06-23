@@ -355,6 +355,35 @@
                 }
             }
         },
+        "/user-info": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Shows user info",
+                "description": "Returns authenticated user information",
+                "operationId": "App\\Http\\Controllers\\Api\\UserController::getUserInfo",
+                "parameters": [
+                    {
+                        "name": "request",
+                        "in": "path",
+                        "description": "request all data",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
         "/register": {
             "post": {
                 "tags": [

@@ -19,42 +19,45 @@ import trans from "../../VueTranslation/Translation";
 export default {
     data() {
     return {
-      bItems: [
-          {
-              text: trans.translate('general.dashboard'),
+        bItems: [
+            {
+                text: trans.translate('general.dashboard'),
 
-              to: { name: 'dashboard' }
-          },
-          {
-              text: trans.translate('general.news.news'),
-              to: { name: 'states' }
-          },
-          {
-              text: trans.translate('general.add'),
-              active: true
-          }
-      ],
-      formIn: {
-          formFrom: trans.translate('general.news.new'),
-          action: trans.translate('general.save'),
-          actionMessage: trans.translate('general.created') + trans.translate('general.art_female'),
-          form: {
-              images: [],
-              title: '',
-              subtitle: '',
-              content: '',
-              category_id: '',
-              _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-          },
-          uri:'admin/news',
-          method: 'POST',
-          route:'/news'
-      }
+                to: { name: 'dashboard' }
+            },
+            {
+                text: trans.translate('general.news.news'),
+                to: { name: 'states' }
+            },
+            {
+                text: trans.translate('general.add'),
+                active: true
+            }
+        ],
+        formIn: {
+            formFrom: trans.translate('general.news.new'),
+            action: trans.translate('general.save'),
+            actionMessage: trans.translate('general.created') + trans.translate('general.art_female'),
+            form: {
+                images: [],
+                title: '',
+                subtitle: '',
+                content: '',
+                category_id: '',
+                _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            },
+            uri:'admin/news',
+            method: 'POST',
+            route:'/news'
+        }
     };
   },
-  components:{
-    FormSimple
-  }
+    components:{
+        FormSimple
+    },
+    methods:{
+
+    }
 }
 </script>
 

@@ -108,7 +108,7 @@ export default {
           let vm = this;
             axios.get(window.origin+'/admin/category/all')
             .then(response=>{
-               vm.categories = response.category;
+               vm.categories = response.data.category;
             })
             .catch(err =>{
             })

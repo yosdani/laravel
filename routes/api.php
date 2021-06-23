@@ -18,6 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::prefix('v1')->group(function () {
+    Route::get('user-info', ['uses'=>'Api\UserController@getUserInfo']);
     Route::get('image/{source}/{filename}','Api\ImageController@image');
     //Routes for authenticate
     //Route for login
