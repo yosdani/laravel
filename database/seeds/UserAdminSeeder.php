@@ -33,6 +33,45 @@ class UserAdminSeeder extends Seeder
             $roleUser->save();
         }
 
+        $workers = [
+            [
+                'name' => 'trabajador',
+                'email' => 'trabajador@example.com',
+                'password' => bcrypt('trabajador')
+            ],
+            [
+                'name' => 'trabajador1',
+                'email' => 'trabajador1@example.com',
+                'password' => bcrypt('trabajador1')
+            ],
+            [
+                'name' => 'trabajador2',
+                'email' => 'trabajador2@example.com',
+                'password' => bcrypt('trabajador2')
+            ]
+        ];
+
+        foreach( $workers as $worker ){
+            if( !User::where( 'email', '=', $worker['email'] )->first() ){
+                //worker role
+                $user = new User();
+                $user->name = $worker['name'];
+                $user->email = $worker['email'];
+                $user->password = $worker['password'];
+
+                $token_user = JWTAuth::fromUser($user);
+
+                $user->token_user = $token_user;
+
+                $user->save();
+
+                $roleUser = new RoleUser();
+                $roleUser->user_id = $user->id;
+                $roleUser->role_id = 3;
+
+                $roleUser->save();
+            }
+        }
 
         if (!User::where('email', 'trabajador@example.com')->first()) {
             //worker role

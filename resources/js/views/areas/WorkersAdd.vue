@@ -6,30 +6,33 @@
             <b-card-header class="border-0">
                 <h3 class="mb-0">{{translate('general.areas.add_worker')}}</h3>
             </b-card-header>
-            <b-card-body>
-                <h4 v-if="workers.length == 0">
-                    {{ translate('general.areas.workers_area.not_workers')}} </h4>
-                <b-list-group v-else>
-                    <b-list-group-item
-                        v-for="worker in workers" 
-                        :key="worker.id" 
-                        @click="selectWorker(worker.id)" 
-                        button
-                    >{{ worker.name }}
-                    <b-icon class="float-right icon-add-workers" icon="plus-circle" aria-hidden="true"></b-icon>    
-                </b-list-group-item>
-                </b-list-group>
-                <div class="line-divisor"></div>
-                <b-list-group>
-                    <b-list-group-item 
-                        v-for="worker in workersAdd" 
-                        :key="worker.id" 
-                        button
-                        @click="deleteWorker(worker.id)"
-                    >{{ worker.name }}
-                    <b-icon class="float-right icon-workers" icon="trash-fill" aria-hidden="true"></b-icon>
+            <b-card-body class="row">
+                <div class="col-lg-6 col-md-12 list-group-center list-group-divisor">
+                    <h4 v-if="workers.length == 0">
+                        {{ translate('general.areas.workers_area.not_workers')}} </h4>
+                    <b-list-group v-else>
+                        <b-list-group-item
+                            v-for="worker in workers" 
+                            :key="worker.id" 
+                            @click="selectWorker(worker.id)" 
+                            button
+                        >{{ worker.name }}
+                        <b-icon class="float-right icon-add-workers" icon="plus-circle" aria-hidden="true"></b-icon>    
                     </b-list-group-item>
-                </b-list-group>
+                    </b-list-group>
+                </div>
+                <div class="col-lg-6 col-md-12 list-group-center">
+                    <b-list-group>
+                        <b-list-group-item 
+                            v-for="worker in workersAdd" 
+                            :key="worker.id" 
+                            button
+                            @click="deleteWorker(worker.id)"
+                        >{{ worker.name }}
+                        <b-icon class="float-right icon-workers" icon="trash-fill" aria-hidden="true"></b-icon>
+                        </b-list-group-item>
+                    </b-list-group>
+                </div>
             </b-card-body>
         </b-card>
     </div>
@@ -119,10 +122,6 @@ export default {
                 .then(result => {
                     this.getWorkers();
                     this.workersArea();
-                this.$swal.fire(
-                    trans.translate('general.deleted'),
-                    'success'
-                )
                 })
                 .catch(error =>{
                 this.$swal.fire({
@@ -150,5 +149,22 @@ export default {
 }
 .icon-add-workers{
     fill :dodgerblue;
+}
+.list-group-center{
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+.list-group-divisor{
+    border-right: 2px solid #cccc;
+}
+@media screen and (max-width: 991px){
+    .list-group-divisor{
+        border-bottom: 2px solid #cccc;
+        border-right: none;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+    }
 }
 </style>
