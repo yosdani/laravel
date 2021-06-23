@@ -19,6 +19,9 @@
                 :offset="perPage"
                 :actions="actions"
                 :route="route"
+                :allow-delete="true"
+                :allow-edit="true"
+                :allow-show="false"
               ></table-data>
           </b-card-body>
       </b-card>
@@ -30,7 +33,6 @@ import ButtonAdd from '../../components/button/ButtonAdd.vue';
 import EventBus from '../../components/event-bus';
 import TableData from "../../components/table/TableData.vue";
 export default {
-    name: "Neighborhood",
     components:{
         TableData,
         ButtonAdd
@@ -60,7 +62,7 @@ export default {
                 sortable: true,
                 sortDirection: "desc",
             },
-           { key: 'actions', label: trans.translate('general.actions')}
+           { key: 'actions', label: trans.translate('general.actions'), tdClass: 'action-column'}
         ],
         actions:'admin/neighborhood',
         route:'/neighborhood'
@@ -78,10 +80,10 @@ export default {
       getNeighborhood(page=1){
           axios.get("/admin/neighborhood?pages="+page)
           .then(response =>{
-            this.items = response.data.neighborhood.data;
-            this.perPage = response.data.neighborhood.per_page;
-            this.currentPage = response.data.neighborhood.current_page;
-            this.totalRows= response.data.neighborhood.total;
+              this.items = response.data.data;
+              this.perPage = response.data.meta.per_page;
+              this.currentPage = response.data.meta.current_page;
+              this.totalRows= response.data.meta.total;
           })
       }
   }

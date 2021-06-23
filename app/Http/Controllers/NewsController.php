@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 
 
+use App\Http\Resources\NewsResource;
 use App\News;
 use App\Http\Controllers\Controller;
 use App\NewsImage;
@@ -32,10 +33,9 @@ class NewsController  extends Controller
      */
     public function index():JsonResponse
     {
-        return response()->json([
-            'success' =>true,
-            'news' => News::select('news.*')->with('images')->paginate(15)
-        ], 200);
+        $data = News::paginate(15);
+        $entities = NewsResource::collection($data)->response()->getData(true);
+        return response()->json($entities);
     }
 
     /**
@@ -63,12 +63,9 @@ class NewsController  extends Controller
      */
     public function show(int $id): JsonResponse
     {
-        $news = News::where('id', $id)->with('images')->get();
-        if (!$news) {
-            return response()->json("This news is not exist", '404');
-        }
+        $news = News::findOrFail($id);
 
-        return response()->json($news, 200) ;
+        return response()->json(new NewsResource($news)) ;
     }
 
     /**

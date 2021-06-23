@@ -12,11 +12,11 @@
                     <div class="mb-2">{{item.name}}</div>
                     <a class="actions-roles-edit" :id="'icon-edit-role_'+item.id" @click="editRole(item.id)"><b-icon  icon="cloud-upload" aria-hidden="true"></b-icon></a>
                     <b-tooltip :target="'icon-edit-role_'+item.id" triggers="hover">
-                        Editar rol
+                        {{ translate('general.edit') }}
                     </b-tooltip>
                     <a class="actions-roles-delete" :id="'icon-delete-role_'+item.id" @click="deleteRol(item.id)"><b-icon icon="trash-fill" aria-hidden="true"></b-icon></a>
                     <b-tooltip :target="'icon-delete-role_'+item.id" triggers="hover">
-                        Eliminar rol
+                        {{ translate('general.delete') }} {{ translate('general.roles.role') }}
                     </b-tooltip>
                 </b-card>
             </b-card-body>

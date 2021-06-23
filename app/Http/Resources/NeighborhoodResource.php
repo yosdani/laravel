@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class StreetResource extends JsonResource
+class NeighborhoodResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,8 +16,7 @@ class StreetResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'street' => $this->street,
-            'number' => $this->number
+            'name' => $this->name
         ];
     }
 }

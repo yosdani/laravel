@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PublicCenterResource;
 use Illuminate\Http\Request;
 use App\PublicCenter;
 use Illuminate\Http\JsonResponse;
@@ -15,10 +16,9 @@ class PublicCenterController extends Controller
      */
     public function index():JsonResponse
     {
-        return response()->json([
-            'success' =>true,
-            'public_center' => PublicCenter::paginate(15)
-        ], 200);
+        $data = PublicCenter::paginate(15);
+        $entities = PublicCenterResource::collection($data)->response()->getData(true);
+        return response()->json($entities);
     }
 
     /**

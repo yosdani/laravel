@@ -15,6 +15,9 @@
                 :offset="perPage"
                 :actions="actions"
                 :route="route"
+                :allow-delete="true"
+                :allow-edit="true"
+                :allow-show="false"
               ></table-data>
           </b-card-body>
       </b-card>
@@ -74,7 +77,7 @@ export default {
               sortable: true,
               sortDirection: "desc",
           },
-          { key: 'actions', label: trans.translate('general.actions')}
+          { key: 'actions', label: trans.translate('general.actions'), tdClass: 'action-column'}
       ],
       actions:'admin/incidence',
       route:'/incidences',
@@ -92,10 +95,10 @@ export default {
       let vm = this;
       axios.get("/admin/incidences?page="+page)
         .then((response) => {
-            vm.items = response.incidences;
-            vm.perPage = response.incidences.per_page;
-            vm.currentPage = response.incidences.current_page;
-            vm.totalRows= response.incidences.total;
+            vm.items = response.data.data;
+            vm.perPage = response.data.meta.per_page;
+            vm.currentPage = response.data.meta.current_page;
+            vm.totalRows= response.data.meta.total;
         });
     },
   },

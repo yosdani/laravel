@@ -15,7 +15,6 @@ class HistoricController extends Controller
      */
     public function index():JsonResponse
     {
-        $value = '-';
         $data = Historic::paginate(15);
         $historic = HistoricResource::collection($data)->response()->getData(true);
         return response()->json([

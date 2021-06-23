@@ -42,7 +42,8 @@ class NotificationsController extends Controller
             ->to($recipients)
             ->notification([
                 'title' => $$title,
-                'body' => $body
+                'body' => $body,
+                'sound' => ''
             ])
             ->send();
 

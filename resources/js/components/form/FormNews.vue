@@ -1,5 +1,9 @@
 <template>
-    <form @submit="onSubmit" v-if="show" enctype="multipart/form-data">
+    <div class="text-center myLoading" v-if="loading">
+        <b-spinner class="align-middle"></b-spinner>
+        <strong>{{ translate('general.loading') }}</strong>
+    </div>
+    <form @submit="onSubmit" v-else enctype="multipart/form-data">
         <b-row>
             <b-col md="6">
                 <b-form-group id="input-group-2" :label="translate('general.news.title')" label-for="input-2">
@@ -56,6 +60,7 @@
 
 <script>
 import trans from '../../VueTranslation/Translation';
+import {mapState} from "vuex";
 export default {
     props: ["formOut"],
     data() {
@@ -69,16 +74,23 @@ export default {
     created() {
         this.getCategories();
     },
+    computed: {
+        ...mapState({
+            loading: state => state.loadingBody
+        }),
+    },
     methods: {
       onSubmit(event) {
         let vm = this;
         event.preventDefault();
+        vm.$store.dispatch('setLoadingBody', true);
           axios({
               method: vm.formOut.method,
               url: window.origin+'/'+vm.formOut.uri,
               data: this.formOut.form,
               headers: {'content-type': 'application/json'}
           }).then(response => {
+                  vm.$store.dispatch('setLoadingBody', false);
                   this.$swal.fire({
                       position: 'top-end',
                       icon: 'success',
@@ -90,6 +102,7 @@ export default {
                   this.$router.push(this.formOut.route);
               },
               (error) => {
+                  vm.$store.dispatch('setLoadingBody', false);
               this.$swal.fire({
                   icon: 'error',
                   title: 'Oops...',
@@ -108,7 +121,7 @@ export default {
           let vm = this;
             axios.get(window.origin+'/admin/category/all')
             .then(response=>{
-               vm.categories = response.category;
+               vm.categories = response.data.category;
             })
             .catch(err =>{
             })

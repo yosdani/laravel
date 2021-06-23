@@ -19,6 +19,9 @@
                 :offset="perPage"
                 :actions="actions"
                 :route="route"
+                :allow-delete="true"
+                :allow-edit="true"
+                :allow-show="false"
               ></table-data>
           </b-card-body>
       </b-card>
@@ -83,7 +86,7 @@ export default {
           {
               key: 'actions',
               label: trans.translate('general.actions'),
-              filtereable: false
+              tdClass: 'action-column'
           }
       ],
       actions:'admin/users',
@@ -106,20 +109,10 @@ export default {
       let vm = this;
       axios.get("/admin/users?page="+page)
         .then((response) => {
-          this.items = [];
-            vm.perPage = response.data.users.per_page;
-            vm.currentPage = response.data.users.current_page;
-            vm.totalRows= response.data.users.total;
-            response.data.users.data.map(user => {
-              this.items.push({
-                id: user.id,
-                email: user.email,
-                name: user.name,
-                lastName: user.lastName,
-                phoneNumber: user.phoneNumber,
-                rol: user.user_role.length>0?user.user_role[0].name:''
-              })
-            })
+            this.items = response.data.data;
+            vm.perPage = response.data.meta.per_page;
+            vm.currentPage = response.data.meta.current_page;
+            vm.totalRows= response.data.meta.total;
         });
     },
   },

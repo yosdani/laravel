@@ -19,6 +19,9 @@
                 :offset="perPage"
                 :actions="actions"
                 :route="route"
+                :allow-delete="true"
+                :allow-edit="true"
+                :allow-show="false"
               ></table-data>
           </b-card-body>
       </b-card>
@@ -66,7 +69,7 @@ export default {
                 sortable: true,
                 sortDirection: "desc",
             },
-            { key: 'actions', label: trans.translate('general.actions') }
+            { key: 'actions', label: trans.translate('general.actions'), tdClass: 'action-column' }
         ],
         actions:'admin/news',
         route:'/news'
@@ -84,10 +87,10 @@ export default {
       getNews(page=1){
           axios.get("/admin/news?pages="+page)
           .then(response =>{
-            this.items = response.data.news.data;
-            this.perPage = response.data.news.per_page;
-            this.currentPage = response.data.news.current_page;
-            this.totalRows= response.data.news.total;
+              this.items = response.data.data;
+              this.perPage = response.data.meta.per_page;
+              this.currentPage = response.data.meta.current_page;
+              this.totalRows= response.data.meta.total;
           })
       }
   }

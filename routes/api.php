@@ -18,6 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::prefix('v1')->group(function () {
+    Route::get('user-info', ['uses'=>'Api\UserController@getUserInfo']);
     Route::get('image/{source}/{filename}','Api\ImageController@image');
     //Routes for authenticate
     //Route for login
@@ -61,16 +62,15 @@ Route::prefix('v1')->group(function () {
         Route::get('worker/incidence',['uses'=>'Api\IncidenceController@indexWorkers']);
 
         /**********  Subscription ************/
-        //Route Create a new subcription
-        Route::post('subscription', ['uses'=>'Api\SubcriptionController@toSubscribe']);
-        //Route Create a new subcription
-        Route::delete('subscription/{id}', ['uses'=>'Api\SubcriptionController@destroy']);
+        //Route Create and remove subcriptions
+        Route::post('subscription', ['uses'=>'Api\SubscriptionController@toSubscribe']);
 
         /**********  firebase ************/
 
         Route::post('/fcm/token', 'Api\NotificationsController@postToken');
         Route::post('/fcm/send', 'Api\NotificationsController@sendAll');
 
+        Route::post('/user/enable/notify/{notify}','Api\NotificationsController@disableNotificationAlert' );
 
 
         //Route for logout

@@ -4,7 +4,7 @@
 
         <b-card>
             <b-card-header class="border-0">
-                <h3 class="mb-0">{{translate('general.edit')}} {{translate('general.states.state')</h3>
+                <h3 class="mb-0">{{translate('general.edit')}} {{translate('general.states.state')}}</h3>
             </b-card-header>
             <b-card-body>
                 <form-simple :formOut="formIn"></form-simple>

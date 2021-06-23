@@ -21,8 +21,9 @@ class UserResource extends JsonResource
             'lastName' => $this->lastName,
             'email' => $this->email,
             'phoneNumber' => $this->phoneNumber,
-            'role' => $this->userRole[0]->name,
-            'filters' => $this->filters
+            'role' => count($this->userRole) > 0 ? $this->userRole[0]->name: '',
+            'filters' => $this->filters,
+            'allow_notify' => $this->allow_notify
         ];
     }
 

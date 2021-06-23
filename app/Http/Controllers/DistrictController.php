@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\DistrictResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\District;
@@ -15,10 +16,9 @@ class DistrictController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json([
-            'success' => true,
-            'districts' => District::select('district.*')->paginate(15)
-        ], 200);
+        $data = District::paginate(15);
+        $entities = DistrictResource::collection($data)->response()->getData(true);
+        return response()->json($entities);
     }
 
     /**
@@ -115,7 +115,7 @@ class DistrictController extends Controller
      */
     public function destroy(int $id): JsonResponse
     {
-        $district = District::find($id); 
+        $district = District::find($id);
         if (!$district) {
             return response()->json([
                 'success' => false,
@@ -128,6 +128,6 @@ class DistrictController extends Controller
                 'success' => true,
                 'message' => 'The district was successfully deleted'
             ], 200);
-        
+
     }
 }

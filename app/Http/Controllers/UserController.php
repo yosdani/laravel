@@ -21,10 +21,9 @@ class UserController extends Controller
      */
     public function index():JsonResponse
     {
-        return response()->json([
-            'success' => true,
-            'users' => User::select('users.*')->with('userRole')->paginate(15)
-        ], 200);
+        $data = User::with('userRole')->paginate(15);
+        $users = UserResource::collection($data)->response()->getData(true);
+        return response()->json($users);
     }
 
     /**

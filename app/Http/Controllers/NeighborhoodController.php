@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\NeighborhoodResource;
 use Illuminate\Http\Request;
 use App\Neighborhood;
 use Illuminate\Http\JsonResponse;
@@ -15,10 +16,9 @@ class NeighborhoodController extends Controller
      */
     public function index():JsonResponse
     {
-        return response()->json([
-            'success' => true,
-            'neighborhood' => Neighborhood::select('neighborhood.*')->paginate(15)
-        ], 200);
+        $data = Neighborhood::paginate(15);
+        $entities = NeighborhoodResource::collection($data)->response()->getData(true);
+        return response()->json($entities);
     }
 
     /**

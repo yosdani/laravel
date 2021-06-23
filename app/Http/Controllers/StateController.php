@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\StateResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -16,10 +17,9 @@ class StateController extends Controller
      */
     public function index():JsonResponse
     {
-        return response()->json([
-            'success' =>true,
-            'states' => State::select('states.*')->paginate(15)
-        ], 200);
+        $data = State::paginate(15);
+        $entities = StateResource::collection($data)->response()->getData(true);
+        return response()->json($entities);
     }
 
     /**

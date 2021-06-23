@@ -33,7 +33,7 @@ class IncidenceResource extends JsonResource
             'location' => $this->location,
             'address' => $this->address,
             'street' => null !== $this->street ? new StreetResource($this->street) : null,
-            'neighbor' => null !== $this->neighbor ? new NeighborResource($this->neighbor) : null,
+            'neighbor' => null !== $this->neighbor ? new NeighborhoodResource($this->neighbor) : null,
             'responseForCitizen' => $this->responseForCitizen,
             'tags' => $tags,
             'user' => new UserResource($this->user),

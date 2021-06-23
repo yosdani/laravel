@@ -90,6 +90,9 @@ return [
         'responseForCitizen' => 'Respuesta al ciudadano',
         'export' => 'Exportar',
         'images' => 'Imágenes',
+        'public_center' => 'Centro Público',
+        'street' => 'Calle',
+        'neighbor' => 'Barrio'
     ],
     'districts' => [
         'districts' => 'Distritos',
@@ -104,7 +107,8 @@ return [
         'workers_area' => [
             "not_workers" => "No hay trabajadores disponibles",
             "add_success" => "Se adiciono el trabajador al area"
-        ]
+        ],
+        'worker' => 'Trabajador'
     ],
     'neighborhoods' => [
         'neighborhoods' => 'Barrios',
@@ -143,7 +147,9 @@ return [
     'historic' => [
         'historic' => 'Histórico',
         'field' => 'Datos modificados',
-        'area' => 'Área'
+        'area' => 'Área',
+        'oldValue' => 'Valor anterior',
+        'value' => 'Nuevo valor'
     ],
     'notifications' => [
         'notifications' => 'Notificaciones',

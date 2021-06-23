@@ -51,18 +51,23 @@ class IncidenceObserver
     public function updated(Incidence $incidence)
     {
         $changes = [];
-        $changes = $this->registerTittle($incidence, $changes);
-        $changes = $this->registerState($incidence, $changes);
-        $changes = $this->registerAssignedTo($incidence, $changes);
-        $changes = $this->registerArea($incidence, $changes);
-        $changes = $this->registerResponse($incidence, $changes);
-        $changes = $this->registerDescription($incidence, $changes);
+        try{
+            $changes = $this->registerTittle($incidence, $changes);
+            $changes = $this->registerState($incidence, $changes);
+            $changes = $this->registerAssignedTo($incidence, $changes);
+            $changes = $this->registerArea($incidence, $changes);
+            $changes = $this->registerResponse($incidence, $changes);
+            $changes = $this->registerDescription($incidence, $changes);
+        }catch (\Exception $exception){
+
+        }
+
 
 
         try{
             if($incidence->created_at->format('d/m/Y H:i:s') !== $incidence->updated_at->format('d/m/Y H:i:s')){
-                $incidence->notify(new IncidenceEditedNotification($this->user, $changes));
                 $this->saveHistoric($incidence, $changes);
+                $incidence->notify(new IncidenceEditedNotification($this->user, $changes));
             }
         }catch (\Exception $exception){
 
@@ -113,7 +118,7 @@ class IncidenceObserver
     {
         if ($incidence->wasChanged('assigned_id')) {
             $oldValue = $incidence->getOriginal('assigned_id');
-            $oldValue = User::find($oldValue)->name;
+            $oldValue = null !== $oldValue ? User::find($oldValue)->name : null;
             $change = new EntityChanges(
                 'assignedTo',
                 $oldValue,

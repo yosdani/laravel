@@ -13,9 +13,9 @@ export const store = new Vuex.Store({
            filters: null,
            _token: null,
            role: null
-       },  
+       },
        loading: true,
-       loadingBody: true
+       loadingBody: false
     },
     getters: {
 
@@ -59,12 +59,6 @@ export const store = new Vuex.Store({
                 commit('setLoading', false);
             }).finally(() => {
             })
-        },
-        dataCharge({commit}){
-            commit('setLoadingBody', false);
-        },
-        initdataCharge({commit}){
-            commit('setLoadingBody', true);
         }
     }
 });

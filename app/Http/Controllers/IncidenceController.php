@@ -12,7 +12,7 @@ use App\Area;
 use App\Http\Resources\AreaResource;
 use App\Http\Resources\EnrolmentResource;
 use App\Http\Resources\IncidenceResource;
-use App\Http\Resources\NeighborResource;
+use App\Http\Resources\NeighborhoodResource;
 use App\Http\Resources\PublicCenterResource;
 use App\Http\Resources\StateResource;
 use App\Http\Resources\TagResource;
@@ -49,19 +49,18 @@ class IncidenceController extends Controller
      */
     public function index(): JsonResponse
     {
-        $incidences = [];
         $user = Auth::user();
+        $incidences = [];
         $area = $user->area;
         if($user->hasRole('Admin')){
-            $incidences = Incidence::with('user')->paginate(15);
+            $data = Incidence::with('user')->paginate(15);
+            $incidences = IncidenceResource::collection($data)->response()->getData(true);
         }elseif ($user->hasRole('Responsable')){
-            $incidences = Incidence::where('area_id',$area->id)->with('user')->paginate(15);
+            $data = Incidence::where('area_id',$area->id)->with('user')->paginate(15);
+            $incidences = IncidenceResource::collection($data)->response()->getData(true);
         }
 
-        return response()->json([
-            'success' =>true,
-            'incidences' => IncidenceResource::collection($incidences)
-        ], 200);
+        return response()->json($incidences);
     }
 
     /**
@@ -242,7 +241,7 @@ class IncidenceController extends Controller
                 'public_centers' => PublicCenterResource::collection(PublicCenter::all()),
                 'enrolments' => EnrolmentResource::collection(Area::all()),
                 'streets' => StateResource::collection(Street::all()),
-                'neighbors' => NeighborResource::collection(Neighborhood::all()),
+                'neighbors' => NeighborhoodResource::collection(Neighborhood::all()),
                 'workers' => UserResource::forList($workers)
             ]
         );

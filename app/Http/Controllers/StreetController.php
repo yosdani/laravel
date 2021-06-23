@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\StreetResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Street;
@@ -15,10 +16,9 @@ class StreetController extends Controller
      */
     public function index():JsonResponse
     {
-        return response()->json([
-            'success' => true,
-            'streets' => Street::paginate(15),
-        ], 200);
+        $data = Street::paginate(15);
+        $entities = StreetResource::collection($data)->response()->getData(true);
+        return response()->json($entities);
     }
 
     /**
@@ -43,7 +43,7 @@ class StreetController extends Controller
 
         return response()->json([
             'success' => true,
-            'street' => $street
+            'street' => new StreetResource($street)
         ], 201);
     }
 
@@ -55,15 +55,10 @@ class StreetController extends Controller
      */
     public function show($id): JsonResponse
     {
-        if (!Street::find($id)) {
-            return response()->json([
-                'success' => false,
-                'message' => 'The specified id does not exist'
-            ], 400);
-        }
+        $street = Street::findOrFail($id);
         return response()->json([
             'success' => true,
-            'street' => Street::find($id)
+            'street' => new StreetResource($street)
         ]);
     }
 
@@ -87,16 +82,12 @@ class StreetController extends Controller
      */
     public function update(Request $request, $id):JsonResponse
     {
-        if (!Street::find($id)) {
-            return response()->json([
-                'success' => false,
-                'message' => 'The specified id does not exist'
-            ]);
-        }
+        $street = Street::findOrFail($id);
+        $street->update($request->all());
 
         return response()->json([
             'success' => true,
-            'street' => Street::find($id)->update($request->all())
+            'street' => new StreetResource($street)
         ]);
     }
 
@@ -120,6 +111,6 @@ class StreetController extends Controller
                 'success' => true,
                 'message' => 'The street was successfully deleted'
             ], 200);
-        
+
     }
 }

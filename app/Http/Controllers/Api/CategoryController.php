@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Category;
+use App\Http\Resources\CategoryResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -40,7 +41,7 @@ class CategoryController extends Controller
     {
         return response()->json([
             'success' =>true,
-            'category' => Category::paginate(15)
+            'category' => CategoryResource::categoryList(Category::all())
         ], 200);
     }
 

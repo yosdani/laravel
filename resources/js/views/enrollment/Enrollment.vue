@@ -19,6 +19,9 @@
                 :offset="perPage"
                 :actions="actions"
                 :route="route"
+                :allow-delete="true"
+                :allow-edit="true"
+                :allow-show="false"
               ></table-data>
           </b-card-body>
       </b-card>
@@ -59,7 +62,7 @@ export default {
                     sortable: true,
                     sortDirection: "desc",
                 },
-                { key: 'actions', label: trans.translate('general.actions')}
+                { key: 'actions', label: trans.translate('general.actions'), tdClass: 'action-column'}
             ],
             actions:'admin/enrollment',
             route:'/enrollment'
@@ -77,10 +80,10 @@ export default {
       getEnrollment(page=1){
           axios.get("/admin/enrollment?pages="+page)
           .then(response =>{
-            this.items = response.data.enrollment.data;
-            this.perPage = response.data.enrollment.per_page;
-            this.currentPage = response.data.enrollment.current_page;
-            this.totalRows= response.data.enrollment.total;
+            this.items = response.data.data;
+            this.perPage = response.data.meta.per_page;
+            this.currentPage = response.data.meta.current_page;
+            this.totalRows= response.data.meta.total;
           })
       }
   }

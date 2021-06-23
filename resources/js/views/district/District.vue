@@ -19,6 +19,9 @@
                 :offset="perPage"
                 :actions="actions"
                 :route="route"
+                :allow-delete="true"
+                :allow-edit="true"
+                :allow-show="false"
               ></table-data>
           </b-card-body>
       </b-card>
@@ -59,7 +62,7 @@ export default {
                 sortable: true,
                 sortDirection: "desc",
             },
-           { key: 'actions', label: trans.translate('general.actions')}
+           { key: 'actions', label: trans.translate('general.actions'), tdClass: 'action-column'}
         ],
         actions:'admin/district',
         route:'/district'
@@ -78,15 +81,10 @@ export default {
           this.items = [];
           axios.get("/admin/district?pages="+page)
           .then(response =>{
-            this.perPage = response.data.districts.per_page;
-            this.currentPage = response.data.districts.current_page;
-            this.totalRows= response.data.districts.total;
-            response.data.districts.data.map(d =>{
-                this.items.push({
-                    id: d.id,
-                    name: d.district
-                })
-            })
+              this.items = response.data.data;
+              this.perPage = response.data.meta.per_page;
+              this.currentPage = response.data.meta.current_page;
+              this.totalRows= response.data.meta.total;
           })
       }
   }
