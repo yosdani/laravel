@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\WorkerArea;
+use App\User;
 
 class AreaController extends Controller
 {
@@ -34,7 +35,7 @@ class AreaController extends Controller
 
         return response()->json([
             'success' =>true,
-            'areas' => AreaResource::collection($areas)
+            'areas' =>  Area::paginate(15)
         ], 200);
     }
 
@@ -152,6 +153,52 @@ class AreaController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Workers add successfully'
+        ]);
+    }
+
+    /**
+     * Get workers of area
+     * @param int $idArea
+     * @return JsonResponse
+     * 
+     */
+    public function getWorkers($idArea): JsonResponse
+    {
+        if( !Area::find($idArea) ){
+            return response()->json([
+                'success' => false,
+                'message' => 'The specified id does not exist'
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'workers' => Area::where('id', '=',$idArea)->with('workers')->first()
+        ]);
+    }
+
+    /**
+     * Delete worker of area
+     * @param int $idWorker
+     * @return JsonResponse
+     * 
+     * 
+     */
+    public function deleteWorker($idWorker): JsonResponse
+    {
+        if(!WorkerArea::where( 'user_id', '=', $idWorker)->first()){
+            return response()->json([
+                'success' => false,
+                'message' => 'The specified id does not exist'
+            ]);
+        }
+
+        $workerArea = WorkerArea::where( 'user_id', '=', $idWorker)->first();
+        $workerArea->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'The specified was successfully deleted'
         ]);
     }
 }

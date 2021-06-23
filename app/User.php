@@ -72,9 +72,9 @@ class User extends Authenticatable implements JWTSubject
     }
 
 
-    public function workerArea(): BelongsToMany
+    public function workerArea(): BelongsTo
     {
-        return $this->belongsToMany(Area::class, 'worker_area');
+        return $this->belongsTo(Area::class, 'worker_area');
     }
 
     /**

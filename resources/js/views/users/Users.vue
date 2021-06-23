@@ -107,10 +107,10 @@ export default {
       axios.get("/admin/users?page="+page)
         .then((response) => {
           this.items = [];
-            vm.perPage = response.users.per_page;
-            vm.currentPage = response.users.current_page;
-            vm.totalRows= response.users.total;
-            response.users.data.map(user => {
+            vm.perPage = response.data.users.per_page;
+            vm.currentPage = response.data.users.current_page;
+            vm.totalRows= response.data.users.total;
+            response.data.users.data.map(user => {
               this.items.push({
                 id: user.id,
                 email: user.email,
