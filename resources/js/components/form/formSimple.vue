@@ -1,5 +1,9 @@
 <template>
-    <b-form @submit="onSubmit" v-if="show">
+    <div class="text-center myLoading" v-if="loading">
+        <b-spinner class="align-middle"></b-spinner>
+        <strong>{{ translate('general.loading') }}</strong>
+    </div>
+    <b-form @submit="onSubmit" v-else>
         <input type="hidden" name="_token" :value="csrf">
         <b-row>
             <b-col md="6">
@@ -50,7 +54,7 @@
 
 <script>
 import trans from "../../VueTranslation/Translation";
-
+import {mapState} from "vuex";
 export default {
     props: ["formOut"],
     data() {
@@ -60,36 +64,45 @@ export default {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         };
     },
+    computed: {
+        ...mapState({
+            loading: state => state.loadingBody
+        }),
+    },
     mounted() {
         this.form = this.formOut.form;
         this.form._token = this.csrf;
     },
     methods: {
       onSubmit(event) {
-        event.preventDefault()
-        axios(window.origin+'/'+this.formOut.uri,{
-            method: this.formOut.method,
-            headers:{'content-type': 'application/json'},
-            data: JSON.stringify(this.form)
-        })
-        .then(response=>{
-            this.$swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: this.formOut.actionMessage + this.formOut.formFrom.toLowerCase(),
-                showConfirmButton: false,
-                timer: 1500
-            })
-            this.onReset(event);
-            this.$router.push(this.formOut.route);
-        })
-        .catch(err =>{
-            this.$swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: trans.translate('general.error_message'),
-            })
-        })
+          event.preventDefault()
+          let vm = this;
+          vm.$store.dispatch('setLoadingBody', true);
+          axios(window.origin+'/'+this.formOut.uri,{
+              method: this.formOut.method,
+              headers:{'content-type': 'application/json'},
+              data: JSON.stringify(this.form)
+          })
+              .then(response=>{
+                  vm.$store.dispatch('setLoadingBody', false);
+                  this.$swal.fire({
+                      position: 'top-end',
+                      icon: 'success',
+                      title: this.formOut.actionMessage + this.formOut.formFrom.toLowerCase(),
+                      showConfirmButton: false,
+                      timer: 1500
+                  })
+                  this.onReset(event);
+                  this.$router.push(this.formOut.route);
+              })
+              .catch(err =>{
+                  vm.$store.dispatch('setLoadingBody', false);
+                  this.$swal.fire({
+                      icon: 'error',
+                      title: 'Oops...',
+                      text: trans.translate('general.error_message'),
+                  })
+              })
       },
       onReset(event) {
         event.preventDefault()

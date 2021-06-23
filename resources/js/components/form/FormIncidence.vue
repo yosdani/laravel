@@ -1,5 +1,9 @@
 <template>
-    <b-form @submit="onSubmit" v-if="show">
+    <div class="text-center myLoading" v-if="loading">
+        <b-spinner class="align-middle"></b-spinner>
+        <strong>{{ translate('general.loading') }}</strong>
+    </div>
+    <b-form @submit="onSubmit" v-else>
         <input type="hidden" name="_token" :value="form._token" />
         <b-row>
             <b-col md="6">
@@ -108,6 +112,7 @@
 
 <script>
 import trans from "../../VueTranslation/Translation";
+import {mapState} from "vuex";
 
 export default {
     props: ["formOut"],
@@ -120,16 +125,23 @@ export default {
     updated() {
         this.form = this.formOut.form;
     },
+    computed: {
+        ...mapState({
+            loading: state => state.loadingBody
+        }),
+    },
     methods: {
         onSubmit(event) {
             let vm = this;
             event.preventDefault()
+            vm.$store.dispatch('setLoadingBody', true);
             axios({
                 method: vm.formOut.method,
                 url: window.origin+'/admin/incidences/'+this.formOut.form.id,
                 data: this.formOut.form,
                 headers: {'content-type': 'application/json'}
             }).then(response => {
+                    vm.$store.dispatch('setLoadingBody', false);
                     this.$swal.fire({
                         position: 'top-end',
                         icon: 'success',
@@ -141,6 +153,7 @@ export default {
                     this.$router.push(this.formOut.route);
                 },
                 (error) => {
+                    vm.$store.dispatch('setLoadingBody', false);
                     this.$swal.fire({
                         icon: 'error',
                         title: 'Oops...',
