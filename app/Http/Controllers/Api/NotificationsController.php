@@ -95,7 +95,7 @@ class NotificationsController extends Controller
      * @return JsonResponse
      *  * @OA\Post (
      *      path="/user/enable/notify/{notify}",
-     *      tags={"Subscriptions"},
+     *      tags={"Notifications"},
      *      summary="Enable/Disable Notifications alert for authenticated user",
      *      description="Returns ",
      *     @OA\Parameter(

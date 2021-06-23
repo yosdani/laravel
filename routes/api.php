@@ -62,10 +62,8 @@ Route::prefix('v1')->group(function () {
         Route::get('worker/incidence',['uses'=>'Api\IncidenceController@indexWorkers']);
 
         /**********  Subscription ************/
-        //Route Create a new subcription
-        Route::post('subscription', ['uses'=>'Api\SubcriptionController@toSubscribe']);
-        //Route Create a new subcription
-        Route::delete('subscription/{id}', ['uses'=>'Api\SubcriptionController@destroy']);
+        //Route Create and remove subcriptions
+        Route::post('subscription', ['uses'=>'Api\SubscriptionController@toSubscribe']);
 
         /**********  firebase ************/
 
