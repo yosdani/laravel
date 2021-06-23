@@ -48,7 +48,7 @@ class SubscriptionController extends Controller
      *    ),
      *      @OA\Response(
      *          response=200,
-     *          description="List of all categories with the "subscribed" field updated",
+     *          description="List of all categories with the subscribed field updated",
      *       ),
      *      @OA\Response(
      *          response=400,
