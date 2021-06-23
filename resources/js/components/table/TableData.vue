@@ -87,31 +87,35 @@
             </div>
         </template>
       <template #cell(actions)="row">
-          <b-row>
-              <b-col>
-                  <RouterLink :to="route+'/edit/'+row.item.id"  v-if="allowEdit">
-                      <b-button variant="success" size="sm"><b-icon icon="pencil" aria-hidden="true"></b-icon>  {{ translate('general.edit') }}
-                      </b-button>
-                  </RouterLink>
-              </b-col>
+          <b-form-row>
               <b-col v-if="route==='/areas'">
                   <RouterLink :to="'/workers/add/'+row.item.id">
-                      <b-button variant="primary" size="sm"><b-icon icon="list" aria-hidden="true"></b-icon> {{ translate('general.areas.add_worker') }}
+                      <b-button variant="primary" size="sm"><b-icon icon="plus-circle" aria-hidden="true"></b-icon> {{ translate('general.areas.worker') }}
                       </b-button>
                   </RouterLink>
               </b-col>
-          <b-col>
-        <b-form>
-            <b-button variant="danger" type="submit" size="sm" @click="deleteUser(row.item,$event)" v-if="allowDelete">
-                <b-icon icon="trash-fill" aria-hidden="true"></b-icon> {{ translate('general.delete') }}
-            </b-button>
-            <RouterLink :to="route+'/'+row.item.id"  v-if="allowShow">
-                <b-button variant="info" size="sm"><b-icon icon="eye" aria-hidden="true"></b-icon>  {{ translate('general.show') }}
-                </b-button>
-            </RouterLink>
-        </b-form>
-          </b-col>
-          </b-row>
+              <b-col  v-if="allowEdit">
+                  <RouterLink :to="route+'/edit/'+row.item.id"  v-if="allowEdit">
+                      <b-button variant="success" size="sm">
+                          <b-icon icon="pencil" aria-hidden="true"></b-icon>
+                          {{ translate('general.edit') }}
+                      </b-button>
+                  </RouterLink>
+              </b-col>
+              <b-col  v-if="allowDelete">
+                  <b-button variant="danger" type="submit" size="sm" @click="deleteUser(row.item,$event)" v-if="allowDelete">
+                      <b-icon icon="trash-fill" aria-hidden="true"></b-icon>
+                      {{ translate('general.delete') }}
+                  </b-button>
+               </b-col>
+              <b-col v-if="allowShow">
+                  <RouterLink :to="route+'/'+row.item.id" >
+                      <b-button variant="info" size="sm"><b-icon icon="eye" aria-hidden="true"></b-icon>
+                          {{ translate('general.show') }}
+                      </b-button>
+                  </RouterLink>
+              </b-col>
+          </b-form-row>
       </template>
       <template #row-details="row">
         <b-card>
@@ -138,7 +142,7 @@
 <script>
 import EventBus from '../event-bus';
 export default {
-    props:['items','fields', 'current','total','offset','actions','route'],
+    props:['items','fields', 'current','total','offset','actions','route','allowEdit', 'allowDelete', 'allowShow'],
     data() {
       return {
         totalRows: 1,
@@ -157,7 +161,7 @@ export default {
     created() {
       this.uri = window.origin;
       this.fields.map(field => {
-        if( field.key != 'actions')
+        if( field.key !== 'actions')
           this.filterField.push(field);
       })
     },
@@ -187,16 +191,7 @@ export default {
           .map(f => {
             return { text: f.label, value: f.key }
           })
-      },
-        allowEdit(){
-          return !(this.route === '/historic' || this.route === '/roles');
-        },
-        allowDelete(){
-            return !(this.route === '/historic' || this.route === '/roles');
-        },
-        allowShow(){
-            return (this.route === '/historic');
-        }
+      }
     },
     methods: {
       onFiltered(filteredItems) {
@@ -222,10 +217,11 @@ export default {
             axios.delete(window.origin+'/'+this.actions+'/'+item.id)
             .then(result => {
               EventBus.$emit('DELETED_ITEM_'+this.route);
-              this.$swal.fire(
-                  trans.translate('general.deleted'),
-                'success'
-              )
+              this.$swal.fire({
+                  icon: 'success',
+                  title: trans.translate('general.deleted'),
+                  text: ''
+              })
             })
             .catch(error =>{
               this.$swal.fire({
@@ -243,6 +239,12 @@ export default {
 <style>
 #per-page-select{
     width: 100px;
+}
+.action-column{
+    width: 250px;
+}
+.action-column-large{
+    width: 400px;
 }
 #filter-input{
     width: 100px;

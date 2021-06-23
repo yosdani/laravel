@@ -19,6 +19,9 @@
                 :offset="perPage"
                 :actions="actions"
                 :route="route"
+                :allow-delete="true"
+                :allow-edit="true"
+                :allow-show="false"
               ></table-data>
           </b-card-body>
       </b-card>
@@ -65,7 +68,7 @@ export default {
                 sortable: true,
                 sortDirection: "desc",
             },
-            { key: 'actions', label: trans.translate('general.actions') }
+            { key: 'actions', label: trans.translate('general.actions'), tdClass: 'action-column-large' }
         ],
         actions:'admin/areas',
         route:'/areas'
@@ -83,19 +86,10 @@ export default {
       getAreas(page=1){
           axios.get("/admin/areas?pages="+page)
           .then(response =>{
-              this.items = [];
-            this.perPage = response.data.areas.per_page;
-            this.currentPage = response.data.areas.current_page;
-            this.totalRows= response.data.areas.total;
-
-            response.data.areas.data.map( d=> {
-                this.items.push({
-                    id: d.id,
-                    name: d.name,
-                    user_id: d.user_id,
-                    email: d.user?d.user.email:''
-                })
-            })
+              this.items = response.data.data;
+              this.perPage = response.data.meta.per_page;
+              this.currentPage = response.data.meta.current_page;
+              this.totalRows= response.data.meta.total;
           })
       }
   }

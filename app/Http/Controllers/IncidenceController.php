@@ -49,19 +49,18 @@ class IncidenceController extends Controller
      */
     public function index(): JsonResponse
     {
-        $incidences = [];
         $user = Auth::user();
+        $incidences = [];
         $area = $user->area;
         if($user->hasRole('Admin')){
-            $incidences = Incidence::with('user')->paginate(15);
+            $data = Incidence::with('user')->paginate(15);
+            $incidences = IncidenceResource::collection($data)->response()->getData(true);
         }elseif ($user->hasRole('Responsable')){
-            $incidences = Incidence::where('area_id',$area->id)->with('user')->paginate(15);
+            $data = Incidence::where('area_id',$area->id)->with('user')->paginate(15);
+            $incidences = IncidenceResource::collection($data)->response()->getData(true);
         }
 
-        return response()->json([
-            'success' =>true,
-            'incidences' => IncidenceResource::collection($incidences)
-        ], 200);
+        return response()->json($incidences);
     }
 
     /**

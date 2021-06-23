@@ -27,15 +27,14 @@ class AreaController extends Controller
         $user = Auth::user();
         $areas = [];
         if($user->hasRole('Admin')){
-            $areas = Area::paginate(15);
+            $data = Area::paginate(15);
+            $areas = AreaResource::collection($data)->response()->getData(true);
         }elseif ($user->hasRole('Responsable')){
-            $areas = Area::where('user_id',$user->id)->paginate(15);
+            $data = Area::where('user_id',$user->id)->paginate(15);
+            $areas = AreaResource::collection($data)->response()->getData(true);
         }
 
-        return response()->json([
-            'success' =>true,
-            'areas' => $areas
-        ], 200);
+        return response()->json($areas);
     }
 
     /**

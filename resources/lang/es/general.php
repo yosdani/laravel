@@ -103,7 +103,8 @@ return [
         'area' => 'Área',
         'responsible_email' => 'Email de Responsable',
         'add_worker' => 'Añadir Trabajador',
-        'add_resp' => 'Añadir responsable'
+        'add_resp' => 'Añadir responsable',
+        'worker' => 'Trabajador'
     ],
     'neighborhoods' => [
         'neighborhoods' => 'Barrios',

@@ -19,6 +19,9 @@
                 :offset="perPage"
                 :actions="actions"
                 :route="route"
+                :allow-delete="true"
+                :allow-edit="true"
+                :allow-show="false"
               ></table-data>
           </b-card-body>
       </b-card>
@@ -83,7 +86,7 @@ export default {
           {
               key: 'actions',
               label: trans.translate('general.actions'),
-              filtereable: false
+              tdClass: 'action-column'
           }
       ],
       actions:'admin/users',

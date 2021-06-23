@@ -19,6 +19,9 @@
                 :offset="perPage"
                 :actions="actions"
                 :route="route"
+                :allow-delete="true"
+                :allow-edit="true"
+                :allow-show="false"
               ></table-data>
           </b-card-body>
       </b-card>
@@ -59,7 +62,7 @@ export default {
                 sortable: true,
                 sortDirection: "desc",
             },
-           { key: 'actions', label: trans.translate('general.actions')}
+           { key: 'actions', label: trans.translate('general.actions'), tdClass: 'action-column'}
         ],
         actions:'admin/neighborhood',
         route:'/neighborhood'
