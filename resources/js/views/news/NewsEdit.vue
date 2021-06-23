@@ -61,12 +61,12 @@ export default {
       getNewById(id) {
           axios.get('/admin/news/'+id)
           .then(response => {
-              this.formIn.uri = this.formIn.uri+'/'+response.data[0].id;
-              this.formIn.form.title = response.data[0].title;
-              this.formIn.form.subTitle = response.data[0].subTitle;
-              this.formIn.form.content = response.data[0].content;
-              this.formIn.form.images = response.data[0].images;
-              this.formIn.form.category_id = response.data[0].category_id
+              this.formIn.uri = this.formIn.uri+'/'+response.data.id;
+              this.formIn.form.title = response.data.title;
+              this.formIn.form.subTitle = response.data.subTitle;
+              this.formIn.form.content = response.data.content;
+              this.formIn.form.images = response.data.images;
+              this.formIn.form.category_id = response.data.category_id
           })
       }
   }

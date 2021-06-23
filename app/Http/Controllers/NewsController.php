@@ -63,12 +63,9 @@ class NewsController  extends Controller
      */
     public function show(int $id): JsonResponse
     {
-        $news = News::where('id', $id)->with('images')->get();
-        if (!$news) {
-            return response()->json("This news is not exist", '404');
-        }
+        $news = News::findOrFail($id);
 
-        return response()->json($news, 200) ;
+        return response()->json(new NewsResource($news)) ;
     }
 
     /**
