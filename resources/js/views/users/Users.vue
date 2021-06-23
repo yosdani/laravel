@@ -109,20 +109,10 @@ export default {
       let vm = this;
       axios.get("/admin/users?page="+page)
         .then((response) => {
-          this.items = [];
-            vm.perPage = response.users.per_page;
-            vm.currentPage = response.users.current_page;
-            vm.totalRows= response.users.total;
-            response.users.data.map(user => {
-              this.items.push({
-                id: user.id,
-                email: user.email,
-                name: user.name,
-                lastName: user.lastName,
-                phoneNumber: user.phoneNumber,
-                rol: user.user_role.length>0?user.user_role[0].name:''
-              })
-            })
+            this.items = response.data.data;
+            vm.perPage = response.data.meta.per_page;
+            vm.currentPage = response.data.meta.current_page;
+            vm.totalRows= response.data.meta.total;
         });
     },
   },
