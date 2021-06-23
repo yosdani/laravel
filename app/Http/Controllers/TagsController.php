@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\TagResource;
 use App\Tags;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -15,10 +16,9 @@ class TagsController extends Controller
      */
     public function index():JsonResponse
     {
-        return response()->json([
-        'success' =>true,
-        'tags' => Tags::paginate(15)
-    ], 200);
+        $data = Tags::paginate(15);
+        $entities = TagResource::collection($data)->response()->getData(true);
+        return response()->json($entities);
     }
 
     /**

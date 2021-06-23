@@ -16,10 +16,9 @@ class StreetController extends Controller
      */
     public function index():JsonResponse
     {
-        return response()->json([
-            'success' => true,
-            'streets' => StreetResource::collection(Street::paginate(15)),
-        ], 200);
+        $data = Street::paginate(15);
+        $entities = StreetResource::collection($data)->response()->getData(true);
+        return response()->json($entities);
     }
 
     /**

@@ -81,15 +81,10 @@ export default {
           this.items = [];
           axios.get("/admin/district?pages="+page)
           .then(response =>{
-            this.perPage = response.data.districts.per_page;
-            this.currentPage = response.data.districts.current_page;
-            this.totalRows= response.data.districts.total;
-            response.data.districts.data.map(d =>{
-                this.items.push({
-                    id: d.id,
-                    name: d.district
-                })
-            })
+              this.items = response.data.data;
+              this.perPage = response.data.meta.per_page;
+              this.currentPage = response.data.meta.current_page;
+              this.totalRows= response.data.meta.total;
           })
       }
   }

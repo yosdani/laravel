@@ -87,10 +87,10 @@ export default {
       getNews(page=1){
           axios.get("/admin/news?pages="+page)
           .then(response =>{
-            this.items = response.data.news.data;
-            this.perPage = response.data.news.per_page;
-            this.currentPage = response.data.news.current_page;
-            this.totalRows= response.data.news.total;
+              this.items = response.data.data;
+              this.perPage = response.data.meta.per_page;
+              this.currentPage = response.data.meta.current_page;
+              this.totalRows= response.data.meta.total;
           })
       }
   }

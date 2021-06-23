@@ -87,10 +87,10 @@ export default {
       getStreet(page=1){
           axios.get("/admin/street?pages="+page)
           .then(response =>{
-            this.items = response.data.streets;
-            this.perPage = response.data.streets.per_page;
-            this.currentPage = response.data.streets.current_page;
-            this.totalRows= response.data.streets.total;
+              this.items = response.data.data;
+              this.perPage = response.data.meta.per_page;
+              this.currentPage = response.data.meta.current_page;
+              this.totalRows= response.data.meta.total;
           })
       }
   }

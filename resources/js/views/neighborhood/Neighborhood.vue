@@ -80,10 +80,10 @@ export default {
       getNeighborhood(page=1){
           axios.get("/admin/neighborhood?pages="+page)
           .then(response =>{
-            this.items = response.data.neighborhood.data;
-            this.perPage = response.data.neighborhood.per_page;
-            this.currentPage = response.data.neighborhood.current_page;
-            this.totalRows= response.data.neighborhood.total;
+              this.items = response.data.data;
+              this.perPage = response.data.meta.per_page;
+              this.currentPage = response.data.meta.current_page;
+              this.totalRows= response.data.meta.total;
           })
       }
   }

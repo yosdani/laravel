@@ -22,10 +22,9 @@ class CategoryController extends Controller
      */
     public function index():JsonResponse
     {
-        return response()->json([
-            'success' =>true,
-            'category' => Category::paginate(15)
-        ], 200);
+        $data = Category::paginate(15);
+        $categories = CategoryResource::collection($data)->response()->getData(true);
+        return response()->json($categories);
     }
 
     /**

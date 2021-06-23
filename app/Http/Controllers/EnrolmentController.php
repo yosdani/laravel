@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\EnrolmentResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Enrolment;
@@ -21,10 +22,9 @@ class EnrolmentController extends Controller
      */
     public function index():JsonResponse
     {
-        return response()->json([
-            'success' =>true,
-            'enrollment' => Enrolment::select('enrolment.*')->paginate(15)
-        ], 200);
+        $data = Enrolment::paginate(15);
+        $entities = EnrolmentResource::collection($data)->response()->getData(true);
+        return response()->json($entities);
     }
 
     /**

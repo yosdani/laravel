@@ -80,10 +80,10 @@ export default {
       getTags(page=1){
           axios.get("/admin/tags?pages="+page)
           .then(response =>{
-            this.items = response.data.tags.data;
-            this.perPage = response.data.tags.per_page;
-            this.currentPage = response.data.tags.current_page;
-            this.totalRows= response.data.tags.total;
+              this.items = response.data.data;
+              this.perPage = response.data.meta.per_page;
+              this.currentPage = response.data.meta.current_page;
+              this.totalRows= response.data.meta.total;
           })
       }
   }

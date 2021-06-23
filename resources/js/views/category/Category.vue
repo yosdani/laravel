@@ -80,10 +80,10 @@ export default {
       getCategory(page=1){
           axios.get("/admin/category?pages="+page)
           .then(response =>{
-            this.items = response.data.category.data;
-            this.perPage = response.data.category.per_page;
-            this.currentPage = response.data.category.current_page;
-            this.totalRows= response.data.category.total;
+            this.items = response.data.data;
+            this.perPage = response.data.meta.per_page;
+            this.currentPage = response.data.meta.current_page;
+            this.totalRows= response.data.meta.total;
           })
       }
   }

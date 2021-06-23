@@ -81,10 +81,10 @@ export default {
       getStates(page=1){
           axios.get("/admin/states?pages="+page)
           .then(response =>{
-            this.items = response.data.states.data;
-            this.perPage = response.data.states.per_page;
-            this.currentPage = response.data.states.current_page;
-            this.totalRows= response.data.states.total;
+              this.items = response.data.data;
+              this.perPage = response.data.meta.per_page;
+              this.currentPage = response.data.meta.current_page;
+              this.totalRows= response.data.meta.total;
           })
       }
   }

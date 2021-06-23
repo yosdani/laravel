@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 
 
+use App\Http\Resources\NewsResource;
 use App\News;
 use App\Http\Controllers\Controller;
 use App\NewsImage;
@@ -32,10 +33,9 @@ class NewsController  extends Controller
      */
     public function index():JsonResponse
     {
-        return response()->json([
-            'success' =>true,
-            'news' => News::select('news.*')->with('images')->paginate(15)
-        ], 200);
+        $data = News::paginate(15);
+        $entities = NewsResource::collection($data)->response()->getData(true);
+        return response()->json($entities);
     }
 
     /**

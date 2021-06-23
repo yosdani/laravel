@@ -82,10 +82,10 @@ export default {
       getPublicCenter(page=1){
           axios.get("/admin/public_center?pages="+page)
           .then(response =>{
-            this.items = response.data.public_center.data;
-            this.perPage = response.data.public_center.per_page;
-            this.currentPage = response.data.public_center.current_page;
-            this.totalRows= response.data.public_center.total;
+              this.items = response.data.data;
+              this.perPage = response.data.meta.per_page;
+              this.currentPage = response.data.meta.current_page;
+              this.totalRows= response.data.meta.total;
           })
       }
   }

@@ -80,10 +80,10 @@ export default {
       getEnrollment(page=1){
           axios.get("/admin/enrollment?pages="+page)
           .then(response =>{
-            this.items = response.data.enrollment.data;
-            this.perPage = response.data.enrollment.per_page;
-            this.currentPage = response.data.enrollment.current_page;
-            this.totalRows= response.data.enrollment.total;
+            this.items = response.data.data;
+            this.perPage = response.data.meta.per_page;
+            this.currentPage = response.data.meta.current_page;
+            this.totalRows= response.data.meta.total;
           })
       }
   }
