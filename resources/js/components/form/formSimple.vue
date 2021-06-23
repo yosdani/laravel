@@ -3,7 +3,7 @@
         <input type="hidden" name="_token" :value="csrf">
         <b-row>
             <b-col md="6">
-                <b-form-group  id="input-group-2" :label="formOut.label" label-for="input-2">
+                <b-form-group v-if="formOut.formFrom !== translate('general.streets.street')"  id="input-group-2" :label="formOut.label" label-for="input-2">
                     <b-form-input
                         id="input-2"
                         v-model="form.name"
