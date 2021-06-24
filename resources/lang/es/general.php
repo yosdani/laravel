@@ -104,6 +104,10 @@ return [
         'responsible_email' => 'Email de Responsable',
         'add_worker' => 'Añadir Trabajador',
         'add_resp' => 'Añadir responsable',
+        'workers_area' => [
+            "not_workers" => "No hay trabajadores disponibles",
+            "add_success" => "Se adiciono el trabajador al area"
+        ],
         'worker' => 'Trabajador'
     ],
     'neighborhoods' => [

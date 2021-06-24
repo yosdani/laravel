@@ -115,6 +115,8 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
     /**********  Areas ************/
     //Route for get all areas
     Route::resource('areas', 'AreaController');
+    Route::get('/workers/area/{id}', 'AreaController@getWorkers');
+    Route::delete('/worker/{worker_id}/area', 'AreaController@deleteWorker');
 
     //Route to add workers to area
     Route::post('workers/area/{id}', 'AreaController@addWorker');

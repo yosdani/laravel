@@ -40,6 +40,11 @@ class Area extends Model
         return $this->belongsTo(User::class, 'worker_role');
     }
 
+    public function workers()
+    {
+        return $this->belongsToMany(User::class, 'worker_area');
+    }
+
     /**
      * The attributes that are mass assignable.
      *
