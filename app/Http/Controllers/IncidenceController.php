@@ -142,6 +142,12 @@ class IncidenceController extends Controller
         $incidence->area_id = $request->area;
         $incidence->save();
 
+        if ($request->images) {
+            foreach ($request->images as $image) {
+                $this->saveImage($image, $incidence->id);
+            }
+        }
+
         return response()->json('updated', 200);
     }
 
@@ -181,14 +187,16 @@ class IncidenceController extends Controller
      * Get to image in base64 extension
      * @param string $base64Image
      * @param null $full
-     * @return array
+     * @return string
      */
 
-    public function getB64Extension(string $base64Image, $full=null): array
+    public function getB64Extension(string $base64Image, $full=null): string
     {
-        preg_match("/^data:image\/(.*);base64/i", $base64Image, $imgExtension);
+        $img = explode(',', $base64Image);
+        $ini =substr($img[0], 11);
+        $type = explode(';', $ini);
 
-        return ($full) ?  $imgExtension[0] : $imgExtension[1];
+        return $type[0];
     }
 
     /**
@@ -202,14 +210,12 @@ class IncidenceController extends Controller
         $img =$this->getB64Image($base64Image);
 
         $imgExtension = $this->getB64Extension($base64Image);
-        $imageName = 'incidence_image'. time() . '.' . $imgExtension;
+        $imageName = 'incidence_image' .uniqid(). time() . '.' . $imgExtension;
+        Storage::disk('local')->put(Incidence::IMAGE_PATH.$imageName, $img);
+        $image = new IncidenceImage();
+        $image->image = $imageName;
+        $image->incidence_id = $id;
 
-        Storage::disk('local')->put($imageName, $img);
-        $url=public_path().'\storage\ '.$imageName;
-        $image=new IncidenceImage();
-        $image->image=$imageName;
-        $image->idIncidence=$id;
-        $image->urlImage=$url;
         $image->save();
     }
 
@@ -245,5 +251,16 @@ class IncidenceController extends Controller
                 'workers' => UserResource::forList($workers)
             ]
         );
+    }
+
+    public function removeImage($id): JsonResponse
+    {
+        $image = IncidenceImage::findOrFail($id);
+        $image->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => __('general.image_deleted')
+        ]);
     }
 }

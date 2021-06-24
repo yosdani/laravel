@@ -6,10 +6,10 @@
                 <h3 class="mb-0">{{translate('general.historic.historic')}}</h3>
             </b-card-header>
             <b-card-body v-if="historic">
-                <p>{{ translate('general.incidences.incidence') }}: {{ historic.incidence_title }}</p>
-                <p>{{ translate('general.incidences.created') }}: {{ historic.created_at }}</p>
-                <p>{{ translate('general.users.user') }}: {{ historic.user.name }} {{ historic.user.lastName }}</p>
-                <p>{{ translate('general.historic.field') }}:</p>
+                <p><b>{{ translate('general.incidences.incidence') }}:</b> {{ historic.incidence_title }}</p>
+                <p><b>{{ translate('general.incidences.created') }}:</b> {{ historic.created_at }}</p>
+                <p><b>{{ translate('general.users.user') }}:</b> {{ historic.user }}</p>
+                <p><b>{{ translate('general.historic.modified') }}:</b></p>
                 <table class="table table-striped">
                     <thead>
                         <tr>

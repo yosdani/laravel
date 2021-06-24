@@ -34,6 +34,7 @@ return [
     'are_you_sure' => '¿Está seguro?',
     'yes' => 'Si',
     'no' => 'No',
+    'image_deleted' => 'Imagen eliminada',
      'news' => [
          'news' => 'Noticias',
          'new' => 'Noticia',
@@ -146,10 +147,11 @@ return [
     ],
     'historic' => [
         'historic' => 'Histórico',
-        'field' => 'Datos modificados',
+        'field' => 'Campo',
         'area' => 'Área',
         'oldValue' => 'Valor anterior',
-        'value' => 'Nuevo valor'
+        'value' => 'Nuevo valor',
+        'modified' => 'Campos Modificados'
     ],
     'notifications' => [
         'notifications' => 'Notificaciones',

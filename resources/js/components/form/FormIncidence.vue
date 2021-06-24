@@ -92,16 +92,37 @@
                         <b-form-select-option  v-for="worker in formOut.workers" :key="worker.id" :value="worker.id">{{ worker.name }} {{ worker.lastname }}</b-form-select-option>
                     </b-form-select>
                 </b-form-group>
-                <b-form-group id="input-group-images" :label="translate('general.incidences.images')" label-for="input-3">
-                    <b-form-file
-                        @change="onFileChange"
-                        :placeholder="translate('general.select_file')"
-                        :drop-placeholder="translate('general.drop_file')"
-                        multiple
-                    ></b-form-file>
-                </b-form-group>
             </b-col>
         </b-row>
+        <b-container fluid>
+            <b-row>
+                <b-col md="12">
+                    <h4>{{ translate('general.incidences.images') }}</h4>
+                </b-col>
+                <b-col md="4">
+                    <b-form-group id="input-group-images" :label="translate('general.add') + ' ' + translate('general.incidences.images')" label-for="image-new">
+                        <b-form-file
+                            @change="onFileChange"
+                            :placeholder="translate('general.select_file')"
+                            :drop-placeholder="translate('general.drop_file')"
+                            multiple
+                        ></b-form-file>
+                    </b-form-group>
+                </b-col>
+            </b-row>
+            <b-row>
+                <b-col md="4" v-for="image in formOut.images" :key="image.id">
+                    <b-form-group>
+                        <a :href="image.url">
+                            <b-img thumbnail fluid :src="image.url"></b-img>
+                        </a>
+                        <b-btn @click="removeImage(image.id)" size="sm" variant="danger" class="remove-btn">
+                            <b-icon icon="trash-fill"></b-icon>
+                        </b-btn>
+                    </b-form-group>
+                </b-col>
+            </b-row>
+        </b-container>
         <b-row>
             <b-col cols="12">
                 <b-button type="submit" variant="primary">{{formOut.action}}</b-button>
@@ -161,6 +182,34 @@ export default {
                     })
                 });
         },
+        removeImage(id){
+            let vm = this;
+            vm.$store.dispatch('setLoadingBody', true);
+            axios.get(window.origin+'/admin/incidence/remove-image/'+id)
+                .then(response => {
+                        vm.formOut.images = vm.form.images.filter(function (obj) {
+                            return obj.id !== id;
+                        });
+                    vm.$store.dispatch('setLoadingBody', false);
+                    this.$swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: this.formOut.actionMessage + this.formOut.formFrom.toLowerCase(),
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    this.onReset(event);
+                    this.$router.push(this.formOut.route);
+                },
+                (error) => {
+                    vm.$store.dispatch('setLoadingBody', false);
+                    this.$swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: trans.translate('general.error_message'),
+                    })
+                });
+        },
         onReset(event) {
             event.preventDefault()
             // Reset our form values
@@ -184,8 +233,8 @@ export default {
                 return false;
             }
 
-            for(var i=0;i<file.length;i++){
-                var reader = new FileReader();
+            for(let i=0;i<file.length;i++){
+                let reader = new FileReader();
                 reader.readAsDataURL(file[i]);
                 reader.onload =function(e){
                     vm.formOut.form.images.push(e.target.result);
@@ -197,5 +246,9 @@ export default {
 </script>
 
 <style scoped>
-
+  .remove-btn{
+      position: absolute;
+      right: 25px;
+      top: 10px;
+  }
 </style>

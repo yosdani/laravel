@@ -88,67 +88,67 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
             ]
         ]);
 
-    //Routes resources for streets, the index methods are in api route
-    Route::resource('street', 'StreetController', [
-        'only' => [
-            'index', 'store', 'show', 'update', 'destroy',
-        ]
-    ]);
+        //Routes resources for streets, the index methods are in api route
+        Route::resource('street', 'StreetController', [
+            'only' => [
+                'index', 'store', 'show', 'update', 'destroy',
+            ]
+        ]);
 
-    //Routes resources for neighborhood, the index methods are in api route
-    Route::resource('neighborhood', 'NeighborhoodController', [
-        'only' => [
-            'index', 'store', 'show', 'update', 'destroy',
-        ]
-    ]);
+        //Routes resources for neighborhood, the index methods are in api route
+        Route::resource('neighborhood', 'NeighborhoodController', [
+            'only' => [
+                'index', 'store', 'show', 'update', 'destroy',
+            ]
+        ]);
 
-    /********* States ************/
-    //Route for  all states
-    Route::resource('states', 'StateController', [
-        'only' => [
-            'index', 'store', 'show', 'update', 'destroy',
-        ]
-    ]);
-    // Route for get all states
-    Route::get('all/states','StateController@all');
+        /********* States ************/
+        //Route for  all states
+        Route::resource('states', 'StateController', [
+            'only' => [
+                'index', 'store', 'show', 'update', 'destroy',
+            ]
+        ]);
+        // Route for get all states
+        Route::get('all/states','StateController@all');
 
-    /**********  Areas ************/
-    //Route for get all areas
-    Route::resource('areas', 'AreaController');
-    Route::get('/workers/area/{id}', 'AreaController@getWorkers');
-    Route::delete('/worker/{worker_id}/area', 'AreaController@deleteWorker');
+        /**********  Areas ************/
+        //Route for get all areas
+        Route::resource('areas', 'AreaController');
+        Route::get('/workers/area/{id}', 'AreaController@getWorkers');
+        Route::delete('/worker/{worker_id}/area', 'AreaController@deleteWorker');
 
-    //Route to add workers to area
-    Route::post('workers/area/{id}', 'AreaController@addWorker');
+        //Route to add workers to area
+        Route::post('workers/area/{id}', 'AreaController@addWorker');
 
-    /**********  Breakdown ************/
-    //Route for get all breakdowns
-    Route::get('breakdown', ['uses'=>'BreakdownController@index']);
-    //Route for get an breakdown by id
-    Route::get('breakdown/{id}', ['uses'=>'BreakdownController@show']);
-    //Route for create a new breakdown
-    Route::post('breakdown', ['uses'=>'BreakdownController@store']);
-    //Route for update an breakdown
-    Route::put('breakdown/{id}', ['uses'=>'BreakdownController@update']);
-    //Route for delete an breakdown
-    Route::delete('breakdown/{id}', ['uses'=>'BreakdownController@destroy']);
+        /**********  Breakdown ************/
+        //Route for get all breakdowns
+        Route::get('breakdown', ['uses'=>'BreakdownController@index']);
+        //Route for get an breakdown by id
+        Route::get('breakdown/{id}', ['uses'=>'BreakdownController@show']);
+        //Route for create a new breakdown
+        Route::post('breakdown', ['uses'=>'BreakdownController@store']);
+        //Route for update an breakdown
+        Route::put('breakdown/{id}', ['uses'=>'BreakdownController@update']);
+        //Route for delete an breakdown
+        Route::delete('breakdown/{id}', ['uses'=>'BreakdownController@destroy']);
 
-    /**********  Public Center ************/
-    //Route for get all public center
-    Route::get('publiccenter', ['uses'=>'PublicCenterController@index']);
-    //Route for get an public center by id
-    Route::get('publiccenter/{id}', ['uses'=>'PublicCenterController@show']);
-    //Route for create a new public center
-    Route::post('publiccenter', ['uses'=>'PublicCenterController@store']);
-    //Route for update an public center
-    Route::put('publiccenter/{id}', ['uses'=>'PublicCenterController@update']);
-    //Route for delete an public center
-    Route::delete('publiccenter/{id}', ['uses'=>'PublicCenterController@destroy']);
+        /**********  Public Center ************/
+        //Route for get all public center
+        Route::get('publiccenter', ['uses'=>'PublicCenterController@index']);
+        //Route for get an public center by id
+        Route::get('publiccenter/{id}', ['uses'=>'PublicCenterController@show']);
+        //Route for create a new public center
+        Route::post('publiccenter', ['uses'=>'PublicCenterController@store']);
+        //Route for update an public center
+        Route::put('publiccenter/{id}', ['uses'=>'PublicCenterController@update']);
+        //Route for delete an public center
+        Route::delete('publiccenter/{id}', ['uses'=>'PublicCenterController@destroy']);
 
-    /**********  Tags ************/
-    Route::resource('tags','TagsController');
-    // Route for get all tags
-    Route::get('all/tags','TagsController@all');
+        /**********  Tags ************/
+        Route::resource('tags','TagsController');
+        // Route for get all tags
+        Route::get('all/tags','TagsController@all');
 
         /**********  Incidence ************/
         //Route for get all Incidences
@@ -156,36 +156,38 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
         Route::get('incidence', 'IncidenceController@index');
         //Route for get an incidence by id
         Route::get('incidence/{id}', 'IncidenceController@show');
+        //Delete an Incidence image
+        Route::get('incidence/remove-image/{id}', 'IncidenceController@removeImage');
 
-    //Route for create a new incidence
-    //Route::post('incidence', 'IncidenceController@store');
-    //Route for update an incidence
-    Route::put('incidence/{id}', 'IncidenceController@update');
-    //Route for delete an incidence
-    Route::delete('incidence/{id}', 'Api\IncidenceController@destroy');
+        //Route for create a new incidence
+        //Route::post('incidence', 'IncidenceController@store');
+        //Route for update an incidence
+        Route::put('incidence/{id}', 'IncidenceController@update');
+        //Route for delete an incidence
+        Route::delete('incidence/{id}', 'Api\IncidenceController@destroy');
 
-    //Route to export all incidences
-    Route::get('export/incidence', 'IncidenceController@export');
+        //Route to export all incidences
+        Route::get('export/incidence', 'IncidenceController@export');
 
-    //Route for get all categories
-    Route::get('category', ['uses'=>'CategoryController@index']);
-    //Route for get an category by id
-    Route::get('category/{id}', ['uses'=>'CategoryController@show']);
-    //Route for create a new category
-    Route::post('category', ['uses'=>'CategoryController@store']);
-    //Route for update an category
-    Route::put('category/{id}', ['uses'=>'CategoryController@update']);
-    //Route for delete an category
-    Route::delete('category/{id}', ['uses'=>'CategoryController@destroy']);
+        //Route for get all categories
+        Route::get('category', ['uses'=>'CategoryController@index']);
+        //Route for get an category by id
+        Route::get('category/{id}', ['uses'=>'CategoryController@show']);
+        //Route for create a new category
+        Route::post('category', ['uses'=>'CategoryController@store']);
+        //Route for update an category
+        Route::put('category/{id}', ['uses'=>'CategoryController@update']);
+        //Route for delete an category
+        Route::delete('category/{id}', ['uses'=>'CategoryController@destroy']);
 
-    //Route for get datas of dashboard bar graphic
-    Route::post('dashboard/bar', 'DashboardController@bar');
-    //Route for get datas of dashboard radar graphic
-    Route::post('dashboard/radar', 'DashboardController@radar');
-    //Route for get datas of dashboard responsable and workers
-    Route::post('dashboard/teams', 'DashboardController@teams');
-    //Route for get general statistics
-    Route::post('dashboard/general', 'DashboardController@getStatistics');
+        //Route for get datas of dashboard bar graphic
+        Route::post('dashboard/bar', 'DashboardController@bar');
+        //Route for get datas of dashboard radar graphic
+        Route::post('dashboard/radar', 'DashboardController@radar');
+        //Route for get datas of dashboard responsable and workers
+        Route::post('dashboard/teams', 'DashboardController@teams');
+        //Route for get general statistics
+        Route::post('dashboard/general', 'DashboardController@getStatistics');
     });
 });
 

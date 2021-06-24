@@ -17,7 +17,7 @@ class IncidenceImageResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'news_id' => $this->incidence_id,
+            'incidence_id' => $this->incidence_id,
             'url' =>  config('app.url').'/api/v1/image/incidences/'.$this->image,
         ];
     }

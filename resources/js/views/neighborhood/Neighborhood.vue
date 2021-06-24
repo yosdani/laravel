@@ -22,6 +22,7 @@
                 :allow-delete="true"
                 :allow-edit="true"
                 :allow-show="false"
+                :last-page="lastPage"
               ></table-data>
           </b-card-body>
       </b-card>
@@ -39,54 +40,62 @@ export default {
     },
     data(){
         return {
-        items: [],
-        options: '/neighborhood/new',
-        currentPage: 1,
-        totalRows: 0,
-        perPage: 15,
-        bItems: [
-            {
-                text: trans.translate('general.dashboard'),
+            items: [],
+            options: '/neighborhood/new',
+            currentPage: 1,
+            totalRows: 0,
+            perPage: 15,
+            lastPage: 1,
+            bItems: [
+                {
+                    text: trans.translate('general.dashboard'),
 
-                to: { name: 'dashboard' }
-            },
-            {
-                text: trans.translate('general.neighborhoods.neighborhoods'),
-                active: true
-            }
-        ],
-        fields: [
-            {
-                key: "name",
-                label: trans.translate('general.name'),
-                sortable: true,
-                sortDirection: "desc",
-            },
-           { key: 'actions', label: trans.translate('general.actions'), tdClass: 'action-column'}
-        ],
-        actions:'admin/neighborhood',
-        route:'/neighborhood'
-    };
-  },
-  created() {
-      this.getNeighborhood();
-  },
-  mounted() {
-      EventBus.$on('DELETED_ITEM_'+this.route,() =>{
-          this.getNeighborhood();
-      })
-  },
-  methods: {
-      getNeighborhood(page=1){
-          axios.get("/admin/neighborhood?pages="+page)
-          .then(response =>{
-              this.items = response.data.data;
-              this.perPage = response.data.meta.per_page;
-              this.currentPage = response.data.meta.current_page;
-              this.totalRows= response.data.meta.total;
-          })
-      }
-  }
+                    to: { name: 'dashboard' }
+                },
+                {
+                    text: trans.translate('general.neighborhoods.neighborhoods'),
+                    active: true
+                }
+            ],
+            fields: [
+                {
+                    key: "name",
+                    label: trans.translate('general.name'),
+                    sortable: true,
+                    sortDirection: "desc",
+                },
+                { key: 'actions', label: trans.translate('general.actions'), tdClass: 'action-column'}
+            ],
+            actions:'admin/neighborhood',
+            route:'/neighborhood'
+        };
+    },
+    created() {
+        this.getNeighborhood();
+    },
+    mounted() {
+        EventBus.$on('DELETED_ITEM_'+this.route,() =>{
+            this.getNeighborhood();
+        })
+    },
+    watch: {
+        '$route' (to, from) {
+            let page = this.$route.query.page;
+            this.getNeighborhood(page);
+        }
+    },
+    methods: {
+        getNeighborhood(page=1){
+            axios.get("/admin/neighborhood?page="+page)
+                .then(response =>{
+                    this.items = response.data.data;
+                    this.perPage = response.data.meta.per_page;
+                    this.currentPage = response.data.meta.current_page;
+                    this.totalRows= response.data.meta.total;
+                    this.lastPage = response.data.meta.last_page
+                })
+        }
+    }
 }
 </script>
 
