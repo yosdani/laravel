@@ -18,7 +18,7 @@
                 <TagsFilter
                     class="col-lg-10"
                     :tags="states"
-                    :placeholder="'Filter by state'"
+                    :placeholder="translate('general.filters.filter_states')"
                     :type="'states'"
                     :values="value_states"
                     @addStates="getValuesStates($event)"
@@ -31,7 +31,7 @@
                 <TagsFilter
                     class="col-lg-10"
                     :tags="tags"
-                    :placeholder="'Filter by tag'"
+                    :placeholder="translate('general.filters.filter_tags')"
                     :type="'tags'"
                     :values="value_tags"
                     @addTags="getValuesTags($event)"
@@ -46,6 +46,7 @@ import periodFilter from "./period_filter/period-filter.vue"
 import EventBus from '../event-bus'
 import dropDown from "./period_filter/drop-down.vue"
 import giveTime from "./period_filter/give-time.vue"
+import trans from '../../VueTranslation/Translation';
 export default {
     props: ['filters'],
     components:{

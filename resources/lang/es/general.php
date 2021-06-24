@@ -178,5 +178,12 @@ return [
         'public_center' => 'Centro Público',
         'enrollment' => 'Matrícula',
         'created_at' => 'Creada',
+    ],
+    'filters' => [
+        "multiselect_label_select" => "Presione para seleccionar",
+        "multiselect_label_remove" => "Presione para remover",
+        "multiselect_list_empty" => "Lista vacía",
+        "filter_states" => "Filtrar por Estados",
+        "filter_tags" => "Filtrar por Etiquetas"
     ]
 ];
