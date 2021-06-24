@@ -46,14 +46,38 @@ class NotificationsController extends Controller
      *      )
      * )
      */
-    public function postToken(Request $request)
+    public function postToken(Request $request): JsonResponse
     {
-        $user = Auth::guard('api')->user();
+        $user = JWTAuth::parseToken()->authenticate();
 
         if ($request->has('device_token')) {
-            $user->device_token = $request->input('device_token');
-            $user->save();
+            try{
+                $user->device_token = $request->input('device_token');
+                $user->save();
+            }catch(\Exception $exception){
+                return response()->json(
+                    [
+                        'success' => false,
+                        'message' => $exception->getMessage()
+                    ]
+                );
+            }
+
+        }else{
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Missing device token information.'
+                ]
+            );
         }
+
+        return response()->json(
+            [
+                'success' => true,
+                'message' => 'The device token has been saved'
+            ]
+        );
     }
 
     public function sendAll(Request $request)
