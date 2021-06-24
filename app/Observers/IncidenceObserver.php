@@ -36,7 +36,7 @@ class IncidenceObserver
     public function created(Incidence $incidence)
     {
         try {
-            $incidence->notify(new IncidenceCreatedNotification($this->user));
+            $incidence->notify(new IncidenceCreatedNotification($incidence->user));
         }catch (\Exception $exception){
 
         }
@@ -59,15 +59,21 @@ class IncidenceObserver
             $changes = $this->registerResponse($incidence, $changes);
             $changes = $this->registerDescription($incidence, $changes);
         }catch (\Exception $exception){
-
         }
-
-
 
         try{
             if($incidence->created_at->format('d/m/Y H:i:s') !== $incidence->updated_at->format('d/m/Y H:i:s')){
                 $this->saveHistoric($incidence, $changes);
                 $incidence->notify(new IncidenceEditedNotification($this->user, $changes));
+                if($incidence->assignedTo){
+                    $incidence->notify(new IncidenceEditedNotification($incidence->assignedTo, $changes));
+                }
+                $this->sendByPush(
+                    'Se ha midificado una incidencia',
+                    'La incidencia: '.$incidence->title.' se ha midificado',
+                    [
+                        $incidence->user
+                    ]);
             }
         }catch (\Exception $exception){
 
@@ -234,5 +240,24 @@ class IncidenceObserver
             $changes[] = $change->toArray();
         }
         return $changes;
+    }
+
+    public function sendByPush(string $title, string $body, array $users): string
+    {
+        foreach ($users as $user){
+            if($user->fcm_token){
+                fcm()
+                    ->to([$user])
+                    ->notification([
+                        'title' => $$title,
+                        'body' => $body,
+                        'sound' => $user->allow_notify ? 'default' : ''
+                    ])
+                    ->send();
+
+            }
+        }
+        return 'Ok';
+
     }
 }

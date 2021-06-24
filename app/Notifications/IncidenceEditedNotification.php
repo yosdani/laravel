@@ -55,8 +55,7 @@ class IncidenceEditedNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('Se ha editado la incidencia '.$notifiable->title)
-                    ->line('Thank you for using our application!');
+                    ->line('Se ha midificado la incidencia: '.$notifiable->title);
     }
 
     /**
