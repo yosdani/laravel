@@ -257,14 +257,19 @@ class IncidenceObserver
     {
         foreach ($users as $user){
             if($user->fcm_token){
-                fcm()
-                    ->to([$user])
-                    ->notification([
-                        'title' => $$title,
-                        'body' => $body,
-                        'sound' => $user->allow_notify ? 'default' : ''
-                    ])
-                    ->send();
+                try{
+                    fcm()
+                        ->to([$user])
+                        ->notification([
+                            'title' => $$title,
+                            'body' => $body,
+                            'sound' => $user->allow_notify ? 'default' : ''
+                        ])
+                        ->send();
+                }catch(\Exception $exception){
+                    Log::error('Ha fallado el envio de notificaciones push al usuario '.$user->email);
+                }
+
 
             }
         }

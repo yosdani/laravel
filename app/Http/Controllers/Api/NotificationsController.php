@@ -22,7 +22,7 @@ class NotificationsController extends Controller
      * @param Request $request
      * @return JsonResponse
      *  * @OA\Post (
-     *      path="/token",
+     *      path="/fcm/token",
      *      tags={"Post Token"},
      *      summary="Store a token device",
      *      description="Returns ",

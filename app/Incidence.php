@@ -28,7 +28,7 @@ class Incidence extends Model
      * @var string
      */
     protected $fillable = [
-        'title','assigned_id','reviewer','deadLine','tags','description','attachedContent','applicant','centerEnrollment','streetNumber','district','neighborhood','address',
+        'title','assigned_id','deadLine','tags','description','attachedContent','applicant','centerEnrollment','streetNumber','district','neighborhood','address',
         'team','location','responseForCitizen'
     ];
 
@@ -58,7 +58,7 @@ class Incidence extends Model
      */
     public function state(): BelongsTo
     {
-        return $this->belongsTo(Incidence::class, 'state_id','id');
+        return $this->belongsTo(State::class, 'state_id','id');
     }
 
     /**
