@@ -9,19 +9,31 @@
             :taggable="true"
             :placeholder="placeholder"
             @input="getValues"
-        ></multiselect>
+            :selectLabel="translate('general.filters.multiselect_label_select')"
+            :deselectLabel="translate('general.filters.multiselect_label_remove')"
+            :selectedLabel="translate('general.filters.selected')"
+        >
+            <template #noOptions="">
+                <p>{{translate('general.filters.multiselect_list_empty')}}</p>
+            </template>
+        </multiselect>
     </div>
 </template>
 <script>
 import Multiselect from 'vue-multiselect'
 import EventBus from '../../event-bus'
+import trans from '../../../VueTranslation/Translation';
 export default {
     props:["tags","placeholder","type","values"],
     data() {
         return {
             value:[],
-            general:[]
+            general:[],
+            list_empty : '',
         }
+    },
+    created() {
+        this.list_empty = trans.translate('general.filters.multiselect_list_empty');
     },
     beforeMount() {
         this.value = this.values;

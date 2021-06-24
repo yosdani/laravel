@@ -182,6 +182,7 @@ return [
     'filters' => [
         "multiselect_label_select" => "Presione para seleccionar",
         "multiselect_label_remove" => "Presione para remover",
+        "selected" => "Seleccionada",
         "multiselect_list_empty" => "Lista vacía",
         "filter_states" => "Filtrar por Estados",
         "filter_tags" => "Filtrar por Etiquetas"
