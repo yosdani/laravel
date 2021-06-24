@@ -92,14 +92,6 @@
                         <b-form-select-option  v-for="worker in formOut.workers" :key="worker.id" :value="worker.id">{{ worker.name }} {{ worker.lastname }}</b-form-select-option>
                     </b-form-select>
                 </b-form-group>
-                <b-form-group id="input-group-images" :label="translate('general.incidences.images')" label-for="input-3">
-                    <b-form-file
-                        @change="onFileChange"
-                        :placeholder="translate('general.select_file')"
-                        :drop-placeholder="translate('general.drop_file')"
-                        multiple
-                    ></b-form-file>
-                </b-form-group>
             </b-col>
         </b-row>
         <b-container fluid>
@@ -107,14 +99,26 @@
                 <b-col md="12">
                     <h4>{{ translate('general.incidences.images') }}</h4>
                 </b-col>
+                <b-col md="4">
+                    <b-form-group id="input-group-images" :label="translate('general.add') + ' ' + translate('general.incidences.images')" label-for="image-new">
+                        <b-form-file
+                            @change="onFileChange"
+                            :placeholder="translate('general.select_file')"
+                            :drop-placeholder="translate('general.drop_file')"
+                            multiple
+                        ></b-form-file>
+                    </b-form-group>
+                </b-col>
             </b-row>
             <b-row>
-                <b-col md="4" v-for="image in formOut.form.images" :key="image.id">
+                <b-col md="4" v-for="image in formOut.images" :key="image.id">
                     <b-form-group>
                         <a :href="image.url">
                             <b-img thumbnail fluid :src="image.url"></b-img>
                         </a>
-                        <b-btn @click="removeImage(image.id)" size="sm" variant="danger" class="remove-btn"><b-icon icon="trash-fill"></b-icon></b-btn>
+                        <b-btn @click="removeImage(image.id)" size="sm" variant="danger" class="remove-btn">
+                            <b-icon icon="trash-fill"></b-icon>
+                        </b-btn>
                     </b-form-group>
                 </b-col>
             </b-row>
@@ -181,8 +185,11 @@ export default {
         removeImage(id){
             let vm = this;
             vm.$store.dispatch('setLoadingBody', true);
-            axios.get(window.origin+'/admin/incidences/remove-image'+id)
+            axios.get(window.origin+'/admin/incidence/remove-image/'+id)
                 .then(response => {
+                        vm.formOut.images = vm.form.images.filter(function (obj) {
+                            return obj.id !== id;
+                        });
                     vm.$store.dispatch('setLoadingBody', false);
                     this.$swal.fire({
                         position: 'top-end',

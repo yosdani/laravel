@@ -58,12 +58,12 @@ export default {
                     team: '',
                     user_id: '',
                     area_id: '',
-                    images: [],
                 },
                 roles:[],
                 workers:[],
                 enrollments:[],
                 states:[],
+                images: [],
                 areas: [],
                 uri:'admin/incidence',
                 method: 'PUT',
@@ -104,7 +104,8 @@ export default {
               this.formIn.form.enrolment =  data.enrolment ? data.enrolment.id : null
               this.formIn.form.public_center =  data.public_center ? data.public_center.id : null;
               this.formIn.form.assignedTo =  data.assignedTo ? data.assignedTo.id : null;
-              this.formIn.form.images = data.images;
+              this.formIn.images = data.images;
+              this.formIn.form.images = [];
 
               this.formIn.form._token = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
               this.formIn.uri = this.formIn.uri+'/'+response.data.id;

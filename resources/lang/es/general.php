@@ -34,6 +34,7 @@ return [
     'are_you_sure' => '¿Está seguro?',
     'yes' => 'Si',
     'no' => 'No',
+    'image_deleted' => 'Imagen eliminada',
      'news' => [
          'news' => 'Noticias',
          'new' => 'Noticia',
