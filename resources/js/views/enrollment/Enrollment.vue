@@ -22,6 +22,7 @@
                 :allow-delete="true"
                 :allow-edit="true"
                 :allow-show="false"
+                :last-page="lastPage"
               ></table-data>
           </b-card-body>
       </b-card>
@@ -34,7 +35,6 @@ import EventBus from '../../components/event-bus';
 import TableData from "../../components/table/TableData.vue";
 import trans from '../../VueTranslation/Translation';
 export default {
-    name: "Matriculas",
     components:{
         TableData,
         ButtonAdd
@@ -45,6 +45,7 @@ export default {
             currentPage: 1,
             totalRows: 0,
             perPage: 15,
+            lastPage: 1,
             bItems: [
                 {
                     text: trans.translate('general.dashboard'),
@@ -67,26 +68,33 @@ export default {
             actions:'admin/enrollment',
             route:'/enrollment'
         }
-  },
-  created() {
-      this.getEnrollment();
-  },
-  mounted() {
-      EventBus.$on('DELETED_ITEM_'+this.route,() =>{
-          this.getEnrollment();
-      })
-  },
-  methods: {
-      getEnrollment(page=1){
-          axios.get("/admin/enrollment?pages="+page)
-          .then(response =>{
-            this.items = response.data.data;
-            this.perPage = response.data.meta.per_page;
-            this.currentPage = response.data.meta.current_page;
-            this.totalRows= response.data.meta.total;
-          })
-      }
-  }
+    },
+    created() {
+        this.getEnrollment();
+    },
+    mounted() {
+        EventBus.$on('DELETED_ITEM_'+this.route,() =>{
+            this.getEnrollment();
+        })
+    },
+    watch: {
+        '$route' (to, from) {
+            let page = this.$route.query.page;
+            this.getEnrollment(page);
+        }
+    },
+    methods: {
+        getEnrollment(page=1){
+            axios.get("/admin/enrollment?page="+page)
+                .then(response =>{
+                    this.items = response.data.data;
+                    this.perPage = response.data.meta.per_page;
+                    this.currentPage = response.data.meta.current_page;
+                    this.totalRows= response.data.meta.total;
+                    this.lastPage= response.data.meta.last_page;
+                })
+        }
+    }
 }
 </script>
 

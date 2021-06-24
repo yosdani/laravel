@@ -17,6 +17,7 @@
                     :allow-delete="false"
                     :allow-edit="false"
                     :allow-show="true"
+                    :last-page="lastPage"
                 ></table-data>
             </b-card-body>
         </b-card>
@@ -35,6 +36,7 @@ export default {
             currentPage: 1,
             totalRows: 0,
             perPage: 15,
+            lastPage: 1,
             bItems: [
                 {
                     text: trans.translate('general.dashboard'),
@@ -73,7 +75,7 @@ export default {
                 { key: 'actions', label: trans.translate('general.actions'), tdClass: 'action-column'}
             ],
             actions: '',
-            route:'/historic'
+            route:'/historic',
         }
     },
     components:{
@@ -85,17 +87,23 @@ export default {
     mounted() {
         EventBus.$on('DELETED_ITEM_'+this.route,() =>{
             this.getHistoric();
-        })
+        });
+    },
+    watch: {
+        '$route' (to, from) {
+           let page = this.$route.query.page;
+            this.getHistoric(page);
+        }
     },
     methods: {
         getHistoric(page=1){
-            axios.get("/admin/historic?pages="+page)
+            axios.get("/admin/historic?page="+page)
                 .then(response =>{
-                    this.items = response.data.historic.data;
-                    this.perPage = response.data.historic.per_page;
-                    this.currentPage = response.data.historic.current_page;
-                    this.totalRows= response.data.historic.total;
-                    //console.log('Id ' + this.items[0].id)
+                    this.items = response.data.data;
+                    this.perPage = response.data.meta.per_page;
+                    this.currentPage = response.data.meta.current_page;
+                    this.totalRows= response.data.meta.total;
+                    this.lastPage = response.data.meta.last_page;
                 })
         }
     }

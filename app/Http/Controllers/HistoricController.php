@@ -17,10 +17,7 @@ class HistoricController extends Controller
     {
         $data = Historic::paginate(15);
         $historic = HistoricResource::collection($data)->response()->getData(true);
-        return response()->json([
-            'success' =>true,
-            'historic' => $historic
-        ], 200);
+        return response()->json($historic);
     }
 
     /**

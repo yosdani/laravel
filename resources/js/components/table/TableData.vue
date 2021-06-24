@@ -127,14 +127,12 @@
     </b-table>
     <div class="row">
         <b-col sm="6" md="6" lg="4" class="my-1 text-right">
-            <b-pagination
-            v-model="currentPage"
-            :total-rows="totalRows"
-            :per-page="perPage"
-            align="fill"
-            size="sm"
-            class="my-0"
-            ></b-pagination>
+            <b-pagination-nav
+                :link-gen="linkGen"
+                :number-of-pages="lastPage"
+                :base-url="route"
+                use-router>
+            </b-pagination-nav>
         </b-col>
     </div>
 </div>
@@ -142,7 +140,7 @@
 <script>
 import EventBus from '../event-bus';
 export default {
-    props:['items','fields', 'current','total','offset','actions','route','allowEdit', 'allowDelete', 'allowShow'],
+    props:['items','fields', 'current','total','offset','actions','route','allowEdit', 'allowDelete', 'allowShow','lastPage'],
     data() {
       return {
         totalRows: 1,
@@ -164,6 +162,8 @@ export default {
         if( field.key !== 'actions')
           this.filterField.push(field);
       })
+      this.totalRows = this.total;
+      this.currentPage = this.current;
     },
     components:{
     },
@@ -194,6 +194,9 @@ export default {
       }
     },
     methods: {
+        linkGen(pageNum) {
+            return pageNum === 1 ? '?' : `?page=${pageNum}`;
+        },
       onFiltered(filteredItems) {
         // Trigger pagination to update the number of buttons/pages due to filtering
         this.totalRows = filteredItems.length
