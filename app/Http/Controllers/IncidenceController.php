@@ -246,4 +246,15 @@ class IncidenceController extends Controller
             ]
         );
     }
+
+    public function removeImage($id)
+    {
+        $image = IncidenceImage::findOrFail($id);
+        $image->delete();
+
+        return response()->json([
+            'succes' => true,
+            'message' => __('general.image_deleted')
+        ]);
+    }
 }

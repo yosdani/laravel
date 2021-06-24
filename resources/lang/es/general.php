@@ -142,10 +142,11 @@ return [
     ],
     'historic' => [
         'historic' => 'Histórico',
-        'field' => 'Datos modificados',
+        'field' => 'Campo',
         'area' => 'Área',
         'oldValue' => 'Valor anterior',
-        'value' => 'Nuevo valor'
+        'value' => 'Nuevo valor',
+        'modified' => 'Campos Modificados'
     ],
     'notifications' => [
         'notifications' => 'Notificaciones',

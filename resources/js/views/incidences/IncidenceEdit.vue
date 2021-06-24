@@ -18,57 +18,58 @@ import FormIncidence from "../../components/form/FormIncidence.vue";
 import trans from '../../VueTranslation/Translation';
 export default {
     data() {
-    return {
-      bItems: [
-          {
-              text: trans.translate('general.dashboard'),
-              to: { name: 'dashboard' }
-          },
-          {
-              text: trans.translate('general.incidences.incidences'),
-              to: { name: 'incidences' }
-          },
-          {
-              text: trans.translate('general.edit'),
-              active: true
-          }
-      ],
-      formIn: {
-          formFrom: trans.translate('general.incidences.incidence'),
-          action: trans.translate('general.save'),
-          actionMessage: trans.translate('general.edited') + trans.translate('general.art_female'),
-          form: {
-              id: '',
-              address: '',
-              applicant: '',
-              assigned_id: '',
-              attachedContent: '',
-              breakdown_id: '',
-              enrolment_id: '',
-              deadline: '',
-              description: '',
-              district_id: '',
-              title: '',
-              neighborhood_id:'',
-              public_center_id: '',
-              responseForCitizen: '',
-              state_id: '',
-              street_id: '',
-              tags: '',
-              team: '',
-              user_id: '',
-              area_id: '',
-        },
-        roles:[],
-        workers:[],
-        enrollments:[],
-        states:[],
-        areas: [],
-        uri:'admin/incidence',
-        method: 'PUT',
-        route:'/incidences'
-      }
-    };
+        return {
+            bItems: [
+                {
+                    text: trans.translate('general.dashboard'),
+                    to: { name: 'dashboard' }
+                },
+                {
+                    text: trans.translate('general.incidences.incidences'),
+                    to: { name: 'incidences' }
+                },
+                {
+                    text: trans.translate('general.edit'),
+                    active: true
+                }
+            ],
+            formIn: {
+                formFrom: trans.translate('general.incidences.incidence'),
+                action: trans.translate('general.save'),
+                actionMessage: trans.translate('general.edited') + trans.translate('general.art_female'),
+                form: {
+                    id: '',
+                    address: '',
+                    applicant: '',
+                    assigned_id: '',
+                    attachedContent: '',
+                    breakdown_id: '',
+                    enrolment_id: '',
+                    deadline: '',
+                    description: '',
+                    district_id: '',
+                    title: '',
+                    neighborhood_id:'',
+                    public_center_id: '',
+                    responseForCitizen: '',
+                    state_id: '',
+                    street_id: '',
+                    tags: '',
+                    team: '',
+                    user_id: '',
+                    area_id: '',
+                    images: [],
+                },
+                roles:[],
+                workers:[],
+                enrollments:[],
+                states:[],
+                areas: [],
+                uri:'admin/incidence',
+                method: 'PUT',
+                route:'/incidences'
+            }
+        };
   },
   components:{
       FormIncidence
@@ -103,6 +104,7 @@ export default {
               this.formIn.form.enrolment =  data.enrolment ? data.enrolment.id : null
               this.formIn.form.public_center =  data.public_center ? data.public_center.id : null;
               this.formIn.form.assignedTo =  data.assignedTo ? data.assignedTo.id : null;
+              this.formIn.form.images = data.images;
 
               this.formIn.form._token = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
               this.formIn.uri = this.formIn.uri+'/'+response.data.id;
