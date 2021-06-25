@@ -1,9 +1,9 @@
 <template>
     <div class="card-dashboard row" :style="putOfMarginNegative">
-            <statistics class="col-lg-3 col-md-6 col-sm-12 border-stadistics" :color="'green'" :iconName="'wallet2'" :name="translate('general.dashboard_statistics.total_incidences')" :number="datas.total"/>
-            <statistics class="col-lg-3 col-md-6 col-sm-12 border-stadistics three-component" :color="'orange'" :iconName="'calendar2-check-fill'" :name="translate('general.dashboard_statistics.finished')" :number="datas.finished"/>
-            <statistics class="col-lg-3 col-md-6 col-sm-12 border-stadistics" :color="'blue'" :iconName="'bar-chart-steps'" :name="translate('general.dashboard_statistics.in_progress')" :number="datas.inProgress"/>
-            <statistics class="col-lg-3 col-md-6 col-sm-12" :color="'red'" :iconName="'exclamation-triangle-fill'" :name="translate('general.dashboard_statistics.not_assigned')" :number="datas.notAssigned"/>
+            <statistics class="col-lg-3 col-md-6 col-sm-12 border-stadistics" :color="'green'" :iconName="'wallet2'" :name="translate('general.dashboard_statistics.total_incidences')" :number="datas?datas[0]:0"/>
+            <statistics class="col-lg-3 col-md-6 col-sm-12 border-stadistics three-component" :color="'orange'" :iconName="'calendar2-check-fill'" :name="translate('general.dashboard_statistics.finished')" :number="datas?datas[1]:0"/>
+            <statistics class="col-lg-3 col-md-6 col-sm-12 border-stadistics" :color="'blue'" :iconName="'bar-chart-steps'" :name="translate('general.dashboard_statistics.in_progress')" :number="datas?datas[2]:0"/>
+            <statistics class="col-lg-3 col-md-6 col-sm-12" :color="'red'" :iconName="'exclamation-triangle-fill'" :name="translate('general.dashboard_statistics.not_assigned')" :number="datas?datas[3]:0"/>
     </div>
 </template>
 <script>
@@ -11,9 +11,18 @@ import Statistics from './statistics'
 import EventBus from '../../../../components/event-bus';
 import trans from '../../../../VueTranslation/Translation'
 export default {
-    props:["datas"],
+    data() {
+        return {
+            datas: []
+        }
+    },
     components:{
         Statistics
+    },
+    mounted() {
+        EventBus.$on('STATISTICS_BAR', payload=>{
+            this.datas = payload;
+        })
     },
     computed:{
         putOfMarginNegative(){

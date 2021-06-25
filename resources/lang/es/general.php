@@ -199,6 +199,7 @@ return [
         "selected" => "Seleccionada",
         "multiselect_list_empty" => "Lista vacía",
         "filter_states" => "Filtrar por Estados",
-        "filter_tags" => "Filtrar por Etiquetas"
+        "filter_tags" => "Filtrar por Etiquetas",
+        "filter" => "Filtrar"
     ]
 ];
