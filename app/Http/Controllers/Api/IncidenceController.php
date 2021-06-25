@@ -39,7 +39,7 @@ class IncidenceController extends Controller
      *      description="Returns the incedence",
      *      @OA\Response(
      *          response=200,
-     *          description="Successful operation",
+     *          description="List of all incidences",
      *
      *       ),
      *      @OA\Response(
@@ -68,7 +68,7 @@ class IncidenceController extends Controller
      *      description="Returns the incedence",
      *      @OA\Response(
      *          response=200,
-     *          description="Successful operation",
+     *          description="List of all incedences by workers",
      *
      *       ),
      *      @OA\Response(
@@ -156,11 +156,41 @@ class IncidenceController extends Controller
      *      tags={"Incidences"},
      *      summary="Create a new incidence",
      *      description="Returns created incidence",
-     *     @OA\Parameter(
-     *          name="request",
-     *          description="request all data",
-     *          required=true,
-     *          in="path",
+     *    @OA\RequestBody(
+     *        required=true,
+     *        description="Incidence ",
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 @OA\Property(
+     *                     property="title",
+     *                     description="title of incidence",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="description",
+     *                     description="description of the incidence",
+     *                     type="string"
+     *                 ),
+     *                  @OA\Property(
+     *                     property="location",
+     *                     description="coordinates of the incidence ",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="address",
+     *                     description="Incidence address",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="image",
+     *                     description="array of images in base64",
+     *                     type="string(base64)"
+     *                 ),
+     *
+     *             )
+     *          )
      *      ),
      *      @OA\Response(
      *          response=200,

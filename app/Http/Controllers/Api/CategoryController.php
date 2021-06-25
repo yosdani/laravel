@@ -25,7 +25,7 @@ class CategoryController extends Controller
      *      description="Returns list of category",
      *      @OA\Response(
      *          response=200,
-     *          description="Successful operation"),
+     *          description="List of all categories"),
      *
      *      @OA\Response(
      *          response=400,

@@ -29,10 +29,10 @@ class NewsController  extends Controller
      *      path="/news",
      *      tags={"News"},
      *      summary="News",
-     *      description="All news",
+     *      description="List of all news",
      *      @OA\Response(
      *          response=200,
-     *          description="Successful operation",
+     *          description="List of all news",
      *
      *       ),
      *      @OA\Response(

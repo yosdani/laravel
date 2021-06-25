@@ -17,7 +17,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 class UserController extends Controller
 {
     /**
-     * Create a new incidence
+     * Shows user info
      * @return UserResource *
      *  * @OA\Get (
      *      path="/user-info",
