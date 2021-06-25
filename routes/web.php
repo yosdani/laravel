@@ -145,10 +145,10 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
         //Route for delete an public center
         Route::delete('publiccenter/{id}', ['uses'=>'PublicCenterController@destroy']);
 
-        /**********  Tags ************/
-        Route::resource('tags','TagsController');
+        /**********  Tag ************/
+        Route::resource('tags','TagController');
         // Route for get all tags
-        Route::get('all/tags','TagsController@all');
+        Route::get('all/tags','TagController@all');
 
         /**********  Incidence ************/
         //Route for get all Incidences

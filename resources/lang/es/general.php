@@ -151,7 +151,8 @@ return [
         'area' => 'Área',
         'oldValue' => 'Valor anterior',
         'value' => 'Nuevo valor',
-        'modified' => 'Campos Modificados'
+        'modified' => 'Campos Modificados',
+        'comment' => 'Comentario'
     ],
     'notifications' => [
         'notifications' => 'Notificaciones',

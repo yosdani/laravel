@@ -25,6 +25,8 @@ class AddAreaIncidenceTable extends Migration
             $table->foreign('area_id')->references('id')->on('area');
             $table->integer('enrolment_id')->unsigned()->nullable();
             $table->foreign('enrolment_id')->references('id')->on('enrolment');
+            $table->integer('tag_id')->unsigned()->nullable();
+            $table->foreign('tag_id')->references('id')->on('tags');
 
         });
     }

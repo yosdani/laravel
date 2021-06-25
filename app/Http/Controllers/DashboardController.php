@@ -9,7 +9,7 @@ use App\Incidence;
 use App\District;
 use App\User;
 use Carbon\Carbon;
-use App\Tags;
+use App\Tag;
 use App\State;
 
 class DashboardController extends Controller
@@ -90,7 +90,7 @@ class DashboardController extends Controller
      * @return array
      *
      */
-    public function teams( $filters ):array 
+    public function teams( $filters ):array
     {
 
         $areas = Area::information( $filters['dateInit'], $filters['dateEnd'] );
@@ -165,7 +165,7 @@ class DashboardController extends Controller
             }
 
         if( $filters->tags == null){
-            $filters->tags = Tags::allTags( $filters->dateInit, $filters->dateEnd);
+            $filters->tags = Tag::allTags( $filters->dateInit, $filters->dateEnd);
         }
 
         if( $filters->states == null){

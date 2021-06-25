@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Tags;
+use App\Tag;
 
-class TagsSeeder extends Seeder
+class TagSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -22,8 +22,8 @@ class TagsSeeder extends Seeder
             'Notificación 72h'
         ];
         foreach ($array as $tag) {
-            if(!Tags::where('name',$tag)->first()){
-                $newtag = new Tags();
+            if(!Tag::where('name',$tag)->first()){
+                $newtag = new Tag();
                 $newtag->name = $tag;
                 $newtag->save();
             }

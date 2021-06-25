@@ -28,7 +28,7 @@ class Incidence extends Model
      * @var string
      */
     protected $fillable = [
-        'title','assigned_id','deadLine','tags','description','attachedContent','applicant','centerEnrollment','streetNumber','district','neighborhood','address',
+        'title','assigned_id','deadLine','tag_id','description','attachedContent','applicant','centerEnrollment','streetNumber','district','neighborhood','address',
         'team','location','responseForCitizen'
     ];
 
@@ -47,9 +47,9 @@ class Incidence extends Model
         return $this->belongsTo(User::class, 'assigned_id','id');
     }
 
-    public function tags(): BelongsToMany
+    public function tag(): BelongsTo
     {
-        return $this->belongsToMany(Tags::class, 'incidence_tag', 'incidence_id', 'tag_id');
+        return $this->belongsTo(Tag::class, 'tag_id', 'id');
     }
     /**
      * The attributes that are mass assignable.

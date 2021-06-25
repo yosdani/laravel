@@ -16,6 +16,7 @@ class CreateHistoricTable extends Migration
         Schema::create('historic', function (Blueprint $table) {
             $table->increments('id');
             $table->longText('changes');
+            $table->longText('comment');
             $table->integer('incidence_id')->unsigned();
             $table->foreign('incidence_id')->references('id')->on('incidence');
             $table->integer('user_id')->unsigned();

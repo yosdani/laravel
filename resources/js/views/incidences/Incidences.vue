@@ -15,7 +15,7 @@
                     :offset="perPage"
                     :actions="actions"
                     :route="route"
-                    :allow-delete="true"
+                    :allow-delete="false"
                     :allow-edit="true"
                     :allow-show="false"
                     :last-page="lastPage"

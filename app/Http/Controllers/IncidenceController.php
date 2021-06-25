@@ -25,7 +25,7 @@ use App\Notifications\IncidenceEditedNotification;
 use App\PublicCenter;
 use App\State;
 use App\Street;
-use App\Tags;
+use App\Tag;
 use Exception;
 use Faker\Provider\Image;
 use Illuminate\Database\Eloquent\Builder;
@@ -126,7 +126,7 @@ class IncidenceController extends Controller
         $incidence->title = $request->title;
         $incidence->assigned_id = $request->assignedTo;
         $incidence->deadLine = $request->deadLine;
-     //   $incidence->tags = $request->tags;
+        $incidence->tag_id = $request->tag;
         $incidence->description = $request->description;
         $incidence->attachedContent = $request->attachedContent;
       //  $incidence->applicant = $request->applicant;
@@ -243,11 +243,11 @@ class IncidenceController extends Controller
             [
                 'areas' => AreaResource::collection(Area::all()),
                 'states' => StateResource::collection(State::all()),
-                'tags' => TagResource::collection(Tags::all()),
+                'tags' => TagResource::collection(Tag::all()),
                 'public_centers' => PublicCenterResource::collection(PublicCenter::all()),
                 'enrolments' => EnrolmentResource::collection(Area::all()),
                 'streets' => StateResource::collection(Street::all()),
-                'neighbors' => NeighborhoodResource::collection(Neighborhood::all()),
+                'neighborhoods' => NeighborhoodResource::collection(Neighborhood::all()),
                 'workers' => UserResource::forList($workers)
             ]
         );

@@ -54,7 +54,7 @@ export default {
                     responseForCitizen: '',
                     state_id: '',
                     street_id: '',
-                    tags: '',
+                    tag_id: '',
                     team: '',
                     user_id: '',
                     area_id: '',
@@ -65,6 +65,7 @@ export default {
                 states:[],
                 images: [],
                 areas: [],
+                tags: [],
                 uri:'admin/incidence',
                 method: 'PUT',
                 route:'/incidences'
@@ -88,8 +89,9 @@ export default {
                   this.formIn.enrolemnts = data.enrolments;
                   this.formIn.public_centers = data.public_centers;
                   this.formIn.streets = data.streets;
-                  this.formIn.neighbors = data.neighbors;
+                  this.formIn.neighborhoods = data.neighborhoods;
                   this.formIn.workers = data.workers;
+                  this.formIn.tags = data.tags;
                   this.formIn.form._token = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                   this.formIn.uri = this.formIn.uri+'/'+response.data.id;
               })
@@ -101,6 +103,7 @@ export default {
               this.formIn.form = data;
               this.formIn.form.state =  data.state ? data.state.id : null;
               this.formIn.form.area =  data.area ? data.area.id : null;
+              this.formIn.form.tag =  data.tag ? data.tag.id : null;
               this.formIn.form.enrolment =  data.enrolment ? data.enrolment.id : null
               this.formIn.form.public_center =  data.public_center ? data.public_center.id : null;
               this.formIn.form.assignedTo =  data.assignedTo ? data.assignedTo.id : null;
