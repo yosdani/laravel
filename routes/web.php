@@ -187,7 +187,7 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
         //Route for get datas of dashboard responsable and workers
         Route::post('dashboard/teams', 'DashboardController@teams');
         //Route for get general statistics
-        Route::post('dashboard/general', 'DashboardController@getStatistics');
+        Route::put('dashboard/general', 'DashboardController@getStatistics');
     });
 });
 

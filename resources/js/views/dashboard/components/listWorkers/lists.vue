@@ -24,7 +24,7 @@ export default {
     },
     mounted() {
         EventBus.$on('GET_DATAS_CARD_WORKERS', payload=>{
-            this.workers = payload.workers;
+            this.workers = payload;
         })
     }
 }
