@@ -83,22 +83,7 @@ export default {
         getTags(){
             axios.get(window.origin+'/admin/all/tags')
             .then(response=>{
-                this.tags = [];
-                response.data.tags.map(tag=>{
-                    if(this.filters != null)
-                        this.filters.tags.map(t=>{
-                            if(t == tag.id){
-                                this.value_tags.push({
-                                    id: t,
-                                    name: tag.name
-                                })
-                            }
-                        })
-                    this.tags.push({
-                        id: tag.id,
-                        name: tag.name
-                    })
-                })
+                this.tags = response.data.tags;
             })
             .catch(error=>{
                 this.$swal.fire({
@@ -111,7 +96,7 @@ export default {
         getStates(){
             axios.get(window.origin+'/admin/all/states')
             .then(response=>{
-                this.states = []; 
+                this.states = [];
                 response.data.states.map(states=>{
                     if(this.filters != null)
                         this.filters.states.map(s=>{

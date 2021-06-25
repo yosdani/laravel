@@ -189,12 +189,11 @@ class Incidence extends Model
      */
     public static function stateActual($idArea, $idState, $dateInit, $dateEnd, $tags){
         return Incidence::select('incidence.id')
-                        ->leftjoin('incidence_tag','incidence_tag.incidence_id','=','incidence.id')
                         ->where('incidence.area_id',$idArea)
                         ->where('incidence.state_id',$idState)
                         ->where('incidence.created_at','>=',$dateInit)
                         ->where('incidence.created_at','<=',$dateEnd)
-                        ->whereIn('incidence_tag.tag_id',$tags)
+                        ->whereIn('tag_id',$tags)
                         ->get()
                         ->count();
     }
@@ -241,11 +240,10 @@ class Incidence extends Model
      */
     public static function inProgress( $dateInit, $dateEnd, $tags){
         return Incidence::select('incidence.*')
-                        ->leftjoin('incidence_tag','incidence_tag.incidence_id','=','incidence.id')
                         ->where('incidence.state_id',1)
                         ->where('incidence.created_at','>=',$dateInit)
                         ->where('incidence.created_at','<=',$dateEnd)
-                        ->whereIn('incidence_tag.tag_id',$tags)
+                        ->whereIn('tag_id',$tags)
                         ->get()
                         ->count();
     }
