@@ -9,19 +9,20 @@ import Chart from 'chart.js';
 import EventBus from '../../../../components/event-bus';
 import {mapState} from "vuex";
 export default {
-  props: ['data'],
   data(){
     return {
       myChart : null
     }
   },
   mounted() {
+    EventBus.$on('GET_DATAS_BAR', payload => {
       let ctx = document.getElementById('idBarGraph').getContext("2d");
       
       if (this.myChart) {
           this.myChart.destroy();
       }
-      this.myChart = new Chart(ctx, this.data);
+      this.myChart = new Chart(ctx, payload);
+    })
   }
 }
 </script>

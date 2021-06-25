@@ -100,7 +100,25 @@ class Incidence extends Model
     {
         return $this->belongsTo(\App\PublicCenter::class, 'public_center_id', 'id');
     }
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @return  BelongsTo
+     */
+    public function equipment(): BelongsTo
+    {
+        return $this->belongsTo(\App\Equipment::class, 'equipment_id', 'id');
+    }
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @return  BelongsTo
+     */
+    public function priority(): BelongsTo
+    {
+        return $this->belongsTo(\App\Priority::class, 'priority_id', 'id');
+    }
     /**
      * The attributes that are mass assignable.
      *

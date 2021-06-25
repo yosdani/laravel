@@ -14,7 +14,7 @@ import giveTime from './give-time';
 import EventBus from '../../event-bus';
 export default {
   name: 'period-filter',
-  props: ['range', 'language' ],
+  props: ['language' ],
   data() {
     return {
       type: ''
@@ -24,10 +24,10 @@ export default {
     giveTime
   },
   created() {
-      this.range === 'year'?this.type= trans.translate('general.graph.last_year'):
-      this.range === 'month'?this.type= trans.translate('general.graph.last_month'):
-      this.range === 'week'?this.type= trans.translate('general.graph.last_week'):
-      this.range === 'day'?this.type= 'Hoy':
+      this.$store.state.user.filters.period === 'year'?this.type= trans.translate('general.graph.last_year'):
+      this.$store.state.user.filters.period === 'month'?this.type= trans.translate('general.graph.last_month'):
+      this.$store.state.user.filters.period === 'week'?this.type= trans.translate('general.graph.last_week'):
+      this.$store.state.user.filters.period === 'day'?this.type= 'Hoy':
       this.type = trans.translate('general.graph.period')
   },
   mounted() {
@@ -39,11 +39,11 @@ export default {
   methods: {
     getDate(time){
       switch(time){
-        case trans.translate('general.graph.last_year'):this.$emit('timer','year');break;
-        case trans.translate('general.graph.last_month'):this.$emit('timer','month');break;
-        case trans.translate('general.graph.last_week'):this.$emit('timer','week');break;
-        case trans.translate('general.graph.today'):this.$emit('timer','day');break;
-        case trans.translate('general.graph.period'):this.$emit('timer','period');break;
+        case trans.translate('general.graph.last_year'):EventBus.$emit('TIMER','year');break;
+        case trans.translate('general.graph.last_month'):EventBus.$emit('TIMER','month');break;
+        case trans.translate('general.graph.last_week'):EventBus.$emit('TIMER','week');break;
+        case trans.translate('general.graph.today'):EventBus.$emit('TIMER','day');break;
+        case trans.translate('general.graph.period'):EventBus.$emit('TIMER','period');break;
       }
     }
   }

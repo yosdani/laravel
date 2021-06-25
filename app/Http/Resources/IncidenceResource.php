@@ -29,9 +29,12 @@ class IncidenceResource extends JsonResource
             'location' => $this->location,
             'address' => $this->address,
             'street' => null !== $this->street ? new StreetResource($this->street) : null,
+            'district' => null !== $this->district ? new DistrictResource($this->district) : null,
             'neighborhood' => null !== $this->neighborhood ? new NeighborhoodResource($this->neighborhood) : null,
             'responseForCitizen' => $this->responseForCitizen,
             'tag' =>  null !== $this->tag ?  new TagResource($this->tag) : null,
+            'priority' =>  null !== $this->priority ?  new PriorityResource($this->priority) : null,
+            'equipment' =>  null !== $this->equipment ?  new EquipmentResource($this->equipment) : null,
             'user' => new UserResource($this->user),
             'area' => null !== $this->area ?  new AreaResource($this->area) : null,
             'assignedTo' => null !== $this->assignedTo ? new UserResource($this->assignedTo) : null,
@@ -51,7 +54,7 @@ class IncidenceResource extends JsonResource
      */
     public static function export(){
         $datas = Incidence::select('incidence.*')
-            ->with('user','tag','state','street','area','assignedTo','publicCenter','enrolment','district')
+            ->with('user','tag','state','priority','equipment','street','area','assignedTo','publicCenter','enrolment','district')
             ->get();
 
         $json_data = [];
@@ -63,17 +66,19 @@ class IncidenceResource extends JsonResource
                 'description' => $data->description,
                 'location' => $data->location,
                 'address' => $data->address,
-                'street' => $data->street?$data->street->street:'',
-                'neighborhood' => $data->neighborhood?$data->neighborhood->name:'',
+                'street' => $data->street ? $data->street->street : '',
+                'priority' => $data->priority ? $data->priority->name : '',
+                'equipment' => $data->equipment ? $data->equipment->name : '',
+                'neighborhood' => $data->neighborhood ? $data->neighborhood->name:'',
                 'tag' =>  null !== $data->tag ?  new TagResource($data->tag) : null,
                 'user' => $data->user ? $data->user->email : '',
-                'area' => $data->area?$data->area->name:'',
-                'assignedTo' => $data->assignedTo?$data->assignedTo->email:'',
-                'state' => $data->state?$data->state->name:'',
-                'public_center' => $data->public_center?$data->public_center->name:'',
-                'enrollment' => $data->enrollment?$data->enrollment->name:'',
+                'area' => $data->area ? $data->area->name :'',
+                'assignedTo' => $data->assignedTo ? $data->assignedTo->email : '',
+                'state' => $data->state ? $data->state->name:'',
+                'public_center' => $data->public_center ? $data->public_center->name : '',
+                'enrollment' => $data->enrollment ? $data->enrollment->name : '',
                 'created_at' => $data->created_at,
-                'district' => $data->district?$data->district->name:'',
+                'district' => $data->district ? $data->district->name : '',
             ];
         }
 

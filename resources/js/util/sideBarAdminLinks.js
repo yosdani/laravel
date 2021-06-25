@@ -37,6 +37,11 @@ let sideBarAdminLinks = [
                 icon: 'toggles'
             },
             {
+                name: trans.translate('general.priorities.priorities'),
+                route: "/priority",
+                icon: 'arrow-up-circle-fill'
+            },
+            {
                 name: trans.translate('general.tags.tags'),
                 route: "/tags",
                 icon: 'tag'
@@ -64,7 +69,12 @@ let sideBarAdminLinks = [
             {
                 name: trans.translate('general.public_centers.public_centers'),
                 route: "/public_center",
-                icon: 'intersect'
+                icon: 'building'
+            },
+            {
+                name: trans.translate('general.equipments.equipments'),
+                route: "/equipment",
+                icon: 'wrench'
             },
         ],
         icon: 'exclamation-circle'

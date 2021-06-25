@@ -85,7 +85,7 @@ class TagController extends Controller
     {
         $parameters = $request->only('name');
 
-        $tags = Tag::find($id);
+        $tags = Tag::findOrFail($id);
 
         if (!$tags) {
             return response()->json("This tags is not exist", '400');

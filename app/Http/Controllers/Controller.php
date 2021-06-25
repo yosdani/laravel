@@ -52,16 +52,16 @@ class Controller extends BaseController
      */
     public function saveFilters( $period, $dateInit, $dateEnd, $tags, $states):void
     {
-        $user = User::find(auth()->user()->id);
-
-        $user->filters=json_encode([
-                'period' => $period,
-                'dateInit' => $dateInit,
-                'dateEnd' => $dateEnd,
-                'tags' => $tags,
-                'states' => $states
+        $new_filters = json_encode([
+            'period' => $period,
+            'dateInit' => $dateInit,
+            'dateEnd' => $dateEnd,
+            'tags' => $tags,
+            'states' => $states
         ]);
-        $user->save();
+
+        auth()->user()->filters = $new_filters;
+        auth()->user()->save();
     }
 
     /**

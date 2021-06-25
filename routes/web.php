@@ -150,6 +150,12 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
         // Route for get all tags
         Route::get('all/tags','TagController@all');
 
+        /**********  Priority ************/
+        Route::resource('priority','PriorityController');
+
+        /**********  Equipment ************/
+        Route::resource('equipment','EquipmentController');
+
         /**********  Incidence ************/
         //Route for get all Incidences
         Route::get('incidence/form-data/', 'IncidenceController@getFormData');
@@ -187,7 +193,7 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
         //Route for get datas of dashboard responsable and workers
         Route::post('dashboard/teams', 'DashboardController@teams');
         //Route for get general statistics
-        Route::post('dashboard/general', 'DashboardController@getStatistics');
+        Route::put('dashboard/general', 'DashboardController@getStatistics');
     });
 });
 

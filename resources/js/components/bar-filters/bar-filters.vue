@@ -3,10 +3,7 @@
         <div class="card-dashboard row" :style="putOfMarginNegative">
             <div class="dropdown col-lg-5 label-filters">
                 <b-icon class="label-filters-calendar col-lg-2 "  icon="calendar2-week-fill"></b-icon>
-                <period-filter
-                    :range="filters?filters.period:'year'"
-                    @timer="getTimer($event)"
-                />
+                <period-filter />
                 <drop-down />
                 <give-time
                     v-if="rangeTime"
@@ -21,7 +18,6 @@
                     :placeholder="translate('general.filters.filter_states')"
                     :type="'states'"
                     :values="value_states"
-                    @addStates="getValuesStates($event)"
                 />
             </div>
         </div>
@@ -34,7 +30,6 @@
                     :placeholder="translate('general.filters.filter_tags')"
                     :type="'tags'"
                     :values="value_tags"
-                    @addTags="getValuesTags($event)"
                 />
             </div>
         </div>
@@ -48,7 +43,6 @@ import dropDown from "./period_filter/drop-down.vue"
 import giveTime from "./period_filter/give-time.vue"
 import trans from '../../VueTranslation/Translation';
 export default {
-    props: ['filters'],
     components:{
         TagsFilter,
         periodFilter,
@@ -68,22 +62,38 @@ export default {
         this.getTags();
         this.getStates();
     },
-    methods:{
-        getTimer(event){
-            if(event === 'period'){
+    mounted() {
+        EventBus.$on('TIMER', payload => {
+            if(payload === 'period'){
                 this.rangeTime = true;
             }else{
                 this.rangeTime = false;
             }
-            this.$emit('sendTimer', event);
-        },
+        })
+    },
+    methods:{
         giveNewDates(event){
             EventBus.$emit('GET_TIMER_PERIOD', event);
         },
         getTags(){
             axios.get(window.origin+'/admin/all/tags')
             .then(response=>{
-                this.tags = response.data.tags;
+                this.tags = [];
+                response.data.map(tag=>{
+                    if(this.$store.state.user.filters != null && this.$store.state.user.filters.tags != null )
+                        this.$store.state.user.filters.tags.map(t=>{
+                            if(t == tag.id){
+                                this.value_tags.push({
+                                    id: t,
+                                    name: tag.name
+                                })
+                            }
+                        })
+                    this.tags.push({
+                        id: tag.id,
+                        name: tag.name
+                    })
+                })
             })
             .catch(error=>{
                 this.$swal.fire({
@@ -98,8 +108,8 @@ export default {
             .then(response=>{
                 this.states = [];
                 response.data.states.map(states=>{
-                    if(this.filters != null)
-                        this.filters.states.map(s=>{
+                    if(this.$store.state.user.filters != null && this.$store.state.user.filters.states != null)
+                        this.$store.state.user.filters.states.map(s=>{
                             if(s == states.id){
                                 this.value_states.push({
                                     id: s,

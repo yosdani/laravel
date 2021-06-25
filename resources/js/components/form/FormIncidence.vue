@@ -23,6 +23,14 @@
                         rows="3"
                     ></b-textarea>
                 </b-form-group>
+                <b-form-group id="input-group-3" :label="translate('general.incidences.internalResponse')" label-for="input-3">
+                    <b-textarea
+                        id="input-2"
+                        v-model="form.internalResponse"
+                        :placeholder="translate('general.incidences.internalResponse')"
+                        rows="3"
+                    ></b-textarea>
+                </b-form-group>
                 <b-form-group id="input-group-3" :label="translate('general.incidences.public_center')" label-for="input-3">
                     <b-form-select v-model="form.public_center">
                         <template>
@@ -37,6 +45,14 @@
                             <b-form-select-option :value="null" disabled>-- {{ translate('general.select') }} --</b-form-select-option>
                         </template>
                         <b-form-select-option  v-for="street in formOut.streets" :key="street.id" :value="street.id">{{ street.name }}</b-form-select-option>
+                    </b-form-select>
+                </b-form-group>
+                <b-form-group :label="translate('general.incidences.district')" label-for="input-3">
+                    <b-form-select v-model="form.district">
+                        <template>
+                            <b-form-select-option :value="null" disabled>-- {{ translate('general.select') }} --</b-form-select-option>
+                        </template>
+                        <b-form-select-option  v-for="district in formOut.districts" :key="district.id" :value="district.id">{{ district.name }}</b-form-select-option>
                     </b-form-select>
                 </b-form-group>
                 <b-form-group :label="translate('general.incidences.neighbor')" label-for="input-3">
@@ -65,6 +81,14 @@
                         <b-form-select-option  v-for="area in formOut.areas" :key="area.id" :value="area.id">{{ area.name }}</b-form-select-option>
                     </b-form-select>
                 </b-form-group>
+                <b-form-group id="input-group-6" :label="translate('general.priorities.priority')" label-for="input-6">
+                    <b-form-select v-model="form.priority">
+                        <template>
+                            <b-form-select-option :value="null" disabled>-- {{ translate('general.select') }} --</b-form-select-option>
+                        </template>
+                        <b-form-select-option  v-for="priority in formOut.priorities" :key="priority.id" :value="priority.id">{{ priority.name }}</b-form-select-option>
+                    </b-form-select>
+                </b-form-group>
                 <b-form-group id="input-group-4" :label="translate('general.incidences.add_tag')" label-for="input-4">
                     <b-form-select v-model="form.tag">
                         <template>
@@ -81,7 +105,14 @@
                         <b-form-select-option  v-for="enrolment in formOut.enrolments" :key="enrolment.id" :value="enrolment.id">{{ enrolment.name }}</b-form-select-option>
                     </b-form-select>
                 </b-form-group>
-
+                <b-form-group id="input-group-6" :label="translate('general.equipments.equipment')" label-for="input-6">
+                    <b-form-select v-model="form.equipment">
+                        <template>
+                            <b-form-select-option :value="null" disabled>-- {{ translate('general.select') }} --</b-form-select-option>
+                        </template>
+                        <b-form-select-option  v-for="equipment in formOut.equipments" :key="equipment.id" :value="equipment.id">{{ equipment.name }}</b-form-select-option>
+                    </b-form-select>
+                </b-form-group>
                 <b-form-group id="input-group-7" :label="translate('general.incidences.add_worker')" label-for="input-7">
                     <b-form-select v-model="form.assignedTo">
                         <template>
@@ -149,27 +180,6 @@ export default {
         ...mapState({
             loading: state => state.loadingBody
         }),
-        criteria() {
-            // Compute the search criteria
-            return this.tagSearch.trim().toLowerCase()
-        },
-        availableOptions() {
-            const criteria = this.criteria
-            // Filter out already selected options
-            const options = this.formOut.tags.filter(opt => this.name.indexOf(opt) === -1)
-            if (criteria) {
-                // Show only options that match criteria
-                return options.filter(opt => opt.toLowerCase().indexOf(criteria) > -1);
-            }
-            // Show all options available
-            return options
-        },
-        searchDesc() {
-            if (this.criteria && this.availableOptions.length === 0) {
-                return 'No existen etiquetas con ese nombre'
-            }
-            return ''
-        }
     },
     methods: {
         onSubmit(event) {

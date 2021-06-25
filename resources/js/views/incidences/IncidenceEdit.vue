@@ -90,6 +90,8 @@ export default {
                   this.formIn.public_centers = data.public_centers;
                   this.formIn.streets = data.streets;
                   this.formIn.neighborhoods = data.neighborhoods;
+                  this.formIn.equipments = data.equipments;
+                  this.formIn.priorities = data.priorities;
                   this.formIn.workers = data.workers;
                   this.formIn.tags = data.tags;
                   this.formIn.form._token = document.querySelector('meta[name="csrf-token"]').getAttribute('content')

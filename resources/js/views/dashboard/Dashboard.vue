@@ -1,10 +1,10 @@
 <template>
     <div style="margin-top: 20px;">
-        <bar-filters 
-            :filters="filters" 
-            @sendTimer="getTimer($event)"
-        />
-        <bar-statistics :datas="statistics"/>
+        <bar-filters />
+        <div v-show="show_button_filter" class="row card-dashboard">
+            <b-button class="col-lg-12" @click="filterStatistics" :style="giveColor">{{ translate('general.filters.filter') }}</b-button>
+        </div>
+        <bar-statistics />
         <div class="row container-card">
             <div class="text-center myLoading" v-if="loadingBody">
                 <b-spinner class="align-middle"></b-spinner>
@@ -12,11 +12,9 @@
             </div>
             <div v-else class="graphics-card col-lg-8 col-md-12 col-sm-12">
                 <graphic
-                    :data="dataOfGraphicBar"
                     class="col-lg-12 col-md-12 col-sm-12"
                 />
                 <graphic-radar
-                    :data="dataOfGraphicRadar"
                     class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
                 />
             </div>
@@ -39,22 +37,8 @@ import {mapState} from "vuex";
 export default {
     data() {
         return{
-            filters:{
-                period:'year',
-                dateInit:'',
-                dateEnd:'',
-                tags:[],
-                states:[]
-            },
             loadingBody:true,
-            statistics:{ 
-                total: 0,
-                finished:0,
-                inProgress:0,
-                notAssigned:0,
-            },
-            dataOfGraphicBar: null,
-            dataOfGraphicRadar: null,
+            show_button_filter:false
         }
     },
     components:{
@@ -65,28 +49,17 @@ export default {
         BarFilters,
         GraphicRadar
     },
-    beforeCreate(){
-        axios.get(window.origin+'/admin/users/'+this.$store.state.user.id)
-        .then(response => {
-            if(response.data.user.filters != null){
-                this.filters.period = JSON.parse(response.data.user.filters).period;
-                this.filters.dateInit = JSON.parse(response.data.user.filters).dateInit;
-                this.filters.dateEnd = JSON.parse(response.data.user.filters).dateEnd;
-                this.filters.states = JSON.parse(response.data.user.filters).states;
-                this.filters.tags = JSON.parse(response.data.user.filters).tags;
-            }
-        })
-    },
     created() {
-        this.loadingBody = true;
-        this.getStatistics( this.filters );
+        this.getStatistics( this.$store.state.user.filters );
     },
     mounted() {
         EventBus.$on('GET_TIMER_PERIOD', payload =>{
-            this.filters.dateInit = payload[0];
-            this.filters.dateEnd = payload[1];
+            let filters = this.$store.state.user.filters;
+            filters.dateInit = payload[0];
+            filters.dateEnd = payload[1];
 
-            this.getStatistics( this.filters );
+            this.$store.dispatch('updateFiltersUser', filters);
+            this.show_button_filter = true;
         });
 
         EventBus.$on('UPDATE_FILTERS_tags', payload=>{
@@ -95,9 +68,12 @@ export default {
                 tags.push(tag.id);
             })
             
-            this.filters.tags = tags;
+            let filters = this.$store.state.user.filters;
+            filters.tags = tags; 
 
-            this.getStatistics( this.filters );
+            this.$store.dispatch('updateFiltersUser', filters);
+
+            this.show_button_filter = true;
         })
 
         EventBus.$on('UPDATE_FILTERS_states', payload=>{
@@ -105,55 +81,63 @@ export default {
             payload.map(state => {
                 states.push(state.id);
             })
-            this.filters.states = states;
+            
+            let filters = this.$store.state.user.filters;
+            filters.states = states; 
 
-            this.getStatistics( this.filters );
+            this.$store.dispatch('updateFiltersUser', filters);
+
+            this.show_button_filter = true;
+        })
+
+        EventBus.$on('TIMER', payload=>{
+            let filters = this.$store.state.user.filters;
+            filters.period = payload; 
+
+            this.$store.dispatch('updateFiltersUser', filters);
+            this.show_button_filter = true;
         })
     },
     methods: {
-        getTimer(event){
-            this.filters.period = event;
-            if(event != 'period'){
-                this.getStatistics( this.filters );
-            }
+        filterStatistics(){
+            this.getStatistics( this.$store.state.user.filters );
+            this.show_button_filter = false;
+
         },
         getStatistics( filter_time ){
-            axios.post(window.origin + '/admin/dashboard/general',filter_time)
+            axios.put(window.origin + '/admin/dashboard/general',filter_time)
             .then(response => {
-                this.statistics.total = response.data.total;
-                this.statistics.finished = response.data.finished;
-                this.statistics.inProgress = response.data.in_progress;
-                this.statistics.notAssigned = response.data.not_assigned;
-                
-                this.dataOfGraphicBar = {
+                EventBus.$emit('STATISTICS_BAR', [response.data.total,response.data.finished,response.data.in_progress,response.data.not_assigned]);
+                EventBus.$emit('GET_DATAS_CARD_WORKERS', response.data.workers );
+                EventBus.$emit('GET_DATAS_BAR', {
                     type: "bar",
                     data: {
-                        labels: response.data.bar.areas,
+                        labels: response.data.areas,
                         datasets: [
                             {
                                 label: trans.translate('general.total'),
-                                data: response.data.bar.totalByAreas,
+                                data: response.data.totalByAreas,
                                 backgroundColor: "rgba(168,255,137,.3)",
                                 borderColor: "#A8FF89",
                                 borderWidth: 2
                             },
                             {
                                 label: trans.translate('general.incidences.finished'),
-                                data: response.data.bar.totalFinish,
+                                data: response.data.totalFinish,
                                 backgroundColor: "rgba(225,193,50,.3)",
                                 borderColor: "#E1C132",
                                 borderWidth: 2
                             },
                             {
                                 label: trans.translate('general.incidences.in_progress'),
-                                data: response.data.bar.totalInProgress,
+                                data: response.data.totalInProgress,
                                 backgroundColor: "rgba(96, 162,255,.3)",
                                 borderColor: "#60A2FF",
                                 borderWidth: 2
                             },
                             {
                                 label:  trans.translate('general.incidences.not_assigned'),
-                                data: response.data.bar.totalUnsigned,
+                                data: response.data.totalUnsigned,
                                 backgroundColor: "rgba(255, 75,99,.3)",
                                 borderColor: "#FF4B63",
                                 borderWidth: 2
@@ -174,16 +158,16 @@ export default {
                             ]
                         }
                     }
-                }
+                });
 
-                this.dataOfGraphicRadar = {
+                EventBus.$emit('GET_DATAS_RADAR', {
                     type: "radar",
                     data: {
-                        labels: response.data.radar.districts,
+                        labels: response.data.districts,
                         datasets: [
                             {
                                 label: trans.translate('general.incidences.by_district'),
-                                data: response.data.radar.incidences,
+                                data: response.data.incidences,
                                 fill: true,
                                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                                 borderColor: 'rgb(255, 99, 132)',
@@ -201,12 +185,18 @@ export default {
                             }
                         }
                     }
-                }
-
-                EventBus.$emit('GET_DATAS_CARD_WORKERS', response.data.teams );
-
-                this.loadingBody = false;
+                });
             })
+            .catch( error => {
+                alert( error.message);
+            })
+
+            this.loadingBody = false;
+        }
+    },
+    computed:{
+        giveColor(){
+            return 'background-color: #6C95C3;';
         }
     }
 }
@@ -240,5 +230,16 @@ export default {
     margin-left: auto;
     margin-right: auto;
     width:98%;
+}
+.card-dashboard {
+    width: 98%;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #cccc;
+    box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
+    left: 0;
+    right: 0;
+    margin-left:auto;
+    margin-right:auto;
 }
 </style>
