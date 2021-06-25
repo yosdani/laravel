@@ -27,6 +27,13 @@ export const store = new Vuex.Store({
             state.user.lastName = payload.lastName;
             state.user.email = payload.email;
             state.user.filters = JSON.parse(payload.filters);
+            if(state.user.filters == null){
+                state.user.filters = {
+                    period : 'year',
+                    tags : [],
+                    states : []
+                };
+            }else
             if(state.user.filters.period == null){
                 state.user.filters.period = 'year';
             }

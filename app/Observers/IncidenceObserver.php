@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class IncidenceObserver
 {
@@ -36,7 +37,17 @@ class IncidenceObserver
     public function created(Incidence $incidence)
     {
         try {
-            $incidence->notify(new IncidenceCreatedNotification($incidence->user));
+            $incidence->notify(new IncidenceCreatedNotification(JWTAuth::parseToken()->authenticate()));
+            $usersToNotify = User::responsables();
+            foreach ($usersToNotify as $user){
+                $incidence->notify(new IncidenceCreatedNotification($user));
+            }
+            $this->sendByPush(
+                'Se ha creado una incidencia',
+                'Se ha creado una nueva incidencia en el sistema. Título: '.$incidence->title,
+                [
+                    $incidence->user
+                ]);
         }catch (\Exception $exception){
 
         }
@@ -246,14 +257,19 @@ class IncidenceObserver
     {
         foreach ($users as $user){
             if($user->fcm_token){
-                fcm()
-                    ->to([$user])
-                    ->notification([
-                        'title' => $$title,
-                        'body' => $body,
-                        'sound' => $user->allow_notify ? 'default' : ''
-                    ])
-                    ->send();
+                try{
+                    fcm()
+                        ->to([$user])
+                        ->notification([
+                            'title' => $$title,
+                            'body' => $body,
+                            'sound' => $user->allow_notify ? 'default' : ''
+                        ])
+                        ->send();
+                }catch(\Exception $exception){
+                    Log::error('Ha fallado el envio de notificaciones push al usuario '.$user->email);
+                }
+
 
             }
         }

@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\TagResource;
-use App\Tags;
+use App\Tag;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class TagsController extends Controller
+class TagController extends Controller
 {
     /**
      * List of tags
@@ -16,7 +18,7 @@ class TagsController extends Controller
      */
     public function index():JsonResponse
     {
-        $data = Tags::paginate(15);
+        $data = Tag::paginate(15);
         $entities = TagResource::collection($data)->response()->getData(true);
         return response()->json($entities);
     }
@@ -27,19 +29,16 @@ class TagsController extends Controller
      */
     public function all():JsonResponse
     {
-        return response()->json([
-        'success' =>true,
-        'tags' => Tags::select('tags.id','tags.name')->get()
-    ], 200);
+        return response()->json(TagResource::collection(Tag::all()));
     }
 
     /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @return Validator
      */
-    protected function validator(array $data): \Illuminate\Contracts\Validation\Validator
+    protected function validator(array $data): Validator
     {
         return Validator::make($data, [
             'name' => 'required|string|max:255',
@@ -57,26 +56,22 @@ class TagsController extends Controller
      */
     public function show(int $id): JsonResponse
     {
-        $tags=Tags::find($id);
+        $tag = Tag::findOrFail($id);
 
-        if (!$tags) {
-            return response()->json("This tags is not exist", '400');
-        }
-
-        return response()->json($tags, 200) ;
+        return response()->json(new TagResource($tag)) ;
     }
 
     /**
-     * Create a new Tags
+     * Create a new Tag
      * @param Request $request
      * @return JsonResponse
      *
      */
     public function store(Request $request): JsonResponse
     {
-        $tags = Tags::create($request->all());
+        $tag = Tag::create($request->all());
 
-        return response()->json($tags, 200);
+        return response()->json(new TagResource($tag));
     }
 
     /**
@@ -90,7 +85,7 @@ class TagsController extends Controller
     {
         $parameters = $request->only('name');
 
-        $tags = Tags::find($id);
+        $tags = Tag::find($id);
 
         if (!$tags) {
             return response()->json("This tags is not exist", '400');
@@ -111,13 +106,13 @@ class TagsController extends Controller
      */
     public function destroy(int $id): JsonResponse
     {
-        $tags = Tags::find($id);
+        $tags = Tag::find($id);
 
         if (!$tags) {
             return response()->json("This tags is not exist", '400');
         }
 
-        Tags::destroy($id);
+        Tag::destroy($id);
 
         return  response()->json('deleted', 200);
     }

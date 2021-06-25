@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Tags extends Model
+class Tag extends Model
 {
     /**
      * The table associated with the model.
@@ -35,7 +35,7 @@ class Tags extends Model
      * @return Collection
      */
     public static function allTags( $dateInit, $dateEnd){
-        return Tags::select('tags.id')
+        return Tag::select('tags.id')
                     ->where('tags.created_at','>=',$dateInit)
                     ->where('tags.created_at','<=',$dateEnd)
                     ->get();

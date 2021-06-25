@@ -79,7 +79,7 @@ export default {
             axios.get(window.origin+'/admin/all/tags')
             .then(response=>{
                 this.tags = [];
-                response.data.tags.map(tag=>{
+                response.data.map(tag=>{
                     if(this.$store.state.user.filters != null && this.$store.state.user.filters.tags != null )
                         this.$store.state.user.filters.tags.map(t=>{
                             if(t == tag.id){
@@ -106,7 +106,7 @@ export default {
         getStates(){
             axios.get(window.origin+'/admin/all/states')
             .then(response=>{
-                this.states = []; 
+                this.states = [];
                 response.data.states.map(states=>{
                     if(this.$store.state.user.filters != null && this.$store.state.user.filters.states != null)
                         this.$store.state.user.filters.states.map(s=>{

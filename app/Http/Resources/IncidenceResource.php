@@ -21,10 +21,6 @@ class IncidenceResource extends JsonResource
         foreach ($this->images as $image){
             $images[] = new IncidenceImageResource($image);
         }
-        $tags = [];
-        foreach ($this->tags as $tag){
-            $tags[] = new TagResource($tag);
-        }
 
         return [
             'id' => $this->id,
@@ -33,9 +29,9 @@ class IncidenceResource extends JsonResource
             'location' => $this->location,
             'address' => $this->address,
             'street' => null !== $this->street ? new StreetResource($this->street) : null,
-            'neighbor' => null !== $this->neighbor ? new NeighborhoodResource($this->neighbor) : null,
+            'neighborhood' => null !== $this->neighborhood ? new NeighborhoodResource($this->neighborhood) : null,
             'responseForCitizen' => $this->responseForCitizen,
-            'tags' => $tags,
+            'tag' =>  null !== $this->tag ?  new TagResource($this->tag) : null,
             'user' => new UserResource($this->user),
             'area' => null !== $this->area ?  new AreaResource($this->area) : null,
             'assignedTo' => null !== $this->assignedTo ? new UserResource($this->assignedTo) : null,
@@ -55,16 +51,12 @@ class IncidenceResource extends JsonResource
      */
     public static function export(){
         $datas = Incidence::select('incidence.*')
-            ->with('user','tags','state','street','area','assignedTo','publicCenter','enrolment','district')
+            ->with('user','tag','state','street','area','assignedTo','publicCenter','enrolment','district')
             ->get();
 
         $json_data = [];
 
         foreach ($datas as $data){
-            $tags = '';
-            foreach($data->tags as $tag){
-                $tags = $tag->name .',';
-            }
             $json_data[] = [
                 'id' => $data->id,
                 'title' => $data->title,
@@ -73,7 +65,7 @@ class IncidenceResource extends JsonResource
                 'address' => $data->address,
                 'street' => $data->street?$data->street->street:'',
                 'neighborhood' => $data->neighborhood?$data->neighborhood->name:'',
-                'tags' => $tags,
+                'tag' =>  null !== $data->tag ?  new TagResource($data->tag) : null,
                 'user' => $data->user ? $data->user->email : '',
                 'area' => $data->area?$data->area->name:'',
                 'assignedTo' => $data->assignedTo?$data->assignedTo->email:'',

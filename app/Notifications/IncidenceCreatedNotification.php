@@ -50,7 +50,8 @@ class IncidenceCreatedNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('Se ha creado una nueva incidencia.');
+                    ->line('Se ha creado una nueva incidencia.')
+                    ->line('Se ha creado una nueva incidencia en el sistema. Título: '.$notifiable->title);
     }
 
     /**

@@ -9,6 +9,7 @@
                 <p><b>{{ translate('general.incidences.incidence') }}:</b> {{ historic.incidence_title }}</p>
                 <p><b>{{ translate('general.incidences.created') }}:</b> {{ historic.created_at }}</p>
                 <p><b>{{ translate('general.users.user') }}:</b> {{ historic.user }}</p>
+                <p><b>{{ translate('general.historic.comment') }}:</b> {{ historic.comment }}</p>
                 <p><b>{{ translate('general.historic.modified') }}:</b></p>
                 <table class="table table-striped">
                     <thead>

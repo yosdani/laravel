@@ -28,7 +28,7 @@ class Incidence extends Model
      * @var string
      */
     protected $fillable = [
-        'title','assigned_id','reviewer','deadLine','tags','description','attachedContent','applicant','centerEnrollment','streetNumber','district','neighborhood','address',
+        'title','assigned_id','deadLine','tag_id','description','attachedContent','applicant','centerEnrollment','streetNumber','district','neighborhood','address',
         'team','location','responseForCitizen'
     ];
 
@@ -47,9 +47,9 @@ class Incidence extends Model
         return $this->belongsTo(User::class, 'assigned_id','id');
     }
 
-    public function tags(): BelongsToMany
+    public function tag(): BelongsTo
     {
-        return $this->belongsToMany(Tags::class, 'incidence_tag', 'incidence_id', 'tag_id');
+        return $this->belongsTo(Tag::class, 'tag_id', 'id');
     }
     /**
      * The attributes that are mass assignable.
@@ -58,7 +58,7 @@ class Incidence extends Model
      */
     public function state(): BelongsTo
     {
-        return $this->belongsTo(Incidence::class, 'state_id','id');
+        return $this->belongsTo(State::class, 'state_id','id');
     }
 
     /**
@@ -189,12 +189,11 @@ class Incidence extends Model
      */
     public static function stateActual($idArea, $idState, $dateInit, $dateEnd, $tags){
         return Incidence::select('incidence.id')
-                        ->leftjoin('incidence_tag','incidence_tag.incidence_id','=','incidence.id')
                         ->where('incidence.area_id',$idArea)
                         ->where('incidence.state_id',$idState)
                         ->where('incidence.created_at','>=',$dateInit)
                         ->where('incidence.created_at','<=',$dateEnd)
-                        ->whereIn('incidence_tag.tag_id',$tags)
+                        ->whereIn('tag_id',$tags)
                         ->get()
                         ->count();
     }
@@ -241,11 +240,10 @@ class Incidence extends Model
      */
     public static function inProgress( $dateInit, $dateEnd, $tags){
         return Incidence::select('incidence.*')
-                        ->leftjoin('incidence_tag','incidence_tag.incidence_id','=','incidence.id')
                         ->where('incidence.state_id',1)
                         ->where('incidence.created_at','>=',$dateInit)
                         ->where('incidence.created_at','<=',$dateEnd)
-                        ->whereIn('incidence_tag.tag_id',$tags)
+                        ->whereIn('tag_id',$tags)
                         ->get()
                         ->count();
     }

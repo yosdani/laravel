@@ -28,7 +28,8 @@ class HistoricResource extends JsonResource
             'changes' =>  implode(',',$changes),
             'data' => $this->changes,
             'created_at' => $this->created_at->format('d/m/Y H:i'),
-            'user' => $this->user->name.' '.$this->user->lastName
+            'user' => $this->user->name.' '.$this->user->lastName,
+            'comment' => $this->comment
         ];
     }
 }
