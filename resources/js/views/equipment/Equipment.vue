@@ -3,7 +3,7 @@
         <b-breadcrumb :items="bItems"></b-breadcrumb>
         <b-card>
             <b-card-header class="border-0">
-                <h3 class="mb-0 d-inline-block">{{translate('general.public_centers.public_centers')}}</h3>
+                <h3 class="mb-0 d-inline-block">{{translate('general.equipments.equipments')}}</h3>
                 <RouterLink :to="route+'/new'" class="float-right">
                     <b-button variant="primary" size="sm">
                         <b-icon icon="plus-circle" aria-hidden="true"></b-icon>  {{ translate('general.add') }}
@@ -42,7 +42,6 @@ export default {
     data(){
         return {
             items: [],
-            options: '/public_center/new',
             currentPage: 1,
             totalRows: 0,
             perPage: 15,
@@ -50,44 +49,43 @@ export default {
             bItems: [
                 {
                     text: trans.translate('general.dashboard'),
-
                     to: { name: 'dashboard' }
                 },
                 {
-                    text: trans.translate('general.public_centers.public_centers'),
+                    text: trans.translate('general.equipments.equipment'),
                     active: true
                 }
             ],
             fields: [
                 {
                     key: "name",
-                    label: trans.translate('general.name'),
+                    label: trans.translate('general.equipments.equipment'),
                     sortable: true,
                     sortDirection: "desc",
                 },
                 { key: 'actions', label: trans.translate('general.actions'), tdClass: 'action-column'}
             ],
-            actions:'admin/public_center',
-            route:'/public_center'
-        };
+            actions:'admin/equipment',
+            route:'/equipment'
+        }
     },
     created() {
-        this.getPublicCenter();
+        this.getEquipments();
     },
     mounted() {
         EventBus.$on('DELETED_ITEM_'+this.route,() =>{
-            this.getPublicCenter();
+            this.getEquipments();
         })
     },
     watch: {
         '$route' (to, from) {
             let page = this.$route.query.page;
-            this.getPublicCenter(page);
+            this.getEquipments(page);
         }
     },
     methods: {
-        getPublicCenter(page=1){
-            axios.get("/admin/public_center?page="+page)
+        getEquipments(page=1){
+            axios.get("/admin/equipment?page="+page)
                 .then(response =>{
                     this.items = response.data.data;
                     this.perPage = response.data.meta.per_page;

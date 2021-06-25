@@ -152,13 +152,13 @@ class DashboardController extends Controller
         );
         $filters = json_decode(auth()->user()->filters);
 
-        if (!$filters->dateEnd)
+        if (null !== $filters->dateEnd)
             $filters->dateEnd = Carbon::now()->endOfDay();
             else {
                 $filters->dateEnd = new Carbon($filters->dateEnd);
             }
             // If the initial date is undefined
-        if (!$filters->dateInit) {
+        if (null !== $filters->dateInit) {
             $filters->dateInit = $this->typeDateFilter($filters->dateEnd, $filters->period);
             } else {
                 $filters->dateInit = new Carbon($filters->dateInit);

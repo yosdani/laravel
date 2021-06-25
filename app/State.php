@@ -30,7 +30,7 @@ class State extends Model
      *
      * @return  HasMany
      */
-    public function incidence()
+    public function incidences(): HasMany
     {
         return $this->hasMany(Incidence::class, 'state_id');
     }
@@ -40,8 +40,8 @@ class State extends Model
      * @param Carbon $dateInit
      * @param Carbon $dateEnd
      * @return Collection
-     * 
-     * 
+     *
+     *
      */
     public static function allStates($dateInit, $dateEnd){
         return State::select('states.id')

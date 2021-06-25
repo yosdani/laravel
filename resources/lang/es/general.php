@@ -89,6 +89,7 @@ return [
         'add_area' => 'Asignar Área',
         'add_tag' => 'Asignar Etiqueta',
         'responseForCitizen' => 'Respuesta al ciudadano',
+        'internalResponse' => 'Respuesta interna',
         'export' => 'Exportar',
         'images' => 'Imágenes',
         'public_center' => 'Centro Público',
@@ -107,7 +108,7 @@ return [
         'add_resp' => 'Añadir responsable',
         'workers_area' => [
             "not_workers" => "No hay trabajadores disponibles",
-            "add_success" => "Se adiciono el trabajador al area"
+            "add_success" => "Se adicionó el trabajador al area"
         ],
         'worker' => 'Trabajador'
     ],
@@ -127,6 +128,16 @@ return [
         'streets' => 'Calles',
         'street' => 'Calle',
         'number' => 'Número',
+        'name' => 'Nombre'
+    ],
+    'priorities' => [
+        'priorities' => 'Prioridades',
+        'priority' => 'Prioridad',
+        'name' => 'Nombre'
+    ],
+    'equipments' => [
+        'equipments' => 'Equipos',
+        'equipment' => 'Equipo',
         'name' => 'Nombre'
     ],
     'dashboard_statistics' => [

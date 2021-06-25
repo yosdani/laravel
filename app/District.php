@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class District extends Model
 {
@@ -14,10 +15,10 @@ class District extends Model
 
     /**
      *
-     * @return  \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return  HasMany
      *
      */
-    public function incidence()
+    public function incidences(): HasMany
     {
         return $this->hasMany(\App\Incidence::class);
     }
@@ -27,7 +28,7 @@ class District extends Model
      * @param Carbon $dateInit
      * @param Carbon $dateEnd
      * @return Collection
-     * 
+     *
      */
     public static function names( $dateInit, $dateEnd ){
         return District::select('district.district')
@@ -42,7 +43,7 @@ class District extends Model
      * @param Carbon $dateInit
      * @param Carbon $dateEnd
      * @return Collection
-     * 
+     *
      */
     public static function information( $dateInit, $dateEnd ){
         return District::select('district.*')
