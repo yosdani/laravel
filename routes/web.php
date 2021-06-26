@@ -150,6 +150,12 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
         // Route for get all tags
         Route::get('all/tags','TagController@all');
 
+        /**********  Priority ************/
+        Route::resource('priority','PriorityController');
+
+        /**********  Equipment ************/
+        Route::resource('equipment','EquipmentController');
+
         /**********  Incidence ************/
         //Route for get all Incidences
         Route::get('incidence/form-data/', 'IncidenceController@getFormData');

@@ -13,10 +13,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
+use LaravelFCM\Facades\FCM;
+use LaravelFCM\Message\OptionsBuilder;
+use LaravelFCM\Message\PayloadDataBuilder;
+use LaravelFCM\Message\PayloadNotificationBuilder;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class IncidenceObserver
 {
+    public $afterCommit = true;
+
     private $user;
 
     /**
@@ -36,18 +42,12 @@ class IncidenceObserver
      */
     public function created(Incidence $incidence)
     {
+        $admin = User::whereHas('userRole', function ($query){
+            return $query->where('name', '=', 'Admin')->first();
+        });
         try {
-            $incidence->notify(new IncidenceCreatedNotification(JWTAuth::parseToken()->authenticate()));
-            $usersToNotify = User::responsables();
-            foreach ($usersToNotify as $user){
-                $incidence->notify(new IncidenceCreatedNotification($user));
-            }
-            $this->sendByPush(
-                'Se ha creado una incidencia',
-                'Se ha creado una nueva incidencia en el sistema. Título: '.$incidence->title,
-                [
-                    $incidence->user
-                ]);
+            $incidence->notify(new IncidenceCreatedNotification($admin));
+
         }catch (\Exception $exception){
 
         }
@@ -258,14 +258,22 @@ class IncidenceObserver
         foreach ($users as $user){
             if($user->fcm_token){
                 try{
-                    fcm()
-                        ->to([$user])
-                        ->notification([
-                            'title' => $$title,
-                            'body' => $body,
-                            'sound' => $user->allow_notify ? 'default' : ''
-                        ])
-                        ->send();
+                    $optionBuilder = new OptionsBuilder();
+                    $optionBuilder->setTimeToLive(60*20);
+                    $dataBuilder = new PayloadDataBuilder();
+                    $dataBuilder->addData([]);
+                    $notificationBuilder = new PayloadNotificationBuilder($title);
+                    $notificationBuilder->setBody($body)
+                        ->setSound('default');
+                    $option = $optionBuilder->build();
+                    $notification = $notificationBuilder->build();
+                    $data = $dataBuilder->build();
+
+                    $token = $user->device_token;
+
+                    $response = FCM::sendTo($token, $option, $notification, $data);
+                    Log::info($response);
+                    return $response;
                 }catch(\Exception $exception){
                     Log::error('Ha fallado el envio de notificaciones push al usuario '.$user->email);
                 }

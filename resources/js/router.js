@@ -61,6 +61,12 @@ import Historic from './views/historic/Historic.vue';
 import HistoricShow from './views/historic/HistoricShow.vue';
 
 import Notifications from './views/notifications/Notifications.vue';
+import Equipment from "./views/equipment/Equipment";
+import EquipmentNew from "./views/equipment/EquipmentNew";
+import EquipmentEdit from "./views/equipment/EquipmentEdit";
+import PriorityEdit from "./views/priority/PriorityEdit";
+import PriorityNew from "./views/priority/PriorityNew";
+import Priority from "./views/priority/Priority";
 
 Vue.use(VueRouter);
 export	default	new	VueRouter({
@@ -269,6 +275,36 @@ export	default	new	VueRouter({
             path:'/street/edit/:id',
             name: "editStreet",
             component: StreetEdit
+        },
+        {
+            path:'/equipment',
+            name: "equipment",
+            component: Equipment
+        },
+        {
+            path:'/equipment/new',
+            name: "newEquipment",
+            component: EquipmentNew
+        },
+        {
+            path:'/equipment/edit/:id',
+            name: "editEquipment",
+            component: EquipmentEdit
+        },
+        {
+            path:'/priority',
+            name: "priority",
+            component: Priority
+        },
+        {
+            path:'/priority/new',
+            name: "newPriority",
+            component: PriorityNew
+        },
+        {
+            path:'/priority/edit/:id',
+            name: "editPriority",
+            component: PriorityEdit
         },
         {
             path:'/workers/add/:id',

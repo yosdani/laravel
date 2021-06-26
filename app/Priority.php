@@ -5,14 +5,9 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Breakdown extends Model
+class Priority extends Model
 {
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'breakdown';
+    protected $table = 'priorities';
 
     /**
      * The attributes that are mass assignable.
@@ -28,9 +23,8 @@ class Breakdown extends Model
      *
      * @return  HasMany
      */
-
-    public function incidence(): HasMany
+    public function incidences(): HasMany
     {
-        return $this->hasMany(Incidence::class, 'breakdown_id');
+        return $this->hasMany(Incidence::class, 'priority_id');
     }
 }

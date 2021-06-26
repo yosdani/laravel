@@ -9,10 +9,13 @@
 namespace App\Http\Controllers;
 
 use App\Area;
+use App\Equipment;
 use App\Http\Resources\AreaResource;
 use App\Http\Resources\EnrolmentResource;
+use App\Http\Resources\EquipmentResource;
 use App\Http\Resources\IncidenceResource;
 use App\Http\Resources\NeighborhoodResource;
+use App\Http\Resources\PriorityResource;
 use App\Http\Resources\PublicCenterResource;
 use App\Http\Resources\StateResource;
 use App\Http\Resources\TagResource;
@@ -22,6 +25,7 @@ use App\Http\Controllers\Controller;
 use App\IncidenceImage;
 use App\Neighborhood;
 use App\Notifications\IncidenceEditedNotification;
+use App\Priority;
 use App\PublicCenter;
 use App\State;
 use App\Street;
@@ -164,15 +168,15 @@ class IncidenceController extends Controller
         $incidence->assigned_id = $request->assignedTo;
         $incidence->deadLine = $request->deadLine;
         $incidence->tag_id = $request->tag;
+        $incidence->equipment_id = $request->equipment;
+        $incidence->priority_id = $request->priority;
         $incidence->description = $request->description;
-        $incidence->attachedContent = $request->attachedContent;
-      //  $incidence->applicant = $request->applicant;
+        $incidence->internalResponse = $request->internalResponse;
         $incidence->enrolment_id = $request->enrolment;
         $incidence->street_id = $request->street;
         $incidence->district_id = $request->district;
         $incidence->neighborhood_id = $request->neighborhood;
         $incidence->address = $request->address;
-     //   $incidence->team = $request->team;
         $incidence->location = $request->location;
         $incidence->responseForCitizen = $request->responseForCitizen;
         $incidence->state_id = $request->state;
@@ -281,6 +285,8 @@ class IncidenceController extends Controller
                 'areas' => AreaResource::collection(Area::all()),
                 'states' => StateResource::collection(State::all()),
                 'tags' => TagResource::collection(Tag::all()),
+                'priorities' => PriorityResource::collection(Priority::all()),
+                'equipments' => EquipmentResource::collection(Equipment::all()),
                 'public_centers' => PublicCenterResource::collection(PublicCenter::all()),
                 'enrolments' => EnrolmentResource::collection(Area::all()),
                 'streets' => StateResource::collection(Street::all()),

@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CategorySeeder::class);
         $this->call(TagSeeder::class);
         $this->call(StateSeeder::class);
+        $this->call(PrioritySeeder::class);
     }
 }
