@@ -24,11 +24,11 @@ class NewsResource extends JsonResource
             'title' => $this->title,
             'subtitle' => $this->subtitle,
             'content' => $this->content,
-            'author' => trim($this->user->name.' '.$this->user->lastName),
+            'author' => new UserResource($this->user),
             'createdAt' => $this->created_at->format('d/m/Y h:i'),
             'updatedAt' => $this->updated_at->format('d/m/Y h:i'),
             'images' =>  $images,
-            'category_id' => $this->category_id,
+            'category' => $this->category,
             'category_name' => $this->category->name
         ];
     }

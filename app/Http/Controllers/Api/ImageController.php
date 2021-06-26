@@ -27,9 +27,30 @@ class ImageController extends Controller
      *      tags={"Images"},
      *      summary="Get an image with all details",
      *      description="Returns response",
+     *      @OA\Parameter(
+     *          name="source",
+     *          description="Indicates if the image if of a News or of an Incidence",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *     @OA\Parameter(
+     *          name="filename",
+     *          description="Name of th image",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="string",
+     *          )
+     *      ),
      *      @OA\Response(
      *          response=200,
-     *          description="Successful operation"),
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/IncidenceImage"),
+     *
+     *     ),
      *     @OA\Response(
      *          response=404,
      *          description="Not found"

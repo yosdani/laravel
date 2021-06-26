@@ -33,6 +33,7 @@ class NewsController  extends Controller
      *      @OA\Response(
      *          response=200,
      *          description="List of all news",
+     *          @OA\JsonContent(ref="#/components/schemas/NewsResource"),
      *
      *       ),
      *      @OA\Response(
@@ -89,7 +90,7 @@ class NewsController  extends Controller
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
-     *
+     *          @OA\JsonContent(ref="#/components/schemas/News"),
      *       ),
      *      @OA\Response(
      *          response=404,

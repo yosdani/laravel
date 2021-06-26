@@ -16,7 +16,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use JWTAuth;
+use Tymon\JWTAuth\Facades\JWTAuth;
 use App\User;
 use Illuminate\Support\Facades\DB;
 
@@ -49,6 +49,7 @@ class SubscriptionController extends Controller
      *      @OA\Response(
      *          response=200,
      *          description="List of all categories with the subscribed field updated",
+     *         @OA\JsonContent(ref="#/components/schemas/CategoryResource"),
      *       ),
      *      @OA\Response(
      *          response=400,

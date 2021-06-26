@@ -25,8 +25,9 @@ class CategoryController extends Controller
      *      description="Returns list of category",
      *      @OA\Response(
      *          response=200,
-     *          description="List of all categories"),
-     *
+     *          description="List of all categories",
+     *          @OA\JsonContent(ref="#/components/schemas/CategoryResource"),
+     *      ),
      *      @OA\Response(
      *          response=400,
      *          description="Bad Request"
@@ -96,11 +97,8 @@ class CategoryController extends Controller
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
-     *          @OA\Schema(ref="Category"),
-
-     *          @OA\Schema(ref="#/components/schemas/Category")
-     *         ),
-     *
+     *          @OA\JsonContent(ref="#/components/schemas/Category"),
+     *      ),
      *      @OA\Response(
      *          response=400,
      *          description="The category not be found",

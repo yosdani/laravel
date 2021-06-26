@@ -24,15 +24,10 @@ class UserController extends Controller
      *      tags={"Auth"},
      *      summary="Shows user info",
      *      description="Returns authenticated user information",
-     *     @OA\Parameter(
-     *          name="request",
-     *          description="request all data",
-     *          required=true,
-     *          in="path",
-     *      ),
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/User"),
      *
      *       ),
      *      @OA\Response(

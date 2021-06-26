@@ -39,8 +39,8 @@ class IncidenceController extends Controller
      *      description="Returns the incedence",
      *      @OA\Response(
      *          response=200,
-     *          description="List of all incidences",
-     *
+     *          description="List of all incidences that belongs to a User",
+     *          @OA\JsonContent(ref="#/components/schemas/IncidenceResource")
      *       ),
      *      @OA\Response(
      *          response=401,
@@ -65,11 +65,11 @@ class IncidenceController extends Controller
      *      path="/worker/incidence",
      *      tags={"Incidences Worker"},
      *      summary="Get all incidences of workers",
-     *      description="Returns the incedence",
+     *      description="Returns the list of incedences related to the authenticated worker",
      *      @OA\Response(
      *          response=200,
      *          description="List of all incedences by workers",
-     *
+     *          @OA\JsonContent(ref="#/components/schemas/IncidenceResource")
      *       ),
      *      @OA\Response(
      *          response=401,
@@ -125,6 +125,7 @@ class IncidenceController extends Controller
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/Incidence")
      *
      *       ),
      *      @OA\Response(
@@ -156,45 +157,14 @@ class IncidenceController extends Controller
      *      tags={"Incidences"},
      *      summary="Create a new incidence",
      *      description="Returns created incidence",
-     *    @OA\RequestBody(
-     *        required=true,
-     *        description="Incidence ",
-     *          @OA\MediaType(
-     *              mediaType="application/json",
-     *             @OA\Schema(
-     *                 type="object",
-     *                 @OA\Property(
-     *                     property="title",
-     *                     description="title of incidence",
-     *                     type="string"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="description",
-     *                     description="description of the incidence",
-     *                     type="string"
-     *                 ),
-     *                  @OA\Property(
-     *                     property="location",
-     *                     description="coordinates of the incidence ",
-     *                     type="string"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="address",
-     *                     description="Incidence address",
-     *                     type="string"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="image",
-     *                     description="array of images in base64",
-     *                     type="string(base64)"
-     *                 ),
-     *
-     *             )
-     *          )
+     *     @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/StoreIncidenceRequest")
      *      ),
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
+     *         @OA\JsonContent(ref="#/components/schemas/Incidence")
      *
      *       ),
      *      @OA\Response(
@@ -252,7 +222,7 @@ class IncidenceController extends Controller
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
-     *
+     *          @OA\JsonContent(ref="#/components/schemas/Incidence")
      *       ),
      *      @OA\Response(
      *          response=400,
