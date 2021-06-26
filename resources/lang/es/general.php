@@ -35,6 +35,7 @@ return [
     'yes' => 'Si',
     'no' => 'No',
     'image_deleted' => 'Imagen eliminada',
+    'not_element' => 'No hay elemento asignado',
      'news' => [
          'news' => 'Noticias',
          'new' => 'Noticia',

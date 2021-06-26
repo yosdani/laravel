@@ -92,6 +92,43 @@ class IncidenceController extends Controller
     }
 
     /**
+     * Get incidence, preview and next
+     * @param int $id
+     * @return JsonResponse
+     * 
+     * 
+     */
+    public function getPreviewNext( $id ): JsonResponse
+    {
+        if( !Incidence::find($id) ){
+            return response()->json([
+                'success' => false,
+                'message' =>'The specified id does not exist'
+            ]);
+        }
+        $all_incidences = Incidence::all()->pluck('id');
+        $preview = null;
+        $next = null;
+
+        foreach ($all_incidences as $key => $incidence){
+            if($incidence == $id){   
+                if($all_incidences[0] != $id){
+                    $preview = $all_incidences[$key-1];
+                }
+                if($all_incidences[$all_incidences->count()-1] != $id){
+                    $next = $all_incidences[$key+1];
+                }
+            }
+        }
+
+        return response()->json([
+            'incidence' => Incidence::where('id','=',$id)->with('area','assignedTo','district','enrolment','neighborhood','publicCenter','state','street','tag','user','images')->first(),
+            'preview' => $preview,
+            'next' => $next
+        ]);
+    }
+
+    /**
      * Create a new incidence
      * @param Request $request
      * @return JsonResponse

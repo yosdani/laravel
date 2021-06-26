@@ -168,6 +168,8 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
 
         //Route to export all incidences
         Route::get('export/incidence', 'IncidenceController@export');
+        //Route for get one incidence, preview and next
+        Route::get('/incidence/datas/{id}', 'IncidenceController@getPreviewNext');
 
         //Route for get all categories
         Route::get('category', ['uses'=>'CategoryController@index']);
