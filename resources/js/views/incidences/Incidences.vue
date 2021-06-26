@@ -17,7 +17,7 @@
                     :route="route"
                     :allow-delete="false"
                     :allow-edit="true"
-                    :allow-show="false"
+                    :allow-show="true"
                     :last-page="lastPage"
                 ></table-data>
             </b-card-body>
