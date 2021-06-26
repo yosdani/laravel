@@ -21,7 +21,7 @@ class UserController extends Controller
      */
     public function index():JsonResponse
     {
-        $data = User::with('userRole')->paginate(15);
+        $data = User::with('roles')->paginate(15);
         $users = UserResource::collection($data)->response()->getData(true);
         return response()->json($users);
     }
@@ -96,7 +96,7 @@ class UserController extends Controller
 
         return response()->json([
             'success'=>true,
-            'user' => User::where('id', '=',$id)->with('userRole')->first()
+            'user' => User::where('id', '=',$id)->with('roles')->first()
         ], 200);
     }
 

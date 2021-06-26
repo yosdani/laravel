@@ -77,7 +77,10 @@ class NewsController  extends Controller
     {
         $request->json()->all();
 
-        $news = News::create($request->except('img'));
+        $news = new News();
+        $news->title = $request->title;
+        $news->subtitle = $request->subtitle;
+        $news->content = $request->input('content');
         $news->user_id = Auth::user()->id;
         $news->category_id = $request->category_id;
         $news->save();

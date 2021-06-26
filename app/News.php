@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class News extends Model
 {
@@ -27,18 +29,18 @@ class News extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return  HasMany
      */
-    public function images()
+    public function images(): HasMany
     {
         return $this->hasMany(NewsImage::class, 'news_id');
     }
     /**
      * The attributes that are mass assignable.
      *
-     * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return  BelongsTo
      */
-    public function category()
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
@@ -46,9 +48,9 @@ class News extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return  BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }

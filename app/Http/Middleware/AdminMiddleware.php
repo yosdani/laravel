@@ -20,7 +20,7 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!in_array($request->user()->userRole()->first()->name, self::ROLES)) {
+        if (!in_array($request->user()->roles()->first()->name, self::ROLES)) {
             return response() -> json([
                 'success' => 'error',
                 'message' => 'Its not authorized'

@@ -41,23 +41,23 @@ export default {
                     id: '',
                     address: '',
                     applicant: '',
-                    assigned_id: '',
+                    assignedTo: '',
                     attachedContent: '',
-                    breakdown_id: '',
-                    enrolment_id: '',
+                    breakdown: '',
+                    enrolment: '',
                     deadline: '',
                     description: '',
-                    district_id: '',
+                    district: '',
                     title: '',
-                    neighborhood_id:'',
-                    public_center_id: '',
+                    neighborhood:'',
+                    publicCenter: '',
                     responseForCitizen: '',
-                    state_id: '',
-                    street_id: '',
-                    tag_id: '',
+                    state: '',
+                    street: '',
+                    tag: '',
                     team: '',
-                    user_id: '',
-                    area_id: '',
+                    user: '',
+                    area: '',
                 },
                 roles:[],
                 workers:[],
@@ -101,7 +101,7 @@ export default {
       getIncidenceById(id) {
           axios.get(window.origin+'/admin/incidences/'+id)
           .then(response=>{
-              let data = response.data;
+              let data = response.data.incidence;
               this.formIn.form = data;
               this.formIn.form.state =  data.state ? data.state.id : null;
               this.formIn.form.area =  data.area ? data.area.id : null;

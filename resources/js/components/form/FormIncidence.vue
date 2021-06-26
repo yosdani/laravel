@@ -32,7 +32,7 @@
                     ></b-textarea>
                 </b-form-group>
                 <b-form-group id="input-group-3" :label="translate('general.incidences.public_center')" label-for="input-3">
-                    <b-form-select v-model="form.public_center">
+                    <b-form-select v-model="form.publicCenter">
                         <template>
                             <b-form-select-option :value="null" disabled>-- {{ translate('general.select') }} --</b-form-select-option>
                         </template>

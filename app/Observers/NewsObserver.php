@@ -24,9 +24,10 @@ class NewsObserver
      */
     public function created(News $news)
     {
-        $users = User::whereHas('user_categories', function ($query) use ($news){
-            $query->where('category_id','=', $news->category->id);
-        });
+
+        $category = $news->category;
+        $users = $category->users;
+
         foreach ($users as $user){
             try {
                 $news->notify(new NewsNotification());

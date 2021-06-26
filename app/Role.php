@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Role extends Model
 {
@@ -11,8 +12,8 @@ class Role extends Model
 
     protected $fillable = [ 'name' ];
 
-    public function User(): BelongsTo
+    public function user(): BelongsToMany
     {
-        return $this->belongsTo(User::class, 'role_user');
+        return $this->belongsToMany(User::class, 'role_user');
     }
 }

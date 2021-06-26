@@ -41,7 +41,7 @@ class IncidenceResource extends JsonResource
             'state' => null !== $this->state ? new StateResource($this->state) : null,
             'publicCenter' => null !==  $this->public_center ? new PublicCenterResource($this->public_center) : null,
             'enrolment' => null !== $this->enrolment ? new EnrolmentResource($this->enrolment) : null,
-            'deadline' => $this->created_at->format('d/m/Y'),
+            'deadline' => null !== $this->deadline ? $this->deadline->format('d/m/Y') : null,
             'createdAt' => $this->created_at->format('d/m/Y h:i'),
             'updatedAt' => $this->updated_at->format('d/m/Y h:i'),
             'images' =>  $images,

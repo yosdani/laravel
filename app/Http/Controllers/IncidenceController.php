@@ -90,21 +90,9 @@ class IncidenceController extends Controller
      */
     public function show(int $id): JsonResponse
     {
-        $incidence = Incidence::findOrFail($id);
+        $incidence = Incidence::where('id','=',$id)->with('area','assignedTo','district','enrolment','neighborhood','publicCenter','state','street','tag','user','images')->first();
 
-        return response()->json(new IncidenceResource($incidence)) ;
-    }
-
-    /**
-     * Get incidence, preview and next
-     * @param int $id
-     * @return JsonResponse
-     * 
-     * 
-     */
-    public function getPreviewNext( $id ): JsonResponse
-    {
-        if( !Incidence::find($id) ){
+        if( !$incidence){
             return response()->json([
                 'success' => false,
                 'message' =>'The specified id does not exist'
@@ -114,8 +102,8 @@ class IncidenceController extends Controller
         $preview = null;
         $next = null;
 
-        foreach ($all_incidences as $key => $incidence){
-            if($incidence == $id){   
+        foreach ($all_incidences as $key => $inci){
+            if($inci == $id){
                 if($all_incidences[0] != $id){
                     $preview = $all_incidences[$key-1];
                 }
@@ -124,9 +112,8 @@ class IncidenceController extends Controller
                 }
             }
         }
-
         return response()->json([
-            'incidence' => Incidence::where('id','=',$id)->with('area','assignedTo','district','enrolment','neighborhood','publicCenter','state','street','tag','user','images')->first(),
+            'incidence' => new IncidenceResource($incidence),
             'preview' => $preview,
             'next' => $next
         ]);
@@ -277,7 +264,7 @@ class IncidenceController extends Controller
 
     public function getFormData(): JsonResponse
     {
-        $workers = User::whereHas('userRole', function ($query){
+        $workers = User::whereHas('roles', function ($query){
             $query->where('name','=','Trabajador');
         })->get();
         return response()->json(

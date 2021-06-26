@@ -169,13 +169,14 @@ Route::group(['middleware'=>['web','auth','admin']], function () {
         //Route::post('incidence', 'IncidenceController@store');
         //Route for update an incidence
         Route::put('incidence/{id}', 'IncidenceController@update');
+        //Route for get one incidence, preview and next
+        Route::get('incidence/{id}', 'IncidenceController@show');
         //Route for delete an incidence
         Route::delete('incidence/{id}', 'Api\IncidenceController@destroy');
 
         //Route to export all incidences
         Route::get('export/incidence', 'IncidenceController@export');
-        //Route for get one incidence, preview and next
-        Route::get('/incidence/datas/{id}', 'IncidenceController@getPreviewNext');
+
 
         //Route for get all categories
         Route::get('category', ['uses'=>'CategoryController@index']);

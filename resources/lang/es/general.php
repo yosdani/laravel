@@ -11,6 +11,9 @@ return [
     'cancel' => 'Cancelar',
     'total' => 'Total',
     'name' => 'Nombre',
+    'created_date' => 'Creada el',
+    'updated_date' => 'Actualizada el',
+    'by' => 'por',
     'search' => 'Buscar',
     'apply' => 'Aplicar',
     'actions' => 'Acciones',
@@ -84,8 +87,10 @@ return [
         'description' => 'Descripción',
         'location' => 'Ubicación',
         'created' => 'Fecha',
+        'address' => 'Dirección',
         'title' => 'Título',
         'add_worker' => 'Asignar Trabajador',
+        'worker' => 'Trabajador asignado',
         'state' => 'Estado',
         'add_area' => 'Asignar Área',
         'add_tag' => 'Asignar Etiqueta',
@@ -95,7 +100,8 @@ return [
         'images' => 'Imágenes',
         'public_center' => 'Centro Público',
         'street' => 'Calle',
-        'neighbor' => 'Barrio'
+        'neighbor' => 'Barrio',
+        'deadline' => 'Fecha límite'
     ],
     'districts' => [
         'districts' => 'Distritos',
