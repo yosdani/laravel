@@ -42,9 +42,9 @@ class IncidenceObserver
      */
     public function created(Incidence $incidence)
     {
-        $admin = User::whereHas('userRole', function ($query){
-            return $query->where('name', '=', 'Admin')->first();
-        });
+        $admin = User::leftjoin('role_user','users.id','=','role_user.user_id')
+            ->where('role_user.role_id','=',1)
+            ->first();
         try {
             $incidence->notify(new IncidenceCreatedNotification($admin));
 
