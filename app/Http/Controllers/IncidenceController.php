@@ -128,7 +128,10 @@ class IncidenceController extends Controller
     {
         $request->json()->all();
 
-        $incidence = Incidence::create($request->except('img'));
+        $incidence = new  Incidence();
+        $incidence->title = $request->title;
+        $incidence->description = $request->description;
+        $incidence->location = $request->location;
 
         if ($request->img) {
             $files[] = $request->img;
