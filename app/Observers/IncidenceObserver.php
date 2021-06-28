@@ -219,7 +219,10 @@ class IncidenceObserver
     public function saveHistoric(Incidence $incidence, array $changes): void
     {
         $historic = new Historic();
-        $historic->comment = $incidence->comment;
+        if($incidence->wasChanged('comment')){
+            $historic->comment = $incidence->comment;
+        }
+
         $historic->incidence_id = $incidence->id;
         $historic->user_id = $this->user->id;
         $historic->changes = json_encode($changes);

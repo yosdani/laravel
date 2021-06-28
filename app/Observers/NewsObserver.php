@@ -64,7 +64,7 @@ class NewsObserver
                     $token = $user->device_token;
 
                     $response = FCM::sendTo($token, $option, $notification, $data);
-                    Log::info($response);
+                    Log::info('Respuesta de FCM '.$response);
                     return $response;
                 }catch(\Exception $exception){
                     Log::error('Ha fallado el envio de notificaciones push al usuario '.$user->email);
