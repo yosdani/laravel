@@ -84,17 +84,16 @@ class IncidenceObserver
 
         try{
             $this->saveHistoric($incidence, $changes);
-            $incidence->notify(new IncidenceEditedNotification($this->user, $changes));
-            if($incidence->assignedTo){
-                $incidence->notify(new IncidenceEditedNotification($incidence->assignedTo, $changes));
-            }
             $this->sendByPush(
                 'Se ha midificado una incidencia',
                 'La incidencia: '.$incidence->title.' se ha midificado',
                 [
                     $incidence->user
                 ]);
-
+            $incidence->notify(new IncidenceEditedNotification($this->user, $changes));
+            if($incidence->assignedTo){
+                $incidence->notify(new IncidenceEditedNotification($incidence->assignedTo, $changes));
+            }
         }catch (\Exception $exception){
             Log::error('Error enviando notificaciones '.$exception->getMessage());
         }
