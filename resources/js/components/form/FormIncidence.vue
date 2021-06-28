@@ -15,6 +15,14 @@
                         required
                     ></b-form-input>
                 </b-form-group>
+                <b-form-group id="input-group-3" :label="translate('general.incidences.description')" label-for="input-3">
+                    <b-textarea
+                        id="input-2"
+                        v-model="form.description"
+                        :placeholder="translate('general.incidences.description')"
+                        rows="3"
+                    ></b-textarea>
+                </b-form-group>
                 <b-form-group id="input-group-3" :label="translate('general.incidences.responseForCitizen')" label-for="input-3">
                     <b-textarea
                         id="input-2"
@@ -47,7 +55,7 @@
                         <b-form-select-option  v-for="street in formOut.streets" :key="street.id" :value="street.id">{{ street.name }}</b-form-select-option>
                     </b-form-select>
                 </b-form-group>
-                <b-form-group :label="translate('general.incidences.district')" label-for="input-3">
+                <b-form-group :label="translate('general.districts.district')" label-for="input-3">
                     <b-form-select v-model="form.district">
                         <template>
                             <b-form-select-option :value="null" disabled>-- {{ translate('general.select') }} --</b-form-select-option>
@@ -121,6 +129,15 @@
                         <b-form-select-option  v-for="worker in formOut.workers" :key="worker.id" :value="worker.id">{{ worker.name }} {{ worker.lastname }}</b-form-select-option>
                     </b-form-select>
                 </b-form-group>
+                <b-form-group :label="translate('general.incidences.deadline')">
+                    <b-form-datepicker id="deadline"
+                                       v-model="form.deadline"
+                                       :date-format-options="{ year: 'numeric', month: 'short', day: '2-digit', weekday: 'short' }"
+                                       locale="es"
+                                       class="mb-2">
+
+                    </b-form-datepicker>
+                </b-form-group>
             </b-col>
         </b-row>
         <b-container fluid>
@@ -154,6 +171,15 @@
         </b-container>
         <b-row>
             <b-col cols="12">
+                <b-button @click="showComment = !showComment">Agregar comentario al cambio</b-button>
+                <b-form-group class="mt-3" id="comment" v-if="showComment" :label="translate('general.historic.comment')" label-for="input-3">
+                    <b-textarea
+                        id="input-2"
+                        v-model="form.comment"
+                        :placeholder="translate('general.historic.comment')"
+                        rows="3"
+                    ></b-textarea>
+                </b-form-group>
                 <b-button type="submit" variant="primary">{{formOut.action}}</b-button>
             </b-col>
         </b-row>
@@ -170,7 +196,8 @@ export default {
         return {
             form: {},
             show: true,
-            tagSearch: ''
+            tagSearch: '',
+            showComment: false
         };
     },
     updated() {

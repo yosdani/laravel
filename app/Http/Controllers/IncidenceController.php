@@ -30,6 +30,7 @@ use App\PublicCenter;
 use App\State;
 use App\Street;
 use App\Tag;
+use Carbon\Carbon;
 use Exception;
 use Faker\Provider\Image;
 use Illuminate\Database\Eloquent\Builder;
@@ -156,7 +157,7 @@ class IncidenceController extends Controller
         $incidence = Incidence::findOrFail($id);
         $incidence->title = $request->title;
         $incidence->assigned_id = $request->assignedTo;
-        $incidence->deadLine = $request->deadLine;
+        $incidence->deadline = null !== $request->deadline ? Carbon::createFromFormat('Y-m-d',$request->deadline) : null;
         $incidence->tag_id = $request->tag;
         $incidence->equipment_id = $request->equipment;
         $incidence->priority_id = $request->priority;
@@ -171,7 +172,10 @@ class IncidenceController extends Controller
         $incidence->responseForCitizen = $request->responseForCitizen;
         $incidence->state_id = $request->state;
         $incidence->area_id = $request->area;
-        $incidence->save();
+
+        $incidence->comment = $request->comment;
+
+        $incidence->update();
 
         if ($request->images) {
             foreach ($request->images as $image) {

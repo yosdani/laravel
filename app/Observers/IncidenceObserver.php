@@ -62,33 +62,38 @@ class IncidenceObserver
     public function updated(Incidence $incidence)
     {
         $changes = [];
-        try{
-            $changes = $this->registerTittle($incidence, $changes);
-            $changes = $this->registerState($incidence, $changes);
-            $changes = $this->registerAssignedTo($incidence, $changes);
-            $changes = $this->registerArea($incidence, $changes);
-            $changes = $this->registerResponse($incidence, $changes);
-            $changes = $this->registerDescription($incidence, $changes);
-        }catch (\Exception $exception){
-        }
 
-        try{
-            if($incidence->created_at->format('d/m/Y H:i:s') !== $incidence->updated_at->format('d/m/Y H:i:s')){
-                $this->saveHistoric($incidence, $changes);
-                $incidence->notify(new IncidenceEditedNotification($this->user, $changes));
-                if($incidence->assignedTo){
-                    $incidence->notify(new IncidenceEditedNotification($incidence->assignedTo, $changes));
-                }
-                $this->sendByPush(
-                    'Se ha midificado una incidencia',
-                    'La incidencia: '.$incidence->title.' se ha midificado',
-                    [
-                        $incidence->user
-                    ]);
-            }
-        }catch (\Exception $exception){
+        $changes = $this->registerTittle($incidence, $changes);
+        $changes = $this->registerState($incidence, $changes);
+        $changes = $this->registerAssignedTo($incidence, $changes);
+        $changes = $this->registerArea($incidence, $changes);
+        $changes = $this->registerResponse($incidence, $changes);
+        $changes = $this->registerDescription($incidence, $changes);
+        $changes = $this->registerInternalResponse($incidence, $changes);
 
+        $changes = $this->registerNeighborhood($incidence, $changes);
+        $changes = $this->registerStreet($incidence, $changes);
+        $changes = $this->registerDistrict($incidence, $changes);
+        $changes = $this->registerPublicCenter($incidence, $changes);
+        $changes = $this->registerEnrolment($incidence, $changes);
+
+        $changes = $this->registerEquipment($incidence, $changes);
+        $changes = $this->registerDeadLine($incidence, $changes);
+        $changes = $this->registerDistrict($incidence, $changes);
+        $changes = $this->registerPriority($incidence, $changes);
+
+
+        $this->saveHistoric($incidence, $changes);
+        $incidence->notify(new IncidenceEditedNotification($this->user, $changes));
+        if($incidence->assignedTo){
+            $incidence->notify(new IncidenceEditedNotification($incidence->assignedTo, $changes));
         }
+        $this->sendByPush(
+            'Se ha midificado una incidencia',
+            'La incidencia: '.$incidence->title.' se ha midificado',
+            [
+                $incidence->user
+            ]);
 
 
     }
@@ -211,6 +216,7 @@ class IncidenceObserver
     public function saveHistoric(Incidence $incidence, array $changes): void
     {
         $historic = new Historic();
+        $historic->comment = $incidence->comment;
         $historic->incidence_id = $incidence->id;
         $historic->user_id = $this->user->id;
         $historic->changes = json_encode($changes);
@@ -247,6 +253,168 @@ class IncidenceObserver
                 __('general.incidences.responseForCitizen'),
                 $incidence->getOriginal('responseForCitizen'),
                 $incidence->responseForCitizen
+            );
+            $changes[] = $change->toArray();
+        }
+        return $changes;
+    }
+
+    /**
+     * @param Incidence $incidence
+     * @param $changes
+     * @return mixed
+     */
+    private function registerInternalResponse(Incidence $incidence, $changes)
+    {
+        if ($incidence->wasChanged('internalResponse')) {
+            $change = new EntityChanges(
+                __('general.incidences.internalResponse'),
+                $incidence->getOriginal('internalResponse'),
+                $incidence->internalResponse
+            );
+            $changes[] = $change->toArray();
+        }
+        return $changes;
+    }
+
+    /**
+     * @param Incidence $incidence
+     * @param $changes
+     * @return mixed
+     */
+    private function registerNeighborhood(Incidence $incidence, $changes)
+    {
+        if ($incidence->wasChanged('neighborhood_id')) {
+            $change = new EntityChanges(
+                __('general.neighborhoods.neighborhood'),
+                $incidence->getOriginal('neighborhood_id'),
+                $incidence->neighborhood_id
+            );
+            $changes[] = $change->toArray();
+        }
+        return $changes;
+    }
+
+    /**
+     * @param Incidence $incidence
+     * @param $changes
+     * @return mixed
+     */
+    private function registerStreet(Incidence $incidence, $changes)
+    {
+        if ($incidence->wasChanged('street_id')) {
+            $change = new EntityChanges(
+                __('general.streets.street'),
+                $incidence->getOriginal('street_id'),
+                $incidence->street_id
+            );
+            $changes[] = $change->toArray();
+        }
+        return $changes;
+    }
+
+    /**
+     * @param Incidence $incidence
+     * @param $changes
+     * @return mixed
+     */
+    private function registerDistrict(Incidence $incidence, $changes)
+    {
+        if ($incidence->wasChanged('district_id')) {
+            $change = new EntityChanges(
+                __('general.districts.district'),
+                $incidence->getOriginal('district_id'),
+                $incidence->district_id
+            );
+            $changes[] = $change->toArray();
+        }
+        return $changes;
+    }
+
+    /**
+     * @param Incidence $incidence
+     * @param $changes
+     * @return mixed
+     */
+    private function registerPublicCenter(Incidence $incidence, $changes)
+    {
+        if ($incidence->wasChanged('public_center_id')) {
+            $change = new EntityChanges(
+                __('general.public_centers.public_center'),
+                $incidence->getOriginal('public_center_id'),
+                $incidence->public_center_id
+            );
+            $changes[] = $change->toArray();
+        }
+        return $changes;
+    }
+
+    /**
+     * @param Incidence $incidence
+     * @param $changes
+     * @return mixed
+     */
+    private function registerEnrolment(Incidence $incidence, $changes)
+    {
+        if ($incidence->wasChanged('enrolment_id')) {
+            $change = new EntityChanges(
+                __('general.enrolments.enrolment'),
+                $incidence->getOriginal('enrolment_id'),
+                $incidence->enrolment_id
+            );
+            $changes[] = $change->toArray();
+        }
+        return $changes;
+    }
+
+    /**
+     * @param Incidence $incidence
+     * @param $changes
+     * @return mixed
+     */
+    private function registerEquipment(Incidence $incidence, $changes)
+    {
+        if ($incidence->wasChanged('equipment_id')) {
+            $change = new EntityChanges(
+                __('general.equipments.equipment'),
+                $incidence->getOriginal('equipment_id'),
+                $incidence->equipment_id
+            );
+            $changes[] = $change->toArray();
+        }
+        return $changes;
+    }
+
+    /**
+     * @param Incidence $incidence
+     * @param $changes
+     * @return mixed
+     */
+    private function registerDeadLine(Incidence $incidence, $changes)
+    {
+        if ($incidence->wasChanged('deadline')) {
+            $change = new EntityChanges(
+                __('general.incidences.deadline'),
+                $incidence->getOriginal('deadline'),
+                $incidence->deadline ? $incidence->deadline->format('Y/m/d') : null
+            );
+            $changes[] = $change->toArray();
+        }
+        return $changes;
+    }
+
+    /**
+     * @param Incidence $incidence
+     * @param $changes
+     * @return mixed
+     */
+    private function registerPriority(Incidence $incidence, $changes)
+    {
+        if ($incidence->wasChanged('priority_id')) {
+            $change = new EntityChanges(
+                __('general.priorities.priority'),
+                $incidence->getOriginal('priority_id'),
+                $incidence->priority_id
             );
             $changes[] = $change->toArray();
         }
