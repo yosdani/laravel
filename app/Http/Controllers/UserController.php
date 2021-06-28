@@ -62,7 +62,7 @@ class UserController extends Controller
         $role_user = new RoleUser();
 
         if ($request->role) {
-            $role = Role::where('name', '=', $request->role)->first();
+            $role = Role::find($request->role);
             $role_user->user_id = $user->id;
             $role_user->role_id = $role->id;
 

@@ -25,16 +25,16 @@ class NewsObserver
     public function created(News $news)
     {
 
-        $category = $news->category;
-        $users = $category->users;
+        $users = User::leftjoin('user_categories','users.id','=','user_categories.user_id')
+            ->where('user_categories.category_id','=',$news->category_id)->get();
 
         foreach ($users as $user){
             try {
-                $news->notify(new NewsNotification());
+                $news->notify(new NewsNotification($user));
 
                 $this->sendByPush(
+                    __('mails.news_notification').$news->category->name,
                     $news->title,
-                    '',
                     [
                         $user
                     ]);

@@ -90,7 +90,7 @@ class IncidenceObserver
                 [
                     $incidence->user
                 ]);
-            $incidence->notify(new IncidenceEditedNotification($this->user, $changes));
+            $incidence->notify(new IncidenceEditedNotification($incidence->user, $changes));
             if($incidence->assignedTo){
                 $incidence->notify(new IncidenceEditedNotification($incidence->assignedTo, $changes));
             }

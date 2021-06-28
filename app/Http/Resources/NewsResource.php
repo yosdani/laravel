@@ -28,8 +28,8 @@ class NewsResource extends JsonResource
             'createdAt' => $this->created_at->format('d/m/Y h:i'),
             'updatedAt' => $this->updated_at->format('d/m/Y h:i'),
             'images' =>  $images,
-            'category' => $this->category,
-            'category_name' => $this->category->name
+            'category_id' => $this->category_id,
+            'category_name' => '$this->category->name'
         ];
     }
 }

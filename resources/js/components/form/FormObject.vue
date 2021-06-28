@@ -50,12 +50,12 @@
                     </b-form-group>
 
                     <b-form-group v-if="formOut.formFrom == translate('general.users.user')" id="input-group-3" :label="translate('general.roles.role')" label-for="input-3">
-                        <b-form-select
-                        id="input-5"
-                        v-model="form.role"
-                        :options="formOut.roles"
-                        required
-                        ></b-form-select>
+                        <b-form-select v-model="formOut.form.role" required>
+                            <template #first>
+                                <b-form-select-option :value="null" disabled>-- {{ translate('general.select') }} --</b-form-select-option>
+                            </template>
+                            <b-form-select-option  v-for="role in formOut.roles" :key="role.id" :value="role.id">{{ role.name }}</b-form-select-option>
+                        </b-form-select>
                     </b-form-group>
             </b-col>
         </b-row>

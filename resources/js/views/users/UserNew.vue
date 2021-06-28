@@ -61,12 +61,7 @@ export default {
       getRoles(){
           axios.get(window.origin+'/admin/roles')
             .then((response) => {
-                response.map(r=>{
-                    this.formIn.roles.push({
-                        text: r.name,
-                        value: r.name
-                    })
-                })
+                this.formIn.roles = response.data;
             });
       }
     }

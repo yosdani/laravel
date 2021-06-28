@@ -2,24 +2,36 @@
 
 namespace App\Notifications;
 
+use App\User;
+use Illuminate\Auth\Authenticatable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\Facades\Auth;
 
 class NewsNotification extends Notification
 {
     use Queueable;
 
+    public $afterCommit = true;
+
+    /**
+     * @var Authenticatable
+     */
+    private $user;
+
     /**
      * Create a new notification instance.
      *
-     * @return void
+     * @param User $user
      */
-    public function __construct()
+    public function __construct(User $user)
     {
         //
+        $this->user = $user;
     }
+
 
     /**
      * Get the notification's delivery channels.
@@ -36,12 +48,12 @@ class NewsNotification extends Notification
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @return MailMessage
      */
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line($notifiable->title);
+                    ->line(__('mails.news_notification').$notifiable->category->name.__('mails.with_title').$notifiable->title);
     }
 
     /**
@@ -56,4 +68,13 @@ class NewsNotification extends Notification
             //
         ];
     }
+
+    /**
+     * @return \Illuminate\Contracts\Auth\Authenticatable
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
 }
