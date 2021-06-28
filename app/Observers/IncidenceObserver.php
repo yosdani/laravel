@@ -427,7 +427,7 @@ class IncidenceObserver
     public function sendByPush(string $title, string $body, array $users): string
     {
         foreach ($users as $user){
-            if($user->fcm_token){
+            if($user->device_token){
                 try{
                     $optionBuilder = new OptionsBuilder();
                     $optionBuilder->setTimeToLive(60*20);
